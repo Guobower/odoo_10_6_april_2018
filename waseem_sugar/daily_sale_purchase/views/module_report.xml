@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+
+    <data>   
+
+        <template id="daily_sale_purchase_report">
+
+            <t t-call="report.html_container">
+
+                <t t-call="report.external_layout">
+                
+                    <div class="page">
+                        
+                        <style type="text/css">
+                            h2 {
+                                font-size: 18px;
+                            }
+                            .header,
+                            .footer {
+                                display: none;
+                            }
+                            @media (min-width: 992px) {
+                                .container {
+                                    width: 100%;
+                                }
+                            }
+
+                            @media (min-width: 768px) {
+                                .container {
+                                    width: 100%;
+                                }
+                            }
+                            .container {
+                                width: 100%;
+                            }
+                            body {
+                                margin: 0px !important;
+                            }
+                            body.o_in_iframe {
+                                margin-top: 0px!important;
+                            }
+                            h1 {
+                                text-align: center;
+
+                            }
+                            h1 span {
+                                border-bottom: 2px solid #000;
+                                padding: 0px 0px 4px 0px;
+                            }
+                            .report-wrapper {
+                                width: 100%;
+                                margin: 20px auto;
+                            }
+                            .solid {
+                                font-weight: bold;
+                            }
+                            table {
+                                width: 100%;
+                                border: 1px solid #000;
+                                border-spacing: 0px;
+                                margin: 0px auto;
+                                font-size: 14px;
+                            }
+                            table tr td,
+                            table tr th {
+                                border-bottom: 1px solid #000;
+                                border-right: 1px solid #000;
+                                padding: 3px;
+                                text-align: center;
+                            }
+                            table tr td:last-child,
+                            table tr th:last-child {
+                                border-right: none;
+                            }
+                            table tr:last-child td,
+                            table tr:last-child th {
+                                border-bottom: none;
+                            }
+                            .headings {
+                                text-align: center;                            
+                            }
+                            .col {
+                                width: 48%;
+                                margin: 0px 10px;
+                            }
+
+                        </style>
+
+                        <div class="report-wrapper">
+
+                            <t t-foreach="products" t-as="o">
+                            
+                                <div class="col">
+
+                                    <h2><span t-esc="o.name"></span></h2>
+                                    <table class="main_tables bigger">
+
+                                        <tr>
+                                            <th colspan="4">Purchase</th>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <th>Quantity</th>
+                                            <th>Party</th>
+                                            <th>Rate</th>
+                                            <th>Total</th>
+                                        </tr>
+                                        
+                                        <span t-esc="getpurchases(o)"></span>
+                                        <t t-set="sin" t-value="findlenght(purchase_lines)" />
+
+                                        <t t-if="sin &gt; 0">
+                                            <t t-foreach="purchase_lines" t-as="purchase">
+                                                <tr>
+                                                    <td><span t-esc="purchase.qty"></span></td>
+                                                    <td><span t-esc="purchase.supplier.name"></span></td>
+                                                    <td><span t-esc="purchase.rate"></span></td>
+                                                    <td><span t-esc="purchase.total"></span></td>
+                                                </tr>
+                                            </t>
+                                        </t>
+                                        
+                                        <t t-if="sin == 0">
+                                            <tr>
+                                                <td> - </td>
+                                                <td> - </td>
+                                                <td> - </td>
+                                                <td> - </td>
+                                            </tr>
+                                        </t>
+                                        
+                                        <tr>
+                                            <th colspan="4">Sales</th>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <th>Quantity</th>
+                                            <th>Party</th>
+                                            <th>Rate</th>
+                                            <th>Total</th>
+                                        </tr>
+                                        
+                                        <span t-esc="getsales(o)"></span>
+                                        <t t-set="pen" t-value="findlenght(sale_lines)" />
+
+                                        <t t-if="pen &gt; 0">
+                                            <t t-foreach="sale_lines" t-as="sale">
+                                                <tr>
+                                                    <td><span t-esc="sale.qty"></span></td>
+                                                    <td><span t-esc="sale.customer.name"></span></td>
+                                                    <td><span t-esc="sale.rate"></span></td>
+                                                    <td><span t-esc="sale.total"></span></td>
+                                                </tr>
+                                            </t>
+                                        </t>
+                                        
+                                        <t t-if="pen == 0">
+                                            <tr>
+                                                <td> - </td>
+                                                <td> - </td>
+                                                <td> - </td>
+                                                <td> - </td>
+                                            </tr>
+                                        </t>
+
+                                    </table>
+
+                                </div><!--end of col-->
+
+                            </t>
+                            <br class="clearfloat" />
+
+                        </div><!--end of report wrapper-->
+
+                    </div><!--end of page -->
+
+                </t>
+                
+            </t>
+
+        </template>
+
+    </data>
+
+</openerp>

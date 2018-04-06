@@ -1,0 +1,192 @@
+<?xml version="1.0"?> 
+<odoo> 
+
+
+    <record id="view_form_summary_ffc" model="ir.ui.view"> 
+      <field name="name">view_form_summary_ffc</field> 
+      <field name="model">summary.ffc</field> 
+      <field name="type">form</field> 
+        <field name="arch" type="xml">
+        <form string="Summary">
+
+           <header>
+
+            <button name="generate" string="Create Invoice" type="object" attrs="{'invisible':[('stages','in',['validate'])]}" class="oe_highlight"/>
+            <button name="validate" string="Validate" type="object" attrs="{'invisible':[('stages','in',['validate'])]}"  class="oe_highlight"/>
+            <button name="draft" string="Reset To Draft" type="object" attrs="{'invisible':[('stages','in',['draft'])]}" class="oe_highlight"/>
+            <field name="stages" widget="statusbar" />
+
+          </header>
+          
+            <group name="top">
+
+              <group name="left">
+
+                <field name="Customer"/>
+                <field name="Region"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
+
+              </group>
+
+              <group name="right">
+
+                <field name="invoice_date"/>
+                <field name="Branch"/>
+                <field name="bill_no"/>
+                <field name="invoice_link"/>
+
+              </group>
+
+             </group>
+
+             <notebook> 
+
+              <page string="Summary"> 
+            
+
+                    <group name="top">
+
+                      <group name="left">
+                        <field name="val_excl_punjab_st"/>
+                        <field name="m_tons_punjab"/>
+                        <field name="pun_invoice"/>
+                      </group>
+
+                      <group name="right">
+                        <field name="val_excl_sindh_st"/>
+                        <field name="m_tons_sindh"/>
+                        <field name="sin_invoice"/>
+                      </group>
+
+                    </group>
+
+          
+
+                <group name="group_top">
+
+                    <field name="sum_ids" nolabel='1'>
+                      <tree editable="bottom">
+
+                        <field name="Region"/>
+                        <field name="region_name"/>
+                        <field name="Sheet"/>
+                        <field name="M_tons"/>
+                        <field name="Amount"/>
+                        <field name="Remarks"/>
+
+                      </tree>
+                    </field>
+
+                    
+                </group>
+
+                <group class="oe_subtotal_footer oe_right">
+          
+                  <field name="amt_total" class="oe_subtotal_footer_separator"/>
+                  
+                </group>
+                            
+              </page>
+
+              
+
+              <page string="Details">
+
+                    <group name="top">
+
+                      <group name="left">
+                        <field name="pun_fuel_deduct"/>
+                      </group>
+
+                      <group name="right">
+                        <field name="sin_fuel_deduct"/>
+                      </group>
+
+                    </group>
+
+                <group name="group_top">
+
+                    <field name="sum_ids2" nolabel='1'>
+                      <tree editable="bottom">
+
+                        
+                        <field name="region"/>
+                        <field name="province"/>
+                        <field name="types"/>
+                        <field name="shipper_invoice_no"/>
+                        <field name="invoice_date"/>
+                        <field name="no_of_bags"/>
+                        <field name="additional_freight"/>
+                        <field name="via"/>
+                        <field name="sin_amount"/>
+                        <field name="pun_amount"/>
+                        <field name="sin_dist"/>
+                        <field name="pun_dist"/>
+                        <field name="weight"/>
+                        <field name="code"/>
+                        <field name="dest_name"/>
+                        <field name="distance"/>
+                        <field name="truck_no"/>
+                        <field name="sale_price"/>
+                        
+                        
+                      </tree>
+                    </field>
+
+                </group>
+                            
+              </page>
+
+
+              <page string="Additionl Freight"> 
+    
+                <group name="group_top">
+
+                    <field name="value_ids" nolabel='1'>
+                      <tree editable="bottom">
+
+                        <field name="reg_code"/>
+                        <field name="additional_freight_val"/>
+                        <field name="province"/>
+
+                      </tree>
+                    </field>
+                    
+                </group>
+                            
+              </page>
+
+            </notebook>
+
+        </form> 
+      </field> 
+    </record> 
+
+    <record id="view_tree_new_module" model="ir.ui.view"> 
+      <field name="name">view_form_summary_ffc</field> 
+      <field name="model">summary.ffc</field> 
+      <field name="type">tree</field> 
+      <field name="arch" type="xml"> 
+      <tree> 
+       
+        <field name="Customer"/>
+        <field name="Region"/>
+        <field name="Branch"/>
+        <field name="date_from"/>
+        <field name="date_to"/>
+
+      </tree> 
+      </field> 
+    </record>
+
+    <act_window id="action_summary_ffc" 
+    name="Summary" 
+    res_model="summary.ffc" 
+    view_mode="tree,form" />
+ 
+
+  <menuitem id="menu_summary_ffc" name="Bill Summary" parent="ufc_automization_10.menu_new_module" action="action_summary_ffc" sequence="7"/>
+    
+
+</odoo>

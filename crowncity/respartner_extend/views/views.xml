@@ -1,0 +1,26 @@
+<odoo>
+  <data>
+    <record id="property_dealer_in_supplier_form"   model="ir.ui.view"> 
+        <field name="name">property_dealer_in_supplier_form</field> 
+        <field name="model">res.partner</field> 
+        <field name="inherit_id" ref="base.view_partner_form"/> 
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='purchase']/field[@name='supplier']" position="after">
+                <field name="plot_property_dealer" />
+            </xpath>
+        </field> 
+    </record>
+
+    <record id="plot_priority_client_customer_form"   model="ir.ui.view"> 
+        <field name="name">plot_priority_client_customer_form</field> 
+        <field name="model">res.partner</field> 
+        <field name="inherit_id" ref="base.view_partner_form"/> 
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='website']" position="after">
+                <field name="plot_priority_client" />
+            </xpath>
+        </field> 
+    </record>
+
+  </data>
+</odoo>

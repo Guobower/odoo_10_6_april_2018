@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <report
+            id="report_for_stock_report" 
+            model="saif.stock"
+            name="stock_report.customer_report"
+            file="stock_report.customer_report"
+            report_type="qweb-html"
+            string=" "/>
+            
+
+         <record id="stock_report_wizard_form_view" model="ir.ui.view">
+            <field name="name">stock_report_wizard_form_view</field>
+            <field name="model">stock.report</field>
+            <field name="arch" type="xml">
+                <form string="Report">
+                    <group name="group_top">
+                        <group name="group_left"> 
+
+                            <field name="date_from"/>
+                            <field name="types" />
+                        </group>
+                        <group name="group_right">
+                            <field name="date_to"/>
+                            <field name="product" attrs="{'invisible':[('types','!=','specfic')],'required':[('types','=','specfic')]}" widget="many2many_tags"/>
+
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="%(report_for_stock_report)d" type="action" string="Print" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="stock_report_wizard" model="ir.actions.act_window">
+            <field name="name">Stock Report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">stock.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="stock_report_wizard_form_view"/>
+            <field name="target">new</field> 
+        </record>
+
+
+        <menuitem name="Stock Report" id="stock_report_item" parent="saif_stock.saif_stock_menu" action="stock_report_wizard" sequence="2"/>       
+
+    </data>
+</openerp>
+
+

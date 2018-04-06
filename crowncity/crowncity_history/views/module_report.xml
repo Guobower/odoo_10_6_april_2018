@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+
+    <data>   
+
+        <template id="module_report">
+
+            <t t-call="report.html_container">
+                <t t-call="report.external_layout">
+                    <t t-foreach="docs" t-as="o">
+
+                        <div class="page">
+
+                            <style>
+                                .report-container {
+                                    width: 1000px;
+                                    margin: 0px auto;
+                                }
+                                .report-header img{
+                                    width: 200px;
+                                    display: block;
+                                    margin: 0px auto 40px;
+                                }
+                                   
+                                .name {
+                                    width: 100%;
+                                    float: left;
+                                    text-align: left;
+                                    
+                                }
+                                .name .liquid {
+                                    margin: 0px 0px 0px 5px;
+                                }
+                                .box {
+                                    width: 100%;
+                                    float: left;
+                                    border: 1px solid;
+                                    margin: 25px 0px 0px 0px;
+                                    background-color: #b3b3b3;
+                                    padding: 10px;
+                                }
+                                .head {
+                                    width: 33%;
+                                    float: left;
+                                    text-align: left;
+                                }
+                                .head .solid {
+                                    text-align: left;
+                                }
+                                .head .liquid {
+                                    text-align: left;
+                                }
+                                table {
+                                    border: 1px solid #000;
+                                    margin: 10px 0px 0px;
+                                    width: 100%;
+                                    float: left;
+                                    border-spacing: 0px;
+                                    }
+                                table tr th,
+                                table tr td {
+                                    border-right: 1px solid #000;
+                                    text-align: center;
+                                }
+                                table tr th {
+                                    padding: 10px 0px;
+                                    
+                                }
+                                table tr td {
+                                    border-top: 1px solid #000;
+                                    padding: 5px 0px;
+                                }
+                                .note {
+                                    width: 100%;
+                                    float: left;
+                                    text-align: left;
+                                    margin-top: 30px;
+                                }
+                                .note .solid {
+                                    width: 10%;
+                                    float: left;
+                                    text-align: left;
+                                    margin-left: 25px;
+                                }
+                                .note .liquid {
+                                    width: 70%;
+                                    float: left;
+                                    text-align: left;
+                                }
+                                .text {
+                                    width: 70%;
+                                    text-align: left;
+                                    float: left;
+                                    margin-top: 15px;
+                                    margin-left: 125px;
+                                }   
+                            </style>
+
+                            <div class="report-container">
+
+                                <div class="report-header">
+                                    <img src="/crowncity_history/static/src/img/logo.png" alt="" />
+                                </div>
+
+                                <div class="name">
+                                    <span class="solid"><b>Name :</b></span>
+                                    <span class="liquid" t-esc="o.partner_id.name"></span>
+                                </div>
+                                
+                                <div class="name">
+                                    <span class="solid"><b>Date of Booking :</b></span>
+                                    <span class="liquid" t-esc="o.date_order"></span>
+                                </div>
+                                
+                                <div class="name">
+                                    <span class="solid"><b>Form # :</b></span>
+                                    <span class="liquid" t-esc="o.plot_file_no"></span>
+                                </div>
+                                
+                                <div class="box">
+                                    
+                                    <div class="head">
+                                        <span class="solid"><b>5 Marla Residential Plot</b></span>
+                                    
+                                    </div>
+
+                                    <div class="head">
+                                        <span class="solid"><b>Total Land Cost of Plot PKR :</b></span>
+                                        <span class="liquid" t-esc="'{:0,}'.format(int(float(o.total_plot_price)))"></span>
+                                    </div>
+
+                                    <div class="head">
+                                        <span class="solid"><b>Payment Plan :</b></span>
+                                        <span class="liquid">3 Year</span>
+                                    </div>
+
+                                </div>
+                                
+                                <table>
+                                    <tr>
+                                        <th>Plan</th>
+                                        <th>Date/Month</th>
+                                        <th>Land Cost</th>
+                                        <th>Received Amount</th>
+                                        <th>Outstanding Amount</th>
+                                        <th>Balance Amount</th>
+                                    </tr>
+
+                                    <t t-set="total_cost" t-value="o.total_plot_price" />
+                                    <t t-set="land_cost" t-value="0" />
+                                    <t t-set="recived_amount" t-value="0" />
+                                    <t t-set="outstanding_amount" t-value="0" />
+                                    <t t-foreach="o.plot_payment_id" t-as="p">
+                                        <tr>
+                                            <td><span t-esc="(o.installment_plan).title()"></span></td>
+                                            <td><span t-esc="p.invoice_date"></span></td>
+                                            <td>
+                                                <span t-esc="'{:0,}'.format(int(float(p.amount)))"></span>
+                                                <t t-set="land_cost" t-value="land_cost+p.amount" />
+                                            </td>
+                                            
+                                                <td>
+                                                    <t t-if="p.payment_paid == True">
+                                                        <span t-esc="'{:0,}'.format(int(float(p.amount)))"></span>
+                                                        <t t-set="recived_amount" t-value="recived_amount+p.amount" />
+                                                    </t>
+                                                    <t t-if="p.payment_paid == False">
+                                                        <span> - </span>
+                                                    </t>
+                                                </td>
+                                            <td>
+                                                    <t t-if="p.payment_paid == False">
+                                                        <span t-esc="'{:0,}'.format(int(float(p.amount)))"></span>
+                                                        <t t-set="outstanding_amount" t-value="outstanding_amount+p.amount" />
+                                                    </t>
+                                                    <t t-if="p.payment_paid == True">
+                                                        <span> - </span>
+                                                    </t>
+                                            </td>
+                                            <td>
+                                                <t t-if="p.payment_paid == True">
+                                                    <t t-set="total_cost" t-value="total_cost-p.amount" />
+                                                    <span t-esc="'{:0,}'.format(int(float(total_cost)))"></span>
+                                                </t>
+                                                <t t-if="p.payment_paid == False">
+                                                    <span t-esc="'{:0,}'.format(int(float(total_cost)))"></span>
+                                                </t>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                    
+                                    
+                                    <tr>
+                                        <td colspan="2"><b>Total</b></td>
+                                        <td><span t-esc="'{:0,}'.format(int(float(land_cost)))"></span></td>
+                                        <td><span t-esc="'{:0,}'.format(int(float(recived_amount)))"></span></td>
+                                        <td><span t-esc="'{:0,}'.format(int(float(outstanding_amount)))"></span></td>
+                                        <td></td>
+                                    </tr>
+                                </table>
+                                
+                                <div class="note">
+                                    <span class="solid"><b>Note:</b></span>
+                                    <span class="liquid">1) The above mentioned payment id excluded of development charges.</span>
+                                </div>
+                                
+                                <div class="text">
+
+                                    <span class="liquid"> Due date for paying monthly installments is 10th of month. Payments(s) made after due date shall only be received along with the penalty of @ 0.05% per day on your total outstanding amount.</span>
+
+                                </div>
+                            </div>  
+
+                        </div><!--end of page-->
+                    </t>
+                </t>
+            </t>
+
+        </template>
+
+    </data>
+
+</openerp>

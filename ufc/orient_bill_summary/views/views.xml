@@ -1,0 +1,48 @@
+<?xml version="1.0"?> 
+<odoo> 
+
+  <record id="view_form_orient_Bill_Summary" model="ir.ui.view">
+    <field name="name">view_form_orient_Bill_Summary</field>
+    <field name="model">orient.bills</field>
+    <field name="arch" type="xml">
+
+      <form string="Wizard">
+
+        <group name="group_top">
+
+          <group name="right">
+            <field name="customer"/>
+            <field name="bill_no"/>
+          </group>
+
+          <group name="left">
+            <field name="bl_number"/>
+            <field name="branch"/>
+          </group>
+
+        </group>
+
+        <footer>
+          <button name="update" type="object" string="Update" class="oe_highlight" />
+        </footer> 
+
+      </form>
+
+    </field>
+  </record>
+
+
+  <record id="action_orient_Bill_Summary" model="ir.actions.act_window">
+    <field name="name">Orient Bill Summary</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">orient.bills</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">form</field>
+    <field name="view_id" ref="view_form_orient_Bill_Summary"/>
+    <field name="target">new</field>
+  </record>
+  
+
+  <menuitem id="menu_orient_Bill_Summary" name="Orient Summary Wizard" parent="ufc_automization_10.menu_new_module" action="action_orient_Bill_Summary" sequence="10"/>
+
+</odoo>

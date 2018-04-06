@@ -1,0 +1,16 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+
+    <record model="ir.ui.view" id="csv_writer.list">
+      <field name="name">csv_writer list</field>
+      <field name="model">res.users</field>
+      <field name="inherit_id" ref="base.view_users_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//header" position="inside">
+            <button name="create_csv_file" string="Create Csv From HTML" type="object" class="oe_highlight"/>
+        </xpath>
+      </field>
+    </record>
+  </data>
+</odoo>

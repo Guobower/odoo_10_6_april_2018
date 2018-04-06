@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <report
+            id="report_for_gatepass" 
+            model="hr.attendance"
+            name="inward_gatepass.inward_gatepass_report"
+            file="inward_gatepass.inward_gatepass_report"
+            report_type="qweb-html"
+            string="Gatepass"/> 
+
+        <record id="inward_gatepass_wizard_form_view" model="ir.ui.view">
+            <field name="name">inward_gatepass_wizard_form_view</field>
+            <field name="model">inward.gatepass</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Report">
+                    <header>
+                        <button name="%(report_for_gatepass)d" type="action" string="Print" class="oe_highlight"/>
+                        <button name="in_validate" string="Validate" type="object" attrs="{'invisible': [('stages','in', 'validated')]}"/>
+                        <button name="in_draft" type="object" string="Set to Draft" attrs="{'invisible': [('stages','in', 'draft')]}"/>
+
+                        <field name="stages" widget="statusbar" />
+                    </header>
+
+                    <h2><center>Gatepass</center> </h2>
+                    <group name="group_top">
+
+                        <group name="group_left">
+
+                            <field name="name" attrs="{'readonly':[('stages', 'in', 'validated')]}"/>
+                            <field name="to" attrs="{'readonly':[('stages', 'in', 'validated')]}"/>
+                            <field name="code" attrs="{'readonly':[('stages', 'in', 'validated')]}"/>
+                            <field name="return_able" attrs="{'readonly':[('stages', 'in', 'validated')]}"/>
+                            <field name="category" attrs="{'readonly':[('stages', 'in', 'validated')]}"/>
+                            <field name="store" attrs="{'readonly':[('stages', 'in', 'validated')]}"/>
+                            <field name="requesition" attrs="{'readonly':[('stages', 'in', 'validated')]}"/>
+
+                        </group>
+
+                        <group name="group_right">
+
+                            <field name="sel" attrs="{'readonly':[('stages', 'in', 'validated')]}"/>
+
+                            <field name="yarndyeing"  attrs="{'readonly':[('stages', 'in', 'validated')]}"/>
+
+                            <field name="fabricdyeing" attrs="{'readonly':[('stages', 'in', 'validated')]}" />
+                            
+                            <field name="fabricknitting"  attrs="{'readonly':[('stages', 'in', 'validated')]}"/>
+
+                            <field name="issue_date" attrs="{'readonly':[('stages', 'in', 'validated')]}"/>
+                            <field name="carrier" attrs="{'readonly':[('stages', 'in', 'validated')]}"/>
+                            <field name="vechicle" attrs="{'readonly':[('stages', 'in', 'validated')]}"/>
+                            <field name="status" attrs="{'readonly':[('stages', 'in', 'validated')]}"/>
+                            <field name="prepaid" attrs="{'readonly':[('stages', 'in', 'validated')]}"/>
+                            <field name="approved" attrs="{'readonly':[('stages', 'in', 'validated')]}"/>
+
+                        </group>
+
+                    </group>
+                        <h2><center> Gatepass Item Detail</center></h2>
+                    
+                            <field name="tree_link_id" string="Gatepass Item Detail" attrs="{'readonly':[('stages', 'in', 'validated')]}">
+
+                                <tree editable="bottom" >
+
+                                    <field name="item"/>
+                                    <field name="quantity"/>
+                                    <field name="units"/>
+                                    <field name="remarks"/>
+
+                                </tree>
+
+                            </field>
+
+
+                </form>
+            </field>
+        </record>
+
+        <record id="gatepass_wizard_action" model="ir.actions.act_window">
+            <field name="name">Gatepass</field>
+            <field name="res_model">inward.gatepass</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <!-- <field name="view_id" ref="inward_gatepass_wizard_form_view"/> -->
+            <!-- <field name="target">new</field> -->
+        </record>
+
+        <menuitem id="admission_letter_menu_item" name="Gatepass" action="gatepass_wizard_action" parent="purchase_mr_fabric.fabrication_menu"/>
+
+    </data>
+
+</openerp>

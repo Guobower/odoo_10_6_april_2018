@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+
+    <data>   
+
+        <template id="shipment_report_arian">
+
+            <t t-call="report.html_container">
+                <t t-call="report.external_layout">
+                    <t t-foreach="docs" t-as="o">
+                        
+                        <div class="page">
+
+                            <style>
+                                .header,
+                                .footer {
+                                    display: none;
+                                }
+                                .report-container {
+                                    width: 1000px;
+                                    margin: 0px auto;
+                                    }
+                                h2 {
+                                    width: 100%;
+                                    text-align: center;
+                                    float: left;
+                                    }
+                                
+                                .to {
+                                    width: 100%;
+                                    text-align: left;
+                                    float: left;
+                                    margin: 0px 0px 150px;
+                                    }
+                                .to .solid {
+                                    width: 15%;
+                                    }
+                                .to .liquid {
+                                    width: 90%
+                                    float: left;
+                                    text-align: center;
+                                    
+                                }
+                            </style>
+                            
+                            <div class="report-container">
+                                <h2><u>SHIPMENT COVERING LETTER</u></h2>
+                                
+                                <div class="to">
+                                   <span class="solid"><h1>TO,</h1></span>
+                                   <span class="liquid">
+                                        <h1 style="text-transform: capitalize;">
+                                            <span t-esc="o.partner_id.name"></span>
+                                            <span t-esc="o.partner_id.street"></span>
+                                            <span t-esc="o.partner_id.street2"></span>
+                                            <span t-esc="o.partner_id.city"></span>
+                                            <span t-esc="o.partner_id.state_id.name"></span>
+                                            <span t-esc="o.partner_id.country_id.name"></span>
+                                        </h1>
+                                    </span>
+                                </div>
+                                
+                                <div class="to" style="margin: 0px !important;">
+                                   <span class="solid"><h1>FROM,</h1></span>
+                                   <span class="liquid">
+                                        
+                                        <h1 style="text-transform: capitalize;">
+                                            <span t-esc="company_name"></span>, 
+                                            <span t-esc="street"></span> 
+                                            <span t-esc="street2"></span> 
+                                            <span t-esc="city"></span> 
+                                            <span t-esc="state"></span>
+                                            <span t-esc="country"></span>
+                                        </h1>
+
+                                    </span>
+                                </div>
+                             </div>
+
+                        </div>
+
+                    </t>
+                </t>
+            </t>
+
+        </template>
+
+    </data>
+
+</openerp>

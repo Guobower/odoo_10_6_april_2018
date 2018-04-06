@@ -1,0 +1,11 @@
+.totals {
+	width: 100%;
+	float: left;
+}
+.totals .o_form_field.o_form_field_number {
+	font-weight: bold;
+}
+.totals .o_form_field.o_form_field_number,
+.totals .o_form_label {
+	font-weight: bold !important;
+}

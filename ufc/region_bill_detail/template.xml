@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <report
+            id="report_for_module_detail" 
+            model="summary.ffc"
+            name="region_bill_detail.module_report"
+            file="region_bill_detail.module_report"
+            report_type="qweb-html"
+            string="Region Wise Report"/>
+            
+
+         <record id="region_wise_report_wizard_form_view" model="ir.ui.view">
+            <field name="name">region_wise_report_wizard_form_view</field>
+            <field name="model">region.wise.detail</field>
+            <field name="arch" type="xml">
+                <form string="Report">
+                    <group name="group_top">
+                        <group name="group_left"> 
+                            <field name="region"/>
+                            <field name="customer"/>
+                        </group>
+                        <group name="group_right">
+                            <field name="form"/>
+                            <field name="to"/>
+                            <field name="types"/>
+
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="%(report_for_module_detail)d" type="action" string="Print" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="region_wise_report_wizard" model="ir.actions.act_window">
+            <field name="name">Region Wise Report Wizard</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">region.wise.detail</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="region_wise_report_wizard_form_view"/>
+            <field name="target">new</field> 
+        </record>
+
+
+
+        <record model="ir.values" id="region_bill_detail_values">
+            <field name="model_id" ref="" />
+            <field name="name">Print From Wizard</field>
+            <field name="key2">client_print_multi</field>
+            <field name="value" eval ="'ir.actions.act_window,'+str(ref('region_wise_report_wizard'))"/>
+            <field name="key">action</field>
+            <field name="model">summary.ffc</field>         
+        </record>        
+
+    </data>
+</openerp>
+
+

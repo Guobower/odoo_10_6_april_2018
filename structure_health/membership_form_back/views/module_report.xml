@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+
+    <data>   
+
+        <template id="module_report">
+
+            <t t-call="report.html_container">
+                <t t-call="report.external_layout">
+                    <t t-foreach="docs" t-as="o">
+
+                        <div class="page">
+
+                            <style>
+            
+                                .main-data {
+                                    width: 100%;
+                                }
+                                .center-data {
+                                    width: 1000px;
+                                    margin: 0px auto;
+                                }
+                                .center-data p {
+                                    font-size: 15px;
+                                }
+                                .solid {
+                                    font-weight: bold;
+                                    margin-left: 0px;
+                                }
+                                .liquid {
+                                    margin-left: 0px;
+                                }
+                                .yourself {
+                                    width: 100%;
+                                }
+                                .category {
+                                    width: 100%;
+                                    float: left;
+                                }
+                                .category p {
+                                    border-bottom: 1px solid;
+                                    padding: 8px;
+                                }
+                                .applicant {
+                                    width: 50%;
+                                    float: left;
+                                }
+                                .applicant .liquid {
+                                    width: 40%;
+                                    border-bottom: 1px solid;
+                                    display: inline-block;
+                                }
+                                .clearfloat {
+                                    clear: both;
+                                    float: none;
+                                }
+                                .colors {
+                                    color:#641E16  ;
+                                }
+                                p {
+                                    text-align: justify;
+                                    text-justify: inter-word;
+                                }
+                                h3 {
+                                    text-align: center;
+                                    text-decoration: underline;
+                                }
+                                ul, li {
+                                    padding: 5px;
+                                    text-align: justify;
+                                }
+
+                            </style>
+      
+                            <div class="main-data">
+
+                                <div class="center-data">
+
+                                    <i><p class="colors"><span class="solid">YOUR PROFILE</span></p></i>
+
+                                    <p><span class="liquid">PLEASE WRITE DOWN A FEW WORDS ABOUT YOURSELF</span></p>
+
+                                    <div class="category">
+                                        <p></p>
+                                        <p></p>
+                                        <p></p>
+                                    </div>
+
+                                    <i><p class="colors"><span class="solid">ACKNOWLEDGMENT:</span></p></i>
+
+                                    <p><span class="liquid">I HEREBY DECLARE THAT THE INFORMATION PROVIDED ABOVE IS TRUE TO MY FULL KNOWLEDGE.</span></p>
+                                    <p><span class="liquid">THIS FORM AND THE SUBMISSION OF THE JOINING FEE DO NOT INDICATE THE ENTRY APPROVAL.</span></p>
+
+                                    <div class="applicant">
+                                        <p><span class="solid">APPLICANT SIGNATURE:</span>
+                                        <span class="liquid"></span></p>
+                                        <p><span class="solid">GYM MANAGER:</span>
+                                        <span class="liquid"></span></p>
+                                        <p><span class="solid">MANAGEMENT:</span>
+                                        <span class="liquid"></span></p>
+                                    </div>
+
+                                    <div class="applicant">
+                                        <p><span class="solid">DATE:</span>
+                                        <span class="liquid"></span></p>
+                                        <p><span class="solid">DATE:</span>
+                                        <span class="liquid"></span></p>
+                                    </div>
+
+                                    <br class="clearfloat"/>
+
+                                    <i><h3 class="colors">TERMS &amp; CONDITIONS</h3></i>`
+
+                                    <ul>
+                                        <li>All types of Gym charged including registration &amp; subscription fee are non transferable &amp; non refundable.</li>
+                                        <li>All coaching and personal training is controlled by the Gym. No other coaching or personal training is permitted without the prior consent from the Management.</li>
+                                        <li>The management has the right to approve or refuse any member request without any reason and its decision cannot be challenged.</li>
+                                        <li>Loss of card to be reported to the Management immediately and new card can be issued at a charge of Rs.500/-</li>
+                                        <li>The management does not accept the reponsibility for any loss,theft or damage caused to any items,valuables or personal belongings brought into the property, and member do so at their own risk.</li>
+                                        <li>All person entering the Gym and using its facilities including all equipment and machine do so at their own risk. Neither the Gym nor any associated company or body, including Structure employees,are responsible or liable for any injury,loss, fatality or damage whatsoever caused to any person or property including parked vehicles. </li>
+                                        <li>All persons are required to wear appropriate attire when using any of the facilities.</li>
+                                        <li>Sound/Music equipment such as radios, mp3 players, will not be allowed in the Gym except with the use of headphones.</li>
+                                        <li>No pets are permitted in the Gym/Facilty.</li>
+                                        <li>When using lockers, please ensure that the locker key is secure at all times on your person. Should a locker key be lost, there is Rs. 300 charge for replacement of the key. All the lockers must be emptied once you conclude your work out. </li>
+                                        <li>All payments to be made in advance.</li>
+                                        <li>Smoking is prohibited in the Gym.</li>
+                                        <li>Members must comply with the rules and regulations of the Gym. The Management reserves the right to ask a person involved in any voilation of these rules or due to a behaviour, which is inappropriate in view of the Management, to leave the facility and refuse thereafter admission.</li>
+                                        <li>Parents are responsible at all times for the behaviour of their children.A child below the age of 16 years using the premises and pool premises must be accompanied by a parents at all times.Children below the age of 13 years are not permitted to use the Gym and other facilities without prior approval.</li>
+                                        <li>A 50% Re-joining Fee shall be applicabel if your account is inactive for over one year.</li>
+                                        
+                                    </ul>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </t>
+
+                </t>
+            </t>
+
+        </template>
+
+    </data>
+
+</openerp>

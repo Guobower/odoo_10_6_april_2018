@@ -1,0 +1,264 @@
+<?xml version="1.0"?> 
+<odoo>
+<!-- attrs="{'invisible': [('customer', '=', False)]}" -->
+    <record id="companies_form_view" model="ir.ui.view">
+        <field name="name">companies_form_view</field>
+        <field name="model">contact.companies</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+
+       <form string="Partners">
+
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button" options="{&quot;terminology&quot;: &quot;archive&quot;}"/>
+                        </button>
+                        <button class="oe_stat_button o_res_partner_tip_opp" type="action"  name="137" icon="fa-star" context="{'search_default_partner_id': active_id}">
+                            <field string="Opportunities" name="opportunity_count" widget="statinfo"/>
+                        </button>
+                        <button class="oe_stat_button" type="object" name="schedule_meeting" icon="fa-calendar" context="{'partner_id': active_id, 'partner_name': name}">
+                            <field string="Meetings" name="meeting_count" widget="statinfo"/>
+                        </button>
+                        <button class="oe_stat_button" type="action" name="145" icon="fa-clock-o">
+                            <field string="Activities" name="activities_count" widget="statinfo"/>
+                        </button>
+                    </div>
+
+                    <field name="image" widget="image" class="oe_avatar" options="{&quot;preview_image&quot;: &quot;image_medium&quot;, &quot;size&quot;: [90, 90]}"/>
+                    <div style="float: left; margin: 0px 0px 0px 9px;">                    
+                        <field name="is_company" invisible="1"/>
+                        <field name="company_type" widget="radio" class="oe_edit_only" options="{'horizontal': true}"/>
+                        <h1 style="margin-top: 0px; margin-bottom: 4px;">
+                            <field name="name" default_focus="1" placeholder="Name"/>
+                        </h1>
+                        <div class="o_row">
+                            <field name="parent_id" placeholder="Company" domain="[('is_company', '=', True)]" />
+                        </div>
+                    </div>
+
+                    <group name="group_top">
+
+                        <group name="group_left">
+                            <field name="plan_score" />
+                            <field name="no_of_red_flags" />
+                            <field name="partic_totals" />
+                            <field name="tot_pal_ass" />
+                            <field name="plan_number" />
+                            <field name="total_plan_for_ein" />
+                            <field name="job_position" />
+                            <field name="title" options="{&quot;no_open&quot;: True}"/>
+                            <field name="naics_code" />
+                        </group>
+
+                        <group name="group_right">
+                            <field name="phone" />
+                            <field name="mobile" />
+                            <field name="street" placeholder="Street..." class="o_address_street"/>
+                            <field name="street2" placeholder="Street 2..." class="o_address_street"/>
+                            <field name="city" placeholder="City" class="o_address_city"/>
+                            <field name="state_id" class="o_address_state" placeholder="State" options="{&quot;no_open&quot;: True}"/>
+                            <field name="zip" placeholder="ZIP" class="o_address_zip"/>
+                            <field name="country_id" placeholder="Country" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                            
+                            <field name="website" />
+                        </group>
+
+                    </group>
+
+                    <notebook colspan="4">
+                        <page string="Sponsors" autofocus="autofocus">
+
+                            <field name="contact_address" nolabel='1'>
+                                <tree editable="bottom">
+                                    <field name="full_name"/>
+                                    <field name="prefix"/>
+                                    <field name="first_name"/>
+                                    <field name="middle_name"/>
+                                    <field name="last_name"/>
+                                    <field name="suffix"/>
+                                    <field name="email"/>
+                                    <field name="title"/>
+                                </tree>
+                            </field>
+                        </page>
+
+                        <page string="Plan profile">
+                            <group>
+                                <group>
+                                    <field name="sponsor_ein"/>
+                                    <field name="plan_number2"/>
+                                    <field name="plan_name"/>
+                                    <field name="splan_renewal"/>
+                                </group>
+                                <group>
+                                    <field name="pen_ben_code"/>
+                                    <field name="acc_firm_name"/>
+                                    <field name="annuity_gic_carr_name"/>
+                                    <field name="provider_name_01"/>
+                                    <field name="provider_name_02"/>
+                                </group>
+                            </group>
+                        </page>
+
+                        <page string="Plan Statistics">
+                            <group name="group_top">
+                                <group name="group_left">
+                                    <field name="plan_score2"/>
+                                    <field name="partic_total"/>
+                                    <field name="active_total"/>
+                                    <field name="partic_rate"/>
+                                    <field name="tot_pal_ass"/>
+                                    <field name="rat_of_retu"/>
+                                    <field name="rat_of_retu_3"/>
+                                    <field name="rat_of_retu_5"/>
+                                </group>
+
+                                <group name="group_right">
+                                    <field name="ave_par_bal"/>
+                                    <field name="ave_accou_bal"/>
+                                    <field name="total_contri"/>
+                                    <field name="ave_401_contri"/>
+                                    <field name="invest_manage_fees"/>
+                                    <field name="admin_fees_per_partic"/>
+                                </group>
+                            </group>
+                        </page>
+
+                        <page string="Red Flags">
+                                <group name="group_top">
+                                    <field name="redflag_ids" widget="many2many_tags"/>
+                                </group>
+                        </page>
+
+                        <page name="misc" string="Misc">
+
+                            <h3>Annuity/GIC</h3>
+
+                            <field name="annunity_gic_tree" nolabel='1'>
+                                <tree>
+                                    <field name="carrier_name"/>
+                                    <field name="name"/>
+                                    <field name="general_accounts"/>
+                                    <field name="separate_accounts"/>
+                                </tree>
+                            </field>
+                            
+                            <h3>Provider Info</h3>
+
+                            <field name="provider_gic_tree" nolabel='1'>
+                                <tree editable="bottom">
+                                    <field name="name"/>
+                                    <field name="dir_com_amount"/>
+                                    <field name="indir_com_amount"/>
+                                    <field name="service_code"/>
+                                </tree>
+                            </field>
+                        </page>
+
+                    </notebook>
+                    
+                </sheet>
+
+            </form>
+
+        </field>
+    </record>
+
+    <record id="annuity_gic_form_view" model="ir.ui.view">
+        <field name="name">annuity_gic_form_view</field>
+        <field name="model">annuity.gic</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+
+            <form string="Partners">
+
+                <sheet>
+
+                    <group name="group_top">
+                        <group name="group_left">
+                            <field name="carrier_name"/>
+                            <field name="name"/>
+                            <field name="general_accounts"/>
+                            <field name="separate_accounts"/>
+                        </group>
+                    </group>
+
+                    <field name="brocker_info_tree" nolabel='1'>
+                        <tree>
+                            <field name="name"/>
+                            <field name="commissions"/>
+                        </tree>
+                    </field>
+                    
+                </sheet>
+
+            </form>
+
+        </field>
+    </record>
+
+    <record id="brocker_info_form_view" model="ir.ui.view">
+        <field name="name">brocker_info_form_view</field>
+        <field name="model">brocker.info</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+
+            <form string="Partners">
+
+                <sheet>
+
+                    <group name="group_top">
+                        <group name="group_left">
+
+                            <field name="name"/>
+                            <field name="commissions"/>
+
+                        </group>
+                    </group>
+                    
+                </sheet>
+
+            </form>
+
+        </field>
+    </record>
+
+    <record id="provider_info_form_view" model="ir.ui.view">
+        <field name="name">provider_info_form_view</field>
+        <field name="model">provider.info</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+
+            <form string="Partners">
+
+                <sheet>
+
+                    <group name="group_top">
+                        <group name="group_left">
+
+                            <field name="name"/>
+                            <field name="dir_com_amount"/>
+                            <field name="indir_com_amount"/>
+                            <field name="service_code"/>
+
+                        </group>
+                    </group>
+                    
+                </sheet>
+
+            </form>
+
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="companies_action">
+        <field name="name">Companies</field>
+        <field name="res_model">contact.companies</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="companies_menu_item" name="Companies" parent="sales_team.menu_sales" action="companies_action" sequence="0"/>
+
+</odoo>

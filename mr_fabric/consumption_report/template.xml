@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <report
+            id="report_for_consumption" 
+            model="merchandising.costing"
+            name="consumption_report.consumption_report"
+            file="consumption_report.consumption_report"
+            report_type="qweb-html"
+            string="Consumption Report"
+            />
+
+    </data>
+</openerp>

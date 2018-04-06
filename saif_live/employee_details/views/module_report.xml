@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+
+    <data>   
+
+        <template id="module_report">
+
+            <t t-call="report.html_container">
+                <t t-call="report.external_layout">
+                    <t t-foreach="docs" t-as="o">
+
+                        <div class="page">
+
+                            <style>
+
+                                .main-data {
+                                    width: 100%;
+                                }
+
+                                .center-data {
+                                    width: 1000px;
+                                    margin: 0px auto;
+                                }
+
+                                .business-name {
+                                    text-align: center;
+                                    margin-bottom: 30px;
+                                }
+
+                                 .employee p .solid {
+                                     font-weight: bold;
+                                 }
+
+                                 .employee p .liquid {
+                                    padding: 0px 0px 0px 10px;
+                                 }
+
+                                .employee p {
+                                    width: 31%;
+                                    float: left;
+                                    margin: 10px 5px;
+                                }
+                                .no-margin {
+                                    width: 90%;
+                                    margin-top: 0px;
+                                    margin-bottom: 0px;
+
+                                }
+
+                                .permenant {
+
+                                    width: 100%;
+                                    float: left;
+                                }
+
+                                .name {
+
+                                    width: 100%;
+                                    float: left;
+                                    margin-bottom: 16px;
+                                }
+
+                                .refer {
+
+                                    width: 100%;
+                                    float: left;
+                                    margin-bottom: 16px;
+                                }
+
+                                .new {
+
+                                    width: 32%;
+                                    float: left;
+                                }
+
+                                .new .solid {
+
+                                    width: 25%;
+                                    float: left;
+                                    font-weight: bold;
+                                }
+
+                                .new .liquid {
+
+                                    width: 60%;
+                                    float: left;
+                    
+                                }
+
+                                .address {
+
+                                    width: 100%;
+                                    float: left;
+                                    margin-top: 10px;
+                                }
+
+                                .padd {
+
+                                    width: 100%;
+                                    float: left;
+                                    margin-bottom: 15px;
+
+                                }
+
+                                .padd .solid {
+
+                                    width: 16.5%;
+                                    float: left;
+                                    font-weight: bold;
+
+                                }
+
+                                .padd .liquid {
+
+                                    width: 70%;
+                                    float: left;
+
+                                }
+
+                                .gm  {
+                                    margin-top: 80px;
+                                }
+                                .mb0 {
+                                    margin-bottom: 0px;
+                                    font-size: 20px;
+                                }   
+                                .clearfloat {
+                                     clear: both;
+                                     float: none;
+                                }            
+
+                            </style>
+
+                            <div class="main-data">
+
+                                <div class="center-data">
+
+                                    <div class="business-name">
+                                        <h2>SAIF CONSTRUCTION PRIVATE LIMITED</h2>
+                                        <p>349-A, JOHAR TOWN, LAHORE.</p>
+
+                                    </div>
+
+                                    <div class="enterprise">
+
+                                        <div class="employee">
+
+                                            <p>
+
+                                                <span class="solid">Name of Employee:</span>
+
+                                                <span class="liquid">
+                                                    <t t-esc="o.name"/>
+                                                </span>
+                                            </p>
+
+                                            <p>
+                                                <span class="solid">Gender:</span>
+
+                                                <span class="liquid">
+                                                    <t t-esc="o.gender"/>
+                                                </span>
+                                            </p>
+
+                                            <p>
+                                                <span class="solid">D.O.B:</span>
+
+                                                <span class="liquid">
+                                                    <t t-esc="time.strftime('%d-%m-%Y',time.strptime(o.birthday,'%Y-%m-%d'))"/>
+                                                </span>
+                                            </p>
+
+                                            <p>
+                                                <span class="solid">D.O.J:</span>
+
+                                                <span class="liquid">
+                                                    <t t-esc="time.strftime('%d-%m-%Y',time.strptime(o.doj,'%Y-%m-%d'))"/>
+                                                </span>
+                                            </p> 
+
+                                             <p>
+                                                <span class="solid">Fathers Name:</span>
+
+                                                <span class="liquid">
+                                                    <t t-esc="o.f_name"/>
+                                                </span>
+                                            </p>
+
+                                             <p>
+                                                <span class="solid">Religion:</span>
+
+                                                <span class="liquid">
+                                                    <t t-esc="o.religion"/>
+                                                </span>
+                                            </p>
+
+                                             <p>
+                                                <span class="solid">M/Status</span>
+
+                                                <span class="liquid">
+                                                    <t t-esc="o.marital"/>
+                                                </span>
+                                            </p>
+
+                                             <p>
+                                                <span class="solid">CNIC:</span>
+
+                                                <span class="liquid">
+                                                    <t t-esc="o.cnic"/>
+                                                </span>
+                                            </p>
+
+                                             <p>
+                                                <span class="solid">Contact:</span>
+
+                                                <span class="liquid">
+                                                    <t t-esc="o.e_contact"/>
+                                                </span>
+                                            </p>
+
+                                        </div>
+
+                                        <div class="address">
+
+                                            <div class="padd">
+                                                <span class="solid">Permanent Address:</span>
+                                                <span class="liquid" t-esc="o.per_address"></span>
+                                            </div>
+
+                                            <div class="padd">
+                                                <span class="solid">Temporary Address:</span>
+                                                <span class="liquid" t-esc="o.tem_address"></span>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="name">
+                                            <span><b>Reference</b></span>
+                                        </div>
+
+                                        <div class="refer">
+                                            <div class="new">
+                                                <span class="solid">Name: </span>
+
+                                                    <span class="liquid">
+                                                        <t t-esc="get_name()"/>
+                                                    </span>
+                                            </div>
+
+                                            <div class="new">
+
+                                                <span class="solid">CNIC:</span>
+
+                                                    <span class="liquid">
+                                                        <t t-esc="get_cnic()"/>
+                                                    </span>
+                                            </div>
+
+                                             <div class="new">
+
+                                                <span class="solid">Contact:</span>
+
+                                                <span class="liquid">
+                                                    <t t-esc="get_cnt()"/>
+                                                </span>
+
+                                            </div>
+                                                
+                                        </div>
+
+                                        <div class="permenant">
+
+                                            <p class="no-margin"><b>Permanent Address:  </b><span>
+                                                <t t-esc="get_paddrs()"/>
+                                            </span></p>
+
+                                            <br></br>
+
+                                            <p class="no-margin"><b>Temporary Address:  </b><span>
+                                                 <t t-esc="get_taddrs()"/>
+                                            </span></p>
+
+                                            <p class="gm mb0"><b>Signature of the Employee</b></p>
+
+                                            <p>I hereby confirm that I will abide by the rules and regulations of the company. And I further agree that company has right to terminate my service without any prior notice. </p>
+
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                
+                            </div>
+
+                        </div>
+
+                    </t>
+
+                </t>
+
+            </t>
+
+        </template>
+
+    </data>
+
+</openerp>

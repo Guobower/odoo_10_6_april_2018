@@ -1,0 +1,83 @@
+<openerp>
+    <data>
+
+            <!--========================[Form View-START]=====================-->
+ 
+                <record id="cheque_book_form_view" model="ir.ui.view">
+                    <field name="name">cheque_book_form_view</field>
+                    <field name="model">cheque.book.maintain</field>
+                    <field name="type">form</field>
+                    <field name="arch" type="xml">
+                        <form>
+                            <header>
+                                <button name="genrate_leaves" type="object" string="Generate Leaves" class="oe_highlight"/>
+                            </header>
+                            <sheet>
+                                <group>
+                                    <group>
+                                        <field name="acct_no"/>
+                                        <field name="bank"/>
+                                        <field name="t_amount"/>                           
+                                    </group>
+                                    <group>
+                                        <field name="cheque_no"/>
+                                        <field name="cheque_lev"/>
+                                        <field name="rem_lev"/>
+                                        <field name="fst_cheque_no"/>
+
+                                    </group>
+                                </group>
+
+                                <field name="cheque_tree_id" nolabel='1'>
+                                <tree editable="bottom">                                   
+                                    <field name="tree_cheque_no"/>
+                                    <field name="date"/>
+                                    <field name="amount"/>
+                                    <field name="desc"/>
+                                    <field name="pay_ref"/>
+                                    <field name="received"/>
+
+                                </tree>
+
+                            </field>
+                            </sheet>
+                        </form>
+                    </field>
+                </record>
+
+            <!--************************[Form View-ENDS]**********************-->
+
+                <record id="view_tree_chqeue" model="ir.ui.view"> 
+                    <field name="name">Cheue Form</field> 
+                    <field name="model">cheque.book.maintain</field> 
+                    <field name="type">tree</field> 
+                    <field name="arch" type="xml"> 
+                        <tree> 
+                 
+                            <field name="acct_no"/>
+                            <field name="bank"/>
+                            <field name="cheque_no"/>
+     
+                        </tree> 
+                    </field> 
+            
+                </record>
+
+            <!--========================[Action-START]========================-->
+
+                <record model="ir.actions.act_window" id="action_cheque_book">
+                    <field name="name">Cheque Books</field>
+                    <field name="res_model">cheque.book.maintain</field>
+                    <field name="view_type">form</field>
+                    <field name="view_mode">tree,form</field>
+                </record>
+
+            <!--************************[Action-ENDS]*************************-->
+
+            <!--========================[Menu-START]==========================-->
+
+                <menuitem name="Cheque Books" id="pdc_cheque_book" parent="pdc_bcube.pdc_bcube" action="action_cheque_book" sequence="2"/>
+
+            <!--************************[Menu-ENDS]***************************-->
+    </data>
+</openerp>

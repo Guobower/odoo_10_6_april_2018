@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+
+    <data>   
+
+        <template id="attendence_report">
+
+            <t t-call="report.html_container">
+                <t t-call="report.external_layout">
+
+                    <div class="page">
+
+                        <style>
+                            @media (min-width: 992px) {
+                                .container {
+                                    width: 100%;
+                                }
+                            }
+
+                            @media (min-width: 768px) {
+                                .container {
+                                    width: 100%;
+                                }
+                            }
+                            .container {
+                                width: 100%;
+                            }
+                            .english {
+                                font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+                            }
+                            body {
+                                margin: 0px !important;
+                            }
+                            body.o_in_iframe {
+                                margin-top: 0px!important;
+                            }
+                            .main-data {
+                                width: 100%;
+                            }
+                            .report-head {
+                                text-align: center;
+                            }
+                            .report-head h1 {
+                                font-weight: normal;
+                                text-transform: uppercase;
+                                font-size: 30px;
+                            }
+                            table {
+                                width: 100%;
+                                border: 1px solid #000;
+                            }
+                            table tr td,
+                            table tr th {
+                                border-bottom: 1px solid #000;
+                                border-right: 1px solid #000;
+                                padding: 5px;
+                            }
+                            table tr td:last-child,
+                            table tr th:last-child {
+                                border-right: none;
+                            }
+                            table tr:last-child td {
+                                border-bottom: none;
+                            }
+                        </style>
+
+                        <t t-if="size &lt; 16">
+                            <style>
+
+                                table, td, th {
+                                    font-size: 10px;
+                                }
+
+                            </style>
+                        </t>
+
+                        <t t-if="size &gt; 16">
+                            <style>
+
+                                table, td, th {
+                                    font-size: 9px;
+                                }
+
+                            </style>
+                        </t>
+
+                        <div class="main-data">
+
+                            <div class="report-head">
+                                <h1><u>Attendence Report</u></h1>
+                                <p>
+                                    <span class="solid">Date: </span>
+                                    <span class="liquid" t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d')"></span>
+                                </p>
+                                <p>
+                                    <span class="solid">ATTENDANCE SHEET FROM:</span>
+                                    <span class="liquid" t-esc="time.strftime('%d %b %Y',time.strptime(form,'%Y-%m-%d'))"></span>
+                                    <span class="solid">To:</span>
+                                    <span class="liquid" t-esc="time.strftime('%d %b %Y',time.strptime(to,'%Y-%m-%d'))"></span>
+                                </p>
+                            </div>
+
+                            <div style="width: 600px; margin: 20px auto; border-top: 2px solid #000;"></div>
+
+                            <table>
+                                <tr>
+                                    <th>Sr #</th>
+                                    <th>Name</th>
+                                    <th>Membership no</th>
+                                    <th>Package</th>
+                                    <th>Trainer Name</th>
+                                    <t t-foreach="dates" t-as="date">
+                                        <th>
+                                            <span t-esc="time.strftime('%d',time.strptime(date,'%Y-%m-%d'))"></span>
+                                        </th>
+                                    </t>
+                                    <th>Total Attandence</th>
+                                </tr>
+
+                                <t t-set="sr_no" t-value="1" />
+                                <t t-foreach="members" t-as="member">
+                                    <t t-set="attend" t-value="0" />
+                                    <tr>
+                                        <td>
+                                            <span t-esc="sr_no"></span>
+                                            <t t-set="sr_no" t-value="sr_no + 1" />
+                                        </td>
+                                        <td><span t-esc="member.name"></span></td>
+                                        <td><span t-esc="member.memship_no"></span></td>
+                                        <td><span t-esc="member.package.name"></span></td>
+                                        <td><span t-esc="member.current_trainer.name"></span></td>
+                                        <t t-foreach="dates" t-as="date">
+                                            <td>
+                                                <t t-set="time" t-value="getattend(date,member)" />
+                                                <span t-esc="time"></span>
+                                                <t t-if="time != '-'">
+                                                    <t t-set="attend" t-value="attend + 1" />
+                                                </t>
+                                            </td>
+                                        </t>
+                                        <td><span t-esc="attend"></span></td>
+                                    </tr>
+                                </t>
+                            </table>
+
+                        </div>
+                    </div><!--end of page-->
+
+                </t>
+            </t>
+
+        </template>
+
+    </data>
+
+</openerp>

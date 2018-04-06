@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <report
+            id="undertaking_report" 
+            model="account.invoice"
+            name="undertaking_report.undertaking_report_template"
+            file="undertaking_report.undertaking_report_template"
+            report_type="qweb-html"
+            string="Undertaking Report"/> 
+    </data>
+</openerp>

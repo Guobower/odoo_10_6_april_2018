@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <report
+            id="plot_payment_history" 
+            model="sale.order"
+            name="plot_payment_history.fabrics_invoice"
+            file="plot_payment_history.fabrics_invoice"
+            report_type="qweb-html"
+            string="Payment History"/> 
+    </data>
+</openerp>

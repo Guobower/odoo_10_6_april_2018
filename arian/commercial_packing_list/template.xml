@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <report
+            id="report_for_module_sample" 
+            model="commercial.packing.list"
+            name="commercial_packing_list.module_report"
+            file="commercial_packing_list.module_report"
+            report_type="qweb-html"
+            string="Commercial Packing List"/> 
+    </data>
+</openerp>
+
+<!-- commercial.packing.list -->

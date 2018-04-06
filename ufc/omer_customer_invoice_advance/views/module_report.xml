@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    
+    <data>   
+        
+        <template id="module_report">
+            
+            <t t-call="report.html_container">
+            	 <t t-call="report.external_layout">
+                    <t t-foreach="docs" t-as="o">
+
+                        <div class="page">
+
+                            <style>
+                                .clearfloat {
+                                    clear: both;
+                                    float: none;
+                                    width: 1px;
+                                    border: none;
+                                    display: block;
+                                }
+                                .page {
+                                    padding: 0px 0px;
+                                }
+                                .solid,
+                                .liquid {
+                                    width: auto;
+                                    display: inline-block;
+                                }
+                                .liquid {
+                                    min-width: 100px;
+                                    border-bottom: 1px solid #000;
+                                    font-size: 20px;
+                                    text-align: center;
+                                }
+                                .invoice_header {
+                                    width: 800px;
+                                    background-size: 100% auto;
+                                    height: 163px;
+                                    background-repeat: no-repeat;
+                                    margin: 0px auto;
+                                }
+                                .invoice_header img {
+                                    width: 100%;
+                                    max-width: 1000px;
+                                    max-height: 1000px;
+                                }
+                                .header,
+                                .footer {
+                                    display: none;
+                                }
+                                .content_area {
+                                    width: 800px;
+                                    margin: 0px auto;
+                                    min-height: 100px;
+                                }
+
+                                .table_area {
+                                    width: 800px;
+                                    margin: 0px auto;
+                                    min-height: 90px;
+                                    margin-top: 10px;
+                                }
+
+                                table {
+                                    border: 1px solid #000;
+                                }
+
+                                table tr th {
+                                    border: 1px solid #000;
+                                    min-width: 375px;
+                                    padding: 5px 0px;
+                                    text-align: center;
+                                }
+
+                                table tr th.space {
+                                    min-width: 250px;
+                                    max-width: 250px;
+                                    width: 250px;
+                                }
+
+                                 table tr th.space1 {
+                                    min-width: 500px;
+                                    max-width: 500px;
+                                    width: 500px;
+                                }
+                                
+                                .row_01 {
+                                    width: 100%;
+                                }
+                                img {
+                                    max-width: 150px;
+                                    max-height: 30px;
+                                }
+                                .row_01 .col_01,
+                                .row_01 .col_02,
+                                .row_01 .col_03 {
+                                    float: left;
+                                    text-align: right;
+                                    position: relative;
+                                }
+                                .row_01 .col_01 {
+                                    width: 25%;
+                                    top: 6px;
+                                }
+                                .row_01 .col_02 {
+                                    width: 50%;
+                                }
+                                .row_01 .col_03 {
+                                    width: 25%;
+                                    top: 10px;
+                                }
+                                .row_01 .col_01 .liquid {
+                                    min-width: 151px;
+                                }
+                                span.wpp {
+                                    width: 64px;
+                                    height: 40px;
+                                    border: 1px solid #000;
+                                    display: inline-block;
+                                    position: relative;
+                                    bottom: 8px;
+                                    left: 4px;
+                                    padding: 5px;
+                                    font-size: 18px;
+                                }
+                                .row_02 {
+                                    width: 100%;
+                                    margin: 20px 0px 0px;
+                                }
+                                .row_02 .col_01,
+                                .row_02 .col_02 {
+                                    width: 13%;
+                                    text-align: right;
+                                    float: left;
+                                }
+                                .row_02 .col_02 {
+                                    width: 30%;
+                                    margin: 0px 7% 0px 0px;
+                                }
+                                .row_02 .col_01 .solid {
+                                    display: block;
+                                    text-align: left;
+                                }
+                                .row_02 .col_01 .solid img {
+                                    max-width: 400px;
+                                    max-height: auto;
+                                }
+                                .row_02 .col_02 .liquid {
+                                    height: 30px;
+                                    border-bottom: 1px solid #000;
+                                    display: block;
+                                }
+                                .row_03 {
+                                    margin: 20px 0px 0px;
+                                }
+                                .row_03 .col_01,
+                                .row_03 .col_02,
+                                .row_03 .col_03 {
+                                    float: left;
+                                    text-align: right;
+                                    position: relative;
+                                }
+                                .row_03 .col_01 .liquid {
+                                    border: none;
+                                    font-size: 40px;
+                                }
+                                .row_03 .col_02 {
+                                    width: 50%;
+                                    margin: 0px 20px;
+                                }
+                                .row_03 .col_03 {
+                                    width: 30%;
+                                }
+                                .row_03 .col_03 .liquid,
+                                .row_03 .col_02 .liquid {
+                                    border: 1px solid #000;
+                                    border-radius: 50px;
+                                    min-width: 100px;
+                                    height: 50px;
+                                    padding: 10px;
+                                }
+                                .row_03 .col_03 .solid {
+                                    position: relative;
+                                    bottom: 20px;
+                                    margin: 0px 7px 0px 0px;
+                                }
+                                .row_03 .col_02 .solid {
+                                    position: relative;
+                                    bottom: 22px;
+                                    margin: 0px 10px;
+                                }
+                                .row_04 {
+                                    margin: 20px 0px 0px;
+                                }
+                                .row_04 .col_01,
+                                .row_04 .col_02,
+                                .row_04 .col_03 {
+                                    width: 33%;
+                                    float: left;
+                                    text-align: right;
+                                    position: relative;
+                                }
+                                .row_04 .col_01 .liquid,
+                                .row_04 .col_02 .liquid,
+                                .row_04 .col_03 .liquid {
+                                    min-width: 190px;
+                                }
+                                .row_04 .col_01 .liquid {
+                                    min-width: 218px;
+                                }
+                                .row_05 {
+                                    margin: 20px 0px 0px;
+                                }
+                                .row_05 .col_01 {
+                                    width: 30%;
+                                    float: left;
+                                    text-align: right;
+                                }
+                                .row_05 .col_02 {
+                                    width: 70%;
+                                    float: left;
+                                    text-align: right;
+                                }
+                                .row_05 .col_02 .liquid {
+                                    min-width: 425px;
+                                }
+                                .row_05 .col_01 .liquid {
+                                    min-width: 181px;
+                                }
+                                .row_06 .col_01 .liquid {
+                                    min-width: 117px;
+                                }
+                                .row_06 .col_02 .liquid {
+                                    min-width: 448px;
+                                }
+                                .row_07 .col_01 {
+                                    margin: 20px 0px 0px;
+                                    text-align: center;
+                                }
+                                .start-values p {
+                                    width: 50%;
+                                    float: left;
+                                    text-align: right;
+                                }
+                                .start-values {
+                                    margin: 0px 0px 15px 0px;
+                                }
+
+                            </style>
+
+                            <div class="invoice_header">
+                                <img src="/omer_customer_invoice_advance/static/src/img/imag-1.png" alt="" />
+                                <img src="/omer_customer_invoice_advance/static/src/img/imag-2.png" alt="" />
+                            </div>
+
+                            <div class="table_area">
+
+                                <table>
+                                    <tr>
+                                        <th class="space">
+                                            <span t-esc="getbranch('Phone')"></span>
+                                        </th>
+                                        <th class="space1" rowspan="2">
+                                            <span t-esc="getbranch('Address')"></span>
+                                        </th>
+                                    </tr>
+
+                                    <tr>
+                                        <th class="space"> 
+                                            <span t-esc="getbranch('Ptcl')"></span>
+                                        </th>
+                                    </tr>
+
+                                </table>
+
+                            </div>
+
+
+                            <div class="content_area">
+
+                                <div class="start-values">
+                                    
+                                    <p>
+                                        <span class="liquid" t-esc="o.shipper_invoice_no"></span>
+                                        <span class="solid"><img src="/omer_customer_invoice_advance/static/src/img/img-01-02.jpg" alt="" /></span>
+                                    </p>
+                                    
+                                    <p>
+                                        <span>
+                                            <img t-att-src="'/report/barcode/EAN13/%s' % o.ean13"/>
+                                        </span>
+                                    </p>
+                                    <br class="clearfloat" />
+
+                                </div>
+
+                                <div class="row_01">
+                                    
+                                    <div class="col_01">
+                                        <sapn class="liquid" t-esc="datetime.datetime.strptime(o.invoice_date, '%Y-%m-%d').strftime('%d-%m-%Y')"/>
+                                        <span class="solid"><img src="/omer_customer_invoice_advance/static/src/img/img-04.jpg" alt="" /></span>
+                                    </div>
+
+                                    <div class="col_02">
+                                        <span class="wpp">WPP</span>
+                                        <span class="liquid" t-esc = "o.plan_date"></span>
+                                        <span class="solid"><img src="/omer_customer_invoice_advance/static/src/img/img-03.jpg" alt="" /></span>
+                                    </div>
+
+                                    <div class="col_03">
+                                        <span class="liquid" t-esc = "o.bilty_no"></span>
+                                        <span class="solid"><img src="/omer_customer_invoice_advance/static/src/img/img-02.jpg" alt="" /></span>
+                                    </div>
+                                    <br class="clearfloat" />
+                                
+                                </div>
+                            
+                                <div class="row_02">
+
+                                    <div class="col_02">
+                                        <span class="liquid"  t-esc = "o.route.to.destname"></span>
+                                    </div>
+                                        
+                                    <div class="col_01">
+                                        <span class="solid"><img src="/omer_customer_invoice_advance/static/src/img/img.jpg" alt="" /></span>
+                                    </div>
+
+                                    <div class="col_02">
+                                        <span class="liquid" t-esc="getbranch('Address')"></span>
+                                    </div>
+
+                                    <div class="col_01">
+                                        <span class="solid"><img src="/omer_customer_invoice_advance/static/src/img/imag-07.jpg" alt="" /></span>
+                                    </div>
+
+                                    <br class="clearfloat" />
+
+                                </div>
+
+                                <div class="row_03">
+                                    
+                                    <div class="col_01">
+                                        <span class="liquid">PAID</span>
+                                    </div>
+
+                                    <div class="col_02">
+                                        <span class="solid"><img src="/omer_customer_invoice_advance/static/src/img/img-08.jpg" alt="" /></span>
+                                        <t t-set="num" t-value="namer()" />
+                                        <t t-if = "num == 'ORIENT ELECTRONICS'">
+                                            <span class="liquid"  t-esc = "o.quantity"></span>
+                                        </t>
+                                        <t t-if = "num == 'FFC Goth Machi' or num == 'FFC Mir Pur Mathelo' or num == 'Engro Fertilizer Dharki' or num == 'Engro Port Karachi'" >
+                                            <span class="liquid"  t-esc = "o.weight"></span>
+                                        </t>
+                                        <span class="solid"><img src="/omer_customer_invoice_advance/static/src/img/img-07.jpg" alt="" /></span>
+                                    </div>
+
+                                    <div class="col_03">
+                                        <span class="solid"><img src="/omer_customer_invoice_advance/static/src/img/img-06.jpg" alt="" /></span>
+                                        <t t-set="name" t-value="namer()" />
+                                        <t t-if = "name == 'ORIENT ELECTRONICS'">
+                                            <span class="liquid"  t-esc = "o.crt_no"></span>
+                                        </t>
+                                        <t t-if = "name == 'FFC Goth Machi' or name == 'FFC Mir Pur Mathelo' or name == 'Engro Fertilizer Dharki' or name == 'Engro Port Karachi'" >
+                                            <span class="liquid"  t-esc = "o.no_of_bags"></span>
+                                        </t>
+                                    </div>
+                                    <br class="clearfloat" />
+                            
+                                </div>
+
+                                <div class="row_04">
+                                    
+                                    <div class="col_01">
+                                        <span class="liquid" t-esc = "o.cleander_name"></span>
+                                        <span class="solid"><img src="/omer_customer_invoice_advance/static/src/img/img-11.jpg" alt="" /></span>
+                                    </div>
+
+                                    <div class="col_02">
+                                        <span class="liquid" t-esc = "o.mobile_no"></span>
+                                        <span class="solid"><img src="/omer_customer_invoice_advance/static/src/img/img-10.jpg" alt="" /></span>
+                                    </div>
+
+                                    <div class="col_03">
+                                        <span class="liquid"  t-esc = "o.driver_name"></span>
+                                        <span class="solid"><img src="/omer_customer_invoice_advance/static/src/img/img-09.jpg" alt="" /></span>
+                                    </div>
+                                    <br class="clearfloat" />
+                                
+                                </div>
+
+                                <div class="row_05">
+                                    
+                                    <div class="col_01">
+                                        <span class="liquid" t-esc = "o.truck_no"></span>
+                                        <span class="solid"><img src="/omer_customer_invoice_advance/static/src/img/img-13.jpg" alt="" /></span>
+                                    </div>
+
+                                    <div class="col_02">
+                                        <span class="liquid" t-esc = "o.cnic"></span>
+                                        <span class="solid"><img src="/omer_customer_invoice_advance/static/src/img/img-12.jpg" alt="" /></span>
+                                    </div>
+                                    <br class="clearfloat" />
+                                
+                                </div>
+
+                                <div class="row_05 row_06">
+                                    
+                                    <div class="col_01">
+                                        <span class="liquid"></span>
+                                        <span class="solid"><img src="/omer_customer_invoice_advance/static/src/img/img-15.jpg" alt="" /></span>
+                                    </div>
+
+                                    <div class="col_02">
+                                        <span class="liquid" t-esc = "o.licence_no"></span>
+                                        <span class="solid"><img src="/omer_customer_invoice_advance/static/src/img/img-14.jpg" alt="" /></span>
+                                    </div>
+                                    <br class="clearfloat" />
+                                
+                                </div>
+
+                                <div class="row_07">
+                                    
+                                    <div class="col_01">
+                                        <img src="/omer_customer_invoice_advance/static/src/img/img-16.jpg" alt="" />
+                                    </div>
+                                
+                                </div>
+
+                            </div>
+                            
+                        </div>
+
+                    </t>
+                </t>
+            </t>
+
+        </template>
+    
+    </data>
+
+</openerp>

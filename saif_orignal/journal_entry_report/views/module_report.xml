@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+
+    <data>   
+
+        <template id="journal_entry">
+
+            <t t-call="report.html_container">
+
+                <t t-call="report.external_layout">
+
+                    <t t-foreach="docs" t-as="o">
+
+                        <div class="page">
+
+                            <style>
+                                @media (min-width: 992px)
+                                .container {
+                                    width: 100%;
+                                }
+
+                                @media (min-width: 768px)
+                                .container {
+                                    width: 100%;
+                                }
+                                .container {
+                                    width: 100%;
+                                }
+                                .english {
+                                    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+                                }
+                                body {
+                                    margin: 0px !important;
+                                }
+                                body.o_in_iframe {
+                                    margin-top: 0px!important;
+                                }
+                                .main-data {
+                                    width: 100%;
+                                }
+                                .center-data {
+                                    width: 1000px;
+                                    margin: 0px auto;
+                                }
+                                table, td, th {
+                                    border: 2px solid;
+                                    border-collapse: collapse;
+                                    padding: 10px;
+                                    text-align: center;
+                                    margin: 10px 0px 10px 0px;
+                                    border-color: #b4b4b4;
+                                }
+                                .clearfloat {
+                                    clear: both;
+                                    float: none;
+                                }
+                                .journal {
+                                    width: 20%;
+                                    float: left;
+                                    margin-top: 20px;
+                                }
+
+                                .journal1 {
+                                    width: 40%;
+                                    float: left;
+                                    margin-top: 20px;
+                                }
+                                p {
+                                    margin-left: 20px;
+                                }
+                                .solid {
+                                    font-weight: bold;
+                                }
+                            </style>
+
+                           <div class="main-data">
+                                <div class="center-data">
+                                    
+                                    <div class="journal">
+                                        <p><span class="solid">Journal</span></p>
+                                        <p><span class="solid">Date</span></p>
+                                    </div>
+                                    <div class="journal">
+                                        <p><span class="liquid" t-esc="o.journal_id.name" ></span></p>
+                                        <p><span class="liquid" t-esc="o.date"></span></p>
+                                    </div>
+                                    <div class="journal1">
+                                        <span class="solid">Reference</span>
+                                        <span class="liquid" t-esc="o.ref"></span>
+                                    </div>
+                                    <br class="clearfloat"/>
+                                    <table width="100%">
+                                        <tr>
+                                            <th>Account</th>
+                                            <th>Partner</th>
+                                            <th>Label</th>
+                                            <th>Debit</th>
+                                            <th>Credit</th>
+                                            <th>Due Date</th>
+                                        </tr>
+                                        <t t-set="d" t-value="0"/>
+                                        <t t-set="c" t-value="0"/>
+                                        <t t-foreach="o.line_ids" t-as="data">
+                                            <t t-set="d" t-value="d+data.debit "/>
+                                            <t t-set="c" t-value="c+data.credit"/>
+                                            <tr>
+                                                <td> <span t-esc="data.account_id.code"></span><span t-esc="data.account_id.name"></span></td>
+                                                <td><span t-esc="data.partner_id.name"></span></td>
+                                                <td ><span t-esc="data.name"></span></td>
+                                                <td ><span t-esc="data.debit"></span></td>
+                                                <td ><span t-esc="data.credit"></span></td>
+                                                <td ><span t-esc="data.date_maturity"></span></td>
+                                            </tr>
+                                        </t>
+                                        
+                                        <tr>
+                                            <td colspan="3"></td>
+                                            <td t-esc="d"></td>
+                                            <td t-esc="c"></td>
+                                            <td></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div><!--end of page-->
+                    </t>
+                </t>
+            </t>
+
+        </template>
+
+    </data>
+
+</openerp>

@@ -1,0 +1,743 @@
+<openerp>
+    <data>
+
+<!-- Sales Booking Module Sugar Industry -->
+
+     		<record id = "sales_booking_form_view" model = "ir.ui.view">
+    		
+    		    <field name="name">sales_booking_form_view</field>
+	    
+	    	    <field name="model">sales.booking</field>
+	    
+	            <field name="type">form</field>
+	    
+	            <field name="arch" type="xml">
+	    
+	            <form>
+
+
+
+                  <sheet>
+
+
+                        
+                        <group name="group_top">
+                        	<group name="group_left">
+                            <field name="date"/>
+                            <field name="user_id" invisible = "1"/>
+                            <field name="name" invisible = "1"/>
+                            </group>
+                            <group name="group_right">
+                                <field name="total"/>
+                                <field name="total_qty"/>
+                                <field name="avg"/>
+
+                            </group>
+
+                        </group>
+                        
+                        <field name="order_line">
+
+                            <tree editable="bottom">
+                                <field name="customer"/>
+	                            <field name="mill" />
+	                            <field name="qty" sum="Total" />
+                                <field name="rate" sum="Total"/>
+                                <field name="total" sum="Total"/>
+                            </tree>
+                        </field>
+                   </sheet>                              
+	           </form>      
+	           	</field>
+    	</record>
+
+
+
+
+       <record id = "sales_booking_tree_view1" model = "ir.ui.view">
+            
+                <field name="name">sales_booking_tree_view</field>
+        
+                <field name="model">sales.booking</field>
+        
+                <field name="type">tree</field>
+        
+                <field name="arch" type="xml">
+        
+                    <tree>
+                       <field name="date"/>
+                        <field name="total"/>
+                        <field name="total_qty"/>
+                        <field name="avg"/>
+                           
+                    </tree>      
+                </field>
+        </record>
+
+
+    	 <record id="sales_booking_tree_view_action" model="ir.actions.act_window">
+            <field name="name">Sales Booking</field>
+            <field name="res_model">sales.booking</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+
+<!-- Sales Delivery Module Sugar Industry-->
+
+
+            <record id = "sales_delivery_form_view" model = "ir.ui.view">
+            
+                <field name="name">sales_delivery_form_view</field>
+        
+                <field name="model">sales.sugar</field>
+        
+                <field name="type">form</field>
+        
+                <field name="arch" type="xml">
+        
+                <form>
+
+
+                  <sheet>
+                    <div class="oe_title">
+                        <label class="oe_edit_only" for="order_no" string="Order No"/>
+                        <h1><field name="order_no" placeholder="Order No"/></h1>
+                        
+                    </div>
+                        
+                        <group name="group_top">
+                            <group name="group_left">
+                            <field name="customer"/>
+                            <field name="mill"/>
+                            <field name="rate"/>
+                            <field name="qty"/>
+                            <field name="total"/>
+                            </group>
+                            <group name="group_right">
+                            <field name="date"/>
+                            <field name="delivered"/>
+                            <field name="remaining"/>
+                            <field name="booking_id" invisible = "1"/>
+
+
+                            </group>
+                        </group>
+                        
+                        <field name="order_line">
+
+                            <tree editable="bottom">
+                                <field name="delivery_from"/>
+                                <field name="qty_del" sum="Total" />
+                                <field name="date"/>
+                                <field name="loading_id"/>
+                            </tree>
+                        </field>
+                   </sheet>                              
+               </form>      
+                </field>
+        </record>
+
+
+
+        <record id = "sales_delivery_tree_view1" model = "ir.ui.view">
+            
+                <field name="name">sales_delivery_tree_view1</field>
+        
+                <field name="model">sales.sugar</field>
+        
+                <field name="type">tree</field>
+        
+                <field name="arch" type="xml">
+                            <field name="order_no"/>
+                            <field name="date"/>
+                            <field name="customer"/>
+                            <field name="mill"/>
+                            <field name="qty"/>
+                            <field name="rate"/>     
+                            <field name="total"/>                            
+                            <field name="delivered"/>
+                            <field name="remaining"/>
+
+
+                         
+                </field>
+        </record>
+
+        <record id="sales_sugar_sequence" model="ir.sequence">
+            <field name="name">sales_sugar_sequence</field>
+            <field name="code">sales.sugar</field>
+            <field name="prefix">S-</field>
+            <field name="padding">0</field>
+             
+        </record>
+
+
+
+
+
+         <record id="sales_delivery_tree_view" model="ir.actions.act_window">
+            <field name="name">Sales</field>
+            <field name="res_model">sales.sugar</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+
+
+
+<!-- Purchase Booking Module Sugar Industry -->
+
+            <record id = "purchase_booking_form_view" model = "ir.ui.view">
+            
+                <field name="name">purchase_booking_form_view</field>
+        
+                <field name="model">purchase.booking</field>
+        
+                <field name="type">form</field>
+        
+                <field name="arch" type="xml">
+        
+                <form>
+
+                  <sheet>
+                        
+                        <group name="group_top">
+                            <group name="group_left">
+                            <field name="date"/>
+                            <field name="user_id" invisible = "1"/>
+                            <field name="name" invisible = "1"/>
+                            </group>
+                            <group name="group_right">
+                            <field name="total"/>
+                            <field name="total_qty"/>
+                            <field name="avg"/>
+                        </group>
+                        </group>
+                        
+                        <field name="order_line">
+
+                            <tree editable="bottom">
+                                <field name="supplier"/>
+                                <field name="mill" />
+                                <field name="qty" sum="Total" />
+                                <field name="rate" sum="Total"/>
+                                <field name="total" sum="Total"/>
+                            </tree>
+                        </field>
+                   </sheet>                              
+               </form>      
+                </field>
+        </record>
+
+
+        <record id = "purchase_booking_tree_view1" model = "ir.ui.view">
+            
+                <field name="name">purchase_booking_tree_view</field>
+        
+                <field name="model">purchase.booking</field>
+        
+                <field name="type">tree</field>
+        
+                <field name="arch" type="xml">
+        
+                 <tree>                     
+                    <field name="date"/>
+                    <field name="total"/>
+                    <field name="total_qty"/>
+                    <field name="avg"/>
+                </tree>      
+                </field>
+        </record>
+
+
+
+
+
+         
+
+        
+
+
+
+
+
+<!-- Purchase Delivery Module Sugar Industry-->
+
+
+            <record id = "purchase_delivery_form_view" model = "ir.ui.view">
+            
+                <field name="name">purchase_delivery_form_view</field>
+        
+                <field name="model">purchase.sugar</field>
+        
+                <field name="type">form</field>
+        
+                <field name="arch" type="xml">
+        
+                <form>
+
+                  <sheet>
+                    <div class="oe_title">
+                        <label class="oe_edit_only" for="order_no" string="Order No"/>
+                        <h1><field name="order_no" placeholder="Order No"/></h1>
+                        
+                    </div>
+                        
+                        <group name="group_top">
+                            <group name="group_left">
+                            <field name="supplier"/>
+                            <field name="mill"/>
+                            <field name="rate"/>
+                            <field name="qty"/>
+                            </group>
+                            <group name="group_right">
+                            <field name="date"/>
+                            <field name="total"/>
+                            <field name="remaining"/>
+                            <field name="received"/>
+                            <field name="p_booking_id" invisible = "1" />
+
+
+                            </group>
+                            
+                        </group>
+                        <field name="sugar_tree_id" nolabel='1'>
+                            <tree editable="bottom">
+
+                                <field name="date"/>
+                                <field name="qty"/>            
+
+                            </tree>
+                        </field>
+                   </sheet>                              
+               </form>      
+                </field>
+        </record>
+
+
+
+            <record id = "purchase_delivery_tree_view_1" model = "ir.ui.view">
+            
+                <field name="name">purchase_delivery_tree_view_1</field>
+        
+                <field name="model">purchase.sugar</field>
+        
+                <field name="type">tree</field>
+        
+                <field name="arch" type="xml">
+
+
+                            <field name="order_no"/>
+                            <field name="date"/>
+                            <field name="supplier"/>
+                            <field name="mill"/>
+                            <field name="rate"/>
+                                                     
+                            <field name="qty"/>
+                            <field name="total"/>
+                           
+
+
+                
+                </field>
+        </record>
+
+        <record id="purchase_sugar_sequence" model="ir.sequence">
+            <field name="name">purchase_sugar_sequence</field>
+            <field name="code">purchase.sugar</field>
+             <field name="prefix">P-</field>
+            <field name="padding">0</field>
+        </record>
+
+
+
+
+
+
+<!-- Loading Module Sugar Industry-->
+
+
+            <record id = "loading_sugar_form_view" model = "ir.ui.view">
+            
+                <field name="name">loading_sugar_form_view</field>
+        
+                <field name="model">loading.sugar</field>
+        
+                <field name="type">form</field>
+        
+                <field name="arch" type="xml">
+        
+                <form>
+
+                  <sheet>
+                    <!-- <div class="oe_title">
+                        <label class="oe_edit_only" for="order_no" string="Order No"/>
+                        <h1><field name="order_no" placeholder="Order No"/></h1>
+                        
+                    </div> -->
+                        
+                        <group name="group_top">
+                            <group name="group_left">
+                            <field name="date"/>
+                        
+                            </group>
+                            <group name="group_right">
+                        
+                            <field name="total"/>
+
+
+                            </group>
+
+
+                        </group>
+
+                        <field name="loading_tree">
+
+                                <tree editable="bottom">
+                                    <field name="customer"/>
+                                    <field name="supplier" />
+                                    <field name="mill"  />
+                                    <field name="qty" sum="Total"/>
+                                    <field name="date" />
+                                </tree>
+                            </field>
+                   </sheet>                              
+               </form>      
+                </field>
+        </record>
+
+
+
+            <record id = "loading_sugar_tree_view" model = "ir.ui.view">
+            
+                <field name="name">loading_sugar_tree_view</field>
+        
+                <field name="model">loading.sugar</field>
+        
+                <field name="type">tree</field>
+        
+                <field name="arch" type="xml">
+
+
+                            
+                            <field name="date"/>
+                            <field name="total"/>
+
+                            
+
+
+
+
+
+
+                            
+
+
+                
+                </field>
+        </record>
+
+  <!--       <record id="purchase_sugar_sequence" model="ir.sequence">
+            <field name="name">purchase_sugar_sequence</field>
+            <field name="code">purchase.sugar</field>
+             <field name="prefix">P-</field>
+            <field name="padding">0</field>
+        </record> -->
+
+
+
+
+            <record id = "stock_history_form_view" model = "ir.ui.view">
+            
+                <field name="name">stock_history_form_view</field>
+        
+                <field name="model">stock.history.sugar</field>
+        
+                <field name="type">form</field>
+        
+                <field name="arch" type="xml">
+        
+                <form>
+
+                  <sheet>
+                        
+                        <group name="group_top">
+                            <group name="group_left">
+                            <field name="date"/>
+                            <field name="party"/>
+                            <field name="mill"/>
+                            <field name="qty" />
+                            <field name="ref_no"/>
+                            <field name="type_transaction" />
+                            <field name="delivery_to" />
+                            <field name="total" />
+                            <field name="amanat_id" />
+
+                            <field name="purchase_id" invisible = "1"/>
+                            <field name="delivery_id" invisible = "1"/>
+
+                            </group>
+                            <group name="group_right"/>
+                        </group>
+                   </sheet>                              
+               </form>      
+                </field>
+        </record>
+
+
+         <record id = "stock_history_tree_view" model = "ir.ui.view">
+            
+                <field name="name">stock_history_form_view</field>
+        
+                <field name="model">stock.history.sugar</field>
+        
+                <field name="type">tree</field>
+        
+                <field name="arch" type="xml">
+        
+                <tree>
+                            <field name="date"/>
+                            <field name="party"/>
+                            <field name="mill"/>
+                            <field name="delivery_to"/>
+                            <field name="qty" sum = "Total"/>
+                            <field name="total" />
+                            <field name="ref_no"/>
+
+
+               </tree>      
+                </field>
+        </record>
+
+
+
+
+            <record id = "stock_summary_form_view" model = "ir.ui.view">
+            
+                <field name="name">stock_summar_form_view</field>
+        
+                <field name="model">stock.summary.sugar</field>
+        
+                <field name="type">form</field>
+        
+                <field name="arch" type="xml">
+        
+                <form>
+
+                  <sheet>
+                        
+                        <group name="group_top">
+                            <group name="group_left">
+                            <field name="mill"/>
+                            <field name="qty"/>
+                            <field name="supplier"/>
+                            <field name="purchase_id" />
+                            <field name="sold"/>
+                            <field name="amanat" />
+                            <field name="amanat_of" />
+                            <field name="sales_id" />
+                            
+                            </group>
+                            <group name="group_right"/>
+                        </group>
+                   </sheet>                              
+               </form>      
+                </field>
+        </record>
+
+
+         <record id = "stock_summary_tree_view" model = "ir.ui.view">
+            
+                <field name="name">stock_summar_form_view</field>
+        
+                <field name="model">stock.summary.sugar</field>
+        
+                <field name="type">tree</field>
+        
+                <field name="arch" type="xml">
+        
+                <tree>
+                            <field name="mill"/>
+                            <field name="qty"/>
+                            <field name="supplier"/>
+                            <field name="purchase_id" />
+                            <field name="sold"/>
+                            <field name="amanat" />
+
+               </tree>      
+                </field>
+        </record>
+
+
+
+
+
+
+
+
+
+
+        <record id = "sale_purchase_form_view" model = "ir.ui.view">
+            
+                <field name="name">sale_purchase_form_view</field>
+        
+                <field name="model">sale.purchase</field>
+        
+                <field name="type">form</field>
+        
+                <field name="arch" type="xml">
+        
+                <form>
+
+                  <sheet>
+                        
+                        <group name="group_top">
+                            <group name="group_left">
+                            <field name="party"/>
+                            <field name="mill"/>
+                            <field name="qty"/>
+                            <field name="rate" />
+                            <field name="total"/>
+                            <field name="type_transaction" />
+                            </group>
+                            <group name="group_right"/>
+                        </group>
+                   </sheet>                              
+               </form>      
+                </field>
+        </record>
+
+
+         <record id = "sale_purchase_tree_view" model = "ir.ui.view">
+            
+                <field name="name">sale_purchase_tree_view</field>
+        
+                <field name="model">sale.purchase</field>
+        
+                <field name="type">tree</field>
+        
+                <field name="arch" type="xml">
+        
+                <tree>
+                            
+                            <field name="party"/>
+                            <field name="mill"/>
+                            <field name="qty"/>
+                            <field name="rate" />
+                            <field name="total"/>
+                            <field name="type_transaction" />
+
+
+               </tree>      
+                </field>
+        </record>
+
+
+
+        <record id="loading_sugar_action" model="ir.actions.act_window">
+            <field name="name">Loading</field>
+            <field name="res_model">loading.sugar</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <record id="sale_purchase_action" model="ir.actions.act_window">
+            <field name="name">Sale Purchase Report</field>
+            <field name="res_model">sale.purchase</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+
+         <record id="stock_history_action" model="ir.actions.act_window">
+            <field name="name">Stock History</field>
+            <field name="res_model">stock.history.sugar</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <record id="stock_summary_action" model="ir.actions.act_window">
+            <field name="name">Stock Summary</field>
+            <field name="res_model">stock.summary.sugar</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+
+        <record id="purchase_booking_tree_view_action" model="ir.actions.act_window">
+            <field name="name">Purchase Booking</field>
+            <field name="res_model">purchase.booking</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+         <record id="purchase_delivery_tree_view" model="ir.actions.act_window">
+            <field name="name">Purchases</field>
+            <field name="res_model">purchase.sugar</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <menuitem id="new_sales_and_purchases" name="Sales and Purchases"  />
+        
+        <menuitem id="new_sales_and_purchases_sales" name="Sales" parent="sales_sugar.new_sales_and_purchases" />
+        <menuitem id="new_sales_and_purchases_purchases" name="Purchases" parent="sales_sugar.new_sales_and_purchases" />
+        <menuitem id="new_sales_and_purchases_reporting" name="Stock Reporting" parent="sales_sugar.new_sales_and_purchases" />
+
+        <menuitem id="new_sales_and_purchases_stock_report" name="Stock Report" parent="sales_sugar.new_sales_and_purchases_reporting" action = "stock_history_action"/>
+
+        <menuitem id="new_sales_and_purchases_stock_summary" name="Stock Summary" parent="sales_sugar.new_sales_and_purchases_reporting" action = "stock_summary_action"/>
+
+        <menuitem id="sale_purchase_menu_item" name="Sale Purchase Report" parent="sales_sugar.new_sales_and_purchases_reporting" action = "sale_purchase_action"/>
+
+        <menuitem   id="sales_sugar.new_purchase_booking" 
+            name="Purchase Booking"
+            parent="new_sales_and_purchases_purchases" 
+            action="purchase_booking_tree_view_action" 
+        />
+
+        <menuitem   id="new_purchase_main_form" 
+            name="Purchases"
+            parent="new_sales_and_purchases_purchases" 
+            action="purchase_delivery_tree_view" 
+        />
+
+
+        <menuitem   id="sales_delivery_tree_view_menu" 
+            name="Sales"
+            parent="sales_sugar.new_sales_and_purchases_sales" 
+            action="sales_delivery_tree_view" 
+            sequence="10"
+        />
+
+
+
+        <menuitem   id="sales_booking_tree_view_menu" 
+            name="Sales Booking"
+            parent="sales_sugar.new_sales_and_purchases_sales" 
+            action="sales_booking_tree_view_action" 
+            sequence="9"
+        />
+
+        <menuitem   id="loading_sugar_tree_view_menu" 
+            name="Loading"
+            parent="sales_sugar.new_sales_and_purchases_sales" 
+            action="loading_sugar_action" 
+            sequence="10"
+        />
+
+
+
+
+
+    </data>
+</openerp>

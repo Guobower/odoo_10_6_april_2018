@@ -1,0 +1,66 @@
+<openerp>
+  <data>
+
+       <!--Inherit Form View to Modify it invoice line-->
+
+
+<!--       <record id="InvLineExt" model="ir.ui.view">
+          <field name="name">InvLineExt</field>
+          <field name="model">account.invoice</field>
+          <field name="inherit_id" ref="account.invoice_form"/>
+          <field name="arch" type="xml">
+              <xpath expr="//field[@name='invoice_line']/tree/field[@name= 'price_subtotal']" position="after">
+                <field name="afterTaxAmt"/>
+              </xpath>
+          </field>
+      </record>
+ -->
+
+    <!-- Inherit Form View to Modify it sale order line-->
+
+    <record id="SaleOrderLineExt" model="ir.ui.view">
+        <field name="name">SaleOrderLineExt</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+           <xpath expr="//field[@name='order_line']/tree/field[@name= 'price_subtotal']" position="after">
+               <field name="afterTaxAmt"/>
+           </xpath>
+        </field>
+    </record>
+
+      <!-- Inherit Form View to Modify it -->
+      <record id="ResPartnerExtFrom" model="ir.ui.view">
+          <field name="name">ResPartnerExtFrom</field>
+          <field name="model">res.partner</field>
+          <field name="inherit_id" ref="base.view_partner_form"/>
+          <field name="arch" type="xml">
+
+              <xpath expr="//field[@name='website']" position="after">
+                  <!-- Add your fields or attributes here -->
+                  <field name="vat"/>
+              </xpath>
+
+          </field>
+      </record>
+
+
+       <!-- Inherit Form View to Modify it -->
+       
+      <record id="ResCompanyExtFrom" model="ir.ui.view">
+          <field name="name">ResCompanyExtFrom</field>
+          <field name="model">res.company</field>
+          <field name="inherit_id" ref="base.view_company_form"/>
+          <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='vat']" position="attributes">
+                    <attribute name="string">VAT</attribute>
+          	</xpath>
+
+          </field>
+      </record>
+
+    
+    
+  </data>
+</openerp>

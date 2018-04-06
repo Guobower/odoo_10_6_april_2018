@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <report
+            id="report_for_module_mathelo" 
+            model="summary.ffc"
+            name="region_bill_mathelo.module_report"
+            file="region_bill_mathelo.module_report"
+            report_type="qweb-html"
+            string="Mathelo Region Bill Summary "/> 
+    </data>
+</openerp>

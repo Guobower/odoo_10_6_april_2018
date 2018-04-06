@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_mrp_production_filter" model="ir.ui.view">
+            <field name="name">mrp.production.select</field>
+            <field name="model">mrp.production</field>
+            <field name="inherit_id" ref="mrp.view_mrp_production_filter"/>
+            <field name="arch" type="xml">
+                  <field name="product_id" position="before">
+                      <filter icon="terp-gnome-cpu-frequency-applet+" string="Standard Product"
+                              domain="[('is_base_product', '=', 1)]"
+                              help="Standard Product"/>
+                      <separator/>
+                  </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>

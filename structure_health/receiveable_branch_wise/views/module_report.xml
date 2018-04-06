@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+
+    <data>   
+
+        <template id="customer_report">
+
+            <t t-call="report.html_container">
+                <t t-call="report.external_layout">
+                    <!-- <t t-foreach="count" t-as="o"> -->
+
+                    <div class="page">
+
+                        <style>
+
+                            .main-data {
+                                width: 100%;
+                            }
+                            .center-data {
+                                width: 1000px;
+                                margin: 0px auto;
+                            }
+                            table, td, th {
+                                border: 1px solid;
+                                border-collapse: collapse;
+                                text-align: left;
+                                padding: 4px;
+                                padding-left: 15px;
+                            }
+                            h2  {
+                                text-align: center;
+                            }
+
+                            .city {
+                                width : 100%;
+                                float: left;
+                                font-weight : bold
+                            }
+
+                        </style>
+
+                        <div class="main-data">
+
+                            <div class="center-data">
+                                <h2>RECEIVEABLE BRANCH WISE</h2>
+                                <table width="100%">
+                                
+                                        <!-- <span class="city">
+                                            <t t-esc="o.name"/>
+                                        </span> -->
+                                    <tr >
+                                        <th style="text-align:center">Sr No</th>
+                                        <th style="text-align:center">Customer </th>
+                                        <th style="text-align:center">Amount</th>
+                                    </tr>
+
+                                        <t t-set="total" t-value="0"/>
+                                        <t t-set="i" t-value="1"/>
+                                        <t t-foreach="cust" t-as="line">
+
+                                            <tr >
+                                                <td style="text-align:center">
+                                                    <t t-esc="i"/>
+                                                    <t t-set="i" t-value="i+1"/>
+                                                </td>
+                                                <td style="text-align:center">
+                                                    <span t-esc="line.name"></span>
+                                                </td>
+                                                <td style="text-align:center">
+                                                    <span t-esc="'{:0,}'.format(int(float(get_bal(line.id))))"></span>
+                                                    <t t-set="total" t-value="total+get_bal(line.id)"/>
+                                                </td>
+                                            </tr>
+                                            
+                                        </t>
+
+                                        <tr>
+                                            <td colspan="2" style="text-align:center;font-weight:bold">Total</td>
+                                            <td style="text-align:center;font-weight:bold">
+                                                
+                                                <span t-esc="'{:0,}'.format(int(float(total)))"></span>
+
+                                            </td>
+                                        </tr>
+
+
+                                </table>
+                    
+                    
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- </t> -->
+
+                </t>
+            </t>
+
+        </template>
+
+    </data>
+
+</openerp>

@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <report
+            id="report_for_module_membership_back" 
+            model="reg.form"
+            name="membership_form_back.module_report"
+            file="membership_form_back.module_report"
+            report_type="qweb-html"
+            string="Membership Form Back"/> 
+    </data>
+</openerp>

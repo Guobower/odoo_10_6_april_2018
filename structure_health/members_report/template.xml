@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <report
+            id="report_for_member_report" 
+            model="reg.form"
+            name="members_report.customer_report"
+            file="members_report.customer_report"
+            report_type="qweb-html"
+            string=" "/>
+            
+
+         <record id="member_report_wizard_form_view" model="ir.ui.view">
+            <field name="name">member_report_wizard_form_view</field>
+            <field name="model">member.report</field>
+            <field name="arch" type="xml">
+                <form string="Report">
+                    <group name="group_top">
+                        <group name="group_left"> 
+
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+                        </group>
+                        <group name="group_right">
+                            <field name="types"/>
+
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="%(report_for_member_report)d" type="action" string="Print" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="member_report_wizard" model="ir.actions.act_window">
+            <field name="name">Region Wise Report Wizard</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">member.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="member_report_wizard_form_view"/>
+            <field name="target">new</field> 
+        </record>
+
+
+        <menuitem name="Gym Pdf Report" id="member_report_item" parent="reg_form.reg_form_reporting" action="member_report_wizard" sequence="7"/>       
+
+    </data>
+</openerp>
+
+

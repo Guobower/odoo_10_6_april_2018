@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+
+    <data>   
+
+        <template id="module_report">
+
+            <t t-call="report.html_container">
+                <t t-call="report.external_layout">
+                    <t t-foreach="docs" t-as="o">
+
+                        <div class="page">
+                            <style>
+                                .header,
+                                .footer {
+                                    display: none;
+                                }
+                                .report-container {
+                                    width: 1000px;
+                                    margin: 0px auto;
+                                    }
+                                h1 {
+                                    width: 100%;
+                                    text-align: center;
+                                    float: left;
+                                    }
+                                .date {
+                                    width: 100%;
+                                    float: left;
+                                    display: block;
+                                    }
+                                .date .solid {
+                                    width: 50%;
+                                    float: left;
+                                    display: block;
+                                    text-align: right;
+                                    }
+                                .date .liquid {
+                                    width: 50%;
+                                    float: left;
+                                    display: block;
+                                    text-align: left;
+                                    }
+                                .clear-float {
+                                    float: none;
+                                    clear: both;
+                                    }
+                                .report-body {
+                                    width: 650px;
+                                    border: 1px solid;
+                                    padding: 5px 5px 30px;
+                                    margin: 0px auto;
+                                    }
+                                .invoice {
+                                    width: 100%;
+                                    float: left;
+                                    padding: 20px 0px 0px 5px;
+                                    }
+                                .invoice .solid {
+                                    width: 80%;
+                                    float: left;
+                                    display: block;
+                                    font-weight: bold;
+                                    }
+                                .invoice .liquid {
+                                    width: 20%;
+                                    float: left;
+                                    display: block;
+                                    text-align: center;
+                                    }
+                            </style>
+                            <div class="report-container">
+                            
+                                <h1><u>DOCUMENTS OF <span t-esc="o.invoice_no.number"></span> OF <span t-esc="o.total_no_carton"></span> CARTONS</u></h1>
+                                
+                                <div class="date">
+                                    <span class="solid"><h2><u>Date:</u></h2></span>
+                                    <span class="liquid"><b><u><h2 t-esc="o.invoice_date"></h2 ></u></b> </span>
+                                </div> 
+                                <br class="clear-float" />
+                                
+                                <div class="report-body">
+                                
+                                <div class="invoice">
+                                    <span class="solid">1. PHOTOCOPY OF ORIGINAL CUSTOM INVOICE WITH INVOICE : </span>
+                                    <span class="liquid">2</span>
+                                </div>
+                                <div class="invoice">
+                                    <span class="solid">2. SALES TAX INVOICE ORIGINAL :</span>
+                                    <span class="liquid">1</span>
+                                </div>
+                                <div class="invoice">
+                                    <span class="solid">3. PACKING LIST ORIGINAL:</span>
+                                    <span class="liquid">1</span>
+                                </div>
+                                <div class="invoice">
+                                    <span class="solid">4. S/B. EXCHANGE CONTROLE &amp; STATICAL COPY:</span>
+                                    <span class="liquid">2</span>
+                                </div>
+                                <div class="invoice">
+                                    <span class="solid">5. FORM "E"  ORIGINAL </span>
+                                    <span class="liquid">3</span>
+                                </div>
+                                <br class="clear-float" />
+                                </div>
+                            </div>
+                        </div><!--end of page-->
+                    </t>
+                </t>
+            </t>
+
+        </template>
+
+    </data>
+
+</openerp>

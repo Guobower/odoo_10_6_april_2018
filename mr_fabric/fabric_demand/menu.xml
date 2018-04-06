@@ -1,0 +1,11 @@
+<?xml version="1.0"?> 
+<odoo> 
+	  <!-- Action to open To-do Task list --> 
+	  <act_window id="action_fabric_demand" 
+	    name="Fabric Demand" 
+	    res_model="fabric.demand" 
+	    view_mode="tree,form" />
+
+	  <!-- Menu item to open To-do Task list --> 
+		  <menuitem id="chile_fabric_demand" name= "Fabric Demand" parent="sales_team.menu_sales" action="action_fabric_demand" sequence="99"/>
+</odoo> 

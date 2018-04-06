@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <report
+            id="report_for_daily_attend"
+            model="hr.employee"
+            name="daily_attendence_report.attendence"
+            file="daily_attendence_report.attendence"
+            report_type="qweb-html"
+            string="Daily Attendence Report"
+            menu="False"/>
+
+        <record id="daily_attend_wizard" model="ir.ui.view">
+            <field name="name">daily_attend_wizard</field>
+            <field name="model">daily.attend</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Report">
+                    
+                    <group name="group_top">
+
+                        <group name="group_left">
+
+                            <field name="form"/>
+                            <field name="to"/>
+
+                        </group>
+
+                        <group name="group_left">
+
+                            <field name="employee" readonly="1"/>
+
+                        </group>
+
+                    </group>
+
+                    <footer style="height: 30px !important; border: none !important;">
+                        <button name="%(report_for_daily_attend)d" type="action" string="Print" class="oe_highlight"/>
+                    </footer>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="daily_attend_action" model="ir.actions.act_window">
+            <field name="name">Daily Attendence</field>
+            <field name="res_model">daily.attend</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="daily_attend_wizard"/>
+            <field name="target">new</field>
+            <field name="context">{'default_employee': active_id}</field> 
+        </record> 
+
+        <record model="ir.values" id="daily_attend_report">
+            <field name="model_id" ref="" />
+            <field name="name">Print From Wizard</field>
+            <field name="key2">client_print_multi</field>
+            <field name="value" eval ="'ir.actions.act_window,'+str(ref('daily_attend_action'))"/>
+            <field name="key">action</field>
+            <field name="model">hr.employee</field>
+        </record>
+
+    </data>
+
+</openerp>

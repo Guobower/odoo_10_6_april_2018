@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+
+    <data>   
+
+        <template id="customer_report">
+
+            <t t-call="report.html_container">
+                <t t-call="report.external_layout">
+
+                    <div class="page">
+
+                        <style>
+
+                            .report-container {
+                                width: 1000px;
+                                margin: 0px auto;
+                                }
+                            .left {
+                                width: 38%;
+                                display: block;
+                                float: left;
+                                }
+                            .left img{
+                                width: 360px;
+                                display: block;
+                                }
+                            .mid {
+                                width: 26%;
+                                float: left;
+                                }
+                            .mid img{
+                                width: 120px;
+                                display: block;
+                                margin: 0px auto;
+                                }
+                            .right {
+                                width: 30%;
+                                display: block;
+                                float: left;
+                                text-align: left;
+                                margin-top: 100px;
+                                }
+                            .right .solid {
+                                width: 30%;
+                                float: left;
+                                font-weight: bold;
+                                margin-bottom: 10px;
+                                font-size: 20px;
+                                margin-left: 60px;
+                                }
+                            .right .liquid {
+                                width: 50%;
+                                float: left;
+                                text-decoration: underline;
+                                margin-bottom: 10px;
+                                font-size: 20px;
+                                }
+                            .head {
+                                width: 100%;
+                                text-align: center;
+                                text-decoration: underline;
+                                margin-top: 20px;
+                                float: left;
+                                }
+
+                            .date {
+
+                                width: 50%;
+                                margin: 0px auto;
+
+                                }
+
+                            .from {
+                                width: 50%;
+                                float: left;
+                            }
+                            .from .solid {
+                                width: 40%;
+                                float: left;
+                                font-weight: bold;
+
+                            }
+                            .from .liquid {
+
+                                width: 45%;
+                                float: left; 
+                            }
+
+                            .to {
+                                width: 50%;
+                                float: left;
+                            }
+                            .to .solid {
+                                width: 40%;
+                                float: left;
+                                font-weight: bold;
+                                text-align: right;
+
+                            }
+                            .to .liquid {
+
+                                width: 45%;
+                                float: left;
+                                text-align: right;
+                            }
+
+                            table {
+                                border: 1px solid #000;
+                                margin: 10px 0px 0px;
+                                width: 100%;
+                                float: left;
+                                border-spacing: 0px;
+                                }
+                            table tr th,
+                            table tr td {
+                                border-right: 1px solid #000;
+                                text-align: center;
+                            }
+                            table tr th {
+                                padding: 10px 0px;
+                                
+                            }
+
+                            table tr td {
+                                border-top: 1px solid #000;
+                                padding: 5px 0px;
+                            }
+                            
+                            .sign {
+                                width: 100%;
+                                float: left;
+                                }
+                            .sign .solid {
+                                width: 100%;
+                                text-align: left;
+                                float: left;
+                                font-weight: bold;
+                                margin-top: 70px;
+                                margin-left: 70px;
+                                }
+                                        
+                        </style>
+
+                        <div class="report-container">
+        
+                            <t t-set="num" t-value="get_type()" />
+
+                            <t t-if = "num == 1">
+                                <div class="head">
+                                    <h2>CONTINUE MEMBERS</h2>
+                                </div>
+
+                                <div class="date">
+                                    <div class="from">
+                                        <span class="solid">DATE FROM</span>
+                                        <span class="liquid" t-esc="get_from()"></span>
+                                    </div>
+
+                                    <div class="to">
+                                        <span class="solid">DATE TO</span>
+                                        <span class="liquid" t-esc="get_to()"></span>
+                                    </div>
+
+                                </div>
+
+                                <table>
+
+                                    <tr>
+                                        <th>SR</th>
+                                        <th>FULL NAME</th>
+                                        <th>MEMBERSHIP NO</th>
+                                        <th>PACKAGE</th>
+                                        <th>JOINING</th>
+                                        <th>PACKAGE CHARGES</th>
+                                        <th>AVERAGE PER MONTH</th>
+                                        <th>BRANCH</th>
+                                    </tr>
+                                    <t t-set="count" t-value="1"/>
+                                    <t t-foreach="conti" t-as="data">
+
+                                        <tr>
+                                            <td>
+                                                <t t-esc="count"/>
+                                                <t t-set="count" t-value="count+1"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="data.name"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="data.memship_no"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="data.package.name"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="data.joining"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="data.package_charge"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="data.avg_per_month"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="data.branch.name"/>
+                                            </td>
+                                        </tr>
+
+                                    </t>
+                                                               
+                                </table>
+                            </t>
+
+                            <t t-if = "num == 2">
+                                <div class="head">
+                                    <h2>DISCONTINUE MEMBERS</h2>
+                                </div>
+
+                                <div class="date">
+                                    
+                                    <div class="from">
+                                        <span class="solid">DATE FROM</span>
+                                        <span class="liquid" t-esc="get_from()"></span>
+                                    </div>
+
+                                    <div class="to">
+                                        <span class="solid">DATE TO</span>
+                                        <span class="liquid" t-esc="get_to()"></span>
+                                    </div>
+
+                                </div>
+
+                                 <table>
+
+                                    <tr>
+
+                                        <th>SR</th>
+                                        <th>FULL NAME</th>
+                                        <th>MEMBERSHIP NO</th>
+                                        <th>PACKAGE</th>
+                                        <th>JOINING</th>
+                                        <th>PACKAGE CHARGES</th>
+                                        <th>AVERAGE PER MONTH</th>
+                                        <th>BRANCH</th>
+                                    </tr>
+                                    <t t-set="i" t-value="1"/>
+                                    <t t-foreach="disconti" t-as="line">
+
+                                        <tr>
+                                            <td>
+                                                <t t-esc="i"/>
+                                                <t t-set="i" t-value="i+1"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="line.name"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="line.memship_no"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="line.package.name"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="line.joining"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="line.package_charge"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="line.avg_per_month"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="line.branch.name"/>
+                                            </td>
+                                        </tr>
+
+                                    </t>
+                                    
+                                </table>
+
+                            </t>                     
+            
+                        </div>  
+
+                    </div>
+
+                </t>
+            </t>
+
+        </template>
+
+    </data>
+
+</openerp>

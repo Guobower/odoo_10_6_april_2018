@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <report
+            id="report_for_attendence" 
+            model="reg.form"
+            name="attendence_report_pdf.attendence_report"
+            file="attendence_report_pdf.attendence_report"
+            report_type="qweb-html"
+            string="Attendence Report"
+            menu="False"/> 
+
+        <record id="attendence_form_wizard" model="ir.ui.view">
+            <field name="name">attendence_form_wizard</field>
+            <field name="model">attend.report</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Attendence Report">
+                    
+                    <group name="group_top">
+
+                        <group name="group_left">
+
+                            <field name="member" widget="many2many_tags"/>
+
+                        </group>
+
+                        <group name="group_left">
+
+                            <field name="form"/>
+                            <field name="to"/>
+
+                        </group>
+
+                    </group>
+
+                    <footer>
+                        <button name="%(report_for_attendence)d" type="action" string="Print" class="oe_highlight"/>
+                    </footer>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="attendence_report_wizard_action" model="ir.actions.act_window">
+            <field name="name">Attendence Report</field>
+            <field name="res_model">attend.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="attendence_form_wizard"/>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="attendence_report_menu_item" name="Monthly Attendence Report" action="attendence_report_wizard_action" parent="reg_form.reg_form_attend" />
+
+    </data>
+
+</openerp>

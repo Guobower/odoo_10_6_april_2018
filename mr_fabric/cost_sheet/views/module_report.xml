@@ -1,0 +1,681 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+
+    <data>
+
+        <template id="cost_sheet.cost_sheet_report">
+
+            <t t-call="report.html_container">
+                <t t-call="report.external_layout">
+                    <t t-foreach="docs" t-as="o">
+
+                        <div class="page">
+
+                            <style type="text/css">
+                                .header,
+                                .footer {
+                                    display: none !important;
+                                }
+                                .container {
+                                    max-width: 100%;
+                                    }
+                                @media (min-width: 1200px) {
+                                  .container {
+                                      width: 100%;
+                                  }
+                                }
+                                @media (min-width: 992px) {
+                                  .container {
+                                      width: 100%;
+                                  }
+                                }
+                                @media (min-width: 768px) {
+                                  .container {
+                                      width: 100%;
+                                  }
+                                }
+                                .mainwraper {
+                                    margin: 0px auto;
+                                    width: 100%;
+                                }
+                                .tabs {
+                                    width: 30%;
+                                    float: left;
+                                    margin: 0px 1.5%;
+                                }
+                                table ,th ,td {
+                                    border: 1px solid;
+                                    border-collapse: collapse;
+                                    font-size: 8px;
+                                    text-align: center;
+                                }
+                                th {
+                                    background-color: #E6E6FA;
+                                }
+                                .total th {
+                                    font-size: 12px;
+                                }
+                                table {
+                                    margin-top: 12px;
+                                }
+                                .border {
+                                    border-left: hidden;
+                                    border-bottom: hidden;
+                                }
+                                .heading span.dated {
+                                    
+                                }
+                            </style>
+
+                            <div class="mainwraper">
+
+                                <div class="heading">
+                                    <span class="dated" t-attf-style="display: inline-block;width: 150px;text-align: center; background: #333;      font-weight: bold;color: #FFF; padding: 10px 0px; margin: 0px 0px 0px 6px;">Dated: <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d %b %Y')"></span></span>
+                                </div>
+
+                                <div class="first-tab tabs">
+
+                                    <table width="100%">
+                                        
+                                        <tr class="total">
+                                            <th colspan="6">COST SHEET FOR GARMENTS Mr.FABRICS</th>
+                                        </tr>
+
+                                        <tr>
+                                            <td>yarn</td>
+                                            <td> - </td>
+                                            <td> - </td>
+                                            <td> - </td>
+                                            <td colspan="2"></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Style No</td>
+                                            <td><span t-esc="o.style_name"></span></td>
+                                            <td></td>
+                                            <td> - </td>
+                                            <td>Size</td>
+                                            <td> - </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Buyer</td>
+                                            <td><span t-esc="o.buyer.name"></span></td>
+                                            <td></td>
+                                            <td> - </td>
+                                            <td>FABRIC</td>
+                                            <td> - </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>GSM/Width</td>
+                                            <td> - </td>
+                                            <td></td>
+                                            <td> - </td>
+                                            <td>Qty</td>
+                                            <td> - </td>
+                                        </tr>
+                                    </table>
+                                    <span t-esc="firster(o.fabric_tree)"></span>
+                                    <t t-foreach="firsts" t-as="fabric">
+                                        <table width="100%">
+
+                                            <tr>
+                                                <th></th>
+                                                <th>PARTICULARS</th>
+                                                <th></th>
+                                                <th></th>
+                                                <th>DETAILS</th>
+                                                <th>COSTING</th>
+                                            </tr>
+
+                                            <tr>
+                                                <td>Fabric Costing</td>
+                                                <td>Fabrics Costing 1 <span t-esc="fabric.fabricno.name"></span></td>
+                                                <td><b>Y.COUNT</b></td>
+                                                <td><b>PRICE/KG</b></td>
+                                                <td><b>% AGE</b></td>
+                                                <td></td>
+                                            </tr>
+
+                                            <t t-foreach="fabric.yarn" t-as="yarn">
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td><span t-esc="yarn.count.name"></span></td>
+                                                    <td><span t-esc="yarn.yarnrate"></span></td>
+                                                    <td><span t-esc="yarn.percentage"></span></td>
+                                                    <td><span t-esc="yarn.total_yarn"></span></td>
+                                                </tr>
+                                            </t>
+
+                                            <tr>
+                                                <td></td>
+                                                <td>Yarn Dying</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td><span t-esc="fabric.yarn_dyeing"></span></td>
+                                            </tr>
+
+                                            <tr>
+                                                <td></td>
+                                                <td>Waste</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td><span t-esc="fabric.dyein_wastage"></span></td>
+                                                <td>
+                                                    <t t-set="dye_wastage" t-value="(fabric.yarn_dyeing * fabric.dyein_wastage)/100" />
+                                                    <span t-esc="dye_wastage"></span>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td></td>
+                                                <td>Knitting Charges</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td>Per KG</td>
+                                                <td><span t-esc="fabric.Kniting"></span></td>
+                                            </tr>
+
+                                            <tr>
+                                                <td></td>
+                                                <td>Fabric lost during Knitting</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td><span t-esc="fabric.knit_wastage"></span></td>
+                                                <td>
+                                                    <t t-set="fabric_wast" t-value="(fabric.Kniting * fabric.knit_wastage)/100" />
+                                                    <span t-esc="fabric_wast"></span>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <th></th>
+                                                <th>Grieg fabric cost</th>
+                                                <th></th>
+                                                <th></th>
+                                                <th>per kg</th>
+                                                <th> - </th>
+                                            </tr>
+
+                                            <tr>
+                                                <td></td>
+                                                <td>WASHING</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td>per kg</td>
+                                                <td><span t-esc="fabric.washingdyeing"></span></td>
+                                            </tr>
+
+                                            <tr>
+                                                <td></td>
+                                                <td>WEIGHT LOSSON DYED FABRIC</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td><span t-esc="fabric.wash_wastage"></span></td>
+                                                <td>
+                                                    <t t-set="wash_wast" t-value="(fabric.washingdyeing * fabric.wash_wastage)/100" />
+                                                    <span t-esc="wash_wast"></span>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td></td>
+                                                <td>Heat Set Charges</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td>per kg</td>
+                                                <td> - </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td></td>
+                                                <td>Fabric loss during heat set</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+
+                                            <tr>
+                                                <td></td>
+                                                <td>Sub Total</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+
+                                            <tr>
+                                                <th></th>
+                                                <th>DYED FABRIC COST:</th>
+                                                <th></th>
+                                                <th></th>
+                                                <th>per kg</th>
+                                                <th> - </th>
+                                            </tr>
+
+                                        </table>
+                                    </t>
+
+                                    <table width="100%">
+
+                                        <tr>
+                                            <th></th>
+                                            <th>Garments Costing</th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+
+                                        <t t-foreach="o.fabric_tree" t-as="data">
+                                            <tr>
+                                                <td colspan="2"><span t-esc="data.fabricno.name"></span></td>
+                                                <td></td>
+                                                <th><span t-esc="getfabrics(data.fabricno)"></span></th>
+                                                <th><span t-esc="getkgs(data.fabricno)"></span></th>
+                                            </tr>
+                                        </t>
+
+                                        <tr>
+                                            <th></th>
+                                            <th>Services Total:</th>
+                                            <th></th>
+                                            <th></th>
+                                            <th>
+                                                <span t-esc="o.total_service"></span>
+                                                <t t-set="service" t-value="o.total_service" />
+                                            </th>
+                                        </tr>
+
+                                        <tr>
+                                            <th></th>
+                                            <th>Total Accesseries Stitching:</th>
+                                            <th></th>
+                                            <th></th>
+                                            <th>
+                                                <span t-esc="o.total_access"></span>
+                                                <t t-set="stitch" t-value="o.total_access" />
+                                            </th>
+                                        </tr>
+
+                                        <tr>
+                                            <th></th>
+                                            <th>Total Accesseries Packing:</th>
+                                            <th></th>
+                                            <th></th>
+                                            <th>
+                                                <span t-esc="o.total_access_pack"></span>
+                                                <t t-set="pack" t-value="o.total_access_pack" />
+                                            </th>
+                                        </tr>
+
+                                        <tr>
+                                            <th></th>
+                                            <th>Total Miscellaneous:</th>
+                                            <th></th>
+                                            <th></th>
+                                            <th>
+                                                <span t-esc="o.total_others"></span>
+                                                <t t-set="other" t-value="o.total_others" />
+                                            </th>
+                                        </tr>
+
+                                        <tr>
+                                            <th></th>
+                                            <th>Sub Total:</th>
+                                            <th></th>
+                                            <th></th>
+                                            <th>
+                                                <t t-set="subtotal" t-value="service + stitch + pack + other" />
+                                                <span t-esc="subtotal"></span>
+                                            </th>
+                                        </tr>
+
+                                        <tr>
+                                            <td></td>
+                                            <td>OVERHEAD</td>
+                                            <td></td>
+                                            <td><span t-esc="o.overhead_percent"></span></td>
+                                            <td>
+                                                <span t-esc="o.overhead"></span>
+                                                <t t-set="overhead" t-value="o.overhead" />
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td></td>
+                                            <td>PROFIT</td>
+                                            <td></td>
+                                            <td><span t-esc="o.profit_percent"></span></td>
+                                            <td>
+                                                <span t-esc="o.profit"></span>
+                                                <t t-set="profit" t-value="o.profit" />
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <th></th>
+                                            <th>TOTAL PRICE IN PKR</th>
+                                            <th></th>
+                                            <th></th>
+                                            <th>
+                                                <span t-esc="subtotal + overhead + profit"></span>
+                                                <t t-set="totalpkr" t-value="subtotal + overhead + profit" />
+                                            </th>
+                                        </tr>
+
+                                        <tr>
+                                            <td></td>
+                                            <td>Commmision</td>
+                                            <td></td>
+                                            <td><span t-esc="o.commision_percent"></span></td>
+                                            <td>
+                                                <span t-esc="o.total_of_commision"></span>
+                                                <t t-set="commision" t-value="o.total_of_commision" />
+                                            </td>
+                                        </tr>
+
+                                        <tr class="total">
+                                            <th></th>
+                                            <th>G Total Price in PKR</th>
+                                            <th></th>
+                                            <th></th>
+                                            <th>
+                                                <span t-esc="int(totalpkr + commision)"></span>
+                                                <t t-set="pkrcurr" t-value="totalpkr + commision" />
+                                            </th>
+                                        </tr>
+
+                                        <tr>
+                                            <td></td>
+                                            <td>Currency Converter</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>
+                                                <span t-esc="o.currency_rate"></span>
+                                                <t t-set="currency" t-value="o.currency_rate" />
+                                            </td>
+                                        </tr>
+
+                                        <tr class="total">
+                                            <th></th>
+                                            <th>G Total Price in <span t-esc="o.currency.name"></span></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th>
+                                                <span t-esc="int(pkrcurr/o.currency_rate)"></span>
+                                            </th>
+                                        </tr>
+
+                                    </table>
+                                    
+                                </div>
+
+                                <div class="sec-tab tabs">
+
+                                    <span t-esc="laster(o.fabric_tree)"></span>
+                                    <t t-foreach="lasts" t-as="fabric">
+                                        <table width="100%">
+
+                                            <tr>
+                                                <th>PARTICULARS</th>
+                                                <th></th>
+                                                <th></th>
+                                                <th>DETAILS</th>
+                                                <th>COSTING</th>
+                                            </tr>
+
+                                            <tr>
+                                                <td>Fabrics Costing 1 <span t-esc="fabric.fabricno.name"></span></td>
+                                                <td><b>Y.COUNT</b></td>
+                                                <td><b>PRICE/KG</b></td>
+                                                <td><b>% AGE</b></td>
+                                                <td></td>
+                                            </tr>
+
+                                            <t t-foreach="fabric.yarn" t-as="yarn">
+                                                <tr>
+                                                    <td></td>
+                                                    <td><span t-esc="yarn.count.name"></span></td>
+                                                    <td><span t-esc="yarn.yarnrate"></span></td>
+                                                    <td><span t-esc="yarn.percentage"></span></td>
+                                                    <td><span t-esc="yarn.total_yarn"></span></td>
+                                                </tr>
+                                            </t>
+
+                                            <tr>
+                                                <td>Yarn Dying</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td><span t-esc="fabric.yarn_dyeing"></span></td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>Waste</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td><span t-esc="fabric.dyein_wastage"></span></td>
+                                                <td>
+                                                    <t t-set="dye_wastage" t-value="(fabric.yarn_dyeing * fabric.dyein_wastage)/100" />
+                                                    <span t-esc="dye_wastage"></span>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>Knitting Charges</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td>Per KG</td>
+                                                <td><span t-esc="fabric.Kniting"></span></td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>Fabric lost during Knitting</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td><span t-esc="fabric.knit_wastage"></span></td>
+                                                <td>
+                                                    <t t-set="fabric_wast" t-value="(fabric.Kniting * fabric.knit_wastage)/100" />
+                                                    <span t-esc="fabric_wast"></span>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <th>Grieg fabric cost</th>
+                                                <th></th>
+                                                <th></th>
+                                                <th>per kg</th>
+                                                <th> - </th>
+                                            </tr>
+
+                                            <tr>
+                                                <td>WASHING</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td>per kg</td>
+                                                <td><span t-esc="fabric.washingdyeing"></span></td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>WEIGHT LOSSON DYED FABRIC</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td><span t-esc="fabric.wash_wastage"></span></td>
+                                                <td>
+                                                    <t t-set="wash_wast" t-value="(fabric.washingdyeing * fabric.wash_wastage)/100" />
+                                                    <span t-esc="wash_wast"></span>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>Heat Set Charges</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td>per kg</td>
+                                                <td> - </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>Fabric loss during heat set</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>Sub Total</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+
+                                            <tr>
+                                                <th>DYED FABRIC COST:</th>
+                                                <th></th>
+                                                <th></th>
+                                                <th>per kg</th>
+                                                <th> - </th>
+                                            </tr>
+
+                                        </table>
+                                    </t>
+                                    <span t-field="o.product_image" t-field-options='{"widget": "image"}'/>
+                                </div>
+
+                                <div class="third-tab tabs">
+
+                                    <table width="100%">
+
+                                        <tr>
+                                            <th>Stitching Accesseries</th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+
+                                        <tr>
+                                            <th>DESC.</th>
+                                            <th>Type</th>
+                                            <th>COST</th>
+                                        </tr>
+
+                                        <t t-set="stich_cost" t-value="0"/>
+                                        <t t-foreach="o.access_tree" t-as="stich">
+                                            <tr>
+                                                <td><span t-esc="stich.defaults.name"></span></td>
+                                                <td></td>
+                                                <td>
+                                                    <span t-esc="stich.costing"></span>
+                                                    <t t-set="stich_cost" t-value="stich_cost + stich.costing"/>
+                                                </td>
+                                            </tr>
+                                        </t>
+
+                                        <tr>
+                                            <td class="border"></td>
+                                            <th>Total</th>
+                                            <th><span t-esc="stich_cost"></span></th>
+                                        </tr>
+
+                                    </table>
+
+                                    <table width="100%">
+                                        
+                                        <tr>
+                                            <th>Accesseries Packing</th>
+                                            <th>Type</th>
+                                            <th>COST</th>
+                                        </tr>
+
+                                        <t t-set="pack_cost" t-value="0" />
+                                        <t t-foreach="o.pack_tree" t-as="pack">
+                                            <tr>
+                                                <td><span t-esc="pack.defaults.name"></span></td>
+                                                <td> - </td>
+                                                <td>
+                                                    <span t-esc="pack.costing"></span>
+                                                    <t t-set="pack_cost" t-value="pack_cost + pack.costing" />
+                                                </td>
+                                            </tr>
+                                        </t>
+
+                                        <tr>
+                                            <td class="border"></td>
+                                            <th>Total</th>
+                                            <th><span t-esc="pack_cost"></span></th>
+                                        </tr>
+
+                                    </table>
+
+                                    <table width="100%">
+                                        
+                                        <tr>
+                                            <th>Services</th>
+                                            <th>Type</th>
+                                            <th>COST</th>
+                                        </tr>
+
+                                        <t t-set="service_total" t-value="0" />
+                                        <t t-foreach="o.service_tree" t-as="service">
+                                            <tr>
+                                                <td><span t-esc="service.service.name"></span></td>
+                                                <td> - </td>
+                                                <td>
+                                                    <span t-esc="service.costing"></span>
+                                                    <t t-set="service_total" t-value="service_total + service.costing" />
+                                                </td>
+                                            </tr>
+                                        </t>
+
+                                        <tr>
+                                            <td class="border"></td>
+                                            <th>Total</th>
+                                            <th><span t-esc="service_total"></span></th>
+                                        </tr>
+
+                                    </table>
+
+                                    <table width="100%">
+                                        
+                                        <tr>
+                                            <th>Other</th>
+                                            <th>Type</th>
+                                            <th>COST</th>
+                                        </tr>
+
+                                        <t t-set="other_cost" t-value="0" />
+                                        <t t-foreach="o.others_tree" t-as="other">
+                                            <tr>
+                                                <td><span t-esc="other.defaults.name"></span></td>
+                                                <td> - </td>
+                                                <td>
+                                                    <span t-esc="other.costing"></span>
+                                                    <t t-set="other_cost" t-value="other_cost + other.costing" />                                                    
+                                                </td>
+                                            </tr>
+                                        </t>
+
+                                        <tr>
+                                            <td class="border"></td>
+                                            <th>Total</th>
+                                            <th><span t-esc="other_cost"></span></th>
+                                        </tr>
+                                        
+                                    </table>
+                                    
+                                </div>
+                                
+                            </div>
+
+                        </div><!--end of page-->
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</openerp>

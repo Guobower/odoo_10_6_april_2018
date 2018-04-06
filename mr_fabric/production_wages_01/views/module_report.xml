@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+
+    <data>   
+
+        <template id="mrfabricsheet_report">
+
+            <t t-call="report.html_container">
+                <t t-call="report.external_layout">
+                    <!-- <t t-foreach="docs" t-as="o"> -->
+
+                        <div class="page">
+
+                          <style>
+                            .container {
+                                max-width: 100%;
+                            }
+                            @media (min-width: 1200px) {
+                              .container {
+                                  width: 100%;
+                              }
+                            }
+                            @media (min-width: 992px) {
+                              .container {
+                                  width: 100%;
+                              }
+                              }
+                            @media (min-width: 768px) {
+                              .container {
+                                  width: 100%;
+                              }
+                            }
+                            h2 {
+                              text-align: center;
+                              margin: 0px;
+                            }
+                            .header,
+                            .footer {
+                              display: none !important;
+                            }
+                            .head-01 span {
+                              border-bottom: 2px solid #000;
+                              display: inline-block;
+                              margin: 0px 0px 8px;
+                            }
+                            .head-02 {
+                              font-size: 18px;
+                              font-weight: normal;
+                              margin: 2px 0px;
+                            }
+                            .date {
+                              text-align: right;
+                              font-size: 14px; 
+                              margin-bottom: 0px;
+                            }
+                            table {
+                              width: 100%;
+                            }
+                            table tr:first-child th,
+                            table tr:last-child td {
+                              border: 2px solid #000;
+                              border-left: none;
+                              border-right: none;
+                              padding: 3px 0px;
+                            }
+                            table tr:first-child th:first-child,
+                            table tr:last-child td:first-child {
+                              border-left: 2px solid #000;
+                            }
+                            table tr:first-child th:last-child,
+                            table tr:last-child td:last-child {
+                              border-right: 2px solid #000;
+                            }
+                            table tr th {
+                              border-right: hidden;
+                              text-align: center;
+                            }
+                            table tr td {
+                              text-align: center;
+                              padding: 3px 0px;
+                            }
+                          </style>
+
+                          <div class="main-data">
+
+                            <div class="body">
+                                
+                              <h2 class="head-01"><span>MR.FABRICS(PVT) LTD.</span></h2>
+                              <h2 class="head-02">PRODUCTION WAGES SHEET SUMMARY</h2>
+                              <h2 class="head-02"><span t-esc="production.name"></span> </h2>
+                              <h2 class="head-02">(PERIOD <span t-esc="form" ></span> TO <span t-esc="to"></span> ) </h2>
+                              
+                              <p class="date">
+                                <span class="solid">Date:</span>
+                                <span class="liquid" t-esc="context_timestamp(datetime.datetime.now()).strftime('%d-%b-%y ')"/>
+                              </p>
+
+                              <table>
+                                
+                                <tr>
+                                  <th></th>
+                                  <th>PCS</th> 
+                                  <th>@dozn</th>
+                                  <th>Rate per dzn</th>
+                                  <th>Amount</th>
+                                  <th></th> 
+                                </tr>
+                                
+                                <t t-set="total" t-value="0"/>
+                                <t t-foreach="records" t-as="data">
+
+                                  <tr>
+                                    <td><span t-esc="data.won.name"></span></td>
+                                    <td><span t-esc="get_qty(data,'qty')"></span></td>
+                                    <td><span t-esc="get_qty(data,'dzn')"></span></td>
+                                    <td><span t-esc="get_rate(data)"></span></td>
+                                    <td>
+                                      <span t-esc="get_amount(data)"></span>
+                                      <t t-set="total" t-value="total+get_amount(data)"/>
+                                    </td>
+                                    <td><span></span></td>
+                                  </tr>
+
+                                </t>
+
+                                <tr>
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
+                                  <td>TOTAL = </td>
+                                  <td><span t-esc="total"></span> </td>
+                                </tr>
+
+                              </table>
+                            </div>
+
+                          </div>
+
+                        </div><!--end of page-->
+
+                    <!-- </t> -->
+                </t>
+            </t>
+
+        </template>
+
+    </data>
+
+</openerp>

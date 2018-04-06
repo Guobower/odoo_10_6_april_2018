@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <report
+            id="report_for_visitor_report" 
+            model="struct.visitor"
+            name="visitor_report.customer_report"
+            file="visitor_report.customer_report"
+            report_type="qweb-html"
+            string=" "/>
+            
+
+         <record id="visitor_report_wizard_form_view" model="ir.ui.view">
+            <field name="name">visitor_report_wizard_form_view</field>
+            <field name="model">visitor.reports</field>
+            <field name="arch" type="xml">
+                <form string="Report">
+                    <group name="group_top">
+                        <group name="group_left"> 
+    
+                            <field name="date_from"/>
+                            <field name="branch" options="{'no_create':True,'no_edit':True}"/>
+
+                        </group>
+
+                        <group name="group_right">
+
+                            <field name="date_to"/>
+
+                        </group>
+                        
+                    </group>
+
+                    <footer>
+                        <button name="%(report_for_visitor_report)d" type="action" string="Print" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="visitor_report_wizard" model="ir.actions.act_window">
+            <field name="name">Visitor Reports</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">visitor.reports</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="visitor_report_wizard_form_view"/>
+            <field name="target">new</field> 
+        </record>
+
+
+        <menuitem name="Visitor Report" id="visitor_wise_menu" parent="reg_form.reg_form_visitor" action="visitor_report_wizard" sequence="2"/>       
+
+    </data>
+</openerp>
+
+

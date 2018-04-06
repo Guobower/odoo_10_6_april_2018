@@ -1,0 +1,201 @@
+<?xml version="1.0"?> 
+<odoo> 
+
+    <record id="invoice_form_view_extension" model="ir.ui.view"> 
+        <field name="name">invoice_form_view_extension</field> 
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="type">form</field> 
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name ='payment_term_id']" position="after">
+
+                <field name="invoice_address"/>
+                <field name="invoice_bank"/>
+                <field name="qty_ctn"/>
+                <field name="lot"/>
+                <field name="pin"/>
+                <field name="ma_Bill"/>
+
+            </xpath>
+
+            <xpath expr="//field[@name ='date_invoice']" position="after">
+
+                <field name="delivery_date"/>
+                <field name="confirmation_date"/>
+                <field name="ship_via"/>
+                <field name="partial_shipment"/>
+                <field name="transhipment"/>
+                <field name="customer_order_no"/>
+                <field name="sale_order_num" invisible="1"/>
+
+            </xpath>
+
+            <xpath expr="//page[@name ='other_info']" position="before">
+                <page string="Shipping Info" name="shipping_info">
+                    <group name="group_top">
+                        
+                        <group name="group_right">
+                            <field name="ship_mode" />
+                            <field name="bl_no" attrs="{'invisible':['|',('ship_mode','=','byair'),('ship_mode','=','byland')]}"/>
+                            <field name="port" attrs="{'invisible':['|',('ship_mode','=','byair'),('ship_mode','=','byland')]}"/>
+                            <field name="ship_mark" attrs="{'invisible':['|',('ship_mode','=','byair'),('ship_mode','=','byland')]}"/>
+                            <field name="awb_no" attrs="{'invisible':['|',('ship_mode','=','bysea'),('ship_mode','=','byland')]}"/>
+                            <field name="hawb_no" attrs="{'invisible':['|',('ship_mode','=','bysea'),('ship_mode','=','byland')]}"/>
+                            <field name="mawb_no" attrs="{'invisible':['|',('ship_mode','=','bysea'),('ship_mode','=','byland')]}"/>
+                            <field name="flight_no" attrs="{'invisible':['|',('ship_mode','=','bysea'),('ship_mode','=','byland')]}"/>
+                            <field name="airport_departure" attrs="{'invisible':['|',('ship_mode','=','bysea'),('ship_mode','=','byland')]}"/>
+                            <field name="airline" attrs="{'invisible':['|',('ship_mode','=','bysea'),('ship_mode','=','byland')]}"/>
+                            <field name="vessel"/>
+                            <field name="e_form_no"/>
+                            <field name="etd_khi"/>
+                            <field name="bank_account"/>
+                            <field name="sro"/>
+                            <field name="performa"/>
+                        </group>
+                        
+                        <group name="group_left">
+
+                            <field name="shipment_of"/>
+                            <field name="bl_date" attrs="{'invisible':['|',('ship_mode','=','byair'),('ship_mode','=','byland')]}"/>
+                            <field name="loading_port" attrs="{'invisible':['|',('ship_mode','=','byair'),('ship_mode','=','byland')]}"/>
+                            <field name="container" attrs="{'invisible':['|',('ship_mode','=','byair'),('ship_mode','=','byland')]}"/>
+                            <field name="awb_date" attrs="{'invisible':['|',('ship_mode','=','bysea'),('ship_mode','=','byland')]}"/>
+                            <field name="hawb_date" attrs="{'invisible':['|',('ship_mode','=','bysea'),('ship_mode','=','byland')]}"/>
+                            <field name="mawb_date" attrs="{'invisible':['|',('ship_mode','=','bysea'),('ship_mode','=','byland')]}"/>
+                            <field name="awb_issued" attrs="{'invisible':['|',('ship_mode','=','bysea'),('ship_mode','=','byland')]}"/>
+                            <field name="airport_designation" attrs="{'invisible':['|',('ship_mode','=','bysea'),('ship_mode','=','byland')]}"/>
+                            <field name = "air_freight" attrs="{'invisible':['|',('ship_mode','=','bysea'),('ship_mode','=','byland')]}"/>
+                            <field name="frieght" attrs="{'invisible':['|',('ship_mode','=','byair'),('ship_mode','=','byland')]}"/>
+                            <field name="form_e_date"/>
+                            <field name="eta"/>
+                            <field name="inco_terms"/>
+                            <field name="s_tax_serial"/>
+                            <field name="origin_goods"/>
+                        </group>
+
+                    </group>
+
+                    <group name="group_bottom">
+
+                        <group name="group_right">
+
+                            <field name="ship_to_address"/>
+                            <field name="bill_to_address"/>
+
+                        </group>
+
+                        <group name="group_left">
+
+                            <field name="notify"/>
+                            <field name="other_notify"/>
+
+                        </group>
+
+                    </group>
+
+                    <h4>Other Charges</h4>
+
+                    <field name="data_coming" widget="one2many_list" context="{'show_attribute': False}">
+
+                        <tree editable="bottom">
+                            <field name="s_no" />
+                            <field name="charges"/>
+                            <field name="amount"/>
+                        </tree>
+
+                    </field>
+
+                    <h4>3rd Party Other Charges</h4>
+
+                    <field name="data_comes" widget="one2many_list" context="{'show_attribute': False}">
+
+                        <tree editable="bottom">
+                            <field name="s_no" />
+                            <field name="charges"/>
+                            <field name="amount"/>
+                        </tree>
+
+                    </field>
+
+                </page>
+
+            </xpath>
+
+           <xpath expr="//page[@name ='other_info']" position="before">
+                <page string="More Details" name="More Details">
+                    <group name="group_top">
+                        <group name="group_right">
+                            <field name="company"/>
+                            <field name="under_claim"/>
+                            <field name="LC_no"/>
+                            <field name="Lc_date"/>
+                            <field name="manual_serial_no"/>
+                            <field name="cn"/>
+                            <field name="gross_weight"/>
+                            <field name="volume"/>
+                            
+                        </group>
+
+                        <group name="group_left">
+                            <field name="remarks"/>
+                            <field name="des"/>
+                            <field name="Lc_amt"/>
+                            <field name="HS_code"/>
+                            <field name="manual_date"/>
+                            <field name="cn_date"/>
+                            <field name="net_weight"/>
+                            <field name="carton_size"/>
+
+                        </group>
+                    </group>  
+                    <group name="group_bottom">
+                        <group name="group_right">
+                            <field name="narration_1"/>
+                            <field name="narration_2"/>
+                            <field name="through_1"/>
+                            
+                        </group>
+
+                        <group name="group_left">
+                            <field name="more_info"/>
+                            <field name="applicant"/>
+                            <field name="rebate_percentage"/>
+
+                        </group>
+                    </group>   
+                </page>
+                
+            </xpath>
+            
+           <xpath expr="//page[@name ='other_info']" position="before">
+                <page string="Undertaking" name="undertaking">
+                    <group name="group_top">
+                        <field name="employee_name"/>
+                        <field name="cnic"/>
+                        <field name="ntn"/>
+                        <field name="no_of_cartons"/>
+                    </group>   
+                </page>
+                
+            </xpath>
+
+            <xpath expr="//page[@name ='other_info']" position="before">
+                <page string="Description of Goods or Services" name="Description of Goods or Services">
+                    <group name="group_top">
+                        <field name="description"/>
+                    </group>   
+                </page>
+                
+            </xpath>
+
+            <xpath expr="//button[@name ='action_invoice_cancel']" position="after">
+
+                <button name="packing_list" string="Create Packing list" type="object"></button>
+
+            </xpath>
+
+        </field> 
+    </record>
+
+</odoo> 

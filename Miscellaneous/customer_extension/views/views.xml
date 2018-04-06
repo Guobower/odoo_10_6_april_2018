@@ -1,0 +1,93 @@
+<odoo>
+	<data>
+		<record id="customer_extension_view" model="ir.ui.view"> 
+			<field name="name">customer_extension_view</field> 
+			<field name="model">res.partner</field> 
+			<field name="inherit_id" ref="base.view_partner_form"/>
+			<field name="arch" type="xml">
+
+				<xpath expr="//field[@name='mobile']" position="after">
+					<field name="street"/>
+				</xpath>
+                <xpath expr="//field[@name='category_id']" position="after">
+                	<field name="plane_score" />
+                	<field name="number_of_red_flags" />
+                	<field name="partic_total" />
+                	<field name="tot_pal_ass" />
+                	<field name="plan_number" />
+                	<field name="total_plane_for_ein" />
+                    <field name="business_code" />
+                    <field name="plan_name" />
+                    <field name="pension_benefit" />
+                    <field name="customer_month" />
+                </xpath>
+                <xpath expr="//page['0']" position="inside" string="Sponsor">
+                	<field name="product_ids" nolabel='1'>
+						<tree  editable="bottom">
+
+							<field name="full_name"/>
+							<field name="prefix"/>
+							<field name="first_name"/>
+							<field name="midlle_name"/>
+							<field name="last_name"/>
+							<field name="suffix"/>
+							<field name="title"/>           
+							<field name="email"/>           
+
+						</tree>
+					</field>
+                </xpath>
+
+                <xpath expr="//page['1']" position="after">
+                	<page name="plane_profit" string="Plane profile">
+                		<group name="group_top"> 
+	                		<group name="group_left">
+	                			<field name="sponsor_ein"/>
+	                			<field name="plane_number"/>
+	                			<field name="plane_name"/>
+	                			<field name="splane_renewal"/>
+	                		</group>
+	                		<group name="group_right">
+	                			<field name="pen_ben_code"/>
+	                			<field name="acc_firm_name"/>
+	                			<field name="annuitiy_gic_carr_name"/>
+	                			<field name="provider_name_01"/>
+	                			<field name="provider_name_02"/>
+	                		</group>
+	                	</group>
+                	</page>
+
+                	<page name="plane_statistics" string="Plane Statistics">
+                		<group name="group_top"> 
+	                		<group name="group_left">
+	                			<field name="plan_score"/>
+	                			<field name="partic_total"/>
+	                			<field name="active_total"/>
+	                			<field name="partic_rate"/>
+	                			<field name="tot_pal_ass"/>
+	                			<field name="rat_of_retu"/>
+	                		</group>
+	                		<group name="group_right">
+	                			<field name="rat_of_retu_3"/>
+	                			<field name="rat_of_retu_5"/>
+	                			<field name="ave_par_bal"/>
+	                			<field name="ave_accou_bal"/>
+	                			<field name="total_contri"/>
+	                			<field name="ave_401_contri"/>
+	                			<field name="invest_manage_fees"/>
+	                			<field name="admin_fees_per_partic"/>
+	                		</group>
+	                	</group>
+                	</page>
+
+
+                	<page name="red_flags" string="Res Flags">
+                		<group name="group_top">
+	                		<field name="redflag_ids"/>
+	                	</group>
+                	</page>
+                </xpath>
+			</field>
+		</record>
+	</data>
+</odoo>

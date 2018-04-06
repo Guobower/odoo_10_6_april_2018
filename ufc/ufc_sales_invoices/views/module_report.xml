@@ -1,0 +1,513 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+
+
+    <data>   
+
+        <template id="module_report">
+
+            <t t-call="report.html_container">
+                <t t-call="report.external_layout">
+                <t t-foreach="docs" t-as="o">
+
+                        <div class="page">
+							
+	                		<style>
+								.report-container {
+									width: 1000px;
+									margin: 0px auto;
+								}
+								
+								.report-header {
+									border: 1px solid;
+									margin: 0px auto;
+									width: 25%;
+									text-align: center;
+									padding: 4px;
+									margin-top: 30px;
+								}
+
+								h3 {
+									margin: 0px auto;
+									margin-top: 7px;
+									text-align: center;
+
+								}
+
+								.header {
+								
+                                    display: none !important;
+                                }
+
+	                            .footer {
+
+	                                display: none !important;
+	                            }
+
+								.ntn {
+									width: 12%;
+									margin: 0px auto;
+									text-decoration: underline;
+									margin-top: 10px;
+									font-weight: bold;
+								}
+
+								.invoice {
+									width: 80%;
+									float: left;
+									margin-top: 35px;	
+								}
+
+								.invoice .solid {
+									width: 25%;
+									float: left;
+									font-weight: bold;
+								}
+
+								.invoice .liquid {
+									width: 40%;
+									float: left;
+									text-decoration: underline;
+								}
+
+								.date {
+									width: 20%;
+									float: left;
+									margin-top: 35px;	
+								}
+
+								.date .solid {
+									width: 37%;
+									float: left;
+									font-weight: bold;
+								}
+
+								.date .liquid {
+									width: 50%;
+									float: left;
+									text-decoration: underline;
+								}
+
+								.name {
+									width: 100%;
+									float: left;
+									margin-top: 22px;	
+								}
+
+								.name .solid {
+									width: 23%;
+									float: left;
+									font-weight: bold;
+								}
+
+								.name .liquid {
+									width: 70%;
+									float: left;
+									text-decoration: underline;
+								}
+
+								.cnic {
+									width: 100%;
+									float: left;
+									margin-top: 22px;	
+								}
+
+								.cnic .solid {
+									width: 24%;
+									float: left;
+									font-weight: bold;
+								}
+
+								.cnic .liquid {
+									width: 70%;
+									float: left;
+									text-decoration: underline;
+								}
+
+
+								p {
+									width: 100%;
+									font-weight: bold;
+									margin-top: 20px;
+									float: left;	
+								}
+
+								.trans {
+									width: 100%;
+									float: left;
+									margin-top: 5px;	
+								}
+
+								.trans .solid {
+									width: 13%;
+									float: left;
+									font-weight: bold;
+								}
+
+								.trans .liquid {
+									width: 70%;
+									float: left;
+									text-decoration: underline;
+								}
+
+								.from {
+									width: 40%;
+									float: left;
+									margin-top: 20px;	
+								}
+
+								.from .solid {
+									width: 26%;
+									float: left;
+									font-weight: bold;
+								}
+
+								.from .liquid {
+									width: 40%;
+									float: left;
+									text-decoration: underline;
+								}
+
+								.to {
+									width: 40%;
+									float: left;
+									margin-top: 20px;	
+								}
+
+								.to .solid {
+									width: 22%;
+									float: left;
+									font-weight: bold;
+								}
+
+								.to .liquid {
+									width: 40%;
+									float: left;
+									text-decoration: underline;
+								}
+
+								.detail{
+									width: 20%;
+									font-weight: bold;
+									float: left;
+									margin-top: 20px;	
+								}
+
+								.box {
+									width: 100%;
+									border: 1px solid;
+									float: left;
+									margin-top: 20px;
+								}
+
+								.val {
+									width: 100%;
+									float: left;
+									padding: 15px; 	
+								}
+
+								.val .solid {
+									width: 75%;
+									float: left;
+									font-weight: bold;
+								}
+
+								.val .liquid {
+									width: 20%;
+									float: left;
+									text-decoration: underline;
+								}
+
+								.total {
+									width: 100%;
+									float: left;
+									margin-top: 20px; 	
+								}
+
+								.total .solid {
+									width: 11%;
+									float: left;
+									font-weight: bold;
+								}
+
+								.total .liquid {
+									width: 80%;
+									float: left;
+								}
+
+
+								.sign {
+									width: 50%;
+									float: left;
+									margin-top: 70px;
+									font-weight: bold; 	
+								}
+
+
+								.for {
+									width: 50%;
+									float: left;
+									margin-top: 70px;
+									font-weight: bold; 	
+									text-align: right;
+								}
+
+							</style>
+
+							<t t-set="num" t-value="shift()"/>
+
+
+							<t t-if = "num == 'Sindh'">
+
+							    <div class="report-container">
+
+						        	<div class="report-header">
+
+						        		<span>SINDH SALES TAX INVOICE</span>
+
+						        	</div>
+
+						        	<h3>Sindh Sales Tax Registration No.SNTN: 1755376-8</h3>
+
+						        	<div class="ntn">
+
+						        		<span>NTN: 1755376-8</span>
+						        		
+						        	</div>
+
+						        	<div class="invoice">
+
+						        		<span class="solid">Sindh Sales Tax Invoice No:</span>
+						        		<span class="liquid" t-esc="o.bill_no"></span>
+						        		
+						        	</div>
+
+						        	<div class="date">
+
+						        		<span class="solid">Date:</span>
+						        		<sapn class="liquid" t-esc="datetime.datetime.strptime(o.date_invoice, '%Y-%m-%d').strftime('%d-%m-%Y')"/>
+						        		
+						        	</div>
+
+						        	<div class="name">
+
+						        		<span class="solid">Name And Adress Of Receipient:</span>
+						        		<span class="liquid" t-esc="o.partner_id.name"></span>
+						        		
+						        	</div>
+
+
+						        	<div class="cnic">
+
+						        		<span class="solid">NTN/CNIC/PNTN of the Receipient:</span>
+						        		<span class="liquid">1435809-3</span>
+						        		
+						        	</div>
+
+						        	<p>Transportation Service Under Tariff Heading 9836.0000</p>
+
+
+
+						        	<div class="trans">
+
+						        		<span class="solid">Transportation of:</span>
+						        		<span class="liquid"><span t-esc="o.m_tons"></span>M.TONS OF UREA FERTILIZER</span>
+						        		
+						        	</div>
+
+
+
+						        	<div class="from">
+
+						        		<span class="solid">From Bill No:</span>
+						        		<span class="liquid" t-esc="o.bill_no"></span>
+						        		
+						        	</div>
+
+
+						        	<div class="to">
+
+						        		<span class="solid">To Bill No:</span>
+						        		<span class="liquid" t-esc="o.bill_no"></span>
+						        		
+						        	</div>
+
+						        	<span class="detail">(Detail Attached)</span>
+
+
+						        	<div class="box">
+
+						        		<div class="val">
+
+							        		<span class="solid">Value Excl Sindh Sales Tax</span>
+							        		<span class="liquid">Rs:<span t-esc="'{:0,}'.format(int(float(o.amount_untaxed)))"></span>/-</span>
+
+						        		
+						        		</div>
+
+						        		<div class="val">
+
+							        		<span class="solid">Sindh Sales Tax @ 13%</span>
+							        		<span class="liquid">Rs:<span t-esc="'{:0,}'.format(int(float(o.amount_tax)))"></span>/-</span>						        		
+						        		</div>
+
+
+						        		<div class="val">
+
+							        		<span class="solid">Value inc. Sindh Sales Tax</span>
+							        		<span class="liquid">Rs:<span t-esc="'{:0,}'.format(int(float(o.amount_total)))"></span>/-</span>						        		
+						        		</div>
+
+						        	</div>
+
+
+
+						        	<div class="total">
+
+										<span class="solid">Total Rupees :</span>
+										<span class="liquid" t-esc="number_to_spell(o.amount_total)"></span>
+						       
+						        	</div>
+
+						        	<span class="sign">Signature Stamp</span>
+
+						        	<span class="for">For: UMER FAYYAZ COMPANY</span>
+
+			    				</div>
+
+			    			</t>
+
+
+			    			<t t-if = "num == 'Punjab'">
+
+			    				<div class="report-container">
+
+						        	<div class="report-header">
+
+						        		<span>PUNJAB SALES TAX INVOICE</span>
+
+						        	</div>
+
+						        	<h3>Punjab Sales Tax Registration No.SNTN: 1755376-8</h3>
+
+						        	<div class="ntn">
+
+						        		<span>NTN: 1755376-8</span>
+						        		
+						        	</div>
+
+						        	<div class="invoice">
+
+						        		<span class="solid">Punjab Sales Tax Invoice No:</span>
+						        		<span class="liquid" t-esc="o.bill_no"></span>
+						        		
+						        	</div>
+
+						        	<div class="date">
+
+						        		<span class="solid">Date:</span>
+						        		<sapn class="liquid" t-esc="datetime.datetime.strptime(o.date_invoice, '%Y-%m-%d').strftime('%d-%m-%Y')"/>
+						        		
+						        	</div>
+
+						        	<div class="name">
+
+						        		<span class="solid">Name And Adress Of Receipient:</span>
+						        		<span class="liquid" t-esc="o.partner_id.name"></span>
+						        		
+						        	</div>
+
+
+						        	<div class="cnic">
+
+						        		<span class="solid">NTN/CNIC/PNTN of the Receipient:</span>
+						        		<span class="liquid">1435809-3</span>
+						        		
+						        	</div>
+
+						        	<p>Transportation Service Under Tariff Heading 9836.0000</p>
+
+
+
+						        	<div class="trans">
+
+						        		<span class="solid">Transportation of:</span>
+						        		<span class="liquid"><span t-esc="o.m_tons"></span>M.TONS OF UREA FERTILIZER</span>
+						        		
+						        	</div>
+
+
+
+						        	<div class="from">
+
+						        		<span class="solid">From Bill No:</span>
+						        		<span class="liquid" t-esc="o.bill_no"></span>
+						        		
+						        	</div>
+
+
+						        	<div class="to">
+
+						        		<span class="solid">To Bill No:</span>
+						        		<span class="liquid" t-esc="o.bill_no"></span>
+						        		
+						        	</div>
+
+						        	<span class="detail">(Detail Attached)</span>
+
+
+						        	<div class="box">
+
+						        		<div class="val">
+
+							        		<span class="solid">Value Excl Punjab Sales Tax</span>
+							        		<span class="liquid">Rs:<span t-esc="'{:0,}'.format(int(float(o.amount_untaxed)))"></span>/-</span>
+						        		
+						        		</div>
+
+						        		<div class="val">
+
+							        		<span class="solid">Punjab Sales Tax @ 16%</span>
+							        		<span class="liquid">Rs:<span t-esc="'{:0,}'.format(int(float(o.amount_tax)))"></span>/-</span>
+						        		
+						        		</div>
+
+
+						        		<div class="val">
+
+							        		<span class="solid">Value inc. Punjab Sales Tax</span>
+							        		<span class="liquid">Rs:<span t-esc="'{:0,}'.format(int(float(o.amount_total)))"></span>/-</span>
+						        		
+						        		</div>
+
+						        	</div>
+
+
+
+						        	<div class="total">
+
+										<span class="solid">Total Rupees :</span>
+										<span class="liquid" t-esc="number_to_spell(o.amount_total)"></span>
+						       
+						        	</div>
+
+						        	<span class="sign">Signature Stamp</span>
+
+						        	<span class="for">For: UMER FAYYAZ COMPANY</span>
+
+			    				</div>
+
+			    			</t>
+
+				
+								
+                        </div><!--end of page-->
+                    </t>
+                </t>
+            </t>
+
+        </template>
+
+    </data>
+
+</openerp>

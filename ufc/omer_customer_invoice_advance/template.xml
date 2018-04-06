@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <report
+            id="report_for_module" 
+            model="ufc.auto" 
+            name="omer_customer_invoice_advance.module_report" 
+            file="omer_customer_invoice_advance.module_report"
+            report_type="qweb-pdf"
+            string="Bilty"/> 
+  
+    </data>
+</openerp>

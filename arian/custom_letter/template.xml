@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <report
+            id="report_for_module_sample" 
+            model="commercial.packing.list"
+            name="custom_letter.module_report"
+            file="custom_letter.module_report"
+            report_type="qweb-html"
+            string="Custom Letter"/> 
+    </data>
+</openerp>

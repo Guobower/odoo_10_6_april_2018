@@ -1,0 +1,1024 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="assets_backend" name="custom assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside"> 
+            <link rel="stylesheet" href="/my_dash/static/src/css/style.css"/> 
+        </xpath> 
+    </template>
+
+    <data>
+
+        <record id="current_member" model="ir.actions.act_window">
+            <field name="domain">[('stages', '=', 'member')]</field>
+            <field name="name">Current Members</field>
+            <field name="res_model">reg.form</field>
+            <field name="view_id" ref="reg_form.view_tree_reg_form" />
+        </record>
+
+        <record id="current_member_gulberg" model="ir.actions.act_window">
+            <field name="domain">[('stages', '=', 'member'),('branch','=',1)]</field>
+            <field name="name">Current Members Gulberg</field>
+            <field name="res_model">reg.form</field>
+            <field name="view_id" ref="reg_form.view_tree_reg_form" />
+        </record>
+
+        <record id="current_member_dha" model="ir.actions.act_window">
+            <field name="domain">[('stages', '=', 'member'),('branch','=',2)]</field>
+            <field name="name">Current Members Dha Lahore</field>
+            <field name="res_model">reg.form</field>
+            <field name="view_id" ref="reg_form.view_tree_reg_form" />
+        </record>
+
+        <record id="current_member_jt" model="ir.actions.act_window">
+            <field name="domain">[('stages', '=', 'member'),('branch','=',3)]</field>
+            <field name="name">Current Members Johar Town</field>
+            <field name="res_model">reg.form</field>
+            <field name="view_id" ref="reg_form.view_tree_reg_form" />
+        </record>
+
+        <record id="current_member_kchi" model="ir.actions.act_window">
+            <field name="domain">[('stages', '=', 'member'),('branch','=',4)]</field>
+            <field name="name">Current Members Dha Karachi</field>
+            <field name="res_model">reg.form</field>
+            <field name="view_id" ref="reg_form.view_tree_reg_form" />
+        </record>
+
+        <record id="cancel_member_gulberg" model="ir.actions.act_window">
+            <field name="domain">[('stages', '=', 'cancel'),('branch','=',1)]</field>
+            <field name="name">Cancel Members Gulberg</field>
+            <field name="res_model">reg.form</field>
+            <field name="view_id" ref="reg_form.view_tree_reg_form" />
+        </record>
+
+        <record id="cancel_member" model="ir.actions.act_window">
+            <field name="domain">[('stages', '=', 'cancel')]</field>
+            <field name="name">Cancel Members</field>
+            <field name="res_model">reg.form</field>
+            <field name="view_id" ref="reg_form.view_tree_reg_form" />
+        </record>
+
+        <record id="cancel_member_dha" model="ir.actions.act_window">
+            <field name="domain">[('stages', '=', 'cancel'),('branch','=',2)]</field>
+            <field name="name">Cancel Members Dha Lahore</field>
+            <field name="res_model">reg.form</field>
+            <field name="view_id" ref="reg_form.view_tree_reg_form" />
+        </record>
+
+        <record id="cancel_member_jt" model="ir.actions.act_window">
+            <field name="domain">[('stages', '=', 'cancel'),('branch','=',3)]</field>
+            <field name="name">Cancel Members Johar Town</field>
+            <field name="res_model">reg.form</field>
+            <field name="view_id" ref="reg_form.view_tree_reg_form" />
+        </record>
+
+        <record id="cancel_member_kchi" model="ir.actions.act_window">
+            <field name="domain">[('stages', '=', 'cancel'),('branch','=',4)]</field>
+            <field name="name">Cancel Members Dha Karachi</field>
+            <field name="res_model">reg.form</field>
+            <field name="view_id" ref="reg_form.view_tree_reg_form" />
+        </record>
+
+        <record id="new_member_gulberg" model="ir.actions.act_window">
+            <field name="domain">[('stages', '=', 'member'),('branch' ,'=', 1),('joining','&lt;=',(context_today()+relativedelta(day=31)).strftime('%Y-%m-%d')),('joining','&gt;=',(context_today()-relativedelta(day=1)).strftime('%Y-%m-%d'))]</field>
+            <field name="name">New Members Gulberg</field>
+            <field name="res_model">reg.form</field>
+            <field name="view_id" ref="reg_form.view_tree_reg_form" />
+        </record>
+
+        <record id="new_member" model="ir.actions.act_window">
+            <field name="domain">[('stages', '=', 'member'),('joining','&lt;=',(context_today()+relativedelta(day=31)).strftime('%Y-%m-%d')),('joining','&gt;=',(context_today()-relativedelta(day=1)).strftime('%Y-%m-%d'))]</field>
+            <field name="name">New Members</field>
+            <field name="res_model">reg.form</field>
+            <field name="view_id" ref="reg_form.view_tree_reg_form" />
+        </record>
+
+        <record id="new_member_dha" model="ir.actions.act_window">
+            <field name="domain">[('stages', '=', 'member'),('branch' ,'=', 2),('joining','&lt;=',(context_today()+relativedelta(day=31)).strftime('%Y-%m-%d')),('joining','&gt;=',(context_today()-relativedelta(day=1)).strftime('%Y-%m-%d'))]</field>
+            <field name="name">New Members Dha Lahore</field>
+            <field name="res_model">reg.form</field>
+            <field name="view_id" ref="reg_form.view_tree_reg_form" />
+        </record>
+
+        <record id="new_member_jt" model="ir.actions.act_window">
+            <field name="domain">[('stages', '=', 'member'),('branch' ,'=', 3),('joining','&lt;=',(context_today()+relativedelta(day=31)).strftime('%Y-%m-%d')),('joining','&gt;=',(context_today()-relativedelta(day=1)).strftime('%Y-%m-%d'))]</field>
+            <field name="name">New Members Johar Town</field>
+            <field name="res_model">reg.form</field>
+            <field name="view_id" ref="reg_form.view_tree_reg_form" />
+        </record>
+
+        <record id="new_member_kchi" model="ir.actions.act_window">
+            <field name="domain">[('stages', '=', 'member'),('branch' ,'=', 4),('joining','&lt;=',(context_today()+relativedelta(day=31)).strftime('%Y-%m-%d')),('joining','&gt;=',(context_today()-relativedelta(day=1)).strftime('%Y-%m-%d'))]</field>
+            <field name="name">New Members Dha Karachi</field>
+            <field name="res_model">reg.form</field>
+            <field name="view_id" ref="reg_form.view_tree_reg_form" />
+        </record>
+
+        <record id="cancel_massage" model="ir.actions.act_window">
+            <field name="domain">[('stages', '=', 'cancel')]</field>
+            <field name="name">Cancel Massage</field>
+            <field name="res_model">struct.appointment</field>
+            <field name="view_id" ref="reg_form.view_tree_appoint"/>
+        </record>
+
+        <record id="cancel_massage_gulberg" model="ir.actions.act_window">
+            <field name="domain">[('stages', '=', 'cancel'),('branch' ,'=', 1)]</field>
+            <field name="name">Cancel Massage Gulberg</field>
+            <field name="res_model">struct.appointment</field>
+            <field name="view_id" ref="reg_form.view_tree_appoint"/>
+        </record>
+
+        <record id="cancel_massage_dha" model="ir.actions.act_window">
+            <field name="domain">[('stages', '=', 'cancel'),('branch' ,'=', 2)]</field>
+            <field name="name">Cancel Massage Dha Lahore</field>
+            <field name="res_model">struct.appointment</field>
+            <field name="view_id" ref="reg_form.view_tree_appoint"/>
+        </record>
+
+        <record id="cancel_massage_jt" model="ir.actions.act_window">
+            <field name="domain">[('stages', '=', 'cancel'),('branch' ,'=', 3)]</field>
+            <field name="name">Cancel Massage Johar Town</field>
+            <field name="res_model">struct.appointment</field>
+            <field name="view_id" ref="reg_form.view_tree_appoint"/>
+        </record>
+
+        <record id="cancel_massage_kchi" model="ir.actions.act_window">
+            <field name="domain">[('stages', '=', 'cancel'),('branch' ,'=', 4)]</field>
+            <field name="name">Cancel Massage Dha Karachi</field>
+            <field name="res_model">struct.appointment</field>
+            <field name="view_id" ref="reg_form.view_tree_appoint"/>
+        </record>
+
+        <record id="booked_massage" model="ir.actions.act_window">
+            <field name="domain">[('stages', '=', 'booked')]</field>
+            <field name="name">Booked Massage</field>
+            <field name="res_model">struct.appointment</field>
+            <field name="view_id" ref="reg_form.view_tree_appoint"/>
+        </record>
+
+        <record id="booked_massage_gulberg" model="ir.actions.act_window">
+            <field name="domain">[('stages', '=', 'booked'),('branch' ,'=', 1)]</field>
+            <field name="name">Booked Massage Gulberg</field>
+            <field name="res_model">struct.appointment</field>
+            <field name="view_id" ref="reg_form.view_tree_appoint"/>
+        </record>
+
+        <record id="booked_massage_dha" model="ir.actions.act_window">
+            <field name="domain">[('stages', '=', 'booked'),('branch' ,'=', 2)]</field>
+            <field name="name">Booked Massage Dha Lahore</field>
+            <field name="res_model">struct.appointment</field>
+            <field name="view_id" ref="reg_form.view_tree_appoint"/>
+        </record>
+
+        <record id="booked_massage_jt" model="ir.actions.act_window">
+            <field name="domain">[('stages', '=', 'booked'),('branch' ,'=', 3)]</field>
+            <field name="name">Booked Massage Johar Town</field>
+            <field name="res_model">struct.appointment</field>
+            <field name="view_id" ref="reg_form.view_tree_appoint"/>
+        </record>
+
+        <record id="booked_massage_kchi" model="ir.actions.act_window">
+            <field name="domain">[('stages', '=', 'booked'),('branch' ,'=', 4)]</field>
+            <field name="name">Booked Massage Dha Karachi</field>
+            <field name="res_model">struct.appointment</field>
+            <field name="view_id" ref="reg_form.view_tree_appoint"/>
+        </record>
+
+        <record id="daily_visitor" model="ir.actions.act_window">
+            <field name="domain">[('date','=',(context_today()+relativedelta(day=0)).strftime('%Y-%m-%d'))]</field>
+            <field name="name">Daily Visitor</field>
+            <field name="res_model">struct.visitor</field>
+            <field name="view_id" ref="reg_form.view_tree_visit"/>
+        </record>
+
+        <record id="daily_visitor_gulberg" model="ir.actions.act_window">
+            <field name="domain">[('date','=',(context_today()+relativedelta(day=0)).strftime('%Y-%m-%d')),('branch' ,'=', 1)]</field>
+            <field name="name">Daily Visitor Gulberg</field>
+            <field name="res_model">struct.visitor</field>
+            <field name="view_id" ref="reg_form.view_tree_visit"/>
+        </record>
+
+        <record id="daily_visitor_dha" model="ir.actions.act_window">
+            <field name="domain">[('date','=',(context_today()+relativedelta(day=0)).strftime('%Y-%m-%d')),('branch' ,'=', 2)]</field>
+            <field name="name">Daily Visitor Dha Lahore</field>
+            <field name="res_model">struct.visitor</field>
+            <field name="view_id" ref="reg_form.view_tree_visit"/>
+        </record>
+
+        <record id="daily_visitor_jt" model="ir.actions.act_window">
+            <field name="domain">[('date','=',(context_today()+relativedelta(day=0)).strftime('%Y-%m-%d')),('branch' ,'=', 3)]</field>
+            <field name="name">Daily Visitor Johar Town</field>
+            <field name="res_model">struct.visitor</field>
+            <field name="view_id" ref="reg_form.view_tree_visit"/>
+        </record>
+
+        <record id="daily_visitor_kchi" model="ir.actions.act_window">
+            <field name="domain">[('date','=',(context_today()+relativedelta(day=0)).strftime('%Y-%m-%d')),('branch' ,'=', 4)]</field>
+            <field name="name">Daily Visitor Dha Karachi</field>
+            <field name="res_model">struct.visitor</field>
+            <field name="view_id" ref="reg_form.view_tree_visit"/>
+        </record>
+
+        <record id="monthly_visitor_gulberg" model="ir.actions.act_window">
+            <field name="domain">[('branch' ,'=', 1),('date','&lt;=',(context_today()+relativedelta(day=31)).strftime('%Y-%m-%d')),('date','&gt;=',(context_today()+relativedelta(day=1)).strftime('%Y-%m-%d'))]</field>
+            <field name="name">Daily Visitor Gulberg</field>
+            <field name="res_model">struct.visitor</field>
+            <field name="view_id" ref="reg_form.view_tree_visit"/>
+        </record>
+
+        <record id="monthly_visitor" model="ir.actions.act_window">
+            <field name="domain">[('date','&lt;=',(context_today()+relativedelta(day=31)).strftime('%Y-%m-%d')),('date','&gt;=',(context_today()+relativedelta(day=1)).strftime('%Y-%m-%d'))]</field>
+            <field name="name">Daily Visitor</field>
+            <field name="res_model">struct.visitor</field>
+            <field name="view_id" ref="reg_form.view_tree_visit"/>
+        </record>
+
+        <record id="monthly_visitor_dha" model="ir.actions.act_window">
+            <field name="domain">[('branch' ,'=', 2),('date','&lt;=',(context_today()+relativedelta(day=31)).strftime('%Y-%m-%d')),('date','&gt;=',(context_today()+relativedelta(day=1)).strftime('%Y-%m-%d'))]</field>
+            <field name="name">Daily Visitor Dha Lahore</field>
+            <field name="res_model">struct.visitor</field>
+            <field name="view_id" ref="reg_form.view_tree_visit"/>
+        </record>
+
+        <record id="monthly_visitor_jt" model="ir.actions.act_window">
+            <field name="domain">[('branch' ,'=', 3),('date','&lt;=',(context_today()+relativedelta(day=31)).strftime('%Y-%m-%d')),('date','&gt;=',(context_today()+relativedelta(day=1)).strftime('%Y-%m-%d'))]</field>
+            <field name="name">Daily Visitor Johar Town</field>
+            <field name="res_model">struct.visitor</field>
+            <field name="view_id" ref="reg_form.view_tree_visit"/>
+        </record>
+
+        <record id="monthly_visitor_kchi" model="ir.actions.act_window">
+            <field name="domain">[('branch' ,'=', 4),('date','&lt;=',(context_today()+relativedelta(day=31)).strftime('%Y-%m-%d')),('date','&gt;=',(context_today()+relativedelta(day=1)).strftime('%Y-%m-%d'))]</field>
+            <field name="name">Daily Visitor Dha Karachi</field>
+            <field name="res_model">struct.visitor</field>
+            <field name="view_id" ref="reg_form.view_tree_visit"/>
+        </record>
+
+        <record id="daily_receipts" model="ir.actions.act_window">
+            <field name="domain">[('date','=',(context_today()).strftime('%Y-%m-%d')),('receipts', '=',True)]</field>
+            <field name="name">Daily Receipts Amount</field>
+            <field name="res_model">customer.payment.bcube</field>
+            <field name="view_id" ref="customer_payments_bcube_structure.main_customer_tree"/>
+        </record>
+
+        <record id="daily_receipts_gulberg" model="ir.actions.act_window">
+            <field name="domain">[('branch' ,'=', 1),('date','=',(context_today()).strftime('%Y-%m-%d')),('receipts', '=',True)]</field>
+            <field name="name">Daily Receipts Amount Gulberg</field>
+            <field name="res_model">customer.payment.bcube</field>
+            <field name="view_id" ref="customer_payments_bcube_structure.main_customer_tree"/>
+        </record>
+
+        <record id="daily_receipts_dha" model="ir.actions.act_window">
+            <field name="domain">[('branch' ,'=', 2),('date','=',(context_today()).strftime('%Y-%m-%d')),('receipts', '=',True)]</field>
+            <field name="name">Daily Receipts Amount Dha Lahore</field>
+            <field name="res_model">customer.payment.bcube</field>
+            <field name="view_id" ref="customer_payments_bcube_structure.main_customer_tree"/>
+        </record>
+
+        <record id="daily_receipts_jt" model="ir.actions.act_window">
+            <field name="domain">[('branch' ,'=', 3),('date','=',(context_today()).strftime('%Y-%m-%d')),('receipts', '=',True)]</field>
+            <field name="name">Daily Receipts Amount Johar Town</field>
+            <field name="res_model">customer.payment.bcube</field>
+            <field name="view_id" ref="customer_payments_bcube_structure.main_customer_tree"/>
+        </record>
+
+        <record id="daily_receipts_kchi" model="ir.actions.act_window">
+            <field name="domain">[('branch' ,'=', 4),('date','=',(context_today()).strftime('%Y-%m-%d')),('receipts', '=',True)]</field>
+            <field name="name">Daily Receipts Amount Dha Karachi</field>
+            <field name="res_model">customer.payment.bcube</field>
+            <field name="view_id" ref="customer_payments_bcube_structure.main_customer_tree"/>
+        </record>
+
+        <record id="monthly_receipts" model="ir.actions.act_window">
+            <field name="domain">[('date','&lt;=',(context_today()+relativedelta(day=31)).strftime('%Y-%m-%d')),('date','>=',(context_today()-relativedelta(day=1)).strftime('%Y-%m-%d')),('receipts', '=',True)]</field>
+            <field name="name">Monthly Receipts Amount</field>
+            <field name="res_model">customer.payment.bcube</field>
+            <field name="view_id" ref="customer_payments_bcube_structure.main_customer_tree"/>
+        </record>
+
+        <record id="monthly_receipts_gulberg" model="ir.actions.act_window">
+            <field name="domain">[('branch' ,'=', 1),('date','&lt;=',(context_today()+relativedelta(day=31)).strftime('%Y-%m-%d')),('date','>=',(context_today()-relativedelta(day=1)).strftime('%Y-%m-%d')),('receipts', '=',True)]</field>
+            <field name="name">Monthly Receipts Amount Gulberg</field>
+            <field name="res_model">customer.payment.bcube</field>
+            <field name="view_id" ref="customer_payments_bcube_structure.main_customer_tree"/>
+        </record>
+
+        <record id="monthly_receipts_dha" model="ir.actions.act_window">
+            <field name="domain">[('branch' ,'=', 2),('date','&lt;=',(context_today()+relativedelta(day=31)).strftime('%Y-%m-%d')),('date','>=',(context_today()-relativedelta(day=1)).strftime('%Y-%m-%d')),('receipts', '=',True)]</field>
+            <field name="name">Monthly Receipts Amount Dha Lahore</field>
+            <field name="res_model">customer.payment.bcube</field>
+            <field name="view_id" ref="customer_payments_bcube_structure.main_customer_tree"/>
+        </record>
+
+        <record id="monthly_receipts_jt" model="ir.actions.act_window">
+            <field name="domain">[('branch' ,'=', 3),('date','&lt;=',(context_today()+relativedelta(day=31)).strftime('%Y-%m-%d')),('date','>=',(context_today()-relativedelta(day=1)).strftime('%Y-%m-%d')),('receipts', '=',True)]</field>
+            <field name="name">Monthly Receipts Amount Johar Town</field>
+            <field name="res_model">customer.payment.bcube</field>
+            <field name="view_id" ref="customer_payments_bcube_structure.main_customer_tree"/>
+        </record>
+
+        <record id="monthly_receipts_kchi" model="ir.actions.act_window">
+            <field name="domain">[('branch' ,'=', 4),('date','&lt;=',(context_today()+relativedelta(day=31)).strftime('%Y-%m-%d')),('date','>=',(context_today()-relativedelta(day=1)).strftime('%Y-%m-%d')),('receipts', '=',True)]</field>
+            <field name="name">Monthly Receipts Amount Dha Karachi</field>
+            <field name="res_model">customer.payment.bcube</field>
+            <field name="view_id" ref="customer_payments_bcube_structure.main_customer_tree"/>
+        </record>
+
+
+        <record id="my_dashboard_form" model="ir.ui.view">
+            <field name="name"> My DashBoard</field>
+            <field name="model">my.dash</field>
+            <field name="arch" type="xml">
+                <form string="My DashBoard" create="false" delete="false" edit="false">
+
+
+                    <div class="all_sections">
+
+                        <div class="section green">
+
+                            <h1>Current Members</h1>
+                            <field name="name" invisible="1"/>
+
+                            <div class="contains">
+                                <p class="texture">Gulberg:</p>
+                                
+                                <p class="buttoned">
+                                    <button name="%(current_member_gulberg)d" type="action" class="oe_stat_button trans" icon="fa-truck">
+                                        <field name="current_member_count_gulberg" widget="statinfo" string="Current Members Gulberg"/>
+                                    </button>
+                                </p>
+                            </div>
+
+                            <div class="contains">
+                                <p class="texture1">Dha Lahore:</p>
+                                
+                                <p class="buttoned">
+                                    <button name="%(current_member_dha)d" type="action" class="oe_stat_button trans" icon="fa-truck">
+                                        <field name="current_member_count_dha" widget="statinfo" string="Current Members Dha Lahore"/>
+                                    </button>
+                                </p>
+                            </div>
+
+                            <div class="contains">
+                                <p class="texture2">Johar Town:</p>
+                                
+                                <p class="buttoned">
+                                    <button name="%(current_member_jt)d" type="action" class="oe_stat_button trans" icon="fa-truck">
+                                        <field name="current_member_count_jt" widget="statinfo" string="Current Members Johar Town"/>
+                                    </button>
+                                </p>
+                            </div>
+
+                            <div class="contains">
+                                <p class="texture3">Dha Karachi:</p>
+                                
+                                <p class="buttoned">
+                                    <button name="%(current_member_kchi)d" type="action" class="oe_stat_button trans" icon="fa-truck">
+                                        <field name="current_member_count_kchi" widget="statinfo" string="Current Members Dha Karachi"/>
+                                    </button>
+                                </p>
+                            </div>
+
+                            <div class="contains">
+                                <p class="texture4">Total:</p>
+                                
+                                <p class="buttoned">
+                                    <button name="%(current_member)d" type="action" class="oe_stat_button trans" icon="fa-truck">
+                                        <field name="current_member_count" widget="statinfo" string="Current Members Dha Karachi"/>
+                                    </button>
+                                </p>
+                            </div>
+
+                            <p class="totaler"></p>
+
+                        </div>
+
+                        <div class="section green">
+
+                            <h1>New Members</h1>
+
+                            <div class="contains">
+                                <p class="texture">Gulberg:</p>
+                                
+                                <p class="buttoned">
+                                    <button name="%(new_member_gulberg)d" type="action" class="oe_stat_button trans" icon="fa-truck">
+                                        <field name="new_members_count_gulberg" widget="statinfo" string="New Members Gulberg"/>
+                                    </button>
+                                </p>
+                            </div>
+
+                            <div class="contains">
+                                <p class="texture1">Dha Lahore:</p>
+                                
+                                <p class="buttoned">
+
+                                    <button name="%(new_member_dha)d" type="action" class="oe_stat_button trans" icon="fa-truck">
+                                        <field name="new_members_count_dha" widget="statinfo" string="New Members Dha Lahore"/>
+                                    </button>
+
+                                </p>
+                            </div>
+
+                            <div class="contains">
+                                <p class="texture2">Johar Town:</p>
+                                
+                                <p class="buttoned">
+
+                                    <button name="%(new_member_jt)d" type="action" class="oe_stat_button trans" icon="fa-truck">
+                                        <field name="new_members_count_jt" widget="statinfo" string="New Members Johar Town"/>
+                                    </button>
+
+                                </p>
+                            </div>
+
+                            <div class="contains">
+                                <p class="texture3">Dha Karachi:</p>
+                                
+                                <p class="buttoned">
+
+                                    <button name="%(new_member_kchi)d" type="action" class="oe_stat_button trans" icon="fa-truck">
+                                        <field name="new_members_count_kchi" widget="statinfo" string="New Members Dha Karachi"/>
+                                    </button>
+
+                                </p>
+                            </div>
+
+                            <div class="contains">
+                                <p class="texture4">Total:</p>
+                                
+                                <p class="buttoned">
+
+                                    <button name="%(new_member)d" type="action" class="oe_stat_button trans" icon="fa-truck">
+                                        <field name="new_members_count" widget="statinfo" string="New Members"/>
+                                    </button>
+
+                                </p>
+                            </div>
+
+                            <p class="totaler"></p>
+
+                        </div>
+
+                        <div class="section green">
+
+                            <h1>Cancel Members</h1>
+
+                            <div class="contains">
+                                <p class="texture">Gulberg:</p>
+                                
+                                <p class="buttoned">
+
+                                    <button name="%(cancel_member_gulberg)d" type="action" class="oe_stat_button trans" icon="fa-truck">
+                                        <field name="cancel_member_count_gulberg" widget="statinfo" string="Cancel Members Gulberg"/>
+                                    </button>
+
+                                </p>
+                            </div>
+
+                            <div class="contains">
+                                <p class="texture1">Dha Lahore:</p>
+                                
+                                <p class="buttoned">
+
+                                    <button name="%(cancel_member_dha)d" type="action" class="oe_stat_button trans" icon="fa-truck">
+                                        <field name="cancel_member_count_dha" widget="statinfo" string="Cancel Members Dha Lahore"/>
+                                    </button>
+
+                                </p>
+                            </div>
+
+                            <div class="contains">
+                                <p class="texture2">Johar Town:</p>
+                                
+                                <p class="buttoned">
+
+                                    <button name="%(cancel_member_jt)d" type="action" class="oe_stat_button trans" icon="fa-truck">
+                                        <field name="cancel_member_count_jt" widget="statinfo" string="Cancel Members Johar Town"/>
+                                    </button>
+
+                                </p>
+                            </div>
+
+                            <div class="contains">
+                                <p class="texture3">Dha Karachi:</p>
+                                
+                                <p class="buttoned">
+
+                                    <button name="%(cancel_member_kchi)d" type="action" class="oe_stat_button trans" icon="fa-truck">
+                                        <field name="cancel_member_count_kchi" widget="statinfo" string="Cancel Members Dha Karachi"/>
+                                    </button>
+
+                                </p>
+                            </div>
+
+                            <div class="contains">
+                                <p class="texture4">Total:</p>
+                                
+                                <p class="buttoned">
+
+                                    <button name="%(cancel_member)d" type="action" class="oe_stat_button trans" icon="fa-truck">
+                                        <field name="cancel_member_count" widget="statinfo" string="Cancel Members"/>
+                                    </button>
+
+                                </p>
+                            </div>
+
+                            <p class="totaler"></p>
+
+                        </div>
+
+                        <div class="section red">
+
+                            <h1>Massage Cancellations</h1>
+
+                            <div class="contains">
+
+                                <p class="texture">Gulberg:</p>
+                                
+                                <p class="buttoned">
+
+                                    <button name="%(cancel_massage_gulberg)d" type="action" class="oe_stat_button trans" icon="fa-truck">
+                                        <field name="cancel_massage_count_gulberg" widget="statinfo" string="Cancel Massage Gulberg"/>
+                                    </button>
+
+                                </p>
+                            </div>
+
+                            <div class="contains">
+
+                                <p class="texture1">Dha Lahore:</p>
+                                
+                                <p class="buttoned">
+
+                                    <button name="%(cancel_massage_dha)d" type="action" class="oe_stat_button trans" icon="fa-truck">
+                                        <field name="cancel_massage_count_dha" widget="statinfo" string="Cancel Massage Dha Lahore"/>
+                                    </button>
+
+                                </p>
+                            </div>
+
+                            <div class="contains">
+
+                                <p class="texture2">Johar Town:</p>
+                                
+                                <p class="buttoned">
+
+                                    <button name="%(cancel_massage_jt)d" type="action" class="oe_stat_button trans" icon="fa-truck">
+                                        <field name="cancel_massage_count_jt" widget="statinfo" string="Cancel Massage Johar Town"/>
+                                    </button>
+
+                                </p>
+                            </div>
+
+                            <div class="contains">
+
+                                <p class="texture3">Dha Karachi:</p>
+                                
+                                <p class="buttoned">
+
+                                    <button name="%(cancel_massage_kchi)d" type="action" class="oe_stat_button trans" icon="fa-truck">
+                                        <field name="cancel_massage_count_kchi" widget="statinfo" string="Cancel Massage Dha Karachi"/>
+                                    </button>
+
+                                </p>
+                            </div>
+
+                            <div class="contains">
+
+                                <p class="texture4">Total:</p>
+                                
+                                <p class="buttoned">
+
+                                    <button name="%(cancel_massage)d" type="action" class="oe_stat_button trans" icon="fa-truck">
+                                        <field name="cancel_massage_count" widget="statinfo" string="Cancel Massage"/>
+                                    </button>
+
+                                </p>
+                            </div>
+
+                            <p class="totaler"></p>
+
+                        </div>
+
+                        <div class="section red">
+
+                            <h1>Massage Bookings</h1>
+
+                            <div class="contains">
+
+                                <p class="texture">Gulberg:</p>
+                                
+                                <p class="buttoned">
+
+                                    <button name="%(booked_massage_gulberg)d" type="action" class="oe_stat_button trans" icon="fa-truck">
+                                        <field name="booked_massage_count_gulberg" widget="statinfo" string="Booked Massage Gulberg"/>
+                                    </button>
+
+                                </p>
+                            </div>
+
+                            <div class="contains">
+
+                                <p class="texture1">Dha Lahore:</p>
+                                
+                                <p class="buttoned">
+
+                                     <button name="%(booked_massage_dha)d" type="action" class="oe_stat_button trans" icon="fa-truck">
+                                        <field name="booked_massage_count_dha" widget="statinfo" string="Booked Massage Dha Lahore"/>
+                                    </button>
+
+                                </p>
+                            </div>
+
+                            <div class="contains">
+
+                                <p class="texture2">Johar Town:</p>
+                                
+                                <p class="buttoned">
+
+                                    <button name="%(booked_massage_jt)d" type="action" class="oe_stat_button trans" icon="fa-truck">
+                                        <field name="booked_massage_count_jt" widget="statinfo" string="Booked Massage Johar Town"/>
+                                    </button>
+                                </p>
+                            </div>
+
+                            <div class="contains">
+
+                                <p class="texture3">Dha Karachi:</p>
+                                
+                                <p class="buttoned">
+
+                                    <button name="%(booked_massage_kchi)d" type="action" class="oe_stat_button trans" icon="fa-truck">
+                                        <field name="booked_massage_count_kchi" widget="statinfo" string="Booked Massage Dha Karachi"/>
+                                    </button>
+
+                                </p>
+
+                            </div>
+
+                            <div class="contains">
+
+                                <p class="texture4">Total:</p>
+                                
+                                <p class="buttoned">
+
+                                    <button name="%(booked_massage)d" type="action" class="oe_stat_button trans" icon="fa-truck">
+                                        <field name="booked_massage_count" widget="statinfo" string="Booked Massage"/>
+                                    </button>
+
+                                </p>
+
+                            </div>
+
+                            <p class="totaler"></p>
+
+                        </div>
+
+                        <div class="section yellow">
+
+                            <h1>Daily Visitors</h1>
+
+                            <div class="contains">
+
+                                <p class="texture">Gulberg:</p>
+                                
+                                <p class="buttoned">
+
+                                    <button name="%(daily_visitor_gulberg)d" type="action" class="oe_stat_button trans" icon="fa-truck">
+                                        <field name="daily_visitor_count_gulberg" widget="statinfo" string="Daily Visitor Gulberg"/>
+                                    </button>
+
+                                </p>
+
+                            </div>
+
+                            <div class="contains">
+
+                                <p class="texture1">Dha Lahore:</p>
+                                
+                                <p class="buttoned">
+
+                                    <button name="%(daily_visitor_dha)d" type="action" class="oe_stat_button trans" icon="fa-truck">
+                                        <field name="daily_visitor_count_dha" widget="statinfo" string="Daily Visitor Dha Lahore"/>
+                                    </button>
+
+                                </p>
+
+                            </div>
+
+                            <div class="contains">
+
+                                <p class="texture2">Johar Town:</p>
+                                
+                                <p class="buttoned">
+
+                                    <button name="%(daily_visitor_jt)d" type="action" class="oe_stat_button trans" icon="fa-truck">
+                                        <field name="daily_visitor_count_jt" widget="statinfo" string="Daily Visitor Johar Town"/>
+                                    </button>
+
+                                </p>
+
+                            </div>
+
+                            <div class="contains">
+
+                                <p class="texture3">Dha Karachi:</p>
+                                
+                                <p class="buttoned">
+
+                                    <button name="%(daily_visitor_kchi)d" type="action" class="oe_stat_button trans" icon="fa-truck">
+                                        <field name="daily_visitor_count_kchi" widget="statinfo" string="Daily Visitor Dha Karachi"/>
+                                    </button>
+
+                                </p>
+
+                            </div>
+
+                            <div class="contains">
+
+                                <p class="texture4">Total:</p>
+                                
+                                <p class="buttoned">
+
+                                    <button name="%(daily_visitor)d" type="action" class="oe_stat_button trans" icon="fa-truck">
+                                        <field name="daily_visitor_count" widget="statinfo" string="Daily Visitor"/>
+                                    </button>
+
+                                </p>
+
+                            </div>
+
+                            <p class="totaler"></p>
+
+                        </div>
+
+                        <div class="section yellow">
+
+                            <h1>Monthly Visitors</h1>
+
+                            <div class="contains">
+
+                                <p class="texture">Gulberg:</p>
+                                
+                                <p class="buttoned">
+
+                                    <button name="%(monthly_visitor_gulberg)d" type="action" class="oe_stat_button trans" icon="fa-truck">
+                                        <field name="monthly_visitor_count_gulberg" widget="statinfo" string="Daily Visitor Gulberg"/>
+                                    </button>
+
+                                </p>
+
+                            </div>
+
+                            <div class="contains">
+
+                                <p class="texture1">Dha Lahore:</p>
+                                
+                                <p class="buttoned">
+
+                                    <button name="%(monthly_visitor_dha)d" type="action" class="oe_stat_button trans" icon="fa-truck">
+                                        <field name="monthly_visitor_count_dha" widget="statinfo" string="Daily Visitor Dha Lahore"/>
+                                    </button>
+
+                                </p>
+
+                            </div>
+
+                            <div class="contains">
+
+                                <p class="texture2">Johar Town:</p>
+                                
+                                <p class="buttoned">
+
+                                    <button name="%(monthly_visitor_jt)d" type="action" class="oe_stat_button trans" icon="fa-truck">
+                                        <field name="monthly_visitor_count_jt" widget="statinfo" string="Daily Visitor Johar Town"/>
+                                    </button>
+
+                                </p>
+
+                            </div>
+
+                            <div class="contains">
+
+                                <p class="texture3">Dha Karachi:</p>
+                                
+                                <p class="buttoned">
+
+                                    <button name="%(monthly_visitor_kchi)d" type="action" class="oe_stat_button trans" icon="fa-truck">
+                                        <field name="monthly_visitor_count_kchi" widget="statinfo" string="Daily Visitor Dha Karachi"/>
+                                    </button>
+
+                                </p>
+
+                            </div>
+
+
+                            <div class="contains">
+
+                                <p class="texture4">Total:</p>
+                                
+                                <p class="buttoned">
+
+                                    <button name="%(monthly_visitor)d" type="action" class="oe_stat_button trans" icon="fa-truck">
+                                        <field name="monthly_visitor_count" widget="statinfo" string="Daily Visitor"/>
+                                    </button>
+
+                                </p>
+
+                            </div>
+
+                            <p class="totaler"></p>
+
+                        </div>
+
+                        <div class="section purple">
+
+                            <h1>Daily Receipts</h1>
+
+                            <div class="contains">
+
+                                <p class="texture">Gulberg:</p>
+                                
+                                <p class="buttoned">
+
+                                    <button name="%(daily_receipts_gulberg)d" type="action" class="oe_stat_button trans" icon="fa-truck">
+                                        <field name="daily_receipts_amount_gulberg" widget="statinfo" string="Today Receipts Amount Gulberg"/>
+                                    </button>
+
+                                </p>
+
+                            </div>
+
+                            <div class="contains">
+
+                                <p class="texture1">Dha Lahore:</p>
+                                
+                                <p class="buttoned">
+
+                                    <button name="%(daily_receipts_dha)d" type="action" class="oe_stat_button trans" icon="fa-truck">
+                                        <field name="daily_receipts_amount_dha" widget="statinfo" string="Today Receipts Amount Dha Lahore"/>
+                                    </button>
+
+                                </p>
+
+                            </div>
+
+                            <div class="contains">
+
+                                <p class="texture2">Johar Town:</p>
+                                
+                                <p class="buttoned">
+
+                                    <button name="%(daily_receipts_jt)d" type="action" class="oe_stat_button trans" icon="fa-truck">
+                                        <field name="daily_receipts_amount_jt" widget="statinfo" string="Today Receipts Amount Johar Town"/>
+                                    </button>
+
+                                </p>
+
+                            </div>
+
+                            <div class="contains">
+
+                                <p class="texture3">Dha Karachi:</p>
+                                
+                                <p class="buttoned">
+
+                                    <button name="%(daily_receipts_kchi)d" type="action" class="oe_stat_button trans" icon="fa-truck">
+                                        <field name="daily_receipts_amount_kchi" widget="statinfo" string="Today Receipts Amount Dha Karachi"/>
+                                    </button>
+
+                                </p>
+
+                            </div>
+
+                            <div class="contains">
+
+                                <p class="texture4">Total:</p>
+                                
+                                <p class="buttoned">
+
+                                    <button name="%(daily_receipts)d" type="action" class="oe_stat_button trans" icon="fa-truck">
+                                        <field name="daily_receipts_amount" widget="statinfo" string="Today Receipts Amount"/>
+                                    </button>
+
+                                </p>
+
+                            </div>
+
+                            <p class="totaler"></p>
+
+                        </div>
+
+                        <div class="section purple">
+
+                            <h1>Monthly Receipts</h1>
+
+                            <div class="contains">
+
+                                <p class="texture">Gulberg:</p>
+                                
+                                <p class="buttoned">
+
+                                    <button name="%(monthly_receipts_gulberg)d" type="action" class="oe_stat_button trans" icon="fa-truck">
+                                        <field name="monthly_receipts_amount_gulberg" widget="statinfo" string="Monthly Recipts Gulberg"/>
+                                    </button>
+
+                                </p>
+
+                            </div>
+
+                            <div class="contains">
+
+                                <p class="texture1">Dha Lahore:</p>
+                                
+                                <p class="buttoned">
+
+                                    <button name="%(monthly_receipts_dha)d" type="action" class="oe_stat_button trans" icon="fa-truck">
+                                        <field name="monthly_receipts_amount_dha" widget="statinfo" string="Monthly Recipts Dha Lahore"/>
+                                    </button>
+
+                                </p>
+
+                            </div>
+
+                            <div class="contains">
+
+                                <p class="texture2">Johar Town:</p>
+                                
+                                <p class="buttoned">
+
+                                    <button name="%(monthly_receipts_jt)d" type="action" class="oe_stat_button trans" icon="fa-truck">
+                                        <field name="monthly_receipts_amount_jt" widget="statinfo" string="Monthly Recipts Johar Town"/>
+                                    </button>
+
+                                </p>
+
+                            </div>
+
+                            <div class="contains">
+
+                                <p class="texture3">Dha Karachi:</p>
+                                
+                                <p class="buttoned">
+
+                                    <button name="%(monthly_receipts_kchi)d" type="action" class="oe_stat_button trans" icon="fa-truck">
+                                        <field name="monthly_receipts_amount_kchi" widget="statinfo" string="Monthly Recipts Dha Karachi"/>
+                                    </button>
+
+                                </p>
+
+                            </div>
+
+                            <div class="contains">
+
+                                <p class="texture4">Total:</p>
+                                
+                                <p class="buttoned">
+
+                                    <button name="%(monthly_receipts)d" type="action" class="oe_stat_button trans" icon="fa-truck">
+                                        <field name="monthly_receipts_amount" widget="statinfo" string="Monthly Recipts"/>
+                                    </button>
+
+                                </p>
+
+                            </div>
+
+                            <p class="totaler"></p>
+
+                        </div>
+
+                        <span class="clearfloat"></span>
+
+                    </div>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="my_dashboard_tree" model="ir.ui.view">
+            <field name="name">My DashBoard Tree</field>
+            <field name="model">my.dash</field>
+            <field name="arch" type="xml">
+                <tree string="My DashBoard" create="false" delete="false" edit="false">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="my_dashboard_action" model="ir.actions.act_window">
+            <field name="name">My DashBoard</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">my.dash</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+
+        <!-- This Menu Item Must have a parent -->
+        <menuitem id="gym_dashboard_menu_item" name="My DashBoard" parent="reg_form.reg_form_parent" sequence="0"/>
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="my_dashboard_menu_item" name="My DashBoard" parent="gym_dashboard_menu_item" action="my_dashboard_action" sequence="1"/>
+
+
+    </data>
+</odoo>

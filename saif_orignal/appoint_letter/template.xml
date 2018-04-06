@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <report
+            id="appoint_letter_report" 
+            model="hr.employee"
+            name="appoint_letter.appointment_letter"
+            file="appoint_letter.appointment_letter"
+            report_type="qweb-html"
+            string="Appointment Letter"/> 
+    </data>
+</openerp>

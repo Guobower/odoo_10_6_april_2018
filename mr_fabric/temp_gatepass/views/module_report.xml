@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="temp_card">
+
+        <t t-call="report.html_container">
+            <t t-call="report.external_layout">
+                <t t-foreach="docs" t-as="o">
+
+                     <div class="page">
+
+                        <style>
+                            @font-face {
+                                font-family: 'NafeesNastaleeq';
+                                src: url('/temp_gatepass/static/src/fonts/NafeesNastaleeq.eot?#iefix') format('embedded-opentype'),  
+                                    url('/temp_gatepass/static/src/fonts/NafeesNastaleeq.woff') format('woff'), 
+                                    url('/temp_gatepass/static/src/fonts/NafeesNastaleeq.ttf')  format('truetype'), 
+                                    url('/temp_gatepass/static/src/fonts/NafeesNastaleeq.svg#NafeesNastaleeq') format('svg');
+                            font-weight: normal;
+                            font-style: normal;
+                            }
+                            .main-data {
+                                font-family: 'NafeesNastaleeq', serif;
+                            }
+                            h1,h2,h3,h4,h5,h6,span,p,li,a,span {
+                                line-height: 2.5;
+                            }
+                            @media (min-width: 992px)
+                            .container {
+                                width: 100%;
+                            }
+
+                            @media (min-width: 768px)
+                            .container {
+                                width: 100%;
+                            }
+                            .container {
+                                width: 100%;
+                            }
+                            .english {
+                                font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+                            }
+                            body {
+                                margin: 0px !important;
+                            }
+                            body.o_in_iframe {
+                                margin-top: 0px!important;
+                            }
+                            .main-data {
+                                width: 100%;
+                            }
+                            .center-data {
+                                width: 1000px;
+                                margin: 0px auto;
+                            }
+                            .heading {
+                                text-align: center;
+                                border-bottom: 2px solid;
+                                border-color: #A9A9A9;
+                                padding: 5px;
+                                margin-bottom: 15px;
+                                padding-bottom: 15px;
+                            }
+                            .no-margin {
+                                margin-top: 0px;
+                                margin-bottom: 0px;
+                            }
+                            .main-data {
+                                width: 100%;
+                            }
+                            .center-data {
+                                width: 1000px;
+                                margin: 0px auto;
+                            }
+                            .center-data h3 {
+                                text-align: center;
+                            }
+                            .center-data {
+                                font-size: 18px;
+                            }
+                            .temporary {
+                                width: 100%;
+                            }
+                            .employee {
+                                width: 33%;
+                                float: right;
+                            }
+                            .company-worker {
+                                text-align: right;
+                            }
+                            .i-d-card {
+                                text-align: right;
+                            }
+                            .clearfloat {
+                                float: none;
+                                clear: both;
+                            }
+                            .page {
+                                font-family: 'Noto Nastaliq Urdu Draft', serif;
+                            }
+                            .heading-main {
+                                text-align: center;
+                                width: 50%;
+                                margin: 0px auto;
+                            }
+                            p {
+                                text-align: right;
+                            }
+                            .employee_col01,
+                            .company-worker,
+                            .i-d-card {
+                                margin: 5px 0px;
+                                width: 100%;
+                                float: left;
+                            }
+                            .employee_col01 .employee {
+                                width: 33%;
+                            }
+                            .employee_col01 .employee .solid {
+                                width: 50px;
+                                display: inline-block;
+                            }
+                            .employee_col02 .employee .solid {
+                                width: 65px;
+                            }
+                            .employee_col01 .employee .liquid {
+                                width: 220px;
+                                display: inline-block;
+                                border-bottom: 1px dashed #000;
+                                text-align: center;
+                            }
+                            .i-d-card p .solid{
+                                min-width: 90px;
+                                display: inline-block;                            
+                            }
+                            .i-d-card p .liquid{
+                                min-width: 250px;
+                                display: inline-block; 
+                            }
+
+                            h2 {
+                                width: 50%;
+                                margin: 0px auto;
+                                text-align: center;
+                            }
+
+                            .sign {
+                                width : 49%;
+                                float : right;
+                            }
+
+                            .line {
+
+                                width : 100%;
+                                border-bottom: 1px dashed #000;
+                                float: left;
+                            }
+
+                            .header {
+                                display: none !important;
+                            }
+
+
+                            .footer {
+                                display: none !important;
+                            }
+
+                        </style>
+
+                        <div class="main-data">
+
+                            <div class="center-data">
+                                <span style="float:right" t-esc="context_timestamp(datetime.datetime.now()).strftime('%d-%m-%Y')"></span>
+                                <span style="float:right;margin-right:15px">Date:</span>
+                                <h2>مسٹر فیبرکس پرائیویٹ لمیٹڈ </h2>
+
+                                <h3 class="heading-main">Employee Temporary Gatepass</h3>
+                                <span style="float:right">: کارڈ نمبر</span>
+                                <span style="float:right;margin-right:15px" t-esc="o.card_no.name"></span>
+                                <h3 class="heading-main">عارضی گیٹ پاس براۓ ورکرز</h3>
+                                <div style="background: #000; height: 1px;"></div>
+
+                                <div class="temporary">
+                                    <div class="employee_col01">
+                                        <div class="employee">
+                                            <p>
+                                                <span class="liquid" t-esc="o.name"></span>
+                                                <span class="solid">:نام</span>
+                                            </p>
+                                        </div>
+
+                                        <div class="employee">
+                                            <p>
+                                                <span class="liquid" t-esc="o.department_id.name"></span>
+                                                <span class="solid">:کهاته</span>
+                                            </p>
+                                        </div>
+
+                                        <div class="employee">
+                                            <p>
+                                                <span class="liquid" t-esc="o.job_id.name"></span>
+                                                <span class="solid">:عهده</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="company-worker">
+                                        <p>
+                                            <span class="solid">مندرجه بالا ورکر کو فیکٹری میں کام کرنے کے لیے بلايا گیا ھے لھذا اس ورکر کو فیکٹری میں</span>
+                                        </p>
+                                    </div>
+
+                                    <div class="employee_col01 employee_col02">
+
+                                        <div class="employee">
+                                            <p><span class="liquid"></span><span class="solid">:اذمورخه</span></p>
+                                        </div>
+
+                                        <div class="employee">
+                                            <p><span class="liquid"></span><span class="solid">:تامورخه</span></p>
+                                        </div>
+
+                                        <div class="employee">
+                                            <p><span class="solid" style="width: 210px;">-تک کام کر<strong>نۓ</strong>کی اجازت دی جاۓ</span></p>
+                                        </div>
+                                        <br class="clearfloat"/>
+
+                                    </div>
+                                    
+                                    <div class="i-d-card">
+                                        <p>
+                                            <span class="liquid" style="border-bottom: 1px dashed #000;" t-esc="o.cnic"></span>
+                                            <span class="solid">:شناختی کارڈ نمبر</span>
+                                        </p>
+                                    </div>
+                                    <div class="sign">
+                                        <p><span class="liquid">________________________ </span><span class="solid">:دستخط ڈیپارٹمنٹ ھیڈ/انچارج </span></p>
+                                    </div>
+                                    <div class="sign" style="text-align: left" >
+                                        <p><span class="liquid">________________________ </span><span class="solid">:دستخط  مینیجر ایچ آراینڈ ایڈمن</span></p>
+                                    </div>
+                                    <div class="line"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div><!--end of page -->
+                </t>
+
+            </t>
+        </t>
+
+    </template>
+
+</odoo>

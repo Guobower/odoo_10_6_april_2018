@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+
+    <data>   
+
+        <template id="appointment_letter">
+
+            <t t-call="report.html_container">
+
+                <t t-call="report.external_layout">
+
+                    <t t-foreach="docs" t-as="o">
+
+                        <div class="page">
+
+                            <style>
+        
+                                h2 {
+                                    text-align: center;
+                                    text-decoration: underline;
+                                }
+                                .main-data {
+                                    width: 100%;
+                                }
+                                .center-data {
+                                    width: 1000px;
+                                    margin: 0px auto;
+                                    font-size: 17px;
+                                }
+                                .application {
+                                    width: 100%;
+                                    float: right;
+                                    text-align: left;
+                                }
+                                .solid {
+                                    font-weight: bold;
+                                    width: 5%;
+                                }
+                                table, td, th {
+                                    border: 1px solid;
+                                    border-collapse: collapse;
+                                    margin-top: 10px;
+                                    text-align: center;
+                                    padding: 12px;
+                                    font-size: 15px;
+                                }
+                                .clearfloat {
+                                    clear: both;
+                                    float: none;
+                                }
+                                .liquid {
+                                    width: 60%;
+                                    border-bottom: 1px solid;
+                                    display: inline-block;
+                                    margin-right: 10px;
+                                }
+                                .leave {
+                                    width: 100%;
+                                }
+                                .leave p {
+                                    width: 33%;
+                                    float: right;
+                                    text-align: center;
+                                    font-weight: bold;
+                                }
+                                .leave .liquid {
+                                    width: 20%;
+                                    border-bottom: none;
+                                }
+                                .address {
+                                    width: 50%;
+                                    float: left;
+                                    margin: 40px 0px 10px 0px;
+                                }
+                                .no-margin {
+                                    margin-top: 0px;
+                                    margin-bottom: 0px;
+                                }
+                                .confidential {
+                                    width: 100%;
+                                }
+                                .center {
+                                    width: 50%;
+                                    margin-left: 30%;
+                                }
+                                .center .liquid {
+                                    margin-left: 8px;
+                                }
+                                ol, li {
+                                    text-align: justify;
+                                }
+                                .candidate {
+                                    width: 50%;
+                                    float: right;
+                                    margin-top: 20px;
+                                }
+                                .candidate .solid {
+                                    width: 20%;
+                                }
+
+                                p {
+                                    text-align: justify;
+                                }
+
+                            </style>
+
+                            <div class="main-data">
+
+                                <div class="center-data">
+                                    <div class="confidential">
+                                        <p class="no-margin">Strictly Private and Confidential</p>
+                                        <p class="no-margin"><b>Ref: SC/HRMG/HO/<span t-esc="o.seq_id"></span>/2018</b></p>
+                                    </div>
+                                    <br class="clearfloat"/>
+                                    <div class="address">
+                                        <p class="no-margin"><b>
+                                            <span t-esc="o.name"></span>
+                                        </b></p>
+                                        <p class="no-margin">
+                                            <span t-esc="o.per_address"></span>
+                                        </p>
+                                        <p class="no-margin">
+                                            <span t-esc="o.city_id"></span>
+                                        </p>
+                                        <p class="no-margin">
+                                            <span t-esc="o.country"></span>
+                                        </p>
+                                    </div>
+                                    <div class="address">
+                                        <p style="text-align: right; margin-right: 2%">
+                                            <span t-esc="time.strftime('%d-%b-%Y',time.strptime(o.doj,'%Y-%m-%d'))"></span>
+                                        </p>
+                                    </div>
+                                    <br class="clearfloat"/>
+                                    <h2>APPOINTMENT LETTER</h2>
+                                    <div>
+                                        <p>Dear <span t-esc="o.name"></span>,</p>
+                                        <p>Thanking you for showing interest in Saif Construction Private Limited in terms of authority vested in us by the said company, we are pleased to offer you a position of <b><span t-esc="o.job_id.name"></span></b> with our company on the appended terms and conditions:</p>
+
+                                        <p><b>1.</b> The commencement of your employment contract shall be effective from <b><span t-esc="time.strftime('%d-%m-%Y',time.strptime(o.doj,'%Y-%m-%d'))"></span></b>.</p>
+                                        <p><b>2.</b> It is pre-requisite for employment with the Company that all employees agree that while their appointment is to a specific office, the Company has a right to post an employee to any of its office within Pakistan, where his/her services may be required.</p>
+                                        <p><b>3.</b> The Company will pay you consolidated gross salary amounting PKR <b><span t-esc="'{0:,.2f}'.format(float(wage()))"></span></b> per month, payable in accordance with the Company’s standard payroll schedule disbursement procedure. The breakup of your salary is given below:</p>
+                                        <p style="margin-top:20px"><span style="margin-left:190px;margin-top"><b>Basic</b> </span>:<span style="border-bottom:1px solid; display: inline-block; width: 150px;margin-left:140px;text-align:center" t-esc="'{0:,.2f}'.format(float(wage()*0.60))"></span></p>
+                                        <p><span style="margin-left:190px"><b>Other Allowances</b></span>:<span style="border-bottom:1px solid; display: inline-block; width: 150px;margin-left:30px;text-align:center" t-esc="'{0:,.2f}'.format(float(wage()*0.40))"></span></p>
+                                        <p style="margin-bottom:20px"><span style="margin-left:190px"><b>Total</b></span>:<span style="border-bottom:1px solid; display: inline-block; width: 150px;margin-left:150px;text-align:center" t-esc="'{0:,.2f}'.format(float(wage()))"></span></p>
+                                        <p><b>4.</b> All forms of compensation referred to in this letter agreement are subject to reduction to reflect applicable withholding, payroll taxes and other deductions required by law. </p>
+                                        <p><b>5.</b> You are encouraged to obtain your own tax advice regarding your compensation from the Company. You agree that the Company does not have a duty to design its compensation policies in a manner that minimizes your tax liabilities and you would not make any claim against the Company or its Board of Directors related to tax liabilities arising from your compensation.</p>
+                                        <p><b>6.</b> During the contractual period of service, first three months would be probationary period. During this period, you can resign or company can terminate your services by serving one week notice by either side.  After satisfactory completion of the probation period, your services will be subject to termination by one month written notice on either side or pay in lieu thereof.</p>
+                                        <p><b>7.</b> While you are employed at this Company, you will not engage in other employment, consulting or any other business activity (whether full-time or part-time) that would create a conflict of interest with the Company. By signing this letter, you confirm having no contractual commitments or other legal obligations that would prohibit you from performing your duties for the Company.</p>
+                                        <p><b>8.</b> You are required to observe and uphold all of the Company’s privacy policies and procedures as implemented or varied from time to time. Collection, storage, access to and dissemination of employee personal information will be in accordance with privacy legislation.</p>
+                                        <p><b>9.</b> The Company reserves the right to terminate your contract for just cause at any time without notice and any payment in lieu of notice. In case of breach of any terms of this contract,  Company rules &amp; regulations, or any misconduct on your part like theft, damage, fraud, forgery and dishonesty; your services shall be terminated immediately, and subsequently you will not be entitled to any benefit or compensation as a result thereof. In such case, suitable necessary actions may further be initiated against you as per Law and Company rules &amp; regulations.</p>
+                                        <p><b>10.</b> This letter supersedes and replaces any prior agreements, representations or understandings (whether written, oral, implied or otherwise) between you and the Company and constitute the complete agreement between you and the Company regarding the subject matter set forth herein. This letter agreement may not be amended or modified, except by an express written agreement signed by both you and a duly authorized officer of the Company.</p>
+                                        <p><b>11.</b> Upon acceptance of above said terms and conditions, Saif Construction Private Limited will provide you with necessary paperwork and instructions. Should you have any queries, please feel free to contact us.</p>
+                                    
+                                            <p style="margin-left: 4% ">Best Regards,</p>
+                                            <div class="address" style="margin-left: 4%">
+                                                <p class="no-margin">Human Resource Manager</p>
+                                                <p class="no-margin">Saif Construction Private Limited</p>
+                                            </div>
+                                            <br class="clearfloat"/>
+                                            <p style="text-decoration: underline;margin-left: 4%"><b>Declaration:</b> </p>
+                                            <p style="margin-left: 4%">I agree to accept employment with Saif Construction Private Limited in accordance with the terms and conditions prescribed above as amended from time to time by the management. I will also abide by all the Rules &amp; Regulations of the Company.</p>
+                                           <div class="candidate">
+                                                <p>
+                                                    <span class="solid">Name of Candidate :</span>
+                                                    <span t-esc="o.name"></span></p>
+                                                <p style="margin-top:50px"><span class="solid"> Signature of Candidate :</span>
+                                                    <span class="liquid" style="width:35%"></span></p>
+                                                <p style="margin-top:10px"><span class="solid"> CNIC :</span>
+                                                    <span t-esc="o.cnic"></span></p>
+                                                <p style="margin-top:10px"><span class="solid">Date :</span>
+                                                    <span class="liquid" style="width:35%"></span></p>
+                                            </div>
+                                    </div>
+
+                                </div>
+            
+                            </div>
+
+                        </div><!--end of page-->
+                    </t>
+                </t>
+            </t>
+
+        </template>
+
+    </data>
+
+</openerp>

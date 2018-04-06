@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <menuitem
+                id="ecube_bio_raw_attendance"
+                name="Raw Attendance"
+                parent="hr_attendance.menu_hr_attendance_manage_attendances"
+                action="action_ecube_bio_raw_attendance"
+                sequence="1000"
+                />
+    </data>
+</odoo>

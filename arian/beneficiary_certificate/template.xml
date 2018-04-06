@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <report
+            id="beneficiary_certificate" 
+            model="commercial.packing.list"
+            name="beneficiary_certificate.module_report"
+            file="beneficiary_certificate.module_report"
+            report_type="qweb-html"
+            string="Beneficiary Certificate"/> 
+    </data>
+</openerp>

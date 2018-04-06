@@ -1,0 +1,526 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+
+    <data>   
+
+        <template id="module_report">
+
+            <t t-call="report.html_container">
+                <t t-call="report.external_layout">
+                    <t t-foreach="docs" t-as="o">
+
+                        <div class="page">
+
+                            <style>
+                                .report-container {
+                                    width: 1000px;
+                                    margin: 0px auto;
+                                }
+
+                                .contaner {
+                                    width: 100%;
+                                }
+
+                                h1 {
+
+                                    margin: 0px auto;
+                                    width: 80%;
+                                    text-align: center;
+
+                                }
+
+
+                                h3 {
+
+                                    margin: 0px auto;
+                                    width: 80%;
+                                    text-align: center;
+
+                                }
+
+
+                                .box1 {
+                                    width: 100%;
+                                    float: left;
+                                    
+                                }
+
+                                .ntn1 {
+                                    width: 66%;
+                                    float: left;
+                                    margin-bottom: 8px;
+                                }
+
+                                .ntn1 .solid {
+                                    width: 14%;
+                                    float: left;
+                                    font-weight: bold;
+                                }
+
+                                .ntn1 .liquid {
+                                    width: 70%;
+                                    float: left;
+                                
+                                }
+
+                                .sntn {
+                                    width: 30%;
+                                    float: left;
+                                }
+
+
+                                .sntn .solid {
+                                    width: 20%;
+                                    float: left;
+                                    font-weight: bold;
+                                }
+
+                                .sntn .liquid {
+                                    width: 70%;
+                                    float: left;
+                                
+                                }
+
+
+
+
+                                .line {
+                                    width: 100%;
+                                    float: left;
+                                    margin-bottom: 5px;
+                                    
+                                }
+
+                                .ser {
+                                    width: 33%;
+                                    float: left;
+                                    margin-bottom: 8px;
+                                }
+
+                                .ser .solid {
+                                    width: 27%;
+                                    float: left;
+                                    font-weight: bold;
+                                }
+
+                                .ser .liquid {
+                                    width: 70%;
+                                    float: left;
+                                
+                                }
+
+                                .date {
+                                    width: 33%;
+                                    float: left;
+                                }
+
+
+                                .date .solid {
+                                    width: 60%;
+                                    float: left;
+                                    font-weight: bold;
+                                    font-size: 23px;
+                                }
+
+                                .date .liquid {
+                                    width: 70%;
+                                    float: left;
+                                
+                                }
+
+                                .time {
+                                    width: 33%;
+                                    float: left;
+                                }
+
+                                .time .solid {
+                                    width: 20%;
+                                    float: left;
+                                    font-weight: bold;
+                                }
+
+                                .time .liquid {
+                                    width: 64%;
+                                    float: left;
+                                
+                                }
+
+                                .bill {
+                                    width: 100%;
+                                    float: left;
+                                    margin-bottom: 8px;
+                                }
+
+                                .bill .solid {
+                                    width: 9%;
+                                    float: left;
+                                    font-weight: bold;
+                                }
+
+                                .bill .liquid {
+                                    width: 80%;
+                                    float: left;
+
+                                }
+
+
+                                .box {
+                                    width: 100%;
+                                    float: left;
+
+                                }
+
+                                .ntn {
+                                    width: 62%;
+                                    float: left;
+                                }
+
+                                .ntn .solid {
+                                    width: 14%;
+                                    float: left;
+                                    font-weight: bold;
+                                }
+
+                                .ntn .liquid {
+                                    width: 80%;
+                                    float: left;
+                                
+                                }
+
+                                .sale {
+                                    width: 35%;
+                                    float: left;
+                                }
+
+                                .sale .solid {
+                                    width: 32%;
+                                    float: left;
+                                    font-weight: bold;
+                                }
+
+                                .sale .liquid {
+                                    width: 68%;
+                                    float: left;
+                                
+                                }
+
+                                .words {
+                                    width: 100%;
+
+                                }
+
+                                .in {
+                                    width: 11.7%;
+                                    float: left;
+                                }
+
+                                .in .solid {
+                                    font-weight: bold;
+                                }
+
+                                .spell {
+                                    width: 88%;
+                                    float: left;
+                                    border: 1px solid #000;
+                                    padding-left: 3px;
+
+                                }
+
+                                .spell .solid {
+                                    font-weight: bold;
+                                }
+
+
+
+                                table {
+                                    border: 1px solid #000;
+                                    margin: 10px 0px 0px;
+                                    width: 100%;
+                                    float: left;
+                                    border-spacing: 0px;
+                                }
+
+                                table tr th,
+                                table tr td {
+                                    border-right: 1px solid #000;
+                                    text-align: center;
+                                }
+
+                                table tr th {
+                                    padding: 10px 0px;
+                                    background: #ccc;
+                                                                    
+                                }
+
+                                table tr th.space {
+                                    min-width: 700px;
+                                    max-width: 700px;
+                                    width: 700px;
+                                                                    
+                                }
+
+                                table tr td {
+                                    border-top: 1px solid #000;
+                                    padding: 5px 0px;
+                                }
+
+                                .sign {
+
+                                    width: 55%;
+                                    border: 1px solid #000;
+                                    float: right;
+                                    margin-top: 5px;
+                                }
+
+                                .end {
+
+                                    width: 33%;
+                                    margin-top: 35px;
+                                    margin-left: 206px;
+
+                                }
+
+                                .end .office {
+                                    width: 33%;
+                                    font-weight: bold;
+                                    margin: 0px auto;
+                                    text-align: center;
+
+                                }
+
+                                .end .max {
+                                    width: 40%;
+                                    font-weight: bold;
+                                    margin: 0px auto;
+                                    text-align: center;
+
+                                }
+
+                                .umer {
+
+                                    width: 33%;
+                                    margin-top: 35px;
+                                    margin-left: 206px;
+
+                                }
+
+                                .umer .co {
+                                    width: 33%;
+                                    font-weight: bold;
+                                    text-align: center;
+
+                                }
+
+                                .clearfloat {
+
+                                    clear: both;
+                                    float: none;
+                                    display: block;
+                                }
+
+                                .header {
+                                    display: none !important;
+                                }
+
+                                .footer {
+                                    display: none !important;
+                                }
+        
+        
+            
+                            </style>
+
+                            <div class="report-container">
+
+                                <h1>UMER FAYYAZ &amp; COMPANY</h1>
+                                <h3>Branch Office:- Daharki , Distt. Ghotki</h3>
+                                <br></br>
+
+
+                                <div class="box1">
+                                    <div class="ntn1">
+                                        <span class="solid">NTN #:</span>
+                                        <span class="liquid">1755376-8</span>
+                                    </div>
+
+
+                                    <div class="sntn">
+                                        <span class="solid">SNTN #:</span>
+                                        <span class="liquid">1755376-8</span>
+                                    </div>  
+                                    
+                                </div>
+
+
+                                <div class="line">
+                                    <div class="ser">
+                                        <span class="solid">Bill No :</span>
+                                        <span class="liquid" t-esc="o.bill_no"></span>
+                                    </div>
+
+                                    <div class="date">
+                                        <span class="solid">Sales Tax Invoice</span>
+                                    </div>
+
+                                    <div class="time">
+                                        <span class="solid">DATED:-</span>
+                                        <sapn class="liquid" t-esc="datetime.datetime.strptime(o.invoice_date, '%Y-%m-%d').strftime('%d-%m-%Y')"/>
+                                    </div>
+                                    
+                                </div>
+
+                                <div class="bill">
+                                    <span class="solid">Bill To :</span>
+                                    <span class="liquid">ENGRO FERTILIZERS LTD . 7th &amp; 8th Floor Building Marine Drive, Block 4, Clifton Karachi, Pakistan</span>
+                                </div>
+
+                                <div class="box">
+
+                                    <div class="ntn">
+                                        <span class="solid">NTN # :</span>
+                                        <span class="liquid">3378860-0</span>
+                                    </div>
+
+                                    <div class="sale">
+                                        <span class="solid">SALES TAX # :</span>
+                                        <span class="liquid">1704-3102-001-64</span>
+                                    </div>
+
+                                </div>
+
+                                <t t-set="total" t-value="0"/>
+                                <t t-set="g_total" t-value="0"/>
+                                <t t-set="feig_t" t-value="0"/>
+                                <t t-set="rate_t" t-value="0"/>
+                                <t t-set="new_t" t-value="0"/>
+                                <t t-set="kot_t" t-value="0"/>
+                                <t t-set="kash_t" t-value="0"/>
+                                <t t-set="via_t" t-value="0"/>
+                                <t t-set="deduct_t" t-value="0"/>
+                                <t t-set="new_total" t-value="0"/>
+                                <t t-set="dist" t-value="0"/>
+                                <t t-set="calculate" t-value="0"/>
+                                <t t-set="grand" t-value="0"/>
+
+                                <t t-foreach="enteries" t-as="line">
+
+                                    <span style="display:none" t-esc="line.sale_price"></span>
+                                    <span style="display:none" t-esc="line.distance"></span>
+                                    <t t-set="total" t-value="total+line.sale_price"/> 
+                                    <t t-set="dist" t-value="dist+line.distance"/> 
+
+                                </t>
+
+                                    <span style="display:none" t-esc="total"></span>
+                                    <span style="display:none" t-esc="freight()"></span>
+                                    <span style="display:none" t-esc="rate()"></span>
+                                    <span style="display:none" t-esc="enter()"></span>
+                                    <span style="display:none" t-esc="number()"></span>
+                                    <t t-set="feig_t" t-value="60*freight()"/>
+                                    <t t-set="rate_t" t-value="50*rate()"/>
+                                    <t t-set="kot_t" t-value="40*enter()"/>
+                                    <t t-set="kash_t" t-value="70*number()"/>
+                                    <t t-set="new_t" t-value="feig_t+rate_t"/>
+                                    <t t-set="via_t" t-value="kot_t+kash_t"/>
+                                    <t t-set="g_total" t-value="total+new_t"/>
+                                    <span style="display:none" t-esc="g_total"></span>
+                                    <t t-set="deduct_t" t-value="o.sin_fuel_deduct"/>
+                                    <t t-set="new_total" t-value="g_total-o.sin_fuel_deduct"/>
+                                    <t t-set="calculate" t-value="g_total/dist"/>
+                                    <t t-set="calculate" t-value="calculate*via_t"/>
+                                    <t t-set="grand" t-value="new_total-calculate"/>
+
+
+                                    <t t-set="net_total" t-value="0"/>
+
+                                <table>
+
+                                    <tr>
+                                        <th class="space">Discurption</th>
+                                        <th>Amount(Rs.)</th>
+                    
+                                    </tr>
+                                                        
+                                    <tr>
+                                        <td>Value of transportion services charges - under S.No 48 of 2nd Schedule to the Punjab ST Act, 2012 (excluding GST)</td>
+                                        <td>
+                                            <span t-esc="'{:0,}'.format(int(float(grand)))"></span>
+                                        </td>
+                                    
+                                            
+                                    </tr>
+
+                                    <tr>
+
+                                        <td>16% GST applicable under PRB</td>
+                                        <td>
+                                            <span t-esc="'{:0,}'.format(int(float(grand*16/100)))"></span>
+                                            <t t-set="net_total" t-value="grand+grand*16/100"/>
+                                        </td>
+                                            
+                                    </tr>
+
+                                    <tr>
+
+                                        <td>Net Invoice Value (Including GST 16%)</td>
+                                        <td>
+                                            <span t-esc="'{:0,}'.format(int(float(net_total)))"></span>
+                                        </td>
+                                            
+                                    </tr>
+
+                                </table>
+
+
+
+                                <div class="words">
+                                    <div class="in">
+                                        <span class="solid">In Words:</span>
+                                    </div>
+
+                                    <div class="spell">
+                                        <span class="solid" t-esc="number_to_spell(net_total)"></span>
+                                    </div>
+                                    
+                                    
+                                </div>
+
+                                <br class="clearfloat"></br>
+
+
+                                <div class="sign">
+
+                                    <div class="end">
+                                        <span class="max">___________________</span>
+                                        <span class="office">Sign &amp; Office Stamp</span>
+
+                                    </div>
+
+                                    <div class="umer">
+
+                                        <span class="co">UMER FAYYAZ &amp; CO.</span>
+                                        <span class="co">DAHARKI DISTT. GHOTKI.</span>
+
+                                    </div>
+
+
+
+                                </div>
+
+                    
+                            </div>
+                
+                            
+                           
+                        </div>
+
+                    </t>
+
+                </t>
+            </t>
+
+        </template>
+
+    </data>
+
+</openerp>

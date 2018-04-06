@@ -1,0 +1,275 @@
+<openerp>
+    <data>
+
+        <record id = "customer_payments_sugar_form_view" model = "ir.ui.view">
+            
+                <field name="name">customer_payments_sugar_form_view</field>
+        
+                <field name="model">customer.payments.sugar</field>
+        
+                <field name="type">form</field>
+        
+                <field name="arch" type="xml">
+        
+                <form>
+                    <header>
+                        <button name="post_entries" type="object" string="Post" class = "oe_highlight" attrs="{'invisible':[('stages','=','posted')]}"/>
+                        <button name="reset_draft" type="object" string="Reset to Draft" class = "oe_highlight" attrs="{'invisible':[('stages','=','draft')]}"/>
+                        <field name="stages" widget="statusbar" statusbar_visible="draft,posted"/>
+                    </header>
+
+
+                  <sheet>
+
+
+                        
+                        <group name="group_top">
+                            <group name="group_left">
+                            <field name="date"/>
+                            </group>
+                            <group name="group_right">
+                                <field name="total_amount"/>
+
+                            </group>
+
+                        </group>
+                        
+                        <field name="payments_tree" attrs="{'readonly': [('stages','=','posted')]}">
+
+                            <tree editable="bottom">
+                                <field name="customer"/>
+                                <field name="amount" sum="Total" />
+                                <field name="bank" domain="[('user_type_id.id', '=', 3)]"/>
+                                <field name="remarks"/>
+                            </tree>
+                        </field>
+                   </sheet>                              
+               </form>      
+                </field>
+        </record>
+
+
+
+
+       <record id = "customer_payments_sugar_tree_view" model = "ir.ui.view">
+            
+                <field name="name">customer_payments_sugar_tree_view</field>
+        
+                <field name="model">customer.payments.sugar</field>
+        
+                <field name="type">tree</field>
+        
+                <field name="arch" type="xml">
+        
+                    <tree>
+                       <field name="date"/>
+                        <field name="total_amount" sum = "Total"/>
+                           
+                    </tree>      
+                </field>
+        </record>
+
+
+         <record id="customer_payments_sugar_action" model="ir.actions.act_window">
+            <field name="name">Customer Payments</field>
+            <field name="res_model">customer.payments.sugar</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <menuitem id="new_accounts_menu_sugar" name="Accounts"  />
+        
+        <menuitem id="payments_and_receipts" name="Payments" parent="sales_sugar.new_accounts_menu_sugar" />
+        <menuitem id="customer_payments_sugar" name="Customer Payments" parent="sales_sugar.payments_and_receipts" action = "customer_payments_sugar_action"/>
+        
+        
+
+
+        <record id = "supplier_payments_sugar_form_view" model = "ir.ui.view">
+            
+                <field name="name">supplier_payments_sugar_form_view</field>
+        
+                <field name="model">supplier.payments.sugar</field>
+        
+                <field name="type">form</field>
+        
+                <field name="arch" type="xml">
+        
+                <form>
+
+                    <header>
+                        <button name="post_entries" type="object" string="Post" class = "oe_highlight" attrs="{'invisible':[('stages','=','posted')]}"/>
+                        <button name="reset_draft" type="object" string="Reset to Draft" class = "oe_highlight" attrs="{'invisible':[('stages','=','draft')]}"/>
+                        <field name="stages" widget="statusbar" statusbar_visible="draft,posted"/>
+                    </header>
+
+                  <sheet>
+
+
+                        
+                        <group name="group_top">
+                            <group name="group_left">
+                            <field name="date"/>
+                            </group>
+                            <group name="group_right">
+                                <field name="total_amount"/>
+
+                            </group>
+
+                        </group>
+                        
+                        <field name="payments_tree">
+
+                            <tree editable="bottom">
+                                <field name="supplier"/>
+                                <field name="amount" sum="Total" />
+                                <!-- <field name="bank" /> -->
+                                
+                                <field name="payment_from" domain="[('user_type_id.id', '=', 3)]"/>
+                                <field name="remarks"/>
+                            </tree>
+                        </field>
+                   </sheet>                              
+               </form>      
+                </field>
+        </record>
+
+
+
+
+       <record id = "supplier_payments_sugar_tree_view" model = "ir.ui.view">
+            
+                <field name="name">supplier_payments_sugar_tree_view</field>
+        
+                <field name="model">supplier.payments.sugar</field>
+        
+                <field name="type">tree</field>
+        
+                <field name="arch" type="xml">
+        
+                    <tree>
+                       <field name="date"/>
+                        <field name="total_amount" sum = "Total"/>
+                           
+                    </tree>      
+                </field>
+        </record>
+
+
+         <record id="supplier_payments_sugar_action" model="ir.actions.act_window">
+            <field name="name">Supplier Payments</field>
+            <field name="res_model">supplier.payments.sugar</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+    
+    
+        <menuitem id="supplier_payments_sugar" name="Supplier Payments" parent="sales_sugar.payments_and_receipts" action = "supplier_payments_sugar_action"/>
+
+
+
+
+        <record id = "inter_payments_sugar_form_view" model = "ir.ui.view">
+            
+                <field name="name">inter_payments_sugar_form_view</field>
+        
+                <field name="model">inter.payments.sugar</field>
+        
+                <field name="type">form</field>
+        
+                <field name="arch" type="xml">
+        
+                <form>
+
+                    <header>
+                        <button name="post_entries" type="object" string="Post" class = "oe_highlight" attrs="{'invisible':[('stages','=','posted')]}"/>
+                        <button name="reset_draft" type="object" string="Reset to Draft" class = "oe_highlight" attrs="{'invisible':[('stages','=','draft')]}"/>
+                        <field name="stages" widget="statusbar" statusbar_visible="draft,posted"/>
+                    </header>
+
+                  <sheet>
+
+
+                        
+                        <group name="group_top">
+                            <group name="group_left">
+                            <field name="date"/>
+                            </group>
+                            <group name="group_right">
+                                <field name="total_amount"/>
+
+                            </group>
+
+                        </group>
+                        
+                        <field name="payments_tree">
+
+                            <tree editable="bottom">
+                                <field name="to"/>
+                                <field name="payment_from"/>
+                                <field name="amount" sum="Total" />
+                                <!-- <field name="bank" /> -->
+                                <field name="remarks"/>
+                            </tree>
+                        </field>
+                   </sheet>                              
+               </form>      
+                </field>
+        </record>
+
+
+
+
+       <record id = "inter_payments_sugar_tree_view" model = "ir.ui.view">
+            
+                <field name="name">inter_payments_sugar_tree_view</field>
+        
+                <field name="model">inter.payments.sugar</field>
+        
+                <field name="type">tree</field>
+        
+                <field name="arch" type="xml">
+        
+                    <tree>
+                       <field name="date"/>
+                        <field name="total_amount" sum = "Total"/>
+                           
+                    </tree>      
+                </field>
+        </record>
+
+
+         <record id="inter_payments_sugar_action" model="ir.actions.act_window">
+            <field name="name">Inter Party Payments</field>
+            <field name="res_model">inter.payments.sugar</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <record id="sugar_erp_journal_entry_linkage" model="ir.ui.view">
+            <field name="name">sugar_erp_journal_entry_linkage</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='ref']" position="after">
+                    <field name="customer_payment_id"/>
+                    <field name="supplier_payment_id"/>
+                    <field name="inter_payment_id"/>
+                </xpath>
+
+            </field>
+
+        </record>
+
+    
+    
+        <menuitem id="inter_payments_sugar" name="Inter Party Payments" parent="sales_sugar.payments_and_receipts" action = "inter_payments_sugar_action"/>
+
+
+    </data>
+</openerp>

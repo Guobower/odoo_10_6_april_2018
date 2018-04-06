@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+
+    <data>   
+
+        <template id="module_report">
+
+            <t t-call="report.html_container">
+                <t t-call="report.external_layout">
+                    <t t-foreach="docs" t-as="o">
+                        <t t-set="quantity" t-value="0" />
+                        <t t-set="invoice_total" t-value="0" />
+                        <div class="page">
+                            <style type="text/css">
+                                .report-wrapper {
+                                    width: 1000px;
+                                    margin: 0px auto;
+
+                                }
+                                .report-header {
+                                    margin: 10px 0px 0px;
+                                }
+                                .header-col-01,
+                                .header-col-02 {
+                                    width: 50%;
+                                    float: left;
+                                }
+                                .clearfloat {
+                                    clear: both;
+                                    float: none;
+                                    width: 1px;
+                                    border: none;
+                                    display: block;
+                                }
+                                .header-heading {
+                                    font-weight: bold;
+                                }
+                                .header-col-02 p {
+                                    float: right;
+                                    margin: 20px 0px 0px;
+                                }
+                                .header-col-02 p span {
+                                    display: block;
+                                }
+                                .header-col-01 img {
+                                    width: 150px;
+
+                                }
+                                .report-heading {
+                                    margin: 20px 0px 0px;
+                                    border: 2px solid #000;
+                                    text-align: center;
+                                }
+                                .report-heading h2,
+                                .report-heading h3 {
+                                    margin: 0px;
+                                }
+                                .report-heading h2 {
+                                    font-weight: bold;
+                                    font-size: 35px;
+                                    margin: 8px 0px 0px;
+                                }
+                                .report-heading h3 {
+                                    font-size: 20px;
+                                    margin: 6px 0px;
+                                }
+                                .twoer {
+                                    width: 100%;
+                                    margin: 2px 0px;
+                                }
+                                .oned,
+                                .twoed {
+                                    width: 499px;
+                                    float: left;
+                                    border: 2px solid #000;
+                                }
+                                .oned {
+                                    margin: 0px 0px 0px;
+                                }
+                                .twoed {
+                                    margin: 0px 0px 0px 2px;
+                                }
+                                .twoer p {
+                                    padding: 0px 0px 0px 10px;
+                                    margin: 5px 0px 15px;
+                                }
+                                .twoer p span {
+                                    display: inline-block;
+                                    vertical-align: top;
+                                }
+                                .twoer p span.solid {
+                                    font-weight: bold;
+                                }
+                                .addresser .oned,
+                                .addresser .twoed {
+                                    min-height: 110px;
+                                }
+
+                                table {
+                                    width: 100%;
+                                    border: 2px solid #000;
+                                    border-spacing: 0px;
+                                    margin: 25px 0px 0px;
+                                }
+                                table tr th {
+                                    border-right: 2px solid #000;
+                                    border-bottom: 2px solid #000;
+                                }
+                                table tr th,
+                                table tr td {
+                                    text-align: center;
+                                    padding: 10px 5px;
+                                }
+                                table tr th:last-child {
+                                    border-right: none;
+                                }
+                                table tr {
+                                    background: #ccc;
+                                }
+                                table tr:first-child,
+                                table tr.description {
+                                    background: none;
+                                }
+                                table tr.description td {
+                                    border-bottom: 2px solid #000;
+                                }
+                                table tr:last-child td {
+                                    border-bottom: none;
+                                }
+                                table tr td table {
+                                    border: 1px solid #CCC;
+                                    margin: 0px;
+                                } 
+                                table tr td table tr {
+                                    background: none;
+                                }
+                                table tr td table tr td {
+                                    border-right: 1px solid #CCC;
+                                    border-bottom: 1px solid #CCC !important;
+                                }
+                                table tr td table tr td:last-child {
+                                    border-right: none;
+                                }
+                                .report-footer {
+                                    margin: 10px 0px;
+                                }
+                                .report-footer {
+                                    margin: 0px 0px 0px;
+                                }
+                                .totaler {
+                                    padding: 10px 0px 15px;
+                                }
+                                .totaler p {
+                                    width: 50%;
+                                    float: left;
+                                    text-align: right;
+                                    font-weight: bold;
+                                }
+                                .totaler p:first-child {
+                                    text-align: left;
+                                }
+                                .footer-values p span {
+                                    display: inline-block;
+                                }
+                                .footer-values p .solid {
+                                    width: 150px;
+                                    text-align: left;
+                                    font-weight: bold;
+                                }
+                                .lower-footer {
+                                    padding: 20px 0px 0px;
+                                }
+                                .lower-footer p {
+                                    font-weight: bold;
+                                    text-align: right;
+                                }
+                                .header,
+                                footer {
+                                    display: none;
+                                }
+
+                            </style>
+                            
+                            <div class="report-wrapper">
+
+                                <div class="report-header">
+
+                                    <div class="header-col-01">
+                                        <img src="/cycle_gear_performa_invoice/static/src/img/logo.jpg" alt="" />
+                                    </div>
+
+                                    <div class="header-col-02">
+                                        <p>
+                                            <span class="header-heading">Arian Sports (Pvt) Lth.</span>
+                                            <span>1-km off Naul More</span>
+                                            <span>Roras Road</span>
+                                            <span>Sialkot Pakistan</span>
+                                        </p>
+                                    </div>
+                                    <br class="clearfloat" />
+
+                                </div>
+
+                                <div class="report-heading">
+                                    <h2>Proforma Invoice</h2>
+                                    <h3>(Order Confirmation)</h3>
+                                </div>
+
+                                <div class="twoer">
+
+                                    <div class="oned">
+                                        <p><span class="solid">P. Invoice No: </span> <span class="liquid" t-esc="o.name"></span></p>
+                                    </div>
+
+                                    <div class="twoed">
+                                        <p><span class="solid">Date: </span> <span class="liquid" t-esc="o.p_date"></span></p>
+                                    </div>
+                                    <br class="clearfloat" />
+
+                                </div>
+
+                                <div class="twoer">
+
+                                    <div class="oned">
+                                        <p><span class="solid">Customer Order No: </span> <span class="liquid" t-esc="o.customer_purchase_no"></span></p>
+                                    </div>
+
+                                    <div class="twoed">
+                                        <p><span class="solid">Date: </span> <span class="liquid" t-esc="o.date_order"></span></p>
+                                    </div>
+                                    <br class="clearfloat" />
+
+                                </div>
+
+                                <div class="twoer addresser">
+
+                                    <div class="oned">
+                                        <p><span class="solid">BILL TO: </span> <span class="liquid" t-esc="o.invoicing_address"></span></p>
+                                    </div>
+
+                                    <div class="twoed">
+                                        <p><span class="solid">SHIP TO: </span> <span class="liquid" t-esc="o.shiping_address"></span></p>
+                                    </div>
+                                    <br class="clearfloat" />
+
+                                </div>
+
+                                <div class="twoer">
+
+                                    <div class="oned">
+                                        <p><span class="solid">Incoterms: </span> <span class="liquid" t-esc="o.inco_terms.code"></span></p>
+                                    </div>
+
+                                    <div class="twoed">
+                                        <p><span class="solid">Ship Via: </span> <span class="liquid" t-esc="o.ship_via"></span></p>
+                                    </div>
+                                    <br class="clearfloat" />
+
+                                </div>
+
+                                <div class="twoer">
+
+                                    <div class="oned">
+                                        <p><span class="solid">Payment :</span> <span class="liquid" t-esc="o.payment_term_id.name"></span></p>
+                                    </div>
+
+                                    <div class="twoed">
+                                        <p><span class="solid">Delivery Date: </span> <span class="liquid" t-esc="o.delivery_date"></span></p>
+                                    </div>
+                                    <br class="clearfloat" />
+
+                                </div>
+
+                                <table>
+                                    
+                                    <tr>
+                                        <th>Style No.</th>
+                                        <th>Item Description</th>
+                                        <th>PO No.</th>
+                                        <th>Color</th>
+                                        <th>Qty</th>
+                                        <th>Price</th>
+                                        <th>Amount US$</th>
+                                    </tr>
+
+                                    <t t-foreach="temple_ids" t-as="data">
+                                        <t t-set="prod_id" t-value="data" />
+                                        <tr>
+                                            <td><span t-esc="temple_products(prod_id, 'style')"></span></td>
+
+                                            <td><span t-esc="temple_products(prod_id, 'name')"></span></td>
+                                            
+                                            <td>NEWBB091 6EARN</td>
+                                            
+                                            <td><span t-esc="temple_products(prod_id, 'color')"></span></td>
+                                            
+                                            <td><span t-esc="temple_products(prod_id, 'qty')"></span></td>
+                                            
+                                            <td><span t-esc="temple_products(prod_id, 'avg_price')"></span></td>
+                                            
+                                            <td>
+                                                <span t-esc="temple_products(prod_id, 'total_price')"></span>
+                                                <t t-set="invoice_total" t-value="invoice_total+(temple_products(prod_id, 'total_price'))" />
+                                            </td>
+                                        </tr>
+
+                                        <tr class="description">
+                                            <td colspan="7">
+                                                <span t-esc="set_sizing(prod_id)"></span>
+                                                <table>
+                                                    <tr>
+                                                        <td>Size</td>
+                                                        <t t-foreach="size_list" t-as="sizer">
+                                                            <td><span t-esc="sizer"></span></td>
+                                                        </t>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td>Qty</td>
+
+                                                        <t t-foreach="size_list" t-as="sizer">
+                                                            <td>
+                                                                <span t-esc="get_size_qty(sizer,prod_id)"></span>
+                                                                <t t-set="quantity" t-value="quantity+get_size_qty(sizer,prod_id)" />
+                                                            </td>
+                                                        </t>
+
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                    
+                                </table>
+
+                                <div class="report-footer">
+                                    <div class="totaler">
+                                        <p>
+                                            <span class="solid">Total Qty : </span> 
+                                            <span class="liquid">
+                                                <span t-esc="quantity"></span> Pair
+                                            </span>
+                                        </p>
+                                        <p>
+                                            <span class="solid"><span t-esc="o.inco_terms.code"></span> VALUE : </span> 
+                                            <span class="liquid">
+                                                Price <span t-esc="(invoice_total*1000)"></span>
+                                            </span>
+                                        </p>
+                                        <br class="clearfloat" />
+                                    </div>
+                                    <div class="footer-values">
+                                        <p><span class="solid">Total : </span> <span class="liquid">US$ <span t-esc="o.convert_amount()"></span></span></p>
+
+                                        <p>
+                                            <span class="solid">Shipment : </span> 
+                                            <span class="liquid">
+                                                Sialkot, Pakistan to 
+                                                <span t-esc="o.partner_id.city"></span>
+                                                <span t-esc="o.partner_id.country_id.name"></span>
+                                            </span>
+                                        </p>
+
+                                        <p><span class="solid">Bank Name : </span> <span class="liquid" t-esc="o.invoice_bank.name"></span></p>
+
+                                        <p><span class="solid">Bank Account No. : </span> <span class="liquid" t-esc="o.invoice_bank.account_number"></span></p>
+
+                                        <p>
+                                            <span class="solid">Bank Address : </span> 
+                                            <span class="liquid">
+                                                <span t-esc="o.invoice_bank.street"> </span>
+                                                <span t-esc="o.invoice_bank.street2"> </span>
+                                                <span t-esc="o.invoice_bank.city"> </span>
+                                                <span t-esc="o.invoice_bank.state.name"> </span>
+                                                <span t-esc="o.invoice_bank.country.name"> </span>
+                                            </span>
+                                        </p>
+
+                                        <p><span class="solid">IBAN : </span> <span class="liquid"><span t-esc="o.invoice_bank.iban_acc_no"> </span></span></p>
+
+                                        <p><span class="solid">Swift Code : </span> <span class="liquid"><span t-esc="o.invoice_bank.swift_code"> </span></span></p>
+
+                                        <p><span class="solid">Special Instructions : </span> <span class="liquid">US$ <span t-esc="o.convert_amount()"></span></span></p>
+
+                                    </div>
+                                </div>
+
+                                <div class="lower-footer">
+                                    <p>EXPORT MANAGER</p>
+                                </div>
+
+                            </div><!--end of report wrapper-->
+
+                        </div><!--end of page-->
+                    </t>
+                </t>
+            </t>
+
+        </template>
+
+    </data>
+
+</openerp>

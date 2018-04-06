@@ -1,0 +1,933 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+
+    <record id="stock.view_template_property_form" model="ir.ui.view">
+        <field name="active">True</field>
+        <field name="arch" type="xml">
+        <page name="general_information" position="after">
+                    <page string="Inventory" invisible = "1">
+                        <group name="inventory">
+                            <group>
+                                <field name="route_ids" widget="many2many_checkboxes" attrs="{'invisible':[('type', 'in', ['service', 'digital'])]}"/>
+                                <field name="route_from_categ_ids" widget="many2many_tags" readonly="1" attrs="{'invisible':[('route_from_categ_ids', '=', [])]}"/>
+                            </group>
+                            <group name="group_lots_and_weight">
+                                <label for="weight" attrs="{'invisible':['|', ('type', 'not in', ['product', 'consu']), ('product_variant_count', '&gt;', 1)]}"/>
+                                <div class="o_row" name="weight" attrs="{'invisible':['|', ('type', 'not in', ['product', 'consu']), ('product_variant_count', '&gt;', 1)]}">
+                                    <field name="weight"/>
+                                </div>
+                                <field name="tracking" widget="radio" attrs="{'invisible':[('type', 'in', ['service', 'digital'])]}" groups="stock.group_production_lot"/>
+                                <label for="volume" attrs="{'invisible':['|', ('type', 'not in', ['product', 'consu']), ('product_variant_count', '&gt;', 1)]}"/>
+                                <div class="o_row" name="volume" attrs="{'invisible':['|', ('type', 'not in', ['product', 'consu']), ('product_variant_count', '&gt;', 1)]}">
+                                    <field name="volume" string="Volume"/>
+                                </div>
+                            </group>
+                            <group name="stock_property" groups="base.group_no_one">
+                                <field name="property_stock_procurement" domain="[('usage','=','procurement')]"/>
+                                <field name="property_stock_production" domain="[('usage','=','production')]"/>
+                                <field name="property_stock_inventory" domain="[('usage','=','inventory')]"/>
+                            </group>
+                        </group>
+                    </page>
+                </page>
+                <field name="description_sale" position="after">
+                    <separator string="Description for Pickings" colspan="4"/>
+                    <field name="description_picking" placeholder="Description for Pickings (Rack, Row and Case Information)" nolabel="1" colspan="4"/>
+                </field>
+                <group name="email_template_and_project" position="before">
+                    <group name="sale_condition" string="Sale Conditions">
+                        <label for="warranty" groups="stock.group_production_lot"/>
+                        <div groups="stock.group_production_lot">
+                            <field name="warranty" class="oe_inline"/> months
+                        </div>
+                        <label for="sale_delay"/>
+                        <div>
+                            <field name="sale_delay" attrs="{'readonly':[('sale_ok','=',False)]}" class="oe_inline" style="vertical-align:baseline"/> days
+                        </div>
+                    </group>
+                </group>
+            </field>
+
+        
+    </record>
+
+    
+    <record id="view_product_form_inherit" model="ir.ui.view">
+        <field name="name">product.template.common.form.inherit</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+
+        <xpath expr="//page[2]" position="attributes">
+             <attribute name="invisible">1</attribute>
+        </xpath>
+
+        <xpath expr="//page[4]" position="attributes">
+            <attribute name="invisible">1</attribute>
+        </xpath>
+
+        <xpath expr="//page[3]" position="attributes">
+            <attribute name="invisible">1</attribute>
+        </xpath>
+        <xpath expr="//page[1]" position="after">
+            <page string="Plot History">
+                    <group>
+                        <field name="plot_history_ids" nolabel='1'>
+                            <tree editable="bottom">
+                                <field name="plot_from"/>
+                                <field name="plot_to"/>
+                                <field name="plot_allotment_no"/>
+                                <field name="plot_poss_no"/>
+                                <field name="plot_transfer_ref"/>
+                            </tree>
+                        </field>
+                    </group>
+            </page>
+        </xpath>
+        </field>
+
+    </record>
+
+    <record id="remove_smart_buttons" model="ir.ui.view">
+        <field name="name">remove_smart_buttons</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="stock.product_template_form_view_procurement_button"/>
+        <field name="arch" type="xml">
+
+        <xpath expr="//button[@name='action_view_stock_moves']" position="replace">
+        </xpath>
+
+        <xpath expr="//button[@name='action_view_orderpoints']" position="replace">
+        </xpath>
+
+        <xpath expr="//button[@name='action_view_orderpoints']" position="replace">
+        </xpath>
+
+        <xpath expr="//button[@name='action_open_quants']" position="replace">
+        </xpath>
+
+<!--         <xpath expr="//button[@name='256']" position="replace"> 
+        </xpath> 
+
+        <xpath expr="//button[@name='266']" position="replace"> 
+        </xpath> 
+
+        <xpath expr="//button[@name='268']" position="replace">  
+        </xpath> -->
+        
+        </field>
+    </record>
+
+
+<!--     <record id="remove_smart_buttons1" model="ir.ui.view">
+        <field name="name">remove_smart_buttons1</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="procurement.product_template_view_form_procurement_button"/>
+        <field name="arch" type="xml">
+
+        <xpath expr="//button[@name='223']" position="replace">
+        </xpath>
+        
+        </field>
+
+    </record> -->
+
+        <record id="remove_smart_buttons2" model="ir.ui.view">
+            <field name="name">remove_smart_buttons2</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="sale.product_template_form_view_sale_order_button"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//button[@name='action_view_sales']" position="replace">
+                </xpath>
+            
+            </field>
+        </record>
+
+<!--     <record id="remove_smart_buttons3" model="ir.ui.view">
+        <field name="name">remove_smart_buttons3</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="purchase.view_product_template_purchase_buttons_from"/>
+        <field name="arch" type="xml">
+
+        <xpath expr="//button[@name='324']" position="replace">
+        </xpath>
+        
+        </field>
+
+    </record> -->
+
+    <record id="plot_form_view_extension"   model="ir.ui.view"> 
+        <field name="name">plot_form_view_extension</field> 
+        <field name="model">product.template</field> 
+        <field name="inherit_id" ref="product.product_template_only_form_view"/> 
+        <field name="arch" type="xml">
+
+            <xpath expr="//label[@for='sale_ok']" position="replace">
+                </xpath>
+
+                <xpath expr="//field[@name='sale_ok']" position="replace">
+                <field name="sale_ok" invisible = "1"/>
+                </xpath>
+
+                <xpath expr="//field[@name='purchase_method']" position="replace">
+                    <field name="purchase_method" invisible = "1"/>
+                </xpath>
+
+            <xpath expr="//field[@name='standard_price']" position="replace">
+                <field name="standard_price" invisible = "1"/>
+            </xpath>
+
+            <xpath expr="//label[@for='standard_price']" position="replace">
+                </xpath>
+
+            <xpath expr="//field[@name='type']" position="replace">
+                <field name="type" invisible = "1"/>
+                </xpath>
+
+            <xpath expr="//label[@for='purchase_ok']" position="replace">
+                </xpath>
+
+                <xpath expr="//field[@name='purchase_ok']" position="replace">
+                <field name="purchase_ok" invisible = "1"/>
+                </xpath>
+
+            <xpath expr="//label[@for='name']" position="replace">
+                </xpath>
+
+                <xpath expr="//field[@name='name']" position="replace">
+                </xpath>
+
+                <xpath expr="//field[@name='categ_id']" position="after">
+                    <field name="property_dealer" />
+                    <field name="plot_file_no" />
+                    <field name="plot_commission" />
+                    <field name="plot_amount" />
+                </xpath>
+
+
+                    <div class="oe_title">
+                        <label class="oe_edit_only" for="name" string="Plot No"/>
+                        <h1><field name="name" placeholder="Plot No"/></h1>
+                        
+                    </div>
+
+                <xpath expr="//page[@name='general_information']" position="inside">
+                    <group>
+                        <group name = "group_left" string="Size">
+                            <field name="plot_size"/>
+                            <field name="total_marla"/>
+                            <field name="plot_width" />
+                            <field name="plot_length" />
+                            <field name="plot_sq_ft" />
+                        </group>
+                        <group name = "group_right" string = "Rate">
+                            <field name="plot_rate_marla" />
+                            <field name="total_plot_price" />
+                            
+                        </group>
+                    </group>
+                    <group>
+                        <group name = "group_left" string=" ">
+                        </group>
+                        <group name = "group_right" string = "Location">
+                            <field name="plot_scheme_name" />
+                            <field name="plot_block" />
+                            <field name="plot_sector" />
+                            
+                            
+                            <field name="plot_location" widget="many2many_tags"/>
+                            <field name="plot_khasra_no" />
+                            
+                            
+                        </group>
+                    </group>
+                </xpath>
+
+                <xpath expr="//field[@name='list_price']" position="replace">
+                    <field name="status_selection" />
+                    <field name="plot_customer" />
+                </xpath>
+                
+        </field> 
+    </record>
+
+    <record id="plot_tree_view_extension"   model="ir.ui.view"> 
+        <field name="name">plot_tree_view_extension</field> 
+        <field name="model">product.template</field> 
+        <field name="inherit_id" ref="product.product_template_tree_view"/> 
+        <field name="arch" type="xml"> 
+
+                <xpath expr="//field[@name='name']" position="replace">
+                <field name="name" string = "Plot No"/>
+                <field name="property_dealer" />
+                <field name="plot_commission" />
+                <field name="plot_size" />
+                <field name="total_marla" />
+                <field name="plot_width" />
+                <field name="plot_length"/>
+                <field name="plot_rate_marla" sum = "Total"/>
+
+                </xpath>
+
+                <xpath expr="//field[@name='list_price']" position="replace">
+                <field name="total_plot_price" sum = "Total"/>
+                <field name="plot_scheme_name" />
+                <field name="plot_block" />
+                <field name="plot_sector" />
+                <field name="status_selection" />
+            
+                </xpath>
+
+                <xpath expr="//field[@name='default_code']" position="replace">
+                
+                </xpath>
+
+                <xpath expr="//field[@name='categ_id']" position="replace">
+                
+                </xpath>
+
+                <xpath expr="//field[@name='type']" position="replace">
+                
+                </xpath>
+
+                <xpath expr="//field[@name='standard_price']" position="replace">
+                
+                </xpath>
+
+                
+        </field> 
+    </record>
+
+    <record id="stock.view_stock_product_template_tree"   model="ir.ui.view"> 
+        <field name="active">False</field> 
+    </record>
+
+    <record id="plot_search_view_extension"   model="ir.ui.view"> 
+        <field name="name">plot_search_view_extension</field> 
+        <field name="model">product.template</field> 
+        <field name="inherit_id" ref="product.product_template_search_view"/> 
+        <field name="arch" type="xml"> 
+
+                <xpath expr="//filter[@name='services']" position="replace">
+                    <filter string="Available Plots" name="available" domain="[('status_selection','=','available')]"/>
+
+                    <filter string="Sold Plots" name="sold_plots" domain="[('status_selection','=','sold')]"/>
+
+                    <filter string="Hold" name="hold" domain="[('status_selection','=','hold')]"/>
+
+                </xpath>
+
+                <xpath expr="//filter[@name='consumable']" position="replace">
+            
+                </xpath>
+                <xpath expr="//filter[@name='filter_to_sell']" position="replace">
+               
+
+                </xpath>
+
+                <xpath expr="//filter[@name='filter_to_purchase']" position="replace">
+               
+
+                </xpath>
+
+               <!--  <xpath expr="//filter[@name='attribute_line_ids']" position="replace">
+               
+
+                </xpath> -->
+
+                
+                
+        </field> 
+    </record>
+    
+    <record id="plot_search_view_extension1"   model="ir.ui.view"> 
+        <field name="name">plot_search_view_extension1</field> 
+        <field name="model">product.template</field> 
+        <field name="inherit_id" ref="stock.product_template_search_form_view_stock"/> 
+        <field name="arch" type="xml"> 
+
+                <xpath expr="//filter[@name='real_stock_available']" position="replace">
+
+                </xpath>
+
+                <xpath expr="//filter[@name='real_stock_exhausted']" position="replace">
+            
+                </xpath>
+                <xpath expr="//filter[@name='real_stock_negative']" position="replace">
+               
+
+                </xpath>
+
+            
+
+                
+                
+        </field> 
+    </record>
+
+
+
+        <record id="product.product_template_action" model="ir.actions.act_window">
+            <field name="name">Plots</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="product.product_template_kanban_view"/>
+            <field name="context">{"search_default_filter_to_sell":1}</field>
+        </record>
+
+
+        <menuitem action="product.product_template_action" id="sale.menu_product_template_action" parent="sales_team.menu_sales" sequence="13" name = "Plots"/>
+
+        <!-- quotations ammendments -->
+        <record id="sale.action_quotations" model="ir.actions.act_window">
+            <field name="name">Plot Registration</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,kanban,form,calendar,pivot,graph</field>
+            <field name="search_view_id" ref="sale.sale_order_view_search_inherit_quotation"/>
+            <field name="context">{}</field>
+            <field name="domain">[]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create a Quotation, the first step of a new sale.
+                </p><p>
+                    Once the quotation is confirmed, it becomes a sales order.
+                    You'll be able to invoice it and collect payments.
+                    From the <i>Sales Orders</i> menu, you can track delivery
+                    orders or services.
+                </p>
+            </field>
+        </record>
+
+        <!-- Vendor Bills Action -->
+        <record id="purchase.action_invoice_pending" model="ir.actions.act_window">
+            <field name="name">Commission Invoices</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account.invoice</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,kanban,form,calendar,pivot,graph</field>
+            <field name="search_view_id" ref="account.view_account_invoice_filter"/>
+            <field name="context">{'default_type':'in_invoice', 'type':'in_invoice', 'journal_type': 'purchase'}</field>
+            <field name="domain">[('type','=','in_invoice')]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create a Quotation, the first step of a new sale.
+                </p><p>
+                    Once the quotation is confirmed, it becomes a sales order.
+                    You'll be able to invoice it and collect payments.
+                    From the <i>Sales Orders</i> menu, you can track delivery
+                    orders or services.
+                </p>
+            </field>
+        </record>
+        <!-- adding new validating button in sales order  -->
+
+
+        <record id="record_adding_for_validating_button" model="ir.ui.view">
+            <field name="name">record_adding_for_validating_button</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <header>
+           <!--          <button name="updatequtation" type="object" string="Update" attrs="{'invisible': [('state', '!=', 'draft')]}"/>    -->                 
+                    <!-- <button name="check_ms" type="object" string="plot no"/> -->
+                    <!-- <button name="plot_link_invoice" type="object" string="Link"/> -->
+    <!--                 <button name="validate_stage" type="object" string="Validate" attrs="{'invisible': [('state', '!=', 'draft')]}"/> -->
+                    <button name="token_invoice" type="object" string="Create Token Invoice" attrs="{'invisible': [('state', '!=', 'sent')]}"/>
+                    <button name="advance_invoice" type="object" string="Create Advance Invoice" attrs="{'invisible': [('state', '!=', 'sent')]}"/>
+                    <button name="installment_invoice" type="object" string="Create Installment Invoices" attrs="{'invisible': [('state', '!=', 'sent')]}"/>
+                </header>
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="plot_file_no" invisible="True" />
+                    <field name="ms_new"/>
+                    <field name="plot_number" />
+                    
+                    <field name="property_dealer" />
+                    <field name="plot_commission" />
+                    <field name="plot_amount" />
+                    <field name="mc_commission" />
+                    <field name="ms_commission_amount" />
+                    <field name="Transfer_to" invisible="True" />
+                    <!-- <field name="ms_commission_amount" /> -->
+                </xpath>
+
+                <xpath expr="//page[2]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+                <xpath expr="//page[1]" position="before">
+                    <page string="General Information">
+                        <group>
+                            <group name = "group_left" string="Size">
+                                
+                                <field name="plot_size"/>
+                                <field name="total_marla"/>
+                                <field name="plot_width" />
+                                <field name="plot_length" />
+                                <field name="plot_sq_ft" />
+                            </group>
+                            <group name = "group_right" string = "Rate">
+                                <field name="plot_rate_marla" />
+                                <field name="total_plot_price" />
+                                <field name="plot_token" />
+                                <field name="plot_advance" />
+                                <field name="plot_discount" />
+                                <field name="plot_net" />
+                                <field name="price_char" />
+                                
+                            </group>
+                        </group>
+                        <group>
+                            <group name = "group_left" string="Payment Details">
+                                <field name="installment_plan_ids" domain="[('stages','!=','draft')]"/>
+                                <!-- <field name="installment_plan" /> -->
+                                <field name="start_date" />
+                                <field name="end_date" />
+                                <field name="no_of_installments" />
+<!--                                 <field name="diff_in_installment"  attrs="{'invisible':[('installment_plan', '!=', 'monthly')]}"/> -->
+                                <field name="rate_per_installment" />
+                                <field name="total_payable" />
+                                <field name="total_paid" />
+                                <field name="remaining" />
+
+                            </group>
+                            <group name = "group_right" string = "Location">
+                                <field name="plot_block" />
+                                <field name="plot_sector" />
+                                
+                                <field name="plot_location" widget="many2many_tags"/>
+                                <field name="plot_scheme_name" />
+                                <field name="plot_invoice_id" />
+                            </group>
+                        </group>
+                </page>
+                <page string="Payment History">
+                        <group>
+                            <field name="plot_payment_id" nolabel='1'>
+                                <tree editable="bottom">
+                                    <field name="plot_payment_history_tree" string="Plot NO"/>
+                                    <field name="date_invoice"/>
+                                    <field name="amount_total"/>
+                                    <field name="total_paid" string="Paid"/>
+                                    <field name="residual"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </group>
+                </page>
+                <page string="Plot History">
+                        <group>
+                            <field name="plot_history_ids" nolabel='1'>
+                                <tree editable="bottom">
+                                    <field name="plot_from"/>
+                                    <field name="plot_to"/>
+                                    <field name="plot_date"/>
+                                    <field name="plot_allotment_no"/>
+                                    <field name="plot_poss_no"/>
+                                    <field name="plot_transfer_ref"/>
+                                </tree>
+                            </field>
+                        </group>
+                </page>
+                </xpath>
+
+                <xpath expr="//field[@name='payment_term_id']" position="replace">
+                    <field name="plot_application_no" string = "Sr No"/>
+                    <field name="plot_registration_no" string = "File Unique No"/>
+                    <field name="address"/>
+                    <field name="contact_no"/>
+                </xpath>
+
+                <xpath expr="//button[@name='print_quotation']" position="replace">
+                </xpath>
+                <xpath expr="//button[@name='print_quotation']" position="replace">
+                </xpath>
+                <xpath expr="//button[@name='action_quotation_send']" position="replace">
+                </xpath>
+                <xpath expr="//button[@name='action_quotation_send']" position="replace">
+                </xpath>
+                <xpath expr="//button[@name='action_cancel']" position="replace">
+                </xpath>
+                <xpath expr="//button[@name='action_draft']" position="replace">
+                </xpath>
+                <xpath expr="//button[@name='action_done']" position="replace">
+                </xpath>
+                <xpath expr="//button[@name='action_confirm']" position="replace">
+                </xpath>
+                <xpath expr="//button[@name='action_confirm']" position="replace">
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Hiding shipping information group  -->
+        <record id="hiding_shipping_information_group" model="ir.ui.view">
+            <field name="name">hiding_shipping_information_group</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_stock.view_order_form_inherit_sale_stock"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='sale_shipping']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+
+            <!-- Modifing Tree View of Sale.Order -->
+        <record id="record_modify_for_sale_order_tree_view_plot" model="ir.ui.view">
+            <field name="name">record_modify_for_sale_order_tree_view_plot</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_quotation_tree"/>
+            <field name="arch" type="xml">
+                <!-- <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='date_order']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='user_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath> -->
+                <xpath expr="//field[@name='amount_total']" position="replace">
+                </xpath>
+                <xpath expr="//field[@name='name']" position="replace">
+                    <field name="name" string="S.NO" invisible = "1"/>
+                    <field name="ms_new" string="Plot NO"/>
+                    <field name="Transfer_to"  invisible = "1"/>
+                    <field name="plot_size" />
+                    <field name="plot_advance"  invisible = "1"/>
+                    <field name="plot_amount"  invisible = "1"/>
+                    <field name="no_of_installments" string="Installments" />
+                    <field name="total_plot_price" string="Total Price" sum = "Total"/>
+                    <field name="total_paid" string="Total Paid" sum = "Total"/>
+                    <field name="remaining" string="Remaining" sum = "Total"/>
+                    <!-- <field name="plot_number"/>
+                    <field name="plot_token" sum="Total Token" widget="monetary"/>
+                    <field name="plot_advance" sum="Total Advance" widget="monetary"/>
+                    <field name="total_payable" sum="Total payable" widget="monetary"/>
+                    <field name="total_paid" sum="Total Paid" widget="monetary"/>
+                    <field name="remaining" sum="Total Remaining" widget="monetary"/> -->
+                </xpath>
+            </field>
+        </record>
+
+                        <!-- Invoice Tree View Modified -->
+
+        <record id="record_modify_for_account_invoice_tree_view_plot" model="ir.ui.view">
+            <field name="name">record_modify_for_account_invoice_tree_view_plot</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='user_id']" position="after">
+                    <field name="plot_inv_description"/>
+                    <field name="plot_file_no"/>
+                    <field name="plot_number"/>
+                </xpath>
+            </field>
+        </record>
+                         <!-- Invoice Tree View Modified For Supplier View -->
+
+        <record id="record_modify_for_account_invoice_sup_tree_view_plot" model="ir.ui.view">
+            <field name="name">record_modify_for_account_invoice_sup_tree_view_plot</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='reference']" position="after">
+                    <field name="plot_inv_description"/>
+                    <field name="plot_file_no"/>
+                    <field name="plot_number"/>
+                    <!-- <field name="sale_order_link"/> -->
+                </xpath>
+                <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <attribute name="string">Property Dealer</attribute>
+                </xpath>
+            </field>
+        </record>
+
+                    <!-- Sale Order Line Modification -->
+
+        <record id="record_modify_for_sale_order_line_tree_view_plot" model="ir.ui.view">
+            <field name="name">record_modify_for_sale_order_line_tree_view_plot</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="attributes">
+                    <attribute name="string">Plot</attribute>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='product_uom_qty']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='qty_delivered']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='qty_invoiced']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='tax_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+
+
+    
+    <record id="plot_transfer_form_view" model="ir.ui.view">
+        <field name="name">plot_transfer_form_view</field>
+        <field name="model">plot.transfer</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Plot Transfer">
+            <header>
+                <!-- <button name="stage_transfer" type="object" string="Transferred" /> -->
+                <button name="validate" type="object" string="Validate" />
+                <!-- <button name="transfer_invoice" type="object" string="Transfer Invoice" /> -->
+                <field name="stages" widget="statusbar" />
+            </header>
+            <sheet>
+                <group>
+                    <group name="left" >
+                        <field name="plot_number" attrs="{'readonly':[('stages', '=', 'transfered')]}"/>
+                        <field name="plot_file_no" attrs="{'readonly':[('stages', '=', 'transfered')]}"/>
+                        <field name="plot_transfer_type" attrs="{'readonly':[('stages', '=', 'transfered')]}"/>
+                    </group>
+                    <group name="right" >
+                        <field name="plot_date" attrs="{'readonly':[('stages', '=', 'transfered')]}"/>
+                    </group>
+                </group>
+                <group name="group_top">
+                    <group name="group_left" string="From"> 
+                        <field name="plot_customer_from" attrs="{'readonly':[('stages', '=', 'transfered')]}"/>
+                        <field name="plot_reg_date_from" attrs="{'readonly':[('stages', '=', 'transfered')]}"/>
+                        <field name="plot_application_no" attrs="{'readonly':[('stages', '=', 'transfered')]}"/>
+                        <field name="plot_reg_no" attrs="{'readonly':[('stages', '=', 'transfered')]}"/>
+                        <field name="transfer_charges" attrs="{'readonly':[('stages', '=', 'transfered')]}"/>
+                        <field name="plot_description" attrs="{'readonly':[('stages', '=', 'transfered')]}"/>
+                    </group>
+                    <group name="group_right" string="To">
+                        <field name="plot_customer" attrs="{'readonly':[('stages', '=', 'transfered')]}"/>
+                        <field name="plot_reg_date" attrs="{'readonly':[('stages', '=', 'transfered')]}"/>
+                        <field name="plot_allotment_no" attrs="{'readonly':[('stages', '=', 'transfered')]}"/>
+                        <field name="plot_poss_no" attrs="{'readonly':[('stages', '=', 'transfered')]}"/>
+                        <!-- <button name="transferChargesInvoice" type="object" string="⇒ Update" attrs="{'invisible':[('stages', '=', 'transfered')]}"/> -->
+                    </group> 
+                </group>
+                <notebook>
+                    <page name="plot_info" string="Plot Information">
+                    <group>
+                        <group name = "group_left" string="Size">
+                            <field name="plot_size" attrs="{'readonly':[('stages', '=', 'transfered')]}"/>
+                            <field name="total_marla" attrs="{'readonly':[('stages', '=', 'transfered')]}"/>
+                            <field name="plot_width" attrs="{'readonly':[('stages', '=', 'transfered')]}"/>
+                            <field name="plot_length" attrs="{'readonly':[('stages', '=', 'transfered')]}"/>
+                            <field name="plot_sq_ft" attrs="{'readonly':[('stages', '=', 'transfered')]}"/>
+                        </group>
+                        <group name = "group_right" string = "Rate">
+                            <field name="plot_rate_marla" attrs="{'readonly':[('stages', '=', 'transfered')]}"/>
+                            <field name="total_plot_price" attrs="{'readonly':[('stages', '=', 'transfered')]}"/>
+                            
+                        </group>
+                    </group>
+                    <group>
+                        <group name = "group_left" string=" ">
+                        </group>
+                        <group name = "group_right" string = "Location">
+                            <field name="plot_scheme_name" attrs="{'readonly':[('stages', '=', 'transfered')]}"/>
+                            <field name="plot_block" attrs="{'readonly':[('stages', '=', 'transfered')]}"/>
+                            <field name="plot_sector" attrs="{'readonly':[('stages', '=', 'transfered')]}"/>
+                            
+                            
+                            <field name="plot_location" widget="many2many_tags" attrs="{'readonly':[('stages', '=', 'transfered')]}"/>
+                            <field name="plot_khasra_no" attrs="{'readonly':[('stages', '=', 'transfered')]}"/>
+                            
+                            
+                        </group>
+                    </group>
+                    </page>
+
+                </notebook>
+            </sheet>
+
+            </form>
+        </field>
+    </record>
+
+    <record id="plot_transfer_tree_view" model="ir.ui.view">
+        <field name="name">plot_transfer_tree_view</field>
+        <field name="model">plot.transfer</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Plot Transfer">
+                <field name="plot_number" />
+                <field name="plot_file_no" />
+                <field name="plot_transfer_type" />
+                <field name="plot_size"/>
+                <field name="total_marla"/>
+                <field name="plot_customer_from"/>
+                <field name="plot_application_no" />
+                <field name="plot_reg_no" />
+                <field name="plot_customer"/>
+                <field name="plot_allotment_no" />
+                <field name="plot_poss_no"/>
+                <field name="transfer_charges" sum="Total Charges" widget="monetary"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="product_transfer_action">
+        <field name="name">Plot Transfer</field>
+        <field name="res_model">plot.transfer</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+                    <!-- Installment Plan Model Form Tree View  -->
+
+
+                    <!-- Installment Plan Model Form View  -->
+    
+    <record id="installment_plan_form_view" model="ir.ui.view">
+        <field name="name">installment_plan_form_view</field>
+        <field name="model">plot.installment.plan</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Installment Plan">
+            <header>
+                <button name="genrate" type="object" string="Genrate" />
+                <button name="validate" type="object" string="Validate" />
+                <field name="stages" widget="statusbar" />
+            </header>
+            <sheet>
+                <group>
+                    <group name="left" >
+
+                        <field name="record_name" invisible="True"/>
+                        <field name="name" />
+                        <field name="plot_size_ids" />
+                        <field name="advance_amount" />
+                    </group>
+                    <group name="right" >
+                        <field name="plot_no_installments"/>
+                        <field name="amount"/>
+                        <field name="total_amount" />
+                    </group>
+                </group>
+                <field name="pipt_ids">
+                    <tree editable="bottom" nolabel="1">
+                        <field name="name" />
+                        <field name="amount" sum="Total Amount"/>
+                    </tree>
+                </field>
+            </sheet>
+
+            </form>
+        </field>
+    </record>
+                <!-- Installment Plan Model Form Tree View  -->
+
+    <record id="installment_plan_tree_view" model="ir.ui.view">
+        <field name="name">installment_plan_tree_view</field>
+        <field name="model">plot.installment.plan</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Plot Transfer">
+                <field name="name" />
+                <field name="plot_size_ids" />
+                <field name="amount" />
+                <field name="plot_no_installments" />
+                <field name="advance_amount" />
+                <field name="total_amount" />
+            </tree>
+        </field>
+    </record>
+            <!-- Installment Plan Model Action  -->
+    <record model="ir.actions.act_window" id="installment_plan_action">
+        <field name="name">Installment Plan</field>
+        <field name="res_model">plot.installment.plan</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+            <!-- Installment Plan Model Menu Item  -->
+        
+
+        <!-- Installment Plan Model End  -->
+
+        <!-- Account Invoice Form View Modified -->
+
+    <record id="account_invoice_plot_form_view" model="ir.ui.view">
+        <field name="name">account_invoice_plot_form_view</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='name']" position="after">
+                <field name="plot_file_no"/>
+                <field name="plot_number"/>
+            </xpath>
+            <xpath expr="//field[@name='payment_term_id']" position="after">
+                <field name="plot_payment_history_tree" string="MS No"/>
+                <field name="plot_sale_order" string="Sale order" invisible="1"/>
+                <field name="plot_file_link" string="Plot Link" />
+                <field name="plot_description" string="Plot Description" />
+                <button name="update" type="object" string="Update" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="account_invoice_supplier_plot_form_view" model="ir.ui.view">
+        <field name="name">account_invoice_supplier_plot_form_view</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_supplier_form"/>
+        <field name="arch" type="xml">
+
+
+            <xpath expr="//field[@name='partner_id']" position="attributes">
+                <attribute name="string">Property Dealer</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='name']" position="after">
+                <field name="plot_file_no"/>
+                <field name="plot_number"/>
+            </xpath>
+
+        </field>
+    </record>
+
+        <!-- Account Invoice Form View Modified End -->
+
+
+
+        <menuitem name="Plot Management" id="sales_team.menu_base_partner" sequence="3" />
+
+        <menuitem name="Plot Management" id="plot_management_menu" parent="sales_team.menu_base_partner"
+            sequence="3" />
+        <menuitem name="Plot Registration" action="sale.action_quotations"
+            id="sale.menu_sale_quotations" parent="plot_management_menu"
+            sequence="11" groups="sales_team.group_sale_salesman,sales_team.group_sale_manager"/>
+
+        <menuitem name="Transfers" id="plot_transfer_menu" parent="plot_management_menu" action="product_transfer_action" sequence="12" />
+        
+
+        <menuitem name="Invoicing &amp; Payment" id="invoicing_plot_management_menu" parent="sales_team.menu_base_partner"
+            sequence="4" />
+
+
+        <menuitem action="account.action_invoice_tree1"
+            id="account.menu_action_invoice_tree1" parent="invoicing_plot_management_menu"
+            sequence="12" groups="sales_team.group_sale_salesman,sales_team.group_sale_manager"/> 
+
+        <menuitem name="Commission Invoices" action="purchase.action_invoice_pending"
+            id="purchase.menu_procurement_management_pending_invoice" parent="invoicing_plot_management_menu"
+            sequence="13" groups="sales_team.group_sale_salesman,sales_team.group_sale_manager"/>
+        
+
+        <menuitem action="account.action_account_payments"
+            id="account.menu_action_account_payments_receivable" parent="invoicing_plot_management_menu"
+            sequence="14" groups="sales_team.group_sale_salesman,sales_team.group_sale_manager"/>
+
+        <menuitem name="Installment Plan" id="installment_plan_menu" parent="plot_management_menu" action="installment_plan_action" sequence="13" />
+
+</odoo>

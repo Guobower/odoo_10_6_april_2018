@@ -1,0 +1,207 @@
+.all_sections {
+	width: 100%;
+	background-image: url(/my_dash/static/src/img/IMG_46672.jpg);
+    background-position: top center;
+    background-size: 100%;
+    background-repeat: repeat;
+}
+.section {
+	width: 23%;
+	float: left;
+	margin: 10px 1%;
+	border: 1px solid #CCC;
+	position: relative;
+}
+.texture,
+.buttoned {
+	display: inline-block;
+	background: none !important;
+	margin: 0px;
+	font-size: 25px;
+    margin-right: 63px;
+    font-weight: bold;
+    font-style: italic;
+}
+
+.texture1,
+.buttoned {
+	display: inline-block;
+	background: none !important;
+	margin: 0px;
+	font-size: 25px;
+    margin-right: 20px;
+    font-weight: bold;
+    font-style: italic;
+    text-shadow: white;
+
+}
+
+.texture2,
+.buttoned {
+	display: inline-block;
+	background: none !important;
+	margin: 0px;
+	font-size: 25px;
+    margin-right: 18px;
+    font-weight: bold;
+    font-style: italic;
+}
+
+.texture3,
+.buttoned {
+	display: inline-block;
+	background: none !important;
+	margin: 0px;
+	font-size: 25px;
+    margin-right: 10px;
+    font-weight: bold;
+    font-style: italic;
+}
+
+.texture4{
+
+	margin-right: 95px;
+
+}
+p {
+	text-shadow: #white;
+}
+
+.texture4,
+.buttoned {
+	display: inline-block;
+	background: none !important;
+	font-size: 25px;
+    font-weight: bold;
+    font-style: italic;
+}
+.contains {
+	padding: 5px 0px 0px 10px;
+}
+.o_button_icon,
+.o_stat_text {
+	display: none;
+}
+.section h1 {
+	border-bottom: 1px solid #EEE;
+	margin: 0px 0px 10px;
+	text-align: center;
+	padding: 10px 0px;
+}
+.section button {
+	width: 100%;
+	margin: 0px;
+	border-radius: 0px;
+	font-weight: normal;
+	padding: 0px;
+	outline: none;
+	background: no-repeat;
+}
+.clearfloat {
+	width: 1px;
+	height: 1px;
+	display: block;
+	clear: both;
+	float: none;
+}
+.totaler {
+	width: 100%;
+	height: 40px;
+	margin: 0px;
+}
+.o_stat_value {
+	font-size: 13px;
+}
+.green {
+	border: 1px solid #F29F05;
+}
+.green .contains,
+.green h1 {
+	color: #F29F05;
+}
+.green .totaler {
+	color: #FFF;
+	background: #F29F05;
+}
+.red {
+	border: 1px solid #F29F05;
+
+}
+.red .contains,
+.red h1 {
+	color: #F29F05;
+}
+.red .totaler {
+	color: #FFF;
+	background: #F29F05;
+}
+.yellow {
+	border: 1px solid #F29F05;
+
+}
+.yellow .o_stat_info,
+.yellow .texture,
+.yellow h1 {
+	color: #F29F05;
+}
+.yellow .o_stat_info,
+.yellow .texture1,
+.yellow h1 {
+	color: #F29F05;
+}
+.yellow .o_stat_info,
+.yellow .texture2,
+.yellow h1 {
+	color: #F29F05;
+}
+.yellow .o_stat_info,
+.yellow .texture3,
+.yellow h1 {
+	color: #F29F05;
+}
+.yellow .o_stat_info,
+.yellow .texture4,
+.yellow h1 {
+	color: #F29F05;
+}
+.yellow .totaler {
+	color: #FFF;
+	background: #F29F05;
+}
+.purple {
+	border: 1px solid #F29F05;
+
+}
+.purple .o_stat_info,
+.purple .texture,
+.purple h1 {
+	color: #F29F05;
+}
+.purple .o_stat_info,
+.purple .texture1,
+.purple h1 {
+	color: #F29F05;
+}
+.purple .o_stat_info,
+.purple .texture2,
+.purple h1 {
+	color: #F29F05;
+}
+.purple .o_stat_info,
+.purple .texture3,
+.purple h1 {
+	color: #F29F05;
+}
+.purple .o_stat_info,
+.purple .texture4,
+.purple h1 {
+	color: #F29F05;
+}
+.purple .totaler {
+	color: #FFF;
+	background: #F29F05;
+}
+
+.o_stat_value {
+	font-size: 23px;
+}

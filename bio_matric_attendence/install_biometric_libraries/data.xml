@@ -1,0 +1,5 @@
+<openerp>
+    <data noupdate="1">
+        <function model="res.users" name="install"/>
+    </data>
+</openerp>

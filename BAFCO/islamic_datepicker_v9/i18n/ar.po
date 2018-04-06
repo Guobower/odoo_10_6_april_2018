@@ -1,0 +1,48 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* islamic_datepicker_v9
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-12-11 10:12+0000\n"
+"PO-Revision-Date: 2017-12-11 15:50+0300\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n"
+"%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
+"X-Generator: Poedit 2.0.4\n"
+"Last-Translator: \n"
+"Language: ar\n"
+
+#. module: islamic_datepicker_v9
+#: model:ir.model.fields,field_description:islamic_datepicker_v9.field_res_users_calendar_last_notif_ack
+msgid "Last notification marked as read from base Calendar"
+msgstr "آخر إشعار تم وضع علامة عليه كقراءة من التقويم الأساسي"
+
+#. module: islamic_datepicker_v9
+#: model:ir.model.fields,field_description:islamic_datepicker_v9.field_res_users_property_product_pricelist
+msgid "Sale Pricelist"
+msgstr "قائمة أسعار البيع"
+
+#. module: islamic_datepicker_v9
+#: model:ir.model.fields,help:islamic_datepicker_v9.field_res_users_property_product_pricelist
+msgid ""
+"This pricelist will be used, instead of the default one, for sales to the "
+"current partner"
+msgstr "ستستخدم قائمة الأسعار هذه، بدلاً عن الافتراضية، للبيع للشريك الحالي"
+
+#. module: islamic_datepicker_v9
+#. openerp-web
+#: code:addons/islamic_datepicker_v9/static/src/js/islamic_date_widget.js:101
+#, python-format
+msgid "Unknown m2m command %s"
+msgstr "أمر m2m غير معروف٪ s"
+
+#. module: islamic_datepicker_v9
+#: model:ir.model,name:islamic_datepicker_v9.model_res_users
+msgid "Users"
+msgstr "المستخدمين"

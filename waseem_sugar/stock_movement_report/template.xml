@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        
+        <report
+            id="report_for_stock_movement" 
+            model="res.partner"
+            name="stock_movement_report.stock_movement_report"
+            file="stock_movement_report.stock_movement_report"
+            report_type="qweb-html"
+            string="Stock Movement"
+            menu="False"/>
+
+        <record id="stock_movement_wizard" model="ir.ui.view">
+            <field name="name">stock_movement_wizard</field>
+            <field name="model">stock.movement</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Report">
+                    
+                    <group name="group_top">
+
+                        <group name="group_left">
+
+                            <field name="partner"/>
+                            <field name="form"/>
+
+                        </group>
+
+                        <group name="group_right">
+
+                            <field name="mill" />
+                            <field name="to"/>
+                            <field name="mill_loaded"/>
+
+                        </group>
+
+                    </group>
+
+                    <footer style="height: 30px !important; border: none !important;">
+                        <button name="%(report_for_stock_movement)d" type="action" string="Print" class="oe_highlight"/>
+                    </footer>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="stock_movement_action" model="ir.actions.act_window">
+            <field name="name">Stock Movement Report</field>
+            <field name="res_model">stock.movement</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="stock_movement_wizard"/>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="stock_movement_menu_item" name="Stock Movement Sheet" action="stock_movement_action" parent="sales_sugar.confirmation_level" />
+        
+    </data>
+</openerp>

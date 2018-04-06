@@ -1,0 +1,21 @@
+.custom_width .o_form_sheet_bg .o_form_sheet {
+    min-width: 1100px;
+    max-width: 1100px;
+}
+.custom_width .o_list_view.table td, 
+.custom_width .o_list_view.table th {
+	text-align: center;
+}
+
+.custom_width .top_table td.o_td_label {
+	padding: 10px 15px 10px 0 !important;
+	min-width: 220px !important;
+}
+.custom_width .table-condensed > thead > tr > th, 
+.custom_width .table-condensed > tbody > tr > th, 
+.custom_width .table-condensed > tfoot > tr > th, 
+.custom_width .table-condensed > thead > tr > td, 
+.custom_width .table-condensed > tbody > tr > td, 
+.custom_width .table-condensed > tfoot > tr > td {
+    padding: 12px 0px;
+}

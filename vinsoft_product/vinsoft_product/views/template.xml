@@ -1,0 +1,527 @@
+<?xml version="1.0"?> 
+<odoo>
+    
+    <template id="assets_backend" name="custom assets" inherit_id="web.assets_backend"> 
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" href="/vinsoft_product/static/src/css/styles.css"/>
+        </xpath> 
+    </template>
+    
+    <record id="product_development_request_form_view" model="ir.ui.view">
+        <field name="name">product_development_request_form_view</field>
+        <field name="model">product.theme</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+
+            <form string="Product">
+
+                <div class="product_theme">
+
+                    <header>
+                    </header>
+
+                    <sheet>
+
+                        <div id="invisible_01">
+                            <field name="product_variant_count" invisible="1"/>
+                            <field name="id" invisible="True"/>
+                        </div>
+
+                        <div class="title_field">
+                            <field name="name" placeholder="Product Name"/>
+                        </div>
+
+                        <div id="prod_image">
+                            <field name="image_medium" widget="image" class="oe_avatar"/>
+                        </div>
+
+                        <div class="image_fields">
+
+                            <div class="floating_field">
+                                <label for="default_code" string="Código Producto"/>
+                                <field name="default_code" class="first-field" />
+                            </div>
+
+                            <div class="floating_field margin">
+                                <label for="barcode" string="Código de Barra"/>
+
+                                <field name="barcode" class="first-field" />
+                            </div>
+
+                            <div class="floating_field">
+                                <label for="field4" string="Estado"/>
+
+                                <field name="field4" class="first-field" />
+                            </div>
+
+                            <div class="full_fields">
+                                <label for="description_sale" string="Descripción"/>
+
+                                <field name="description_sale" class="first-field" />
+                            </div>
+
+                        </div>
+
+                        <div class="oe_title">
+
+                            <div name="options" groups="base.group_user" class="noner">
+                                <div>
+                                    <field name="sale_ok"/>
+                                    <label for="sale_ok"/>
+                                </div>
+                                <div>
+                                    <field name="purchase_ok"/>
+                                    <label for="purchase_ok"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tabed">
+
+                            <notebook>
+
+                                <page string="Características" name="general_information">
+
+                                    <group>
+
+                                        <group name="group_general">
+                                            <div class="tab-group" style="margin: 0px 15px 0px 0px;">
+                                                <h1>Stock</h1>
+
+                                                <div class="small_fields">
+
+                                                    <div class="small_field">
+                                                        <label for="field5" string="Nivel Mínimo"/>
+                                                        <field name="field5" nolabel="1"/>
+                                                    </div>
+
+                                                    <div class="small_field small_margined">
+                                                        <label for="field6" string="Nivel de Reposición"/>
+                                                    <field name="field6" nolabel="1"/>
+                                                    </div>
+
+                                                    <div class="small_field">
+                                                        <label for="field7" string="Nivel Máximo"/>
+                                                        <field name="field7" nolabel="1"/>
+                                                    </div>
+
+                                                    <br class="clearfloat" />
+
+                                                </div>
+
+                                                <div class="lower_manys">
+
+                                                    <div class="lower_many">
+                                                        <label for="field8" string="Disponible en Bodega"/>
+                                                        <div class="field-wrapper">
+                                                            <field name="field8" nolabel="1"></field>
+                                                            <i class="fa fa-search"></i>
+                                                        </div>
+                                                        <br class="clearfloat" />
+                                                    </div>
+
+                                                    <div class="lower_many">
+                                                        <label for="field9" string="Compromisos por Llegar"/>
+                                                        <div class="field-wrapper">
+                                                            <field name="field9" nolabel="1"></field>
+                                                            <i class="fa fa-search"></i>
+                                                        </div>
+                                                        <br class="clearfloat" />
+                                                    </div>
+
+                                                    <div class="lower_many">
+                                                        <label for="field10" string="Notas de Venta por Facturar"/>
+                                                        <div class="field-wrapper">
+                                                            <field name="field10" nolabel="1"></field>
+                                                            <i class="fa fa-search"></i>
+                                                        </div> 
+                                                        <br class="clearfloat" />
+                                                    </div>
+
+                                                    <div class="lower_many">
+                                                        <label for="field11" string="Guías de Despacho por Facturar"/>
+                                                        <div class="field-wrapper">
+                                                            <field name="field11" nolabel="1"></field>
+                                                            <i class="fa fa-search"></i>
+                                                        </div> 
+                                                        <br class="clearfloat" />
+                                                    </div>
+                                                    
+                                                </div>
+                                                <br class="clearfloat" />
+                                            </div>
+
+                                        </group>
+
+                                        <group name="group_standard_price">
+                                            <div class="tab-group">
+                                                <h1>Clasificación</h1>
+
+                                                <div class="small_fields">
+
+                                                    <div class="small_field">
+                                                        <label for="uom_id" string="Unidad de Medida"/>
+                                                        <field name="uom_id" nolabel="1"/>
+                                                    </div>
+
+                                                    <div class="champs small_field small_margined">
+                                                        <field name="field13" nolabel="1"/>
+                                                        <label for="field13" string="Inventariable" />
+                                                    </div>
+
+                                                    <div class="champs small_field">
+                                                        <field name="field14" nolabel="1"/>
+                                                        <label for="field14" string="Kit"/>
+                                                    </div>
+
+                                                    <br class="clearfloat" />
+
+                                                </div>
+
+                                                <div class="small_fields two_small_fields">
+
+                                                    <div class="small_field" style="margin: 0px 81px 0px 0px;">
+                                                        <label for="field15" string="Grupo"/>
+                                                        <field name="field15" nolabel="1"/>
+                                                    </div>
+
+                                                    <div class="small_field">
+                                                        <label for="field16" string="Sub Grupo"/>
+                                                        <field name="field16" nolabel="1"/>
+                                                    </div>
+
+                                                    <br class="clearfloat" />
+
+                                                </div>
+
+                                                <div class="seprator-border"></div>
+
+                                                <a href="#" class="buttoned">Agregar Impuesto</a>
+
+                                                <div class="bottomed-table">
+                                                    <table>
+
+                                                        <tr>
+                                                            <th>Descripción</th>
+                                                            <th>Impuesto</th>
+                                                            <th></th>
+                                                        </tr>
+
+                                                        <tr class="fields">
+                                                            <td><field name="field18" nolabel="1"/></td>
+                                                            <td><field name="field17" nolabel="1"/></td>
+                                                            <td class="icons">
+                                                                <a href="#">
+                                                                    <i style="color:#5cba45;margin-right:9px;" data-toggle="modal" data-target="#botones" class="borde_iconos fa fa-floppy-o "></i> 
+                                                                    <i style="color:#910f1c" data-toggle="modal" data-target="#botones" class="borde_iconos fa fa-ban"></i>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr class="savings">
+                                                            <td>Impuestos de Vehículo</td>
+                                                            <td>19,00</td>
+                                                            <td class="icons">
+                                                                <a href="#">
+                                                                    <i style="color:#50728c;margin-right:10px;width: 23px;" data-toggle="modal" data-target="#botones" class="borde_iconos fa fa-pencil-square-o"></i> 
+
+                                                                    <i style="color:#cf4f53;width: 23px;" data-toggle="modal" data-target="#botones" class="borde_iconos fa fa-times"></i>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+
+                                                    </table>
+                                                </div>
+
+                                                <br class="clearfloat" />
+                                            </div>
+
+                                        </group>
+
+                                    </group>
+
+                                    <group>
+
+                                        <group name="group_general">
+
+                                            <div class="tab-group" style="margin: 0px 15px 0px 0px;">
+                                                <h1>Valores de Venta</h1>
+
+                                                <div class="floating_fields">
+
+                                                    <div class="floating-field marginized">
+
+                                                        <label for="list_price" string="Valor Neto"/>
+                                                        <field name="list_price" nolabel="1"/>
+
+                                                    </div>
+
+                                                    <div class="floating-field">
+
+                                                        <label for="field22" string="Valor Total"/>
+                                                        <field name="field22" nolabel="1"/>
+
+                                                    </div>
+
+                                                    <br class="clearfloat" />
+
+                                                </div>
+                                                <br class="clearfloat" />
+                                            </div>
+
+                                        </group>
+
+                                        <group name="group_standard_price">
+
+                                            <div class="tab-group">
+                                                <h1>Costo</h1>
+
+                                                <div class="floating_fields">
+
+                                                    <div class="floating-field marginized">
+
+                                                        <label for="standard_price" string="Costo Producto"/>
+                                                        <field name="standard_price" nolabel="1"/>
+                                                    </div>
+
+                                                    <div class="floating-field">
+
+                                                        <label for="pre_price" string="Pre Price"/>
+                                                        <field name="pre_price" nolabel="1"/>
+                                                    </div>
+
+                                                    <div class="floating-field">
+
+                                                        <label for="curr_rate" string="Currency Rate"/>
+                                                        <field name="curr_rate" nolabel="1"/>
+                                                    </div>
+
+                                                    <br class="clearfloat" />
+
+                                                </div>
+
+                                                <br class="clearfloat" />
+                                            </div>
+
+                                        </group>
+
+                                    </group>
+
+                                    <div class="tab-buttons">
+                                        <a href="#" class="btn btn-success btn-green btn-white-content">Guardar</a>
+                                        <a href="#" class="btn btn-warning btn-orange btn-white-content">Modificar</a>
+                                        <a href="#" class="btn btn-danger btn-red btn-white-content">Eliminar</a>
+                                        <a href="#" class="btn btn-default btn_grey btn-white-content">Cancelar</a>
+                                    </div>
+
+                                </page>
+
+                                <page string="Atributos" name="sales">
+                                    
+                                    <group>
+
+                                        <group name="group_general">
+                                            <div class="tab-group" style="margin: 0px 15px 0px 0px;">
+                                                <h1>Asignación de cuentas</h1>
+
+                                                <div class="lower_manys">
+
+                                                    <div class="lower_many">
+                                                        <label for="property_account_income_id" string="Cuenta para Ventas"/>
+                                                        <div class="field-wrapper">
+                                                            <field name="property_account_income_id" nolabel="1"></field>
+                                                            <i class="fa fa-search"></i>
+                                                        </div>
+                                                        <br class="clearfloat" />
+                                                    </div>
+
+                                                    <div class="lower_many">
+                                                        <label for="property_account_expense_id" string="Cuenta para Compras"/>
+                                                        <div class="field-wrapper">
+                                                            <field name="property_account_expense_id" nolabel="1"></field>
+                                                            <i class="fa fa-search"></i>
+                                                        </div> 
+                                                        <br class="clearfloat" />
+                                                    </div>
+
+                                                    <div class="lower_many">
+                                                        <label for="field26" string="Cuenta de Consumo"/>
+                                                        <div class="field-wrapper">
+                                                            <field name="field26" nolabel="1"></field>
+                                                            <i class="fa fa-search"></i>
+                                                        </div> 
+                                                        <br class="clearfloat" />
+                                                    </div>
+                                                    
+                                                </div>
+                                                <br class="clearfloat" />
+                                            </div>
+
+                                        </group>
+
+                                        <group name="group_standard_price">
+                                            <div class="tab-group" style="min-height:262px;">
+                                                <h1>Características</h1>
+
+                                                <div class="small_fielders">
+
+                                                    <div class="champs small_field">
+                                                        <field name="field13" nolabel="1"/>
+                                                        <label for="field13" string="Producto para Compras" />
+                                                    </div>
+
+                                                    <div class="champs small_field">
+                                                        <field name="field14" nolabel="1"/>
+                                                        <label for="field14" string="Producto para Ventas"/>
+                                                    </div>
+
+                                                    <br class="clearfloat" />
+
+                                                </div>
+
+                                                <br class="clearfloat" />
+                                            </div>
+
+                                        </group>
+
+                                    </group>
+
+                                    <group>
+                                        <div class="tab-group" style="margin: 0px 15px 0px 0px;">
+                                            <h1>Notas</h1>
+
+                                            <div class="full-field">
+
+                                                <field name="description_purchase" nolabel="1"/>
+
+                                            </div>
+                                        </div>
+
+                                    </group>
+
+                                    <div class="tab-buttons">
+                                        <a href="#" class="btn btn-success btn-green btn-white-content">Guardar</a>
+                                        <a href="#" class="btn btn-warning btn-orange btn-white-content">Modificar</a>
+                                        <a href="#" class="btn btn-danger btn-red btn-white-content">Eliminar</a>
+                                        <a href="#" class="btn btn-default btn_grey btn-white-content">Cancelar</a>
+                                    </div>
+
+                                </page>
+
+                                <page string="Lista de Precios" name="notes">
+
+                                    <div class="full_tabed_tree">
+                                        <field name="field20">
+                                          <tree editable="bottom">
+                                                <field name="field28" />
+                                                <field name="field29" />
+                                                <field name="field30" />
+                                                <field name="field31" />
+                                          </tree>
+                                        </field>
+                                    </div>
+
+                                    <div class="tab-buttons">
+                                        <a href="#" class="btn btn-success btn-green btn-white-content">Guardar</a>
+                                        <a href="#" class="btn btn-warning btn-orange btn-white-content">Modificar</a>
+                                        <a href="#" class="btn btn-danger btn-red btn-white-content">Eliminar</a>
+                                        <a href="#" class="btn btn-default btn_grey btn-white-content">Cancelar</a>
+                                    </div>
+
+                                 </page>
+
+                                <page name="variants" string="Variants" groups="product.group_product_variant">
+
+                                    <div class="varient_tree">
+                                        <div class="vinsoft_tree">
+
+                                            <field name="attribute_line_ids" widget="one2many_list" context="{'show_attribute': False}">
+                                                <tree string="Variants" editable="bottom">
+                                                    <field name="attribute_id"/>
+                                                    <field name="value_ids" widget="many2many_tags" options="{'no_create_edit': True}" domain="[('attribute_id', '=', attribute_id)]" context="{'default_attribute_id': attribute_id}"/>
+                                                </tree>
+                                            </field>
+                                            
+                                            <p class="oe_grey">
+                                                <strong>Warning</strong>: adding or deleting attributes
+                                                will delete and recreate existing variants and lead
+                                                to the loss of their possible customizations.
+                                            </p>
+
+                                        </div>
+                                    </div>
+                                    
+                                </page>
+
+                                <page string="Kit" name="notes">
+                                    <group name="description">
+                                        <separator string="Description for Quotations" colspan="4"/>
+                                        <field name="description_sale" colspan="4" nolabel="1" placeholder="This note will be displayed on the quotations."/>
+                                    </group>
+                                 </page>
+
+                            </notebook>
+
+                        </div>
+
+                    </sheet>
+
+                </div>
+
+            </form>
+
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="product_second_action">
+        <field name="name">Product Development</field>
+        <field name="res_model">product.theme</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem name="Product 2" id="second_product" parent="sales_team.menu_sales" sequence="10" action="product_second_action"/>
+
+    <record id="ecube_currency_view" model="ir.ui.view"> 
+        <field name="name">ecube_currency_view</field> 
+        <field name="model">ecube.currency</field> 
+        <field name="arch" type="xml"> 
+            <form>
+                <sheet>
+                    <group>
+                        <group name="right">
+                            <field name="name"/>
+                        </group>
+                        <group name="left">
+                            <field name="rate"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_tree_ecube_currency" model="ir.ui.view"> 
+        <field name="name">Ecube Tree Currency</field> 
+        <field name="model">ecube.currency</field> 
+        <field name="type">tree</field> 
+        <field name="arch" type="xml"> 
+            <tree> 
+                     
+                <field name="name"/>
+                <field name="rate"/>
+         
+            </tree> 
+        </field> 
+                
+    </record>
+
+    <record model="ir.actions.act_window" id="ecube_currency_action">
+        <field name="name">Currency</field>
+        <field name="res_model">ecube.currency</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem name="Currency" id="ecube_currency" parent="sales_team.menu_sale_config" action="ecube_currency_action" sequence="1"/>
+</odoo> 

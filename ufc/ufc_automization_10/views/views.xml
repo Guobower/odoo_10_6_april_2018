@@ -1,0 +1,342 @@
+<?xml version="1.0"?> 
+<odoo> 
+
+    <record id="view_form_new_module" model="ir.ui.view"> 
+      <field name="name">ufc Form</field> 
+      <field name="model">ufc.auto</field> 
+      <field name="arch" type="xml"> 
+
+        <form> 
+
+          <header>
+
+              <field name="state" widget="statusbar" statusbar_visible="draft,plan,bilty,done,paid,cancel"/>
+
+              <button name="create_supplier_invoice" type="object" string="Slab Rates" class="oe_highlight"/>
+
+              <button name="plane" type="object" string="Plan" class="oe_highlight"
+              attrs="{'invisible':[('state','!=','draft')]}"/>
+
+              <button name="bilty" type="object" string="Bilty" class="oe_highlight" attrs="{'invisible':[('state','!=','plan')]}"/>
+
+              <button name="done" type="object" string="Done" class="oe_highlight" 
+                attrs="{'invisible':[('state','!=','bilty')]}"/>
+
+              <button name="cancel" type="object" string="Cancel" class="oe_highlight" attrs="{'invisible':[('state','=','draft')]}"/>
+
+
+            
+          </header> 
+
+          <sheet>
+            
+            <group >
+
+              <group string="">
+                <field name="order_no"/>
+                <field name="customer"/>
+                <field name="orient"/>
+                <field name="dharki" invisible="1"/>
+                <field name="engro" invisible="1"/>
+                <field name="gotmachi" invisible="1"/>
+                <field name="sequence"/>
+                <field name="fiscal_position"/>
+              </group>
+
+              <group string="">
+                <field name="invoice_date"/>
+                <field name="journal"/>
+                <field name="account"/>
+                <field name="branch"/>
+              </group>
+
+            </group>
+            
+            <group >
+
+              <group string="Shipment Details">
+                <field name="challan_no"/>
+                <field name="bilty_no"/>
+                <field name="no_of_bags"/>
+                <field name="crt_no" attrs="{'invisible':[('orient','=',False)]}"/>
+                <field name="bl_number" attrs="{'invisible':[('orient','=',False)]}"/>
+                <field name="quantity" attrs="{'invisible':[('orient','=',False)]}"/>
+                <field name="product"/>
+                <field name="region"/>
+                <field name="code" invisible="1"/>
+                <field name="province" invisible="1"/>
+                <field name="dest_name" invisible="1"/>
+                <field name="reg_code" invisible="1"/>
+                <field name="route"/>
+                <field name="via" attrs="{'invisible':[('dharki','=',False)]}"/>
+                <field name="party_name"/>
+                <field name="types" attrs="{'invisible':[('gotmachi','=',False)]}"/>
+                <field name="additional_freight" attrs="{'invisible':[('dharki','=',False)]}"/>
+                <field name="Bill_No"/>
+                <field name="distance"/>
+                <field name="pun_dist" attrs="{'invisible':[('engro','=',False)]}"/>
+                <field name="sin_dist" attrs="{'invisible':[('engro','=',False)]}"/>
+              </group>
+
+              <group string="Accounting Details">
+                <field name="shipper_invoice_no"/>
+                <field name="plan"/>
+                <field name="plan_date"/>
+                <field name="weight"/>
+                <field name="relevant_purchase_invoice"/>
+                <field name="sale_price"/>
+                <field name="additional_freight_val" attrs="{'invisible':[('dharki','=',False)]}"/>
+                <field name="misc_charges" attrs="{'invisible':[('orient','=',False)]}"/>
+                <field name="purchase_price"/>
+                <field name="tax2percent"/>
+                <field name="profit"/>
+                <field name="supplier"/>
+                <field name="pun_amount" attrs="{'invisible':[('engro','=',False)]}"/>
+                <field name="sin_amount" attrs="{'invisible':[('engro','=',False)]}"/>
+              </group>
+
+            </group> 
+
+            <group >
+
+              <group string="Shipment Details">
+                <field name="expected_company_price"/>
+                <field name="expected_profit"/>
+                <field name="ean13"/>
+              </group>
+
+              <group string="Accounting Details">
+                <field name="fc_paid_amount"/>
+                <field name="remaining"/>
+              </group>
+
+            </group>
+
+            <notebook>       
+
+              <page string="Photos">
+                                         
+                <group name="group_top">
+
+                  <group name="group_left">                    
+                    <field name="driver_photo" widget='image'/>
+                    <field name="billty_photo" widget='image'/>
+                    <field name="payment_photo" widget='image'/>               
+                  </group>
+
+                  <group name="group_right">
+                  </group>
+
+                </group>
+                  
+              </page>
+
+              <page string="Driver Details">
+                                           
+                <group name="group_top">
+
+                  <group name="group_left">
+                    <field name="driver_name"/>
+                    <field name="mobile_no"/>
+                    <field name="cleander_name"/>
+                    <field name="cnic"/>
+                    <field name="truck_no"/>
+                    <field name="licence_no"/>             
+                  </group>
+
+                  <group name="group_right">
+                  </group>
+
+                </group>
+                    
+              </page>
+
+              <page string="Supplier Payments">
+
+                <group name="group_top">
+                  <field name="driver_payment_id" nolabel='1'>
+                    <tree editable="bottom">
+                      <field name="name"/>
+                      <field name="description"/>
+                      <field name="cnic"/>
+                      <field name="date"/>
+                      <field name="amount"/>
+                    </tree>
+                  </field>
+                </group>
+                                
+              </page>
+                
+
+            </notebook>
+
+          </sheet>
+
+        </form> 
+
+      </field> 
+    </record>
+
+
+    <record id="view_tree_new_module" model="ir.ui.view"> 
+      <field name="name">ufc Form</field> 
+      <field name="model">ufc.auto</field> 
+      <field name="type">tree</field> 
+      <field name="arch" type="xml"> 
+      <tree string="Pre Invoices" default_order="order_no desc"> 
+       
+            <field name="customer"/>
+            <field name="invoice_date"/>
+            <field name="challan_no"/>
+            <field name="bilty_no"/>
+            <field name="no_of_bags"/>
+            <field name="region"/>
+            <field name="Bill_No"/>
+            <field name="distance"/>
+            <field name="shipper_invoice_no"/>
+            <field name="weight"/>
+            <field name="expected_company_price"/>
+            <field name="fc_paid_amount"/>
+            <field name="remaining"/>
+      
+
+
+      </tree> 
+      </field> 
+    </record>
+
+    <record id="ufc_sequence" model="ir.sequence">
+            <field name="name">ufc_sequence</field>
+            <field name="code">ufc.auto.seq</field>
+            <field name="prefix">S-</field>
+            <field name="padding">3</field>
+             
+        </record>
+
+
+
+
+    <record model="ir.actions.act_window" id="route_management_action">
+      <field name="name">Route Management</field>
+      <field name="res_model">route.management</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <menuitem name="Route Management" id="route_managment_menu_item" parent="account.menu_finance_receivables" action="route_management_action" sequence="100"/>
+
+    <record id="view_form_rates_module" model="ir.ui.view"> 
+      <field name="name">Rates Form</field> 
+      <field name="model">rates</field> 
+      <field name="arch" type="xml"> 
+        <form> 
+
+          <sheet>
+
+            <group >
+
+              <group string="">
+
+                <field name="company_name"/>
+                
+
+              </group>
+
+              <group string="">
+
+                <field name="date_from"/>
+                <field name="date_to"/>
+                
+              </group>
+
+            </group>
+
+            <notebook>
+
+              <page string="Rates">
+
+                <group name="group_top">
+
+                  <field name="rates_table" nolabel='1'>
+                    <tree editable="bottom">
+
+                      <field name="distance_from"/>
+                      <field name="distance_to"/>
+                      <field name="north_zone"/>
+                      <field name="center_zone"/>
+                      <field name="south_zone"/>
+                      <field name="quetta_zone"/>
+                      <field name="fixed"/>
+
+                    </tree>
+
+                  </field>
+
+                </group>
+                              
+              </page>
+
+            </notebook>
+
+          </sheet>
+
+        </form>
+
+      </field>
+
+    </record>
+
+    <record id="view_tree_rates" model="ir.ui.view"> 
+      <field name="name">Rates Form</field> 
+      <field name="model">rates</field> 
+      <field name="type">tree</field> 
+      <field name="arch" type="xml"> 
+      <tree> 
+       
+            <field name="company_name"/>
+            <field name="date_from"/>
+            <field name="date_to"/>
+
+
+      </tree> 
+      </field> 
+    </record>
+
+
+    <record model="ir.actions.act_window" id="rate_table_action">
+      <field name="name">Rates Table</field>
+      <field name="res_model">rates</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <menuitem name="Rates Table" id="rates_menu_item" parent="account.menu_finance_receivables" action="rate_table_action" sequence="101"/>
+
+
+
+  <act_window id="action_new_module" 
+  name="Pre Invoices" 
+  res_model="ufc.auto" 
+  view_mode="tree,form"
+  domain="[('state', 'not in', ('draft', 'plan'))]"
+  />
+
+    <record model="ir.actions.act_window" id="plan_menu_action">
+      <field name="name">plan</field>
+      <field name="res_model">ufc.auto</field>
+      <field name="view_mode">tree,form</field>
+      <field name="domain">[('state', 'in', ('draft', 'plan'))]</field>
+    </record>
+
+<menuitem id="menu_new_module" name="Pre Invoices" parent="account.menu_finance"  sequence="0"/>
+ 
+<menuitem id="menu_new_module_child0" name="plan" parent="menu_new_module" action="plan_menu_action" sequence="3" />
+
+<menuitem id="menu_new_module_child1" name="Pre Invoices" parent="menu_new_module" action="action_new_module" sequence="1"/>
+
+    
+
+
+</odoo>

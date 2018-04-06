@@ -1,0 +1,150 @@
+<odoo>
+  <data>
+
+    <record id="CPTax_form_view"   model="ir.ui.view"> 
+        <field name="name">CPTax_form_view</field> 
+        <field name="model">account.invoice</field> 
+        <field name="inherit_id" ref="account.invoice_form"/> 
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='payment_term_id']" position="after">
+              <field name="province" />
+              <field name="bill_no" />
+              <field name="bill_num" />
+            </xpath>
+
+        </field> 
+    </record>
+
+
+   <record id="invoice_form_extension_tree" model="ir.ui.view">
+        <field name="name">invoice_form_extension_tree</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_tree"/>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+              <field name="province" />
+              <field name="branch" />
+              <field name="bill_no" />
+            </xpath>
+        </field>
+    </record>
+
+
+    <record id="Tax_form_view"   model="ir.ui.view"> 
+        <field name="name">Tax_form_view</field> 
+        <field name="model">account.invoice</field> 
+        <field name="inherit_id" ref="account.invoice_form"/> 
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='user_id']" position="after">
+              <field name="m_tons" />
+              <field name="branch" />
+            </xpath>
+
+        </field> 
+    </record>
+
+
+    <record id="new_form_view"   model="ir.ui.view"> 
+        <field name="name">new_form_view</field> 
+        <field name="model">account.bank.statement</field> 
+        <field name="inherit_id" ref="account.view_bank_statement_form"/> 
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='date']" position="after">
+              <field name="branch" />
+            </xpath>
+
+        </field> 
+    </record>
+
+
+
+    <record id="journal_form_view"   model="ir.ui.view"> 
+        <field name="name">journal_form_view</field> 
+        <field name="model">account.journal</field> 
+        <field name="inherit_id" ref="account.view_account_journal_form"/> 
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='type']" position="after">
+              <field name="branch" />
+            </xpath>
+
+        </field> 
+    </record>
+
+
+
+
+    <record id="move_form_view"   model="ir.ui.view"> 
+      <field name="name">move_form_view</field> 
+      <field name="model">account.move</field> 
+      <field name="inherit_id" ref="account.view_move_form"/> 
+      <field name="arch" type="xml">
+
+        <xpath expr="//field[@name='ref']" position="after">
+          <field name="branch" />
+        </xpath>
+
+      </field> 
+      
+    </record>
+
+
+    <record id="branch_form_view"   model="ir.ui.view"> 
+      <field name="name">branch_form_view</field> 
+      <field name="model">res.users</field> 
+      <field name="inherit_id" ref="base.view_users_form"/> 
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='partner_id']" position="after">
+          <field name="Branch"/>   
+        </xpath>
+      </field> 
+    </record>
+
+    
+
+    <record model="ir.actions.act_window" id="payment_configuration">
+      <field name="name">Cash</field>
+      <field name="res_model">account.bank.statement</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="domain">[('journal_id.type', '=', 'cash')]</field>
+      <field name="context">{'journal_type':'cash'}</field>
+    </record>
+
+
+
+
+
+    <record model="ir.actions.act_window" id="bank_configuration">
+      <field name="name">Bank</field>
+      <field name="res_model">account.bank.statement</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="domain">[('journal_id.type', '=', 'bank')]</field>
+      <field name="context">{'journal_type':'bank'}</field>
+    </record>
+
+
+    <menuitem name="Bank Payment"
+      id="cash_configuration_main"
+      parent="account.menu_finance"
+      sequence="1"/>
+
+    <menuitem name="Cash"
+        id="cash_sales_configuration"
+        parent="cash_configuration_main"
+        action="payment_configuration"
+        sequence="1"/>
+
+    <menuitem name="Bank"
+        id="bank_sales_configuration"
+        parent="cash_configuration_main"
+        action="bank_configuration"
+        sequence="2"/>
+
+
+
+    
+    
+  </data>
+</odoo>

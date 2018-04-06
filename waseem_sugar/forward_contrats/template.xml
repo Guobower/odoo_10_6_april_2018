@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <report
+            id="report_for_contract_trial"
+            model="contract.trial"
+            name="forward_contrats.forward_contracts"
+            file="forward_contrats.forward_contracts"
+            report_type="qweb-html"
+            string="Forward Contracts"/>
+
+    </data>
+
+</openerp>

@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <report
+            id="report_for_work_orders" 
+            model="hr.employee"
+            name="work_order_report.work_order"
+            file="work_order_report.work_order"
+            report_type="qweb-html"
+            string="Work Order Report"
+            menu="False"/> 
+
+        <record id="work_order_wizard_form_view" model="ir.ui.view">
+            <field name="name">work_order_wizard_form_view</field>
+            <field name="model">workorder.report</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Work Order Report">
+                    
+                    <group name="group_top">
+
+                        <group name="group_left">
+
+                            <field name="won"/>
+
+                        </group>
+
+                    </group>
+
+                    <footer>
+                        <button name="%(report_for_work_orders)d" type="action" string="Print" class="oe_highlight"/>
+                    </footer>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="work_order_wizard_action" model="ir.actions.act_window">
+            <field name="name">Work Order</field>
+            <field name="res_model">workorder.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="work_order_wizard_form_view"/>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="work_order_menu_item" name="Work Order Report" action="work_order_wizard_action" parent="mrp.menu_mrp_reporting" />
+
+    </data>
+
+</openerp>

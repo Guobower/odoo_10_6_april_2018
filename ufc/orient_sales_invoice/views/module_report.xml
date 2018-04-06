@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+
+    <data>   
+
+        <template id="module_report">
+
+            <t t-call="report.html_container">
+                <t t-call="report.external_layout">
+                    <t t-foreach="docs" t-as="o">
+
+                        <div class="page">
+
+                            <style>
+
+                                .report-container {
+                                    width: 1000px;
+                                    margin: 0px auto;
+                                }
+
+                                .contaner {
+                                    width: 100%;
+                                }
+
+                                .header {
+                                
+                                    display: none !important;
+                                }
+
+                                .footer {
+
+                                    display: none !important;
+                                }
+
+                                h1 {
+
+                                    margin: 0px auto;
+                                    width: 80%;
+                                    text-align: center;
+
+                                }
+
+                                .ntn {
+
+                                    width: 100%;
+                                    font-weight: bold;
+                                    text-decoration: underline;
+                                }
+
+
+                                h3 {
+
+                                    margin: 0px auto;
+                                    width: 80%;
+                                    text-align: center;
+
+                                }
+
+
+
+                                .line {
+                                    width: 99%;
+                                    float: left;
+                                    margin-top: 10px;
+                                    border: 1px solid #000;
+                                    padding: 3px;
+                                    
+                                }
+
+                                .ser {
+                                    width: 64%;
+                                    float: left;
+                                    margin-bottom: 8px;
+                                }
+
+                                .ser .solid {
+                                    width: 21%;
+                                    float: left;
+                                    font-weight: bold;
+                                }
+
+                                .ser .liquid {
+                                    width: 70%;
+                                    float: left;
+                                
+                                }
+
+                                .time {
+                                    width: 35%;
+                                    float: left;
+                                }
+
+                                .time .solid {
+                                    width: 35%;
+                                    float: left;
+                                    font-weight: bold;
+                                }
+
+                                .time .liquid {
+                                    width: 64%;
+                                    float: left;
+                                
+                                }
+
+                                .box {
+                                    width: 99%;
+                                    float: left;
+                                    border: 1px solid #000;
+                                    margin-top: 5px;
+                                    padding: 3px;
+                                    font-weight: bold;
+                                }
+
+
+                                .box1 {
+
+                                    width: 50%;
+                                    float: left;
+                                    margin-top: 5px;
+                                    padding: 3px;
+                                }
+
+                                .send {
+                                    width: 100%;
+                                    float: left;
+                                    margin-top: 15px;
+                                    margin-left: 5px;
+                                }
+
+                                .send .solid {
+                                    width: 5%;
+                                    float: left;
+                                    font-weight: bold;
+                                }
+
+                                .send .liquid {
+                                    width: 70%;
+                                    float: left;
+                                    font-weight: bold;
+                                
+                                }
+
+                                .tab {
+                                    width: 100%;
+                                    float: left;
+                                    margin-top: 60px;
+
+                                }
+
+
+
+
+
+                                table {
+                                    border: 1px solid #000;
+                                    margin: 10px 0px 0px;
+                                    width: 100%;
+                                    float: left;
+                                    border-spacing: 0px;
+                                }
+
+                                table tr th,
+                                table tr td {
+                                    border-right: 1px solid #000;
+                                    text-align: center;
+                                }
+
+                                table tr th {
+                                    padding: 10px 0px;
+                                    background: #ccc;
+                                                                    
+                                }
+
+                                table tr td {
+                                    border-top: 1px solid #000;
+                                    padding: 5px 0px;
+                                }
+                                
+            
+                            </style>
+      
+                            <div class="report-container">
+
+                                <span class="ntn">NTN :- 1755376-8</span>
+
+                                <h1>Sales Tax Invoice</h1>
+                        
+
+                                <div class="line">
+                                    <div class="ser">
+                                        <span class="solid">Invoice Date:</span>
+                                        <sapn class="liquid" t-esc="datetime.datetime.strptime(o.invoice_date, '%Y-%m-%d').strftime('%d-%m-%Y')"/>
+                                    </div>
+
+
+                                    <div class="time">
+                                        <span class="solid">Invoice No:</span>
+                                        <span class="liquid" t-esc="o.bill_no"></span>
+                                    </div>
+                                    
+                                </div>
+
+                                <br class="clear"></br>
+
+
+                                <div class="box">
+
+                                    <span><b>Supplier Name:-</b></span><br></br>
+                                    <br></br>
+                                    <span>M/s Umer Fayyaz and Co.</span><br></br>
+                                    <span>Address :- 114-DD (CCA) First Floor Phase-IV DHA Lahore.</span><br></br>
+                                    <span>Phone No :- 043-35893342 &amp; 35893164</span>
+                                    
+                                </div>
+
+                                <div class="box">
+
+                                    <span><b><u>Receipient:-</u></b></span><br></br>
+                                    <br></br>
+                                    <span>OREINT ELECTRONIICS (PVT) LTD</span><br></br>
+                                    <span>Address :- 26, KM Multan Road Lahore</span><br></br>
+                                    <span>NTN :- 242043-6,</span><br></br>
+                                    <span>STRN :- 0305850028655</span>
+                                    
+                                </div>
+
+                                
+
+
+
+
+
+                                <table>
+                                    <tr>
+                                        <th>Sr No</th>
+                                        <th>Qunatity</th>
+                                        <th>Description</th>
+                                        <th>Exculding Sales Tax Amount Rs.</th>
+                                        <th>Sindh Sales Tax 13% Rs.</th>
+                                        <th>Amount Including Sales Tax Rs.</th>
+                        
+                                    </tr>
+                                    
+
+                                    <t t-set="amount" t-value="0"/>
+                                    <t t-set="i" t-value="1"/>
+                                    <t t-set="g_amount" t-value="0"/>
+                                    <t t-foreach="enteries" t-as="data">
+                                        <t t-set="cart" t-value="data" />
+                                        <tr>
+                                            <td>
+                                                <t t-esc="i"/>
+                                                <t t-set="i" t-value="i+1"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="values(cart,'count')"></span>*
+                                                <span t-esc="data"></span>
+                                            </td>
+                                            <td>Transport Of Goods Services</td>
+                                            <td>
+                                                <span t-esc="'{:0,}'.format(int(float(values(cart,'quan'))))"></span>
+                                            </td>
+                                            <td>
+                                                <span t-esc="'{:0,}'.format(int(float(values(cart,'quan')*13/100)))"></span>
+
+                                                <t t-set="amount" t-value="values(cart,'quan')+values(cart,'quan')*13/100"/>
+                                            </td>
+                                            <td>
+                                                 <span t-esc="'{:0,}'.format(int(float(amount)))"></span>
+                                                 <t t-set="g_amount" t-value="g_amount+amount"/>
+                                            </td>
+                                                
+                                        </tr>
+                                    </t>
+
+                                    <tr>
+                                        <td colspan="5"><b></b></td>
+                                        <td>
+                                            <span>-</span>
+                                        </td>
+                                        
+
+                                    </tr>
+
+                                    <tr>
+                                        <td colspan="5"><b>Sub Total</b></td>
+                                        <td>
+                                            <span t-esc="'{:0,}'.format(int(float(g_amount)))"></span>
+                                        </td>
+                                        
+
+                                    </tr>
+
+                                    <tr>
+                                        <td colspan="5"><b>Total</b></td>
+                                        <td>
+                                            <span t-esc="'{:0,}'.format(int(float(g_amount)))"></span>
+                                        </td>
+                                        
+
+                                    </tr>
+
+                                </table>
+
+                                <div class="send">
+                                    <span class="solid">Rs.</span>
+                                    <span class="liquid" t-esc="number_to_word(g_amount)"></span>
+                                </div>
+
+                                 <div class="tab">
+
+                                    <span><b>M/s Umer Fayyaz and Co.</b></span><br></br>
+                                    <span>114-DD, Central Commerical Area</span><br></br>
+                                    <span>Phase-IV DHA Lahore.</span><br></br>
+                                    <span><b>Phone No :- 043-35893342 &amp; 35893164</b></span>
+                                    
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+                    </t>
+
+                </t>
+            </t>
+
+        </template>
+
+    </data>
+
+</openerp>

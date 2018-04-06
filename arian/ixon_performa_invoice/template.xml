@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <report
+            id="report_for_module_ixon" 
+            model="sale.order"
+            name="ixon_performa_invoice.module_report"
+            file="ixon_performa_invoice.module_report"
+            report_type="qweb-html"
+            string="Ixon Proforma"/> 
+    </data>
+</openerp>

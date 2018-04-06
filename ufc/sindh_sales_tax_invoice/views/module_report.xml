@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+
+    <data>   
+
+        <template id="module_report">
+
+            <t t-call="report.html_container">
+                <t t-call="report.external_layout">
+                <t t-foreach="docs" t-as="o">
+
+                    <div class="page">
+
+                        <style>
+                            .report-container {
+                                width: 1000px;
+                                margin: 0px auto;
+                            }
+
+                            .header {
+                                    display: none !important;
+                                }
+
+                            .footer {
+                                display: none !important;
+                            }
+
+                            .umer {
+                                width: 50%;
+                                font-weight: bold;
+                                font-size: 41px;
+                                float: left;
+                                margin-top: 10px;
+                            }
+
+                            .trans {
+                                width: 50%;
+                                font-weight: bold;
+                                font-size: 22px;
+                                float: left;
+                                margin-top: 26px;
+                                text-decoration: underline;
+                                text-align: right;
+                            }
+
+                            .clear {
+                                float: none;
+                                clear: both;
+                            }
+
+
+                            .addrs {
+                                width: 100%;
+                                font-size: 10px;
+                                float: left;
+                                margin-top: 8px;
+                            }
+
+                            .sheet {
+                                width: 13.5%;
+                                float: right;
+                            }
+                            .sheet .liquid {
+                                width: 50%;
+                                float: right;
+                            }
+
+                            .sheet .solid {
+                                width: 50%;
+                                float: right;
+                                font-weight: bold;
+                            }
+
+                            .date {
+                                width: 13.5%;
+                                float: right;
+                            }
+                            .date .liquid {
+                                width: 70%;
+                                float: right;
+                            }
+
+                            .date .solid {
+                                width: 30%;
+                                float: right;
+                                font-weight: bold;
+                            }
+
+                            .bill {
+                                width: 15.5%;
+                                float: right;
+                            }
+                            .bill .liquid {
+                                width: 65%;
+                                float: right;
+                            }
+
+                            .bill .solid {
+                                width: 35%;
+                                float: right;
+                                font-weight: bold;
+                            }
+
+
+                            .clear {
+                                float: none;
+                                clear: both;
+                            }
+
+                            .box {
+                                width: 25%;
+                                border: 1px solid;
+                                float: left;
+                                padding: 4px;
+                                font-weight: bold;
+                                margin-top: 20px;
+
+                            }
+
+                            .box2 {
+                                width: 47%;
+                                float: left;
+                                margin-top: 20px;
+                                margin-left: 15px; 
+                            }
+
+                            .box2 .solid {
+                                width: 30%;
+                                font-weight: bold;
+                                float: left;
+                            }
+
+
+                            .box2 .liquid {
+                                width: 70%;
+                                text-decoration: underline;
+                                float: left;
+                                font-weight: bold;
+                            }
+
+                            .box3 {
+                                width: 25%;
+                                float: left;
+                                margin-top: 20px;
+                                margin-left: 5px;
+
+                            }
+
+                            .box3 .solid {
+                                width: 40%;
+                                float: left;
+                                font-weight: bold;
+                            }
+
+
+                            .box3 .liquid {
+                                width: 50%;
+                                float: left;
+                                font-weight: bold;
+
+                            }
+
+                            .box3 .bal {
+                                width: 92%;
+                                float: left;
+                                font-weight: bold;
+                                border: 1px solid;
+                                margin-top: 8px;
+                                padding: 10px;
+
+                            }
+
+                            table {
+                                border: 1px solid #000;
+                                margin: 10px 0px 0px;
+                                width: 100%;
+                                float: left;
+                                border-spacing: 0px;
+                            }
+                            table tr th,
+                            table tr td {
+                                border-right: 1px solid #000;
+                                text-align: center;
+                            }
+                            table tr th {
+                                padding: 10px 0px;
+                                    
+                            }
+                            table tr td {
+                                border-top: 1px solid #000;
+                                padding: 5px 0px;
+                            }
+
+                            table tr th.space,
+                            table tr td.space {
+                                min-width: 140px;
+                                max-width: 140px;
+                                width: 140px;
+                            }
+
+                            table tr th.space1,
+                            table tr td.space1 {
+                                min-width: 80px;
+                                max-width: 80px;
+                                width: 80px;
+                            }
+
+                            table tr th.space2,
+                            table tr td.space2 {
+                                min-width: 50px;
+                                max-width: 50px;
+                                width: 50px;
+                            }
+
+                            .amount {
+                                width: 14%;
+                                border: 1px solid;
+                                float: right;
+                                text-align: center;
+                            }
+
+                            .total {
+                                width: 16%;
+                                border: 1px solid;
+                                float: right;
+                                text-align: center;
+                                font-weight: bold;
+                            }
+
+                            .text {
+                                width: 65%;
+                                float: right;
+                                text-align: center;
+                            }
+
+                            .sign {
+                                width: 69.5%;
+                                float: left;
+                                text-align: left;
+                                font-weight: bold;
+                                margin-top: 20px;
+                            }
+
+                            .gtotal {
+                                width: 16%;
+                                border: 1px solid;
+                                float: left;
+                                text-align: center;
+                                font-weight: bold;
+                            }
+
+                            .amounts {
+                                width: 14%;
+                                border: 1px solid;
+                                float: left;
+                                text-align: center;
+                            }
+            
+                        </style>
+
+                        <div class="report-container">
+
+
+                            <t t-set="date" t-value="context_timestamp(datetime.datetime.now()).strftime('%d-%m-%Y')" />
+
+                            <span class="umer">Umer Fayyaz &amp; Company</span>
+
+                            <span class="trans">TRANSPORTATION CONTRACTOR'S BILL</span>
+
+                            <br class="clear"></br>
+
+                            <span class="addrs">Head Office: Group 114 1st Floor Central Commerical Area DHA Lahore Cantt. Tel: 042-35694164, 35893341,2</span>
+                            <span class="addrs">Branch Office: 8, 2nd Floor, Buslaan House, Old Truck Stand Maripore Road, Karachi: Ph: 021-32530276</span>
+
+                            <div class="sheet">
+                                <span class="liquid">________</span>
+                                <span class="solid">Sheet No:</span>
+                                
+                            </div>
+
+                            <div class="date">
+                                <span class="liquid" t-esc="date"></span>
+                                <span class="solid">Date:</span>
+                                
+                            </div>
+
+                            <div class="bill">
+                                <span class="liquid" t-esc="o.bill_no"></span>
+                                <span class="solid">Bill No:</span>
+                                
+                            </div>
+
+                            <br class="clear"></br>
+
+                            <div class="box">
+
+                                <span>TO:</span><br></br>
+                                <span>ENGRO FERTILIZERS PVT.LTD.</span><br></br>
+                                <span>KARACHI</span>
+                                
+
+                            </div>
+
+                            <div class="box2">
+
+                                <span class="solid">Vessel's Name :</span>
+                                <span class="liquid" t-esc="o.Customer.name"></span>
+                                <br></br>
+                                <br></br>
+                                
+                                <span class="solid">Product :</span>
+                                <span class="liquid"></span>
+                                
+                                
+
+                            </div>
+
+                            <div class="box3">
+
+                                <span class="solid">PNTN. NO:</span>
+                                <span class="liquid">1755376</span>
+                                <br></br>
+                                <span class="bal"> BALANCE B/F</span>
+                                
+
+                            </div>
+
+                            <table>
+                                <tr>
+                                    <th class="space2">S No</th>
+                                    <th class="space">INV/WSA NO</th>
+                                    <th>DATE</th>
+                                    <th class="space1">BAGS</th>
+                                    <th class="space2">MT</th>
+                                    <th class="space">DESTINATION</th>
+                                    <th class="space">TRUCK NO</th>
+                                    <th class="space1">DISTANCE KM</th>
+                                    <th class="space1">RATE KM/MT</th>
+                                    <th class="space">AMOUNT (RS)</th>
+                                </tr>
+
+                                <t t-set="i" t-value="1"/>
+                                <t t-set="page_total" t-value="0"/>
+                                <t t-set="g_total" t-value="0"/>
+                                <t t-set="tax" t-value="0"/>
+                                <t t-foreach="enteries" t-as="data">
+
+                                    <tr>
+                                        <td>
+                                            <t t-esc="i"/>
+                                            <t t-set="i" t-value="i+1"/>
+                                        </td>
+
+                                        <td t-esc="data.shipper_invoice_no"></td>
+
+                                        <td t-esc="o.invoice_date"></td>
+
+                                        <td t-esc="'{:0,}'.format(int(float(data.no_of_bags)))"></td>
+
+                                        <td t-esc="'{:0,}'.format(int(float(data.weight)))"></td>
+
+                                        <td t-esc="data.dest_name"></td>
+
+                                        <td t-esc="data.truck_no"></td>
+
+                                        <td t-esc="data.sin_dist"></td>
+
+                                        <td></td>
+
+                                        <td class="space">
+                                            <span t-esc="'{:0,}'.format(int(float(data.sin_amount)))"></span>
+                                            <t t-set="page_total" t-value="page_total+(data.sin_amount)"/>
+                                        </td>
+
+                                    </tr>
+                                </t>
+
+
+                                    <tr>
+
+                                        <td colspan="9"><b>Total</b></td>
+                                        <td t-esc="'{:0,}'.format(int(float(page_total)))"></td>
+
+
+                                    </tr>
+
+                                    <tr>
+
+                                       <td colspan="9"><b>For Sindh Shipment 13%</b></td>
+                                        <td>
+                                            <span t-set="tax" t-value="page_total*.13"></span>
+                                            <t t-esc="'{:0,}'.format(int(float(tax)))"/>
+                                        </td>
+                                
+                                
+
+                                    </tr>
+
+                                    <tr>
+
+                                        <td colspan="7">RESPECTED COPIES FROM DEALERS/WAREHOUSE SUPERVISORS ATTACHED</td>
+                                        <td colspan="2"><b>GRAND TOTAL</b></td>
+                                        <td>
+                                            <span t-set="g_total" t-value="page_total+tax"></span>
+                                            <t t-esc="'{:0,}'.format(int(float(g_total)))"/>
+                                        </td>
+
+
+                                    </tr>
+
+                            </table>
+
+
+
+                            <div class="sign">
+                                <p>CONTRACTOR'S SIGNATURE__________________________</p>
+                                
+                            </div> 
+                           
+
+                    </div>
+
+                    </div>
+
+                </t>
+
+                </t>
+            </t>
+
+        </template>
+
+    </data>
+
+</openerp>

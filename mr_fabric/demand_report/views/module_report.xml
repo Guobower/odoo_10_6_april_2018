@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+
+    <data>   
+
+        <template id="demand_report_report">
+
+            <t t-call="report.html_container">
+                <t t-call="report.external_layout">
+                    <t t-foreach="docs" t-as="o">
+
+                        <div class="page">
+
+                            <style type="text/css">
+                                .mainwraper {
+                                    width: 1080px;
+                                    margin: 0px auto;
+                                    margin-top: 40px;
+                                }
+                                h2 {
+                                    margin-left: 360px;
+                                }
+                                table ,th {
+                                    border: 2px solid;
+                                    border-collapse: collapse;
+                                    text-align: center;
+                                    padding: 6px;
+                                }
+                                td {
+                                    padding: 6px;
+                                    border: 1px solid;
+                                }
+                                .solid {
+                                    width: 33%;
+                                    text-decoration: underline;
+                                    display: inline-block;
+                                    font-weight: bold;
+                                    margin-top: 10px;
+                                    margin-right: 116px;
+
+                                }
+                                .solid2 {
+                                    width: 10%;
+                                    display: inline-block;
+                                    font-weight: bold;
+                                    margin-top: 20px;
+                                }
+                                .liquid {
+                                    border-bottom: 1px solid black;
+                                    width: 30%;
+                                }
+                                p {
+                                    margin: 0px auto;
+                                }
+                                .header {
+                                    display: none !important;
+                                }
+                                .footer {
+                                    display: none !important;
+                                }
+
+
+                            </style>
+
+                            <div class="mainwraper">
+                                
+                                <div style="position:absolute;top:0px; page-break-inside: avoid;">
+
+                                    <h2>Fabric Development Request</h2>
+                                </div>
+
+                                <p>
+                                    <span class="solid2">Style No:</span>
+                                    <span class="liquid" t-esc="o.style_no.name"></span>
+                                </p>
+
+                                <p>
+                                    <span class="solid2">Style Name:</span>
+                                    <span class="liquid" t-esc="o.style_name"></span>
+                                </p>
+
+                                <p>
+                                    <span class="solid2">Buyer:</span>
+                                    <span class="liquid" t-esc="o.buyer.name"></span>
+                                </p>
+
+                                <table width="100%">
+                                    
+                                    <tr>
+                                        <th>DETAIL </th>
+                                        <th>REFERENCE </th>
+                                        <th>FABRIC DESCRIPTION</th>
+                                        <th>COLOR</th>
+                                        <th>GSM</th>
+                                        <th>QUANTITY </th>
+                                    </tr>
+
+                                    <t t-foreach="o.tree_link" t-as="data">
+
+                                        <tr>
+                                            <td>
+                                                <span t-esc="data.fabric_no.name"></span>
+                                            </td>
+                                            <td>
+                                                <span t-esc="data.reference"></span>
+                                            </td>
+                                            <td>
+                                                <span t-esc="data.fabric_description"></span>
+                                            </td>
+                                            <td>
+                                                <span t-esc="data.colour"></span>
+                                            </td>
+                                            <td>
+                                                <span t-esc="data.gsm"></span>
+                                            </td>
+                                            <td>
+                                                <span t-esc="data.quantity"></span>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                
+                                </table>
+
+                                <div style="position:absolute;bottom:250px; page-break-inside: avoid;">
+
+                                    <p>
+                                        <span class="solid">PREPARED BY:</span>
+                                        <span class="solid">APPROVED BY:</span>
+                                        <span class="solid">RECEIVED BY: </span>
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                        </div><!--end of page-->
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</openerp>

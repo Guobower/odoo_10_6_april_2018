@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+
+    <data>   
+
+        <template id="leave_app_report">
+
+            <t t-call="report.html_container">
+                <t t-call="report.external_layout">
+                    <t t-foreach="docs" t-as="o">
+
+                        <div class="page">
+
+                            <style>
+                                @font-face {
+                                    font-family: 'NafeesNastaleeq';
+                                    src: url('/employee_form/static/src/fonts/NafeesNastaleeq.eot?#iefix') format('embedded-opentype'),  
+                                        url('/employee_form/static/src/fonts/NafeesNastaleeq.woff') format('woff'), 
+                                        url('/employee_form/static/src/fonts/NafeesNastaleeq.ttf')  format('truetype'), 
+                                        url('/employee_form/static/src/fonts/NafeesNastaleeq.svg#NafeesNastaleeq') format('svg');
+                                font-weight: normal;
+                                font-style: normal;
+                                }
+                                .main-data {
+                                    font-family: 'NafeesNastaleeq', serif;
+                                }
+                                h1,h2,h3,h4,h5,h6,span,p,li,a,span {
+                                    line-height: 2.5;
+                                }
+                                @media (min-width: 992px)
+                                .container {
+                                    width: 100%;
+                                }
+
+                                @media (min-width: 768px)
+                                .container {
+                                    width: 100%;
+                                }
+                                .container {
+                                    width: 100%;
+                                }
+                                .english {
+                                    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+                                }
+                                body {
+                                    margin: 0px !important;
+                                }
+                                body.o_in_iframe {
+                                    margin-top: 0px!important;
+                                }
+                                .main-data {
+                                    width: 100%;
+                                }
+                                .center-data {
+                                    width: 1000px;
+                                    margin: 0px auto;
+                                }
+                                .applicaion {
+                                    width: 100%;
+                                    float: right;
+                                    text-align: right;
+                                }
+                                h3 {
+                                    text-align: center;
+                                }
+                                .application p {
+                                    width: 50%;
+                                    float: right;
+                                    text-align: right;
+                                }
+                                .solid {
+                                    width: 5%;
+                                    font-weight: bold;
+                                    margin-left: 8px;
+                                }
+                                .liquid {
+                                    width: 85%;
+                                    border-bottom: 1px dashed;
+                                    display: inline-block;
+                                    text-align: center;
+                                }
+
+                                .line {
+                                    width: 45%;
+                                    border-bottom: 1px dashed;
+                                    display: inline-block;
+                                }
+
+                                .leave {
+                                    width: 33%;
+                                    float: right;
+                                    text-align: center;
+                                }
+                                .leave .liquid {
+                                    width: 60%;
+                                }
+                                table, td, th {
+                                    border: 1px solid;
+                                    border-collapse: collapse;
+                                    text-align: center;
+                                    padding: 6px;
+                                }
+                                .clearfloat {
+                                    clear: both;
+                                    float: none;
+                                }
+
+                                h3 {
+                                width: 50%;
+                                margin: 0px auto;
+                                text-align: center;
+                                }
+
+                                .header {
+                                    display: none !important;
+                                }
+
+
+                                .footer {
+                                    display: none !important;
+                                }
+                            </style>
+                            
+                            <div class="main-data">
+                                <div class="center-data">
+
+                               <!--  <span style="float:right" t-esc="context_timestamp(datetime.datetime.now()).strftime('%d-%m-%Y')"></span>
+                                <span style="float:right;margin-right:15px">Date:</span> -->
+                                <h3>مسٹر فیبرکس پرائیویٹ لمیٹڈ </h3>
+                                    <h3>درخواست برائے رخصت</h3>
+                                    <p><span class="solid">No:-RG</span>
+                                    <span class="line"></span></p>
+                                    <div class="application">
+                                        <p><span class="liquid" t-esc="o.name"></span>
+                                            <span class="solid">نام</span></p>
+                                        <p><span class="liquid" t-esc="o.card_no.name"></span>
+                                            <span class="solid">کارڈ نمبر </span></p>
+                                    </div>
+                                    <div>
+                                        <p><span class="liquid" t-esc="o.fname"></span>
+                                            <span class="solid">ولدیت </span></p>
+                                        <p><span class="liquid" t-esc="o.job_id.name"></span>
+                                            <span class="solid">عہدہ</span></p>
+                                        <p><span class="liquid" t-esc="o.department_id.name"></span>
+                                            <span class="solid">کھا تہ </span></p>
+                                    </div>
+                                    <div class="application">
+                                        <p><span class="liquid" style="width: 30%"></span>
+                                            <span class="solid"> درخواست کرتا ہوں کہ مجھے ازمورخہ </span></p>
+                                        <p><span class="liquid"></span>
+                                            <span class="solid">تا </span></p>
+                                    </div>
+                                    <div class="leave">
+                                        <p><span class="solid"> یوم کی رخصت ()</span></p>
+                                    </div>
+                                    <div class="leave">
+                                        <p><span class="solid">اتفاقیہ/بیماری/ سالانہ</span></p>
+                                    </div>
+                                    <div class="leave">
+                                        <p><span class="solid">عنایت فرمائی جائے</span></p>
+                                    </div>
+                                    <div>
+                                        <p><span class="liquid"></span>
+                                            <span class="solid">ولدیت </span></p>
+                                    </div>
+                                    <t t-set="count" t-value="0" />
+                                    <t t-foreach="o.leave_tree" t-as="leave">
+                                        <t t-set="count" t-value="count + 1" />
+                                    </t>
+                                        <table width="100%" style="margin-bottom: 15px;">
+                                            <tr>
+                                                <th>تفصیل دستخط   ٹائم کیپر</th>
+                                                <th>رخصت بقایا </th>
+                                                <th>رخصت  حاصل کردہ </th>
+                                                <th>رخصت مستحق</th>
+                                                <th>تفصیل</th>
+                                            </tr>
+                                            <t t-if="count == 0">
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td>اتفاقیہ</td>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td>میڈ یکل </td>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td>سالانہ</td>
+                                                </tr>
+                                            </t>
+                                            <t t-if="count != 0">
+                                                <t t-foreach="o.leave_tree" t-as="data">
+                                                    <tr>
+                                                        <td></td>
+                                                        <td><span t-esc="data.Left"></span></td>
+                                                        <td><span t-esc="data.taken"></span></td>
+                                                        <td><span t-esc="data.allowed"></span></td>
+                                                        <td><span t-esc="data.type"></span></td>
+                                                    </tr>
+                                                </t>
+                                            </t>
+                                        </table>
+                                    <div class="application">
+                                        <p><span class="liquid"></span>
+                                            <span class="solid">دستخط درخواست گزار ۔</span></p>
+                                        <p><span class="liquid" t-esc="o.incharge.name"></span>
+                                            <span class="solid">دستخط  انچارج</span></p>
+                                        <p><span class="liquid"></span>
+                                            <span class="solid">دستخط جنر ل مینیجر / ایڈمن آفیسر</span></p>
+                                    </div>
+                                    <br class="clearfloat"/>
+                                    <div class="leave">
+                                        <p><span class="solid">Signature</span>
+                                            <span class="liquid"></span></p>
+                                    </div>
+                                    <div class="leave">
+                                        <p><span class="solid">Received By:</span>
+                                            <span class="liquid"></span></p>
+                                    </div>
+                                    <div class="leave">
+                                        <p><span class="solid">Date:</span>
+                                            <span class="liquid"></span></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div><!--end of page-->
+                    </t>
+                </t>
+            </t>
+
+        </template>
+
+    </data>
+
+</openerp>

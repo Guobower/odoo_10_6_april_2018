@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <report
+            id="payment_history" 
+            model="sale.order"
+            name="crowncity_history.module_report"
+            file="crowncity_history.module_report"
+            report_type="qweb-html"
+            string="Payment History"/> 
+    </data>
+</openerp>

@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <report
+            id="report_for_leave_report" 
+            model="leave.encashment"
+            name="leave_encashment_report.customer_report"
+            file="leave_encashment_report.customer_report"
+            report_type="qweb-html"
+            string="Leave Encashment"
+            menu="False"/>
+            
+
+         <record id="leave_wizard_form_view" model="ir.ui.view">
+            <field name="name">leave_wizard_form_view</field>
+            <field name="model">encashment.report</field>
+            <field name="arch" type="xml">
+                <form string="Leave Encashment">
+                    <group name="group_top">
+                        <group name="group_left"> 
+                            
+                            <field name="date_from"/>
+                            <!-- <field name="rep_types"/> -->
+
+                        </group>
+
+                        <group name="group_right">
+                            <field name="date_to"/>
+                            <!-- <field name="card_types" attrs="{'invisible':[('rep_types','!=','card')],'required':[('rep_types','=','card')]}"/>
+                            <field name="dep_types" attrs="{'invisible':[('rep_types','!=','dep')],'required':[('rep_types','=','dep')]}"/>
+                            <field name="card_no" options="{'no_create':True,'no_edit':True}" widget="many2many_tags" attrs="{'invisible':[('card_types','!=','sep')],'required':[('card_types','=','sep')]}"/>
+                            <field name="depart" options="{'no_create':True,'no_edit':True}" widget="many2many_tags" attrs="{'invisible':[('dep_types','!=','sep')],'required':[('dep_types','=','sep')]}"/> -->
+
+                        </group>
+                        
+                    </group>
+                    <footer>
+                        <button name="%(report_for_leave_report)d" type="action" string="Print" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="leave_reports_wizard" model="ir.actions.act_window">
+            <field name="name">Leave Encashment</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">encashment.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="leave_wizard_form_view"/>
+            <field name="target">new</field> 
+        </record>
+
+
+        <menuitem name="Leave Encashment Report" id="leave_wise_menu" parent="hr_holidays.menu_hr_holidays_approvals" action="leave_reports_wizard" sequence="4"/>       
+
+    </data>
+</openerp>
+
+

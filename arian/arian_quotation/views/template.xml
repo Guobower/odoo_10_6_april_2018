@@ -1,0 +1,71 @@
+<?xml version="1.0"?> 
+<odoo>
+    
+    <record id="order_quotation_form_view" model="ir.ui.view">
+        <field name="name">order_quotation_form_view</field>
+        <field name="model">order.quotation</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            
+            <form string="Product Development Request">
+
+                <sheet>
+
+                    <group name="group_top">
+
+                        <group name="group_left"> 
+                            <field name="customer" />
+                            <field name="quote_no" />
+                            <field name="proj_descrip" />
+                        </group>
+
+                        <group name="group_right"> 
+                            <field name="dated" />
+                            <field name="valid_until" />
+                        </group>
+
+                    </group>
+
+                    <field name="data_comes" widget="one2many_list" context="{'show_attribute': False}">
+
+                        <tree editable="bottom">
+                            <field name="prod_name" domain="[('prod_customer','=',parent.customer)]" />
+                            <field name="price"/>
+                        </tree>
+
+                    </field>
+
+                </sheet>
+
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+
+            </form>
+
+        </field>
+    </record>
+
+    <record id="hide" model="res.groups">
+        <field name="name">Hide</field>
+        <field name="comment">Hide.</field>
+    </record>
+
+    <!--========================[Action - START]========================-->
+
+    <record model="ir.actions.act_window" id="order_quotation_action">
+        <field name="name">Order Qutation</field>
+        <field name="res_model">order.quotation</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!--========================[MenuItem - START]========================-->
+
+
+    <menuitem name="Quotation" id="sale.menu_quotation" parent="sales_team.menu_sales" sequence="102" action="order_quotation_action" />
+
+    <menuitem name="Quotations" id="sale.menu_sale_quotations" parent="sales_team.menu_sales" groups="hide" />
+
+</odoo> 

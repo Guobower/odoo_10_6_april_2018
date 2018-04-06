@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_dummy_attendance,access_dummy_attendance,model_dummy_attendance,employee_new_attendace.mall_group_manager,1,1,1,1
+access_to_clean_attendance,access_to_clean_attendance,model_to_clean_attendance,employee_new_attendace.mall_group_manager,1,1,1,1
+access_to_clean_attendance_line,access_to_clean_attendance_line,model_to_clean_attendance_line,employee_new_attendace.mall_group_manager,1,1,1,1
+access_cleaned_attendance,access_cleaned_attendance,model_cleaned_attendance,employee_new_attendace.mall_group_manager,1,1,1,1

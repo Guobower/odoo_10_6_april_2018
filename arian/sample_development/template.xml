@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <report
+            id="report_for_module_sample" 
+            model="product.prototype"
+            name="sample_development.module_report"
+            file="sample_development.module_report"
+            report_type="qweb-html"
+            string="Sample Development Report"/> 
+    </data>
+</openerp>

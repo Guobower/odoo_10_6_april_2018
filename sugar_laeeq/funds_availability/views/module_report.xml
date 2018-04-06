@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+
+    <data>   
+
+        <template id="funds_availability_report">
+
+            <t t-call="report.html_container">
+
+                <t t-call="report.external_layout">
+                
+                    <div class="page">
+                        
+                        <style type="text/css">
+                            .header,
+                            .footer {
+                                display: none;
+                            }
+                            @media (min-width: 992px) {
+                                .container {
+                                    width: 100%;
+                                }
+                            }
+
+                            @media (min-width: 768px) {
+                                .container {
+                                    width: 100%;
+                                }
+                            }
+                            .container {
+                                width: 100%;
+                            }
+                            body {
+                                margin: 0px !important;
+                            }
+                            body.o_in_iframe {
+                                margin-top: 0px!important;
+                            }
+                            h1 {
+                                text-align: center;
+
+                            }
+                            h1 span {
+                                border-bottom: 2px solid #000;
+                                padding: 0px 0px 4px 0px;
+                            }
+                            .report-wrapper {
+                                width: 100%;
+                                margin: 20px auto;
+                                font-weight: bold;
+                            }
+                            .solid {
+                                font-weight: bold;
+                            }
+                            table {
+                                width: 90%;
+                                border: 2px solid #000;
+                                border-spacing: 0px;
+                                margin: 0px auto;
+                                font-size: 10px;
+                            }
+                            .cols-01 table {
+                                margin: 10px 0px;
+                            }
+                            table tr td,
+                            table tr th {
+                                border-bottom: 2px solid #000;
+                                border-right: 2px solid #000;
+                                padding: 3px;
+                            }
+                            table tr td:last-child,
+                            table tr th:last-child {
+                                border-right: none;
+                            }
+                            table tr:last-child td,
+                            table tr:last-child th {
+                                border-bottom: none;
+                            }
+                            .col {
+                                width: 23%;
+                                float: right;
+                                margin-left: 25px;
+                            }
+                            .clearfloat {
+                                width: 1px;
+                                height: 1px;
+                                float: none;
+                                clear: both;
+                                display: block;
+                            }
+                            .col-01 {
+                                width: 70%;
+                                float: left;
+                            }
+                            .col-02 {
+                                width: 30%;
+                                float: left;
+                            }
+                            .date {
+                                width: 120px;
+                                text-align: center;
+                                border: 2px solid #000;
+                                font-weight: bold;
+                                line-height: 2;
+                            }
+                            .colored {
+                                background: #666666;
+                                color: #FFF;                
+                            }
+                            .cols-01 table.summray {
+                                margin-top: 33px;
+                            }
+                            .col-02 p,
+                            .col-01 p {
+                                margin-top: 12px;
+                                border: 2px solid #000;
+                                text-align: center;
+                                font-size: 10px;
+                                line-height: 1.9;
+                            }
+                            .col-01 p {
+                                width: 90px;
+                                padding: 0px 0px 0px 15px;
+                                text-align: left;
+                            }
+                            .col table.main_tables {
+                                width: 100%;
+                            }
+                            .col table.main_tables tr th {
+                                background: #666666;
+                                color: #FFF;
+                                line-height: 1;
+                                font-size: 13px;
+                                text-align: center;
+                            }
+                            .col table.main_tables tr td.seprate {
+                                padding: 10px 0px;
+                            }
+                            .abbr {
+                                font-size: 9px;
+                            }
+
+                        </style>
+
+                        <div class="report-wrapper">
+
+                            <t t-set="total_balance" t-value="0" />
+                            <t t-set="due_balance" t-value="0" />
+
+                            <t t-set="total_amounted" t-value="0" />
+                            <t t-set="total_credit" t-value="0" />
+
+                            <t t-set="total_amount" t-value="0" />
+                            <t t-set="amount_avil" t-value="0" />
+
+                            <div class="col">
+
+                                <table class="main_tables bigger">
+                                    <tr>
+                                        <th>Bank's Name</th>
+                                        <th>Actual Balance</th>
+                                        <th>Balancer After 50,000/=</th>
+                                        <th>Avilable Balance</th>
+                                    </tr>
+
+                                    <t t-foreach="banks" t-as="bank">
+                                        <tr>
+                                            <td><span t-esc="bank.name"></span></td>
+                                            <td>
+                                                <t t-set="amount" t-value="bank_amount(bank)" />
+                                                <span t-esc="'{:0,}'.format(int(float(amount)))"></span>
+                                                <t t-set="total_amount" t-value="total_amount + amount" />
+                                            </td>
+                                            <td>
+                                                <t t-set="deduction" t-value="amount - 50000" />
+                                                <span t-esc="'{:0,}'.format(int(float(deduction)))"></span>
+                                            </td>
+                                            <td>
+                                                <span t-esc="'{:0,}'.format(int(float(deduction)))"></span>
+                                                <t t-set="amount_avil" t-value="amount_avil + deduction" />
+                                            </td>
+                                        </tr>
+                                    </t>
+
+                                    <tr>
+                                        <td><b>Balance</b></td>
+                                        <td><b><span t-esc="'{:0,}'.format(int(float(total_amount)))"></span></b></td>
+                                        <td colspan="2"></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td></td>
+                                        <td colspan="2">Parties Balance Due</td>
+                                        <td><span t-esc="'{:0,}'.format(int(float(amount_avil)))"></span></td>
+                                    </tr>
+
+                                </table>
+
+                            </div><!--end of col-->
+
+                            <div class="col">
+
+                                <table class="main_tables">
+                                    <tr>
+                                        <th>Payables</th>
+                                        <th>Amount</th>
+                                        <th>Amount Due</th>
+                                    </tr>
+
+                                    <t t-foreach="purchases" t-as="purchase">
+                                        <tr>
+                                            <td><span t-esc="purchase['name']"></span></td>
+                                            
+                                            <td>
+                                                <t t-set="amountd" t-value="(-1*purchase['amount'])" />
+                                                <span t-esc="'{:0,}'.format(int(float(amountd)))"></span>
+                                                <t t-set="total_amounted" t-value="total_amounted + amountd"/>
+                                            </td>
+                                            
+                                            <td>
+                                                <t t-set="total_credit" t-value="total_credit + amountd" />
+                                                <span t-esc="'{:0,}'.format(int(float(amountd)))"></span>
+                                            </td>
+                                        </tr>
+                                    </t>
+
+                                    <tr>
+                                        <td><b>Total Amount</b></td>
+                                        <td><span t-esc="'{:0,}'.format(int(float(total_amounted)))"></span></td>
+                                        <td></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td colspan="2"><b>Total Creditors</b></td>
+                                        <td><span t-esc="'{:0,}'.format(int(float(total_credit)))"></span></td>
+                                    </tr>
+
+                                </table>
+
+                            </div><!--end of col-->
+
+                            <div class="col">
+
+                                <table class="main_tables">
+                                    <tr>
+                                        <th>Parties</th>
+                                        <th>Balance</th>
+                                        <th>Due Balance</th>
+                                        <th>Due Date</th>
+                                    </tr>
+
+                                    <t t-foreach="sales" t-as="sale">
+                                        <tr>
+                                            <td><span t-esc="sale['name']"></span></td>
+                                            
+                                            <td>
+                                                <t t-set="amounts" t-value="sale['amount']" />
+                                                <span t-esc="'{:0,}'.format(int(float(amounts)))"></span>
+                                                <t t-set="total_balance" t-value="total_balance + amounts" />
+                                            </td>
+                                            
+                                            <td>
+                                                <t t-set="due_balance" t-value="due_balance + amounts" />
+                                                <span t-esc="'{:0,}'.format(int(float(amounts)))"></span>
+                                            </td>
+
+                                            <td></td>
+                                        </tr>
+                                    </t>
+
+                                    <tr>
+                                        <td style="font-size: 10px;"><b>Total Balance</b></td>
+                                        <td><span t-esc="'{:0,}'.format(int(float(total_balance)))"></span></td>
+                                        <td colspan="2"></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td colspan="2"><b>Parties Balance Due</b></td>
+                                        <td><span t-esc="'{:0,}'.format(int(float(due_balance)))"></span></td>
+                                        <td></td>
+                                    </tr>
+
+                                </table>
+
+                            </div><!--end of col-->
+
+                            <div class="col cols-01">
+
+                                <div class="date colored">
+                                    <span t-esc="time.strftime('%d-%b-%Y',time.strptime(date,'%Y-%m-%d'))"></span>
+                                </div>
+
+                                <div class="col-01">
+
+                                    <table class="summray">
+                                        <tr>
+                                            
+                                            <td>Banks Balance</td>
+
+                                            <td>
+                                                <span t-esc="amount_avil"></span>
+                                            </td>
+
+                                        </tr>
+
+                                        <tr>
+
+                                            <td style="font-size: 9px;">Debtors <span>(parties)</span> Balance</td>
+                                            
+                                            <td>
+                                                <span t-esc="'{:0,}'.format(int(float(due_balance)))"></span>
+                                            </td>
+
+                                        </tr>
+
+                                        <tr>
+
+                                            <td class="colored">Balance(Parties+Bank)</td>
+                                            
+                                            <td class="colored">
+                                                <t t-set="pb_balance" t-value="(due_balance + amount_avil)" />
+                                                <span t-esc="'{:0,}'.format(int(float(pb_balance)))"></span>
+                                            </td>
+
+                                        </tr>
+
+                                        <tr>
+
+                                            <td>Liabilities <span>(Creditors)</span></td>
+                                            
+                                            <td>
+                                                <span t-esc="'{:0,}'.format(int(float(total_credit)))"></span>
+                                            </td>
+
+                                        </tr>
+
+                                    </table>
+
+                                    <table>
+                                        <tr>
+                                            
+                                            <th class="colored">Net Avilable Funds</th>
+                                            
+                                            <th class="colored">
+                                                <t t-set="net_funds" t-value="(pb_balance - total_credit)" />
+                                                <span t-esc="'{:0,}'.format(int(float(net_funds)))"></span>
+                                            </th>
+
+                                        </tr>
+
+                                    </table>
+
+                                    <p>Difference</p>
+
+                                </div>
+
+                                <div class="col-02">
+
+                                    <table>
+                                        <tr>
+                                            <th class="colored">Actual</th>
+                                        </tr>
+                                        <tr>
+                                            <th><span t-esc="'{:0,}'.format(int(float(total_amount)))"></span></th>
+                                        </tr>
+                                        <tr>
+                                            <th><span t-esc="'{:0,}'.format(int(float(total_balance)))"></span></th>
+                                        </tr>
+                                        <tr>
+                                            <th class="colored">
+                                                <t t-set="bal_02" t-value="total_balance + total_amount" />
+                                                <span t-esc="'{:0,}'.format(int(float(bal_02)))"></span></th>
+                                        </tr>
+                                        <tr>
+                                            <th><span t-esc="'{:0,}'.format(int(float(total_amounted)))"></span></th>
+                                        </tr>
+
+                                    </table>
+
+                                    <p class="colored">
+                                        <t t-set="net_fund_02" t-value="(bal_02 - total_amounted)" />
+                                        <span t-esc="'{:0,}'.format(int(float(net_fund_02)))"></span>
+                                    </p>
+
+                                    <p><span t-esc="'{:0,}'.format(int(float((net_funds - net_fund_02))))"></span></p>
+                                </div>
+                                <br class="clearfloat" />
+
+                                <table class="main_tables">
+                                    <tr>
+                                        <th>BRAND</th>
+                                        <th>AMOUNT</th>
+                                        <th>QTY</th>
+                                        <th>AV.RATE</th>
+                                    </tr>
+
+                                    <tr>
+                                        <td colspan="4" class="seprate"></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>ABCDEFG</td>
+                                        <td>ABCDEFG</td>
+                                        <td>ABCDEFG</td>
+                                        <td>ABCDEFG</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>ABCDEFG</td>
+                                        <td>ABCDEFG</td>
+                                        <td>ABCDEFG</td>
+                                        <td>ABCDEFG</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>ABCDEFG</td>
+                                        <td>ABCDEFG</td>
+                                        <td>ABCDEFG</td>
+                                        <td>ABCDEFG</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>ABCDEFG</td>
+                                        <td>ABCDEFG</td>
+                                        <td>ABCDEFG</td>
+                                        <td>ABCDEFG</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>ABCDEFG</td>
+                                        <td>ABCDEFG</td>
+                                        <td>ABCDEFG</td>
+                                        <td>ABCDEFG</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td colspan="4" class="seprate"></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="colored">ABCDEFG</td>
+                                        <td class="colored">ABCDEFG</td>
+                                        <td class="colored">ABCDEFG</td>
+                                        <td>ABCDEFG</td>
+                                    </tr>
+
+                                </table>
+
+                            </div><!--end of col-->
+                            <br class="clearfloat" />
+
+                        </div><!--end of report wrapper-->
+
+                    </div><!--end of page -->
+
+                </t>
+                
+            </t>
+
+        </template>
+
+    </data>
+
+</openerp>

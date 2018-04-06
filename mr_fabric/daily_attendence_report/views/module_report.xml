@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+
+    <data>   
+
+        <template id="attendence">
+
+            <t t-call="report.html_container">
+                <t t-call="report.external_layout">
+                    <t t-foreach="docs" t-as="o">
+
+                        <div class="page">
+
+                            <style>
+                                @media (min-width: 992px) {
+                                    .container {
+                                        width: 100%;
+                                    }
+                                }
+                                @media (min-width: 768px) {
+                                    .container {
+                                        width: 100%;
+                                    }
+                                }
+                                .container {
+                                    width: 100%;
+                                }
+                                body {
+                                    margin: 0px !important;
+                                }
+                                body.o_in_iframe {
+                                    margin-top: 0px!important;
+                                }
+                                .main-data {
+                                    width: 100%;
+                                }
+                                .center-data {
+                                    width: 1000px;
+                                    margin: 0px auto;
+                                }
+                                .solid {
+                                    width: 5%;
+                                    font-weight: bold;
+                                    margin-left: 8px;
+                                }
+                                .liquid {
+                                    margin-left: 10px;
+                                }
+                                table, td, th {
+                                    border: 1px solid;
+                                    border-collapse: collapse;
+                                    text-align: center;
+                                    padding: 6px;
+                                }
+                                .clearfloat {
+                                    clear: both;
+                                    float: none;
+                                }
+                                .employee {
+                                    width: 70%;
+                                    float: left;
+                                    margin: 0px 0px 15px;
+                                }
+                                .second-emp {
+                                    width: 30%
+                                }
+                                .employee p {
+                                    margin: 0px 0px 12px;
+                                }
+                                .department {
+                                    width: 25%;
+                                    float: left;
+                                }
+                                .sign {
+                                    margin-top: 60%;
+                                    border-top: 1px solid;
+                                    text-align: center;
+                                }
+                                h3 {
+                                    text-align: center;
+                                    font-size: 34px;
+                                }
+                                h3 span {
+                                    border-bottom: 2px solid #000;
+                                }
+                                h4 {
+                                    text-align: center;
+                                    margin: 0px 0px 15px;
+                                    font-size: 18px;
+                                }
+                                .right {
+                                    text-align: right;
+                                }
+                            </style>
+
+                            <div class="main-data">
+                                <div class="center-data">
+                                    <h3><span>MR.FABRICS (PVT) Ltd.</span></h3>
+                                    <h4>Individual Time Sheet</h4>
+
+                                    <div class="employee">
+                                        <p><span class="solid">Employee No</span>
+                                        <span class="liquid" t-esc="o.card_no.name"></span></p>
+                                        <p><span class="solid">Name</span>
+                                        <span class="liquid" t-esc="o.name"></span></p>
+                                        <p><span class="solid">Designation</span>
+                                        <span class="liquid" t-esc="o.job_id.name"></span></p>
+                                        <p><span class="solid">Date From</span>
+                                        <span class="liquid"><span t-esc="form"></span> <b> To </b><span t-esc="to"></span></span></p>
+                                    </div>
+                                    
+                                    <div class="employee second-emp">
+                                        <p><span class="solid">Category:</span>
+                                        <span class="liquid">-------------</span></p>
+                                        <p><span class="solid">Department:</span>
+                                        <span class="liquid" t-esc="o.department_id.name"></span></p>
+                                        <p><span class="solid">Type:</span>
+                                        <span class="liquid">-------------</span></p>
+                                    </div>
+                                    
+                                    <table width="100%">
+                                        <tr>
+                                            <th>Date In</th>
+                                            <th>Day</th>
+                                            <th>Time In</th>
+                                            <th>Date Out</th>
+                                            <th>Time Out</th>
+                                            <th>Late Arrival</th>
+                                            <th>Early Departure</th>
+                                            <th>Work Hours</th>
+                                            <th>Over Time</th>
+                                            <th>Break Hours</th>
+                                            <th>Remarks</th>
+                                        </tr>
+                                        
+                                        <t t-set="total" t-value="0.0" />
+
+                                        <t t-set="ontime" t-value="0" />
+                                        <t t-set="ealydepart" t-value="0" />
+                                        <t t-set="latearrival" t-value="0" />
+                                        <t t-set="totalpresent" t-value="0" />
+                                        <t t-set="offday" t-value="0" />
+                                        <t t-set="Absent" t-value="0" />
+                                        
+                                        <t t-foreach="attendence" t-as="data">
+                                            <tr>
+                                                <td><span t-esc="data.date"></span></td>
+                                                <td><span t-esc="time.strftime('%A',time.strptime(data.date,'%Y-%m-%d'))"></span></td>
+                                                
+                                                <td>
+                                                    <t t-set="delay" t-value="data.checkin" /> 
+                                                    
+                                                    <span t-esc="'%s:%s' % (str(delay).split('.')[0], int(float(str('%.2f' % delay).split('.')[1])/100*60))"></span>
+                                                </td>
+
+                                                <td></td>
+                                                
+                                                <td>
+                                                    <t t-set="delay" t-value="data.checkout" /> 
+                                                    
+                                                    <span t-esc="'%s:%s' % (str(delay).split('.')[0], int(float(str('%.2f' % delay).split('.')[1])/100*60))"></span>
+                                                </td>
+                                                
+                                                <td>
+                                                    <t t-if="data.intime == 'lin'">
+                                                        <t t-if="data.todaystatus == 'present'">
+                                                            <t t-set="latearrival" t-value="latearrival + 1" />
+                                                        </t>
+                                                    
+                                                        Yes
+                                                    </t>
+                                                    <t t-if="data.intime == 'ein'">
+                                                        <t t-if="data.todaystatus == 'present'">
+                                                            <t t-set="ontime" t-value="ontime + 1" />
+                                                        </t>
+                                                        No
+                                                    </t>
+                                                    <t t-if="data.intime == '-'">
+                                                        -
+                                                    </t>
+                                                    
+                                                </td>
+                                                
+                                                <td>
+                                                    <t t-if="data.outtime == 'eout'">
+                                                        <t t-if="data.todaystatus == 'present'">
+                                                            <t t-set="ealydepart" t-value="ealydepart + 1" />
+                                                        </t>
+                                                        Yes
+                                                    </t>
+                                                    <t t-if="data.outtime == 'lout'">
+                                                        No
+                                                    </t>
+                                                    <t t-if="data.outtime == '-'">
+                                                        -
+                                                    </t>
+                                                </td>
+                                                
+                                                <td>
+                                                    <t t-set="delay" t-value="data.total_time" /> 
+                                                    
+                                                    <span t-esc="'%s:%s' % (str(delay).split('.')[0], int(float(str('%.2f' % delay).split('.')[1])/100*60))"></span>
+                                                    <t t-set="total" t-value="total + data.total_time" />
+                                                </td>
+                                                <td></td>
+                                                <td></td>
+                                                <td>
+                                                    <span t-esc="get_status(data.todaystatus)"></span>
+
+                                                    <t t-if="data.todaystatus == 'present'">
+                                                        <t t-set="totalpresent" t-value="totalpresent + 1" />
+                                                    </t>
+
+                                                    <t t-if="data.todaystatus == 'leave'">
+                                                        <t t-set="offday" t-value="offday + 1" />
+                                                        <span t-esc="senddates(data.date)"></span>
+                                                    </t>
+
+                                                    <t t-if="data.todaystatus == 'absent'">
+                                                        <t t-set="Absent" t-value="Absent + 1" />
+                                                    </t>
+                                                    
+                                                </td>
+                                            </tr>
+                                        </t>
+                                        
+                                        <tr>
+                                            <td colspan="8">Total Hours</td>
+                                            <td colspan="3">
+                                                <t t-set="delay" t-value="total" />
+                                                <span t-esc="'%s:%s' % (str(delay).split('.')[0], int(float(str('%.2f' % delay).split('.')[1])/100*60))"></span>
+                                            </td>
+                                        </tr>
+
+                                    </table>
+                                    <br class="clearfloat"/>
+
+                                    <div class="department">
+
+                                        <p>
+                                            <span class="solid">On Time</span>
+                                            <span class="liquid" t-esc="ontime"></span> 
+                                        </p>
+                                        
+                                        <p>
+                                            <span class="solid">Early Departure</span>
+                                            <span class="liquid" t-esc="ealydepart"></span> 
+                                        </p>
+
+                                        <p>
+                                            <span class="solid">Late Arrival</span>
+                                            <span class="liquid" t-esc="latearrival"></span> 
+                                        </p>
+
+                                        <p>
+                                            <span class="solid">Gezzeted Holiday</span>
+                                            <span class="liquid" t-esc="holiday(o)"></span> 
+                                        </p>
+
+                                    </div>
+                                    
+                                    <div class="department">
+                                        
+                                        <p>
+                                            <span class="solid">Total Present</span>
+                                            <span class="liquid" t-esc="totalpresent"></span>
+                                        </p>
+
+                                        <p>
+                                            <span class="solid">Physical Present</span>
+                                            <span class="liquid" t-esc="totalpresent"></span> 
+                                        </p>
+                                        
+                                        <p>
+                                            <span class="solid">Off Day</span>
+                                            <span class="liquid" t-esc="offday"></span> 
+                                        </p>
+
+                                        <p>
+                                            <span class="solid">Absent</span>
+                                            <span class="liquid" t-esc="Absent"></span> 
+                                        </p>
+
+                                    </div>
+                                    
+                                    <div class="department">
+                                        
+                                        <t t-foreach="leaves" t-as="leave">
+                                            <p>
+                                                <span class="solid" t-esc="leave.name"></span>
+                                                <span class="liquid" t-esc="getleaves(o,leave)"></span> 
+                                            </p>
+                                        </t>
+
+                                    </div>
+                                    
+                                    <div class="department">
+                                        <p class="sign">Signature Authority</p>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div><!--end of page-->
+
+                    </t>
+                </t>
+            </t>
+
+        </template>
+
+    </data>
+
+</openerp>

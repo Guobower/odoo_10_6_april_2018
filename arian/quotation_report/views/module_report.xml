@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+
+    <data>   
+
+        <template id="module_report">
+
+            <t t-call="report.html_container">
+                <t t-call="report.external_layout">
+                    <t t-foreach="docs" t-as="o">
+
+                        <div class="page">
+                            
+                            <style type="text/css">
+                                .report-wrapper {
+                                    width: 1000px;
+                                    margin: 0px auto;
+                                }
+                                table {
+                                    width: 100%;
+                                    border: 2px solid #ccc;
+                                    border-spacing: 0px;
+                                    margin: 25px 0px 0px;
+                                    float: left;
+                                }
+                                table tr td,
+                                table tr th {
+                                    text-align: center;
+                                    border-left: 2px solid #ccc;
+                                    padding: 5px 0px;
+                                }
+                                table tr th {
+                                    background: #004269;
+                                    color: #FFF;
+                                    font-size: 16px;
+                                    padding: 10px 0px;
+                                }
+                                table tr td:first-child,
+                                table tr th:first-child {
+                                    border-left: none;
+                                }
+                                table tr td {
+                                    border-top: 2px solid #ccc;
+                                }
+
+                                h1 {
+                                    margin: 0px 0px 10px;
+                                    font-size: 40px;
+                                    text-align: center;
+                                    color: #004269;
+                                }
+                                .report_header {
+                                    width: 100%;
+                                    float: left;
+                                }
+                                .report_header p {
+                                    margin: 0px 0px 2px;
+                                    width: 100%;
+                                    float: right;
+                                }
+                                .report_header p .solid {
+                                    width: 47%;
+                                    display: inline-block;
+                                    text-align: right;
+                                }
+                                .report_header p .liquid {
+                                    width: 50%;
+                                    display: inline-block;
+                                    border: 3px solid #ccc;
+                                    border-radius: 3px;
+                                    padding: 5px 0px 5px 10px;
+                                    margin: 0px 0px 0px 10px;
+                                    line-height: 1;
+                                }
+                                .report_body {
+                                    width: 100%;
+                                    float: left;
+                                    margin: 15px 0px 0px 0px;
+
+                                }
+                                .body-col-01 {
+                                    width: 300px;
+                                    float: left;
+                                    border: 3px solid #ccc;
+                                    border-radius: 2px;
+                                }
+                                .body-col-02 {
+                                    width: 592px;
+                                    float: left;
+                                    border: 3px solid #ccc;
+                                    border-radius: 2px;
+                                    margin: 0px 0px 0px 96px;
+                                    min-height: 173px;
+                                }
+                                .report_body h2 {
+                                    margin: 0px;
+                                    background: #004269;
+                                    color: #fff;
+                                    text-align: center;
+                                    padding: 5px 0px;
+                                }
+                                .report_body p {
+                                    margin: 12px 0px;
+                                    padding: 0px 0px 0px 15px;
+                                    font-weight: bold;
+                                }
+                                .report_footer {
+                                    width: 100%;
+                                    float: left;
+                                    margin: 35px 0px 0px 0px;
+                                    font-weight: bold;
+                                    font-size: 25px;
+                                }
+
+                            </style>
+
+                            <div class="report-wrapper">
+
+                                <h1>Quote</h1>
+
+                                <div class="report_header">
+
+                                    <p><span class="solid">Date: </span><span class="liquid" t-esc="o.dated"></span></p>
+                                    <p><span class="solid">Valid Until: </span><span class="liquid" t-esc="o.valid_until"></span></p>
+                                    <p><span class="solid">Quote #: </span><span class="liquid" t-esc="o.quote_no"></span></p>
+                                    <p><span class="solid">Customer ID: </span><span class="liquid" t-esc="o.customer.name"></span></p>
+
+                                </div><!--end of report header-->
+
+                                <div class="report_body">
+
+                                    <div class="body-col-01">
+
+                                        <h2>Customer:</h2>
+                                        <p>
+                                            <span t-esc="o.customer.name"></span> <br />
+                                            <span t-esc="o.customer.street"></span> 
+                                            <span t-esc="o.customer.street2"></span><br /> 
+                                            <span t-esc="o.customer.city"></span> 
+                                            <span t-esc="o.customer.state_id.name"></span> 
+                                            <span t-esc="o.customer.zip"></span> <br />
+                                            <span t-esc="o.customer.country_id.name"></span>
+                                        </p>
+
+                                    </div><!--end of body col 01-->
+
+                                    <div class="body-col-02">
+
+                                        <h2>Quote/Project Description</h2>
+                                        <p> <span t-esc="o.proj_descrip"></span></p>
+
+                                    </div><!--end of body col 02-->
+
+                                </div><!--end of report body-->
+
+                                <table>
+                                    
+                                    <tr>
+                                        <th>Description</th>
+                                        <th>Price in Euro Per Pair</th>
+                                    </tr>
+                                    <t t-foreach="o.data_comes" t-as="data">
+                                        <tr>
+                                            <td><span t-esc="data.prod_name.name"></span></td>
+                                            <td><span t-esc="data.price"></span></td>
+                                        </tr>
+                                    </t>
+                                    
+                                </table>
+
+                                <p class="report_footer">Certified True &amp; Correct</p>
+
+                            </div><!--end of report wrapper-->
+
+                        </div><!--end of page-->
+                    </t>
+                </t>
+            </t>
+
+        </template>
+
+    </data>
+
+</openerp>

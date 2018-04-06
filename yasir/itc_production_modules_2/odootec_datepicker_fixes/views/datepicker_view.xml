@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <template id="assets_frontend" inherit_id="web.assets_common">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/odootec_datepicker_fixes/static/src/js/datepicker_fix.js"/>
+            </xpath>
+        </template>
+    </data>
+</openerp>

@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <report
+            id="report_for_module_engro_punjab_tax" 
+            model="summary.ffc"
+            name="engro_punjab_sales_tax_invoice.module_report"
+            file="engro_punjab_sales_tax_invoice.module_report"
+            report_type="qweb-html"
+            string="Engro Punjab Sales Tax Invoice"/> 
+    </data>
+</openerp>

@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <report
+            id="mrfabrictable" 
+            model="wage.per.piece"
+            name="production_wages_02.mrfabrictable_report"
+            file="production_wages_02.mrfabrictable_report"
+            report_type="qweb-html"
+            string="Summary Table"/> 
+    </data>
+</openerp>

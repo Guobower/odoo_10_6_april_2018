@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <report
+            id="report_for_sample_cost" 
+            model="product.prototype"
+            name="costing_report.module_report"
+            file="costing_report.module_report"
+            report_type="qweb-html"
+            string="Cost of Sample"/> 
+    </data>
+</openerp>

@@ -1,0 +1,19 @@
+<odoo>
+  <data>
+    <record id="View_arain_module_install" model="ir.ui.view"> 
+        <field name="name">arain module</field> 
+        <field name="model">arain.module</field> 
+        <field name="arch" type="xml">
+          <form>
+            <group name="group_top">
+                
+              <group name="group_left"> 
+                <!-- <field name="name"/> -->
+              </group>
+
+            </group>
+          </form>
+        </field>
+    </record>
+  </data>
+</odoo>

@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+
+    <data>   
+
+        <template id="module_report">
+
+            <t t-call="report.html_container">
+                <t t-call="report.external_layout">
+                    <t t-foreach="docs" t-as="o">
+
+                        <div class="page">
+
+                            <style>
+                                .header,
+                                .footer {
+                                    display: none;
+                                }
+                                body {
+                                    margin: 0px;
+                                }
+                                h1,h2,h3,h4,h5,h6,p,a,ul,li,div,table,tr,td,th,img {
+                                    margin: 0px;
+                                }
+                                .report_container {
+                                    width: 1000px;
+                                    margin: 0px auto;
+                                } 
+                                .clearfloat {
+                                    clear: both;
+                                    float: none;
+                                    display: block;
+                                }
+                                table {
+                                    width: 100%;
+                                    border: 2px solid #000;
+                                }
+                                table tr th,
+                                table tr td {
+                                    border-right: 2px solid #000;
+                                    border-bottom: 2px solid #000;
+                                    padding: 2px 0px 2px 10px;
+                                }
+                                table tr th:last-child,
+                                table tr td:last-child {
+                                    border-right: none;
+                                }
+                                table tr:last-child td {
+                                    border-bottom: none;
+                                }
+                                .report_header {
+                                    width: 100%;
+                                    float: left;
+                                    margin: 10px 0px 5px;
+                                }
+                                .logo {
+                                    width: 50%;
+                                    float: left;
+                                }
+                                .logo img {
+                                    width: 100px;
+                                    display: block;
+                                }
+                                .company_address {
+                                    width: 45%;
+                                    float: left;
+                                    margin: 40px 0px 0px 50px;
+                                }
+                                h1 {
+                                    width: 100%;
+                                    float: left;
+                                    margin: 5px 0px;
+                                    line-height: 1;
+                                    text-align: center;
+                                    border-top: 2px solid #000;
+                                    border-bottom: 2px solid #000;
+                                    padding: 8px 0px;
+                                }
+                                .shiping_info {
+                                    width: 100%;
+                                    float: left;
+                                }
+                                .ship_to {
+                                    width: 50%;
+                                    float: left;
+                                } 
+                                .invoice_info {
+                                    width: 50%;
+                                    float: left;
+                                }
+                                .ship_to h2 {
+                                    margin: 5px 0px;
+                                }
+                                .ship_to p {
+                                    line-height: 1.6;
+                                    margin: 0px 0px 5px;
+                                }
+                                .main_table {
+                                    float: left;
+                                    margin: 10px 0px;
+                                }
+                                .main_table tr td,
+                                .main_table tr th {
+                                    padding: 5px;
+                                    text-align: center;
+                                }
+                                .main_table tr.colored {
+                                    background: #ccc;
+                                }
+                                .main_table tr:last-child td {
+                                    border-right: none;
+                                }
+                                .total_statement {
+                                    width: 100%;
+                                    float: left;
+                                    text-align: center;
+                                    padding: 5px 0px;
+                                }
+                                .report_footer {
+                                    width: 100%;
+                                    float: left;
+                                    background: #ccc;
+                                    border: 1px solid;
+                                }
+                                .report_footer p {
+                                    text-align: center;
+                                    line-height: 1.6;
+                                    margin: 3px 0px;
+                                }
+                            </style>
+
+                            <div class="report_container">
+
+                                <div class="report_header">
+
+                                    <div class="logo">
+
+                                        <img src="/ixs_packing/static/src/img/logo.jpg" alt="" />
+
+                                    </div><!--end of logo-->
+
+                                    <div class="company_address">
+
+                                        <h3>Address</h3>
+                                        <p>1-Km off Naul More Roras Road Sialkot Pakistan</p>
+
+                                    </div><!--end of company logo-->
+
+                                </div><!--end of report header-->
+
+                                <h1>Packing List</h1>
+
+                                <div class="shiping_info">
+
+                                    <div class="ship_to">
+
+                                        <h2>Ship To:</h2>
+                                        <p>
+                                            ATTEN: <span class="liquid" t-esc="o.invoice_no.partner_id.name"></span><br />
+                                            <span class="liquid" t-esc="o.invoice_no.partner_id.street"></span>
+                                            <span class="liquid" t-esc="o.invoice_no.partner_id.street2"></span><br />
+                                            <span class="liquid"  t-esc="o.invoice_no.partner_id.zip"></span>
+                                            <span class="liquid"  t-esc="o.invoice_no.partner_id.city"></span>
+                                            <span class="liquid"  t-esc="o.invoice_no.partner_id.state_id.name"></span>
+                                            <br />
+                                            <span class="liquid"  t-esc="o.invoice_no.partner_id.country_id.name"></span><br />
+                                            Tel.<span class="liquid" t-esc="o.invoice_no.partner_id.phone"></span>
+                                        </p>
+
+                                    </div><!--end pof ship to-->
+
+                                    <div class="invoice_info">
+
+                                        <table cellspacing='0'>
+
+                                            <tr>
+
+                                                <td>Invoice No.</td>
+                                                <td><span t-esc="o.invoice_no.number"></span></td>
+
+                                            </tr>
+
+                                            <tr>
+
+                                                <td>Invoice Date</td>
+                                                <td><span t-esc="o.invoice_date"></span></td>
+
+                                            </tr>
+
+                                            <tr>
+
+                                                <td>AWBL NUMBER</td>
+                                                <td><span t-esc="o.awb_no"></span></td>
+
+                                            </tr>
+
+
+                                            <tr>
+
+                                                <td>BL DATE</td>
+                                                <td><span t-esc="o.awb_date"></span></td>
+
+                                            </tr>
+
+                                        </table>
+
+                                    </div><!--end of invoice info-->
+
+                                </div><!--end of shiping info-->
+
+                                <table class="main_table" cellspacing='0'>
+
+                                    <tr>
+
+                                        <th>Supplier's Code</th>
+                                        <th>Invoice No.</th>
+                                        <th>Box No.</th>
+                                        <th>Unit per Box</th>
+                                        <th>External Art Code</th>
+                                        <th>Product Name</th>
+                                        <th>Order QTY</th>
+                                        <th>Unit</th>
+                                        <th>Unit - Price</th>
+                                        <th>Ex-Factory Date</th>
+                                        <th>IXS PO-no</th>
+                                        <th>Barcode</th>
+
+                                    </tr>
+
+                                    <t t-foreach="o.commercial_packing_list_tree_link" t-as="data">
+                                        <tr>
+
+                                            <td></td>
+                                            <td><span t-esc="o.invoice_no.number"></span></td>
+                                            <td><span t-esc="data.carton"></span></td>
+                                            <td><span t-esc="data.carton_qty"></span></td>
+                                            <td><span t-esc="data.prod_name.art_code"></span></td>
+                                            <td><span t-esc="data.prod_name.name"></span></td>
+                                            <td><span t-esc="data.qty"></span></td>
+                                            <td><span t-esc="data.prod_name.uom.name"></span></td>
+                                            <td><span t-esc="data.prod_name.list_price"></span></td>
+                                            <td><span t-esc="o.delivery_date"></span></td>
+                                            <td><span t-esc="o.customer_order_no"></span></td>
+                                            <td><span t-esc="data.prod_name.barcode"></span></td>
+
+                                        </tr>
+                                    </t>
+
+                                    <tr class="colored">
+
+                                        <td colspan="6"></td>
+                                        <td>100</td>
+                                        <td colspan="5"></td>
+
+                                    </tr>
+
+                                </table>
+
+                                <p class="total_statement">TOTAL 135 PRS PACKED IN 2 CARTONS</p>
+
+                                <div class="report_footer">
+
+                                    <p>1 KM OFF NAUL MORE RORAS ROAD, SIALKOT -51310 PUNJAB - PAKISTAN</p>
+                                    <p>PHONE#:-92 52 3612 819  EMAIL: export@ariansports.com</p>
+
+                                </div><!--end of report footer-->
+
+                            </div><!--end of report container-->
+
+                        </div><!--end of page-->
+                    </t>
+                </t>
+            </t>
+
+        </template>
+
+    </data>
+
+</openerp>

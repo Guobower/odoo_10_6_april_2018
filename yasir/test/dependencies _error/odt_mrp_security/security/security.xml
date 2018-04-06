@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <record model='ir.module.category' id='mrp_sec_module_category'>
+            <field name='name'>MRP-Users</field>
+            <field name='sequence'>888</field>
+        </record>
+
+        <record model='ir.module.category' id='installled_module_category'>
+            <field name='name'>Main Menus</field>
+            <field name='sequence'>999</field>
+        </record>
+
+        <record id="mrp_supervisor_group" model="res.groups">
+            <field name="name">MRP supervisor</field>
+            <field name='category_id' eval='mrp_sec_module_category'/>
+            <field name="implied_ids"
+                   eval="[(4, ref('mrp.group_mrp_user')),
+                   (4, ref('project.group_project_user')),
+                    (4, ref('stock.group_stock_user'))]"/>
+        </record>
+        <record id="mrp_team_leader_group" model="res.groups">
+            <field name="name">MRP Team Leader</field>
+            <field name='category_id' eval='mrp_sec_module_category'/>
+            <field name="implied_ids"
+                   eval="[(4, ref('mrp.group_mrp_user')),
+                   (4, ref('project.group_project_user')),
+                    (4, ref('stock.group_stock_user'))]"/>
+        </record>
+
+        <record id="mrp_employee_group" model="res.groups">
+            <field name="name">MRP Employee</field>
+            <field name='category_id' eval='mrp_sec_module_category'/>
+            <field name="implied_ids"
+                   eval="[(4, ref('project.group_project_user'))]"/>
+        </record>
+
+        <record id="make_invisible_records1" model="res.groups">
+            <field name='category_id' eval='installled_module_category'/>
+            <field name="name">Show Project for Non MRP-Users</field>
+        </record>
+
+        <record id="make_invisible_records2" model="res.groups">
+            <field name='category_id' eval='installled_module_category'/>
+            <field name="name">Show Warehouse for Non MRP-Users</field>
+        </record>
+
+        <record id="make_invisible_records3" model="res.groups">
+            <field name='category_id' eval='installled_module_category'/>
+            <field name="name">Show Whole MRP for Non MRP-Users</field>
+        </record>
+
+        <record id="make_invisible_records4" model="res.groups">
+            <field name='category_id' eval='installled_module_category'/>
+            <field name="name">Show Whole Reporting for Non MRP-Users</field>
+        </record>
+
+        <record model="ir.rule" id="mrp_supervisor_group_rule_1">
+            <field name="name">supervisor MO</field>
+            <field name="model_id" ref="mrp.model_mrp_production"/>
+            <field name="groups" eval="[(4, ref('odt_mrp_security.mrp_supervisor_group'))]"/>
+            <field name="domain_force">
+                ['|',('user_id','=',user.id),('create_uid','=',user.id)]
+            </field>
+            <field eval="1" name="perm_unlink"/>
+            <field eval="1" name="perm_write"/>
+            <field eval="1" name="perm_read"/>
+            <field eval="1" name="perm_create"/>
+        </record>
+
+        <record model="ir.rule" id="mrp_supervisor_group_rule_2">
+            <field name="name">Supervisor WO</field>
+            <field name="model_id" ref="mrp_operations.model_mrp_production_workcenter_line"/>
+            <field name="groups" eval="[(4, ref('odt_mrp_security.mrp_supervisor_group'))]"/>
+            <field name="domain_force">
+                ['|',('production_id.user_id','=',user.id),('create_uid','=',user.id)]
+            </field>
+            <field eval="1" name="perm_unlink"/>
+            <field eval="1" name="perm_write"/>
+            <field eval="1" name="perm_read"/>
+            <field eval="1" name="perm_create"/>
+        </record>
+
+        <record model="ir.rule" id="mrp_teamleader_group_rule_1">
+            <field name="name">Team Leader WO</field>
+            <field name="model_id" ref="mrp_operations.model_mrp_production_workcenter_line"/>
+            <field name="groups" eval="[(4, ref('odt_mrp_security.mrp_team_leader_group'))]"/>
+            <field name="domain_force">
+                ['|',('user_id','=',user.id),('create_uid','=',user.id)]
+            </field>
+            <field eval="1" name="perm_unlink"/>
+            <field eval="1" name="perm_write"/>
+            <field eval="1" name="perm_read"/>
+            <field eval="1" name="perm_create"/>
+        </record>
+
+        <record model="ir.rule" id="mrp_teamleader_group_rule_2">
+            <field name="name">Team Leader Mo</field>
+            <field name="model_id" ref="mrp.model_mrp_production"/>
+            <field name="groups" eval="[(4, ref('odt_mrp_security.mrp_team_leader_group'))]"/>
+            <field name="domain_force">
+                ['|',('user_id','=',user.id),('create_uid','=',user.id)]
+            </field>
+            <field eval="1" name="perm_unlink"/>
+            <field eval="1" name="perm_write"/>
+            <field eval="1" name="perm_read"/>
+            <field eval="1" name="perm_create"/>
+        </record>
+
+
+        <record model="ir.rule" id="mrp_employee_group_rule_2">
+            <field name="name">Employee Wo</field>
+            <field name="model_id" ref="mrp_operations.model_mrp_production_workcenter_line"/>
+            <field name="groups" eval="[(4, ref('odt_mrp_security.mrp_employee_group'))]"/>
+            <field name="domain_force">
+                [('user_id','=',user.id)]
+            </field>
+            <field eval="1" name="perm_unlink"/>
+            <field eval="1" name="perm_write"/>
+            <field eval="1" name="perm_read"/>
+            <field eval="1" name="perm_create"/>
+        </record>
+
+
+        <record model="ir.rule" id="mrp_employee_group_rule_3">
+            <field name="name">Employee Mo</field>
+            <field name="model_id" ref="mrp.model_mrp_production"/>
+            <field name="groups" eval="[(4, ref('odt_mrp_security.mrp_employee_group'))]"/>
+            <field name="domain_force">
+                [('user_id','=',user.id)]
+            </field>
+            <field eval="1" name="perm_unlink"/>
+            <field eval="1" name="perm_write"/>
+            <field eval="1" name="perm_read"/>
+            <field eval="1" name="perm_create"/>
+        </record>
+
+
+    </data>
+</openerp>

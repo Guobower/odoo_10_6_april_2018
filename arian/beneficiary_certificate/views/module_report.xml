@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+
+    <data>   
+
+        <template id="module_report">
+
+            <t t-call="report.html_container">
+                <t t-call="report.external_layout">
+                    <t t-foreach="docs" t-as="o">
+                        
+                        <div class="page">
+                            
+                            <style>
+                                .header,
+                                .footer {
+                                    display: none;
+                                }
+                                .report-container {
+                                    width: 1000px;
+                                    margin: 0px auto;
+                                    }
+                                .header-col-01{
+                                    width: 100%;
+                                    min-height: 30px;
+                                    float: left;
+                                    padding: 10px 15px;
+                                    padding-top: 55px;
+                                    margin: 0px 1px;}
+
+                                .logo {
+                                    width: 100px;
+                                    height: auto;
+                                    float: left;
+                                }
+                                .logo img {
+                                    width: 100%;
+                                }
+                                .logo-text {
+                                    margin: 0px 0px 0px 550px;
+                                    float: left;
+                                }
+                                .logo-text p {
+                                    margin: 5px 0px;
+
+                                h1 {
+                                    width: 100%;
+                                    text-align: left;
+                                    float: left;
+                                    
+                                    }
+                                .date {
+                                    width: 100%;
+                                    float: left;
+                                    display: block;
+                                    }
+                                .date .solid {
+                                    width: auto;
+                                    float: left;
+                                    display: block;
+                                    }
+                                .report-body {
+                                    width: 100%;
+                                    margin: 0px auto;
+                                    float: left;
+                                    }
+                                
+                                .container {
+                                    padding-left: 0;
+                                    padding-right: 0;
+                                    padding-top: 15px;
+                                    width: 80%;
+                                         }
+                                .rec{
+                                    width: 100%;
+                                    float: left;
+                                    padding: 30px 0px 0px 5px;
+                                    }
+                                .rec .solid {
+                                    width: auto;
+                                    float: left;
+                                    display: block;
+                                    text-align: left;
+                                    margin: 0px 5px 0px 0px;
+                                    }
+                                .rec .liquid {
+                                    width: 70%;
+                                    float: center;
+                                    display: block;
+                                    text-align: left;
+                                    }
+                            </style>
+            
+                            <div class="report-container">
+                                <div class="header-col-01">
+                                    <div class="logo">
+                                        <img src="/custom_invoice_arian/static/src/img/logo.jpg" alt="" />
+                                    </div>
+                                    <div class="logo-text">
+
+                                        <p><b>Arian Sports (Pvt) Ltd Customer</b></p>
+                                        <p><b>1Km off Naul More Roras Road</b></p>
+                                        <p><b>Sialkot Pakistan</b></p>
+                                        <br></br>
+                                        <br></br>
+                                        <br></br>
+                                        <br></br>
+                                        <br></br>
+                                        <br></br>
+                                        <br></br>
+                                        <br></br>
+                                    </div>
+                                </div><!--end of header col 01-->
+                                <u><h1 class="h1">BENEFICIARY'S CERTIFICATE</h1></u> 
+
+                                <div class="report-body">
+                                    <p>KINDLY REFER TO COMMERCIAL INVOICE # <span class="liquid" t-esc="o.invoice_no.number"></span> DATED: <span class="liquid" t-esc="o.invoice_date"></span> AND <b>Documentary Credit Number#<span class="liquid" t-esc="o.cn"></span> DATED: <span class="liquid" t-esc="o.cn_date"></span></b><br></br> WE M/S ARIAN SPORTS (PVT) LTD CERTIFY THAT ONE COPY OF ALL SHIPPING DOCUMENTS ARE TRAVELLING WITH THE GOODS.</p>
+                                    <br></br>
+                                    <br></br>
+
+                                </div>
+                            
+                                <div class="container">
+                                    <div class="rec">
+                                        <span class="solid"><b>For and on behalf of</b></span>
+                                        <span class="liquid"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div><!--end of page-->
+                    </t>
+                </t>
+            </t>
+
+        </template>
+
+    </data>
+
+</openerp>

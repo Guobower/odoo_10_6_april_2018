@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    
+    <data>   
+        
+        <template id="module-report">
+            
+            <t t-call="report.html_container">
+            	 <t t-call="report.external_layout">
+                    <t t-foreach="docs" t-as="o">
+
+                        <div class="page">
+
+                            <style>
+                                .clearfloat {
+                                    clear: both;
+                                    float: none;
+                                    width: 1px;
+                                    border: none;
+                                    display: block;
+                                }
+                                .page {
+                                    padding: 50px 0px;
+                                }
+                                .solid,
+                                .liquid {
+                                    width: auto;
+                                    min-width: 100px;
+                                    display: inline-block;
+                                }
+                                .liquid {
+                                    position: relative;
+                                    bottom: 8px;
+                                    text-align: right;
+                                }
+                                .invoice_header {
+                                    width: 800px;
+                                    background-image: url(/omer_customer_invoice/static/src/img/img-18.png);
+                                    background-size: 100% auto;
+                                    height: 245px;
+                                    background-repeat: no-repeat;
+                                    margin: 0px auto;
+                                }
+                                .invoice_footer {
+                                    width: 800px;
+                                    background-image: url(/omer_customer_invoice/static/src/img/img-15.png);
+                                    background-size: 100% auto;
+                                    background-repeat: no-repeat;
+                                    height: 365px;
+                                    margin: 30px auto 0px;
+                                }
+                                .header,
+                                .footer {
+                                    display: none;
+                                }
+                                .content_area {
+                                    width: 800px;
+                                    margin: 0px auto;
+                                    min-height: 100px;
+                                }
+                                table {
+                                    border: 1px solid #000;
+                                }
+                                table tr td {
+                                    border: 1px solid #000;
+                                    min-width: 200px;
+                                    padding: 5px 0px;
+                                    text-align: center;
+                                }
+                                table tr td.invoice-box {
+                                    padding: 0px;
+                                }
+                                table tr td.invoice-box span {
+                                    display: block;
+                                    width: 100%;
+                                    min-height: 28px;
+                                    border-bottom: 1px solid #000;
+                                }
+                                img {
+                                    vertical-align: middle;
+                                    max-width: 150px;
+                                    max-height: 30px;
+                                    margin: 0px auto;
+                                    display: block;
+                                }
+                                .start-values p {
+                                    width: 50%;
+                                    float: left;
+                                }
+                            </style>
+
+                            <div class="invoice_header">
+                            </div>
+
+                            <div class="content_area">
+
+                                <div class="start-values">
+                                    
+                                    <p>
+                                        <span class="liquid" t-esc="o.challan_no"></span>
+                                        <span class="solid"><img src="/omer_customer_invoice/static/src/img/img-16.png" alt="" /></span>
+                                    </p>
+
+                                    <p>
+                                        <!-- <span class="liquid" t-esc=""></span> -->
+                                        <span class="solid"><img src="/omer_customer_invoice/static/src/img/img-17.png" alt="" /></span>
+                                    </p>
+                                    <br class="clearfloat" />
+
+                                </div>
+
+                                <table>
+
+                                    <tr>
+
+                                        <td><img src="/omer_customer_invoice/static/src/img/img-01.png" alt="" /></td>
+                                        <td><img src="/omer_customer_invoice/static/src/img/img-02.png" alt="" /></td>
+                                        <td><img src="/omer_customer_invoice/static/src/img/img-03.png" alt="" /></td>
+                                        <td><img src="/omer_customer_invoice/static/src/img/img-04.png" alt="" /></td>
+
+                                    </tr>
+
+                                    <tr>
+
+                                        <td><span t-esc="o.to.name"></span></td>
+                                        <td><span t-esc="o.bilty_no"></span></td>
+                                        <td><span t-esc="o.truck_no"></span></td>
+                                        <td><span t-esc="o.invoice_date"></span></td>
+
+                                    </tr>
+
+                                    <tr>
+
+                                        <td><img src="/omer_customer_invoice/static/src/img/img-05.png" alt="" /></td>
+                                        <td><img src="/omer_customer_invoice/static/src/img/img-06.png" alt="" /></td>
+                                        <td><img src="/omer_customer_invoice/static/src/img/img-07.png" alt="" /></td>
+                                        <td><img src="/omer_customer_invoice/static/src/img/img-08.png" alt="" /></td>
+
+                                    </tr>
+
+                                    <tr>
+
+                                        <td><span t-esc="o.weight"></span></td>
+                                        <td><span>&amp;nbsp;</span></td>
+                                        <td><span t-esc="o.region.name"></span></td>
+                                        <td rowspan="3" class="invoice-box">
+
+                                            <span t-esc="o.shipper_invoice_no"></span>
+                                            <span></span>
+                                            <span></span>
+                                            <span></span>
+
+                                        </td>
+
+                                    </tr>
+
+                                    <tr>
+
+                                        <td><img src="/omer_customer_invoice/static/src/img/img-09.png" alt="" /></td>
+                                        <td><span t-esc="o.sale_price"></span></td>
+                                        <td><img src="/omer_customer_invoice/static/src/img/img-10.png" alt="" /></td>
+
+                                    </tr>
+
+                                    <tr>
+                                        <td><span t-esc="o.distance"></span></td>
+                                        <td><span>&amp;nbsp;</span></td>
+                                        <td><img src="/omer_customer_invoice/static/src/img/img-11.png" alt="" /></td>
+
+                                    </tr>
+
+                                    <tr>
+
+                                        <td rowspan="3" style="padding-top: 0px;"><img src="/omer_customer_invoice/static/src/img/img-12.png" alt="" style="max-width: 100%; max-height: 100%;" /></td>
+                                        <td><img src="/omer_customer_invoice/static/src/img/img-13.png" alt="" /></td>
+                                        <td><span><img src="/omer_customer_invoice/static/src/img/img-14.jpg" alt="" /></span></td>
+                                        <td><img src="/omer_customer_invoice/static/src/img/img-14-2.jpg" alt="" /></td>
+
+                                    </tr>
+
+                                    <tr>
+
+                                        <td><span>&amp;nbsp;</span></td>
+                                        <td><span t-esc="o.plan"></span></td>
+                                        <td><span>&amp;nbsp;</span></td>
+
+                                    </tr>
+
+                                    <tr>
+
+                                        <td colspan="3"><span>&amp;nbsp;</span></td>
+
+                                    </tr>
+
+                                </table>
+
+                            </div>
+
+                            <div class="invoice_footer">
+                            </div>
+
+                            <!-- <span t-esc="o.employee_id.name"></span> -->
+                            
+                        </div>
+
+                    </t>
+                </t>
+            </t>
+
+        </template>
+    
+    </data>
+
+</openerp>

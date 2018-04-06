@@ -1,0 +1,80 @@
+<odoo>
+  <data>
+
+      <record id="crowncity_product_page_view_form" model="ir.ui.view">
+        <field name="name">crowncity_product_page_view_form</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+
+            <xpath expr="//page[@name='notes']" position="after">
+
+
+               <page string="Plot Details">
+                <group>
+                  <field name="corner"/>
+                  <field name="normal"/>
+                  <field name="boulevard"/>
+                  <field name="park_facing"/>
+                </group>
+              </page>
+
+
+              <page string="For Office Use Only">
+
+                <group>
+                  <field name="extra_price"/>
+                  <field name="extra_land"/>
+                  <field name="total_price"/>
+                </group>
+              </page>
+
+            </xpath>
+        </field>
+    </record>
+
+     <record id="crowncity_customer_page_view_form" model="ir.ui.view">
+        <field name="name">crowncity_customer_page_view_form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+
+          <xpath expr="//field[@name='website']" position="after">
+                  <field name="father_name"/>
+                  <field name="cnic_no"/>
+                  <field name="postal_address"/>
+                  <field name="mobile_no"/>
+                  <field name="phone_office"/>
+                  <field name="phone_res"/>
+          </xpath>
+
+            <xpath expr="//page[@name='accounting']" position="after">
+
+
+              <page string="Nominated Tab">
+                <group>
+                  <field name="nom_name"/>
+                  <field name="nom_father_name"/>
+                  <field name="nom_cnic"/>
+                  <field name="nom_blood_rel"/>
+                </group>
+              </page>
+
+
+              <page string="Documents required">
+                <group>
+                  <field name="photograph" />
+                  <field name="cnic_copy" />
+                  <field name="nom_photo_cnic" />
+                </group>
+              </page>
+
+
+            </xpath>
+        </field>
+    </record>
+
+  </data>
+</odoo>

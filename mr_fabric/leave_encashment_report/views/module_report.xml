@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+
+    <data>   
+
+        <template id="customer_report">
+
+            <t t-call="report.html_container">
+                <t t-call="report.external_layout">
+                    <!-- <t t-foreach="count" t-as="o"> -->
+
+                    <div class="page">
+
+                        <style>
+
+                            .mainwraper {
+                            width: 1080px;
+                            margin: 0px auto;
+                            }
+
+                            .head1 {
+                            font-weight: bold;
+                            margin: 5px;
+                            color: red;
+                            text-align: center;
+                            }
+
+                            .head2 {
+                            font-weight: bold;
+                            margin: 5px ;
+                            color: brown;
+                            text-align: center;
+                            }
+
+                            .head3 {
+                            font-weight: bold;
+                            margin: 5px ;
+                            color: blue;
+                            }
+
+                            table {
+                            width: 100%;
+                            }
+
+                            table ,th,td {
+                            border : 1px solid black;
+                            border-collapse: collapse;
+                            padding: 5px;
+                            text-align: center;
+                            }
+
+                        </style>
+
+                        <div class="mainwraper">
+
+                            <p class="head1">MR.FABRICS(PVT) LTD.</p>
+                            <p class="head1">ANNUAL LEAVE ENCASHMENT</p>
+                            <p class="head2">FROM <span t-esc="time.strftime('%B %Y',time.strptime(date_from,'%Y-%m-%d'))"></span> TO <span t-esc="time.strftime('%B %Y',time.strptime(date_to,'%Y-%m-%d'))"></span></p>
+
+                                
+
+                            <table>
+                                  <tr>
+                                    <th>No</th>
+                                    <th>Card #</th> 
+                                    <th>NAME</th>
+                                    <th>DESIGNATION</th>
+                                    <th>DATE OF APPOINTMENT</th> 
+                                    <th>SALARY @ MONTH</th>
+                                    <th>BALANCE LEAVES</th>
+                                    <th>NET AMOUNT</th> 
+                                    <th>SIGNATURE</th>
+                                  </tr>
+
+                                <t t-foreach="accounts" t-as="o">
+
+                                    <tr>
+                                        <td colspan="9" style="font-weight:bold;text-align:left;padding-left:5px;border-left:hidden;border-right:hidden">
+                                            <span t-esc="o.name"></span>
+                                        </td>
+                                    </tr>
+
+                                    <t t-set="stotal" t-value="0"/>
+                                    <t t-set="i" t-value="1"/>
+                                    <t t-set="ntotal" t-value="0"/>
+                                    <span t-esc="get_rec(o.id)"></span>
+                                    <t t-foreach="records" t-as="line">
+
+                                        <tr>
+                                            <td>
+                                                <t t-esc="i"/>
+                                                <t t-set="i" t-value="i+1"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="line.card_no.name"></span>
+                                            </td>
+                                            <td>
+                                                <span t-esc="line.name.name"></span>
+                                            </td>
+                                            <td>
+                                                <span t-esc="line.designation.name"></span>
+                                            </td>
+                                            <td>
+                                                <span t-esc="line.date"></span>
+                                            </td>
+                                            <td>
+                                                <span t-esc="'{:0,}'.format(int(float(line.salary)))"></span>
+                                                <t t-set="stotal" t-value="stotal+line.salary"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="line.bal_leaves"></span>
+                                            </td>
+                                            <td>
+                                                <span t-esc="'{:0,}'.format(int(float(line.net_amount)))"></span>
+                                                <t t-set="ntotal" t-value="ntotal+line.net_amount"/>
+                                            </td>
+                                            <td></td>
+                                        </tr>
+
+                                    </t>
+
+                                    <tr>
+                                        <td colspan="5" style="font-weight:bold">TOTAL</td>
+                                        <td>
+                                            <span t-esc="'{:0,}'.format(int(float(stotal)))"></span>
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            <span t-esc="'{:0,}'.format(int(float(ntotal)))"></span>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+
+                                </t>
+
+                            </table>
+                            
+                        </div>
+
+                    </div>
+
+                    <!-- </t> -->
+
+                </t>
+            </t>
+
+        </template>
+
+    </data>
+
+</openerp>

@@ -1,0 +1,100 @@
+<?xml version="1.0"?> 
+<odoo> 
+    <record id="address_form_view_extension" model="ir.ui.view"> 
+        <field name="name">address_form_view_extension</field> 
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="type">form</field> 
+        <field name="arch" type="xml">
+
+            <xpath expr="//page[1]" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//page[1]" position="before">
+                <page name="conatct_and_addresses" string="Contact and Addresses" autofocus="autofocus" >
+                    <field name="contact_address" />
+                </page>
+            </xpath>
+            
+            <xpath expr="//page[@name='conatct_and_addresses']" position="attributes">
+                <attribute name="attrs">{'invisible': [('supplier','=', True)]}</attribute>
+            </xpath>
+
+        </field> 
+    </record>
+
+
+
+    <record id="address_contact_tree_view" model="ir.ui.view">
+        <field name="name">address_contact_tree_view</field>
+        <field name="model">address.contacts</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Price List Configuration">
+                <field name="customer_name" />
+                <field name="title" />
+                <field name="job_position" />
+                <field name="email" />
+                <field name="phone" />
+                <field name="mobile" />
+                <field name="address" />
+                <field name="invoice_address" />
+                <field name="shipping_address" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="address_contact_form_view" model="ir.ui.view">
+        <field name="name">address_contact_form_view</field>
+        <field name="model">address.contacts</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group name="group_top">
+                        <group name="group_left">
+                            <field name="customer_name" />
+                            <field name="title" />
+                            <field name="job_position" />
+                            <field name="email" />
+                        </group>
+                        <group name="group_left">
+                            <field name="phone" />
+                            <field name="mobile" />
+                            <field name="address" />
+                            <field name="invoice_address" />
+                            <field name="shipping_address" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="customer_tree_view_extension" model="ir.ui.view">
+        <field name="name">customer_tree_view_extension</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree"/>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            
+            <xpath expr="//field[@name='display_name']" position="replace">
+                <field name="display_name" string="Customer Name"/>
+            </xpath>
+            
+            <xpath expr="//field[@name='display_name']" position="after">
+                <field name="country_id" />
+            </xpath>
+            
+            <xpath expr="//field[@name='country_id']" position="after">
+                <field name="credit" />
+            </xpath>
+            
+            <xpath expr="//field[@name='credit']" position="after">
+                <field name="debit" />
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

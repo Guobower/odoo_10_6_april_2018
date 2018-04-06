@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <report
+            id="report_for_shipment" 
+            model="ufc.auto" 
+            name="omer_daily_shipment_report.module_report" 
+            file="omer_daily_shipment_report.module_report"
+            report_type="qweb-pdf"
+            string="Daily Shipment Report"/>
+  
+    </data>
+</openerp>

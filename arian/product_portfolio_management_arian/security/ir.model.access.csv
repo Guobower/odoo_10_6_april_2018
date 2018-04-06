@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_product_portfolio_req,product.portfolio,model_product_portfolio,base.group_user,1,1,1,1
+access_product_portfolio_dev,product.prototype,model_product_prototype,base.group_user,1,1,1,1
+access_product_portfolio_cost,prototype.cost,model_prototype_cost,base.group_user,1,1,1,1
+access_product_portfolio_ser,prototype.services,model_prototype_services,base.group_user,1,1,1,1
+access_product_portfolio_wiz,wizerd.prototype,model_wizerd_prototype,base.group_user,1,1,1,1
+access_product_portfolio_prod,project.product,model_project_product,base.group_user,1,1,1,1
+access_product_portfolio_attr,development.attribute,model_development_attribute,base.group_user,1,1,1,1
+access_product_portfolio_pro_attr,prototype.attribute,model_prototype_attribute,base.group_user,1,1,1,1

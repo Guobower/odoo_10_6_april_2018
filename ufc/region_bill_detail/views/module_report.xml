@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+
+    <data>   
+
+        <template id="module_report">
+
+            <t t-call="report.html_container">
+                <t t-call="report.external_layout">
+                    <t t-foreach="docs" t-as="o">
+
+                        <div class="page">
+
+                            <style type="text/css">
+                                .page {
+                                    margin-bottom: 20px;
+                                }
+                                
+                                .header,
+                                .footer {
+                                    display: none !important;
+                                }
+                                .marginer {
+                                    margin: 0px 0px 0px 0px;
+                                }
+                                .report-head {
+                                    margin: 30px 0px 15px;
+                                }
+                                table {
+                                    border: 1px solid #000;
+                                    border-spacing: 0px;
+                                    width: 100%;
+                                }
+                                .header,
+                                .footer {
+                                    display: none;
+                                }
+                                table tr {
+                                }
+                                    table tr:last-child td {
+                                    border-bottom: none;
+                                }
+                                table tr td,
+                                table tr th {
+                                    min-width: 60px;
+                                    border-right: 1px solid #000;
+                                    padding: 5px 10px;
+                                    border-bottom: 1px solid #000;
+                                    text-align: center;
+                                }
+                                table tr td:last-child,
+                                table tr th:last-child {
+                                    border-right: none;
+                                }
+                                table tr td:last-child {
+                                    border-bottom: none;
+                                }
+                                table tr:last-child td:last-child {
+                                    border-bottom: 1px solid #000;
+                                }
+                                .page {
+                                    width: 1000px;
+                                    margin: 0px auto;
+                                }
+                                .head-col-01,
+                                .head-col-02 {
+                                    width: 50%;
+                                    float: left;
+                                }
+                                .head-col-01 img{
+                                    width: 100%;
+                                }
+                                .head-col-02 img {
+                                    width: 100%;
+                                    margin-bottom: 22px;
+                                }
+                                .head-col-02 p {
+                                    text-align: right;
+                                    margin: 10px 0px 0px 0px;
+                                }
+                                .head-col-01 p {
+                                    text-align: left;
+                                    margin: 25px 0px 0px 0px;
+                                }
+                                .sig-total {
+                                }
+                                .sig {
+                                    width: 64.3%;
+                                    float: left;
+                                } 
+                                tr.finalar td p {
+                                    width: 50%;
+                                    float: left;
+                                }
+                                .totale {
+                                    width: 35.7px;
+                                    float: left;
+                                }
+                                .report-footer {
+                                    margin: 20px 0px 0px;
+                                }
+                                .footer-col-01,
+                                .footer-col-02 {
+                                    width: 49%;
+                                    float: left;
+                                    padding: 10px 0px 0px;
+                                    border: 1px solid #000;
+                                }
+                                .footer-col-01 {
+                                    margin: 0px 1% 0px 0px;
+                                }
+                                .footer-col-01 p,
+                                .footer-col-02 p {
+                                    padding: 0px 10px;
+                                }
+                                .footer-col-02 {
+                                    margin: 0px 0px 0px 1%;
+                                }
+                                .footer-col-01 table {
+                                    width: 100%;
+                                }
+                                .clearfloat {
+                                    float: none;
+                                    clear: both;
+                                    display: block;
+                                }
+                                .tabler table {
+                                    margin: 0px 0px 1000px 0px;
+                                }
+                                .tabler table .finalar {
+                                    display: none;
+                                }
+                                .tabler table:last-child {
+                                    margin: 0px 0px 0px 0px;
+                                }
+                                .tabler table:last-child .finalar {
+                                    display: table-row;
+                                }
+                                .customer_name {
+                                    display: block;
+                                    margin: 74px 0px 0px 0px;
+                                    font-weight: bold;
+                                }
+
+                            </style>
+
+                            <div class="tabler">
+
+                            
+                                    <div class="report-head">
+                                        <div class="head-col-01">
+                                            
+                                            <t t-set="num" t-value="namer()" />
+                            
+
+                                            <t t-if = "num == 'FFC Mir Pur Mathelo'">
+                                                <img src="/region_bill_detail/static/src/img/01.jpg" alt="" />
+                                            </t>
+
+                                            <t t-if = "num == 'FFC Goth Machi'">
+                                                <img src="/region_bill_detail/static/src/img/03.jpg" alt="" />
+                                            </t>
+                               
+                                            <p>
+                                                <span>
+                                                    <span class="solid">Bill Number:</span>
+                                                    <span style="font-weight: bold;"></span>
+                                                        <span style="font-weight: bold;">
+                                                            <span class="liquid" t-esc="o.bill_no"></span>
+                                                        </span>
+                                                        <!-- /<span t-esc="number/10"></span> -->
+                                                </span>
+
+                                                <span style="float: right;"></span>
+                                                    <span class="solid">From:</span>
+                                                    <span style="font-weight: bold;">
+                                                        <span class="liquid" t-esc="form"></span>
+                                                    </span>
+
+                                            </p>
+                                        </div>
+
+                                        <div class="head-col-02">
+                                            <img src="/region_bill_detail/static/src/img/02.jpg" alt="" />
+                               
+                                            <p>
+
+                                                <span style="float: left; margin: 0px 0px 0px 50px;">
+                                                    <span class="solid">To: </span>
+                                                    <span style="font-weight: bold;">
+                                                        <span class="liquid" t-esc="to"></span>
+                                                    </span>
+                                                </span>
+
+                                                <span>
+                                                    <span class="solid">Region: </span>
+                                                    <span class="liquid" t-esc="region" style="font-weight: bold;"></span>
+                                                </span>
+                                            </p>
+                                        </div>
+                                        <br class="clearfloat" />
+                                    
+                                    </div>
+
+                                    <table class="marginer">
+                                        <tr>
+                                            <th rowspan="2" class="rower">Code</th>
+                                            <th>CS</th>
+                                            <th>Invoice No.</th>
+                                            <th>Date</th>
+                                            <th rowspan="2" class="rower">Bags</th>
+                                            <th colspan="2">M.Ton</th>
+                                            <th rowspan="2" class="rower">Destination</th>
+                                            <th>Distance</th>
+                                            <th>Truck no</th>
+                                            <th colspan="2">Rate/Ton</th>
+                                            <th colspan="2">Amount</th>
+                                            <th>For FFC use only</th>
+
+                                        </tr>
+
+                                        <tr>
+
+                                            <td>3-4</td>
+                                            <td>5-10</td>
+                                            <td>11-16</td>
+                                            <td>17-18</td>
+                                            <td>19-20</td>
+                                            <td>kilometers</td>
+                                            <td>21-27</td>
+                                            <td>28-30</td>
+                                            <td>31-32</td>
+                                            <td>33-38</td>
+                                            <td>39-40</td>
+                                            <td></td>
+                                            
+
+                                        </tr>
+
+                                        <t t-set="i" t-value="1"/>
+                                        <t t-set="wgt_total" t-value="0"/>
+                                        <t t-set="page_total" t-value="0"/>
+                                        <t t-foreach="sorted_records" t-as="data">
+
+                                            <tr>
+
+                                                <td>
+                                                    <span t-esc="data.code"></span>
+                                                </td>
+                                                <td>
+                                                    <t t-esc="i"/>
+                                                    <t t-set="i" t-value="i+1"/>
+                                                </td>
+                                                <td>
+                                                    <span t-esc="data.shipper_invoice_no"></span>
+                                                </td>
+                                                <td>
+                                                    <sapn t-esc="datetime.datetime.strptime(data.invoice_date, '%Y-%m-%d').strftime('%d-%m-%Y')"/>
+                                                </td>
+                                                <td>
+                                                    <span t-esc="data.no_of_bags"></span>
+                                                </td>
+                                                <td>
+                                                    <span t-esc="data.weight"></span>
+                                                    <t t-set="wgt_total" t-value="wgt_total+float(data.weight)"/>
+                                                </td>
+                                                <td></td>
+                                                <td>
+                                                    <span t-esc="data.dest_name"></span>
+                                                </td>
+                                                <td>
+                                                    <span t-esc="data.distance"></span>
+                                                </td>
+                                                <td>
+                                                    <span t-esc="data.truck_no"></span>
+                                                </td>
+                                                <td></td>
+                                                <td></td>
+                                                <td>
+                                                    <span t-esc="'{:0,}'.format(int(float(data.sale_price)))"></span>
+                                                    <t t-set="page_total" t-value="page_total+float(data.sale_price)"/>
+                                                </td>
+                                                <td></td>
+                                                <td></td>           
+
+                                            </tr>
+
+                                        </t>
+
+                                        <tr>
+                                            <td colspan="3"></td>
+                                            <td colspan="2">Total Tons</td>
+                                            <td>
+                                               <span t-esc="'{:0,}'.format(int(float(wgt_total)))"></span> 
+                                            </td>
+                                            <td colspan="4"></td>
+                                            <td colspan="2">Page Total</td>
+                                            <td>
+                                                <span t-esc="'{:0,}'.format(int(float(page_total)))"></span> 
+                                            </td>
+                                            <td></td>
+                                            <td>Not to be Punc<br/> To be filled</td>
+
+                                        </tr>
+
+                                        <t t-set="i" t-value="i-1"/>
+
+                                        <tr class="finalar">
+                                            <td colspan="10">
+                                                <p>Receipted Copies From Dealer Attached(<span t-esc="i"></span>)</p>
+                                                <p>Contractors Signature ___________________</p>
+                                                <br class="clearfloat" />
+                                            </td>
+                                            <td colspan="2">Grand Total</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>On last sheet only</td>
+
+                                        </tr>
+
+                                    </table>
+                                
+                                
+                              
+                            </div>
+
+                            <div class="report-footer">
+                                
+                                <div class="footer-col-01">
+                                    <p> <span class="text">Rate Amount Verified (Finance Office)</span> <span class="line">____________________</span> </p>
+
+                                    <table>
+
+                                        <tr>
+                                            <th colspan="2">Deduction</th>
+                                            <th colspan="2">Amount Paid</th>
+                                            <th>Voucher No</th>
+                                            <th>Date</th>
+                                        </tr>
+
+                                        <tr>
+                                            <th>41-44</th>
+                                            <th>45-46</th>
+                                            <th>47-52</th>
+                                            <th>53-54</th>
+                                            <th>55-60</th>
+                                            <th>61-63</th>
+                                        </tr>
+
+                                        <tr>
+                                            <td> - </td>
+                                            <td> - </td>
+                                            <td> - </td>
+                                            <td> - </td>
+                                            <td> - </td>
+                                            <td> - </td>
+                                        </tr>
+
+                                    </table>
+
+                                </div>
+                                
+                                <div class="footer-col-02">
+                                    <p> 
+                                        <span class="text">Receipt of Consignment Verified</span> 
+                                        <span class="line">____________________</span>
+                                        <br></br>
+                                        <br></br>
+                                        <br></br>
+                                        <br></br>
+                                        <br></br>
+                                        <span t-esc="o.Customer.name"></span>
+                                    </p>
+                                </div>
+                                <br class="clearfloat" />
+
+                            </div>
+
+                        </div>
+
+                    </t>
+
+                </t>
+            </t>
+
+        </template>
+
+    </data>
+
+</openerp>

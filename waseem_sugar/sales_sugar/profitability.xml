@@ -1,0 +1,105 @@
+<openerp>
+    <data>
+
+
+        <record id = "profit_report_form_view" model = "ir.ui.view">
+            
+                <field name="name">profit_report_form_view</field>
+        
+                <field name="model">profit.report</field>
+        
+                <field name="type">form</field>
+        
+                <field name="arch" type="xml">
+        
+                <form >
+                    <header>
+                        <button name="get_profit" type="object" string="Get Profit" class = "oe_highlight"/>
+                        
+                    </header>
+
+
+                  <sheet>
+
+
+                        
+                        <group name="group_top">
+                            <group name="group_left">
+                                
+                                <field name="date_from"/>
+                                
+                        
+                            </group>
+                            <group name="group_right">
+                                <field name="date_to"/>
+                                
+
+                            </group>
+                        </group>
+                            <field name="profit_lines"  >
+
+                            <tree editable="bottom">
+                                <field name="mill" />
+                                <field name="qty_sold" sum = "Total"/>
+                                <field name="amount_sold" sum = "Total"/>
+                                <field name="sale_rate" />
+
+                                <field name="purchase_rate" />
+                                <field name="profit_unit" />
+                                <field name="total_profit" sum = "Total"  />
+                                <field name="profit_id" invisible = "1" />
+
+                                
+
+                            </tree>
+                        </field>
+
+                        
+                   </sheet>                              
+               </form>      
+                </field>
+        </record>
+
+
+
+
+       <record id = "profit_report_tree_view" model = "ir.ui.view">
+            
+                <field name="name">profit_report_form_view</field>
+        
+                <field name="model">profit.report</field>
+        
+                <field name="type">tree</field>
+        
+                <field name="arch" type="xml">
+        
+                    <tree delete ="false">
+                                <field name="date_from"/>
+                                <field name="date_to"/>
+                                
+                           
+                    </tree>      
+                </field>
+        </record>
+
+
+         <record id="profit_report_action" model="ir.actions.act_window">
+            <field name="name">Profit Report</field>
+            <field name="res_model">profit.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            
+           
+        </record>
+
+        <menuitem id="profit_report" name="Profit Report" parent="sales_sugar.new_sales_and_purchases_reporting" sequence="100" action="profit_report_action" />
+
+        <!-- <menuitem   id="sales_sugar.commission_menu_item" 
+            name="Commissions"
+            parent="commission_menu" 
+            action="commission_action" 
+        />
+
+ -->
+    </data>
+</openerp>

@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <report
+            id="covring_letter" 
+            model="account.invoice"
+            name="covring_letter.covring_report"
+            file="covring_letter.covring_report"
+            report_type="qweb-html"
+            string="Covring Letter"/> 
+    </data>
+</openerp>

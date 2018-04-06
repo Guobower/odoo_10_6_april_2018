@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+
+    <data>   
+
+        <template id="forward_contracts">
+
+            <t t-call="report.html_container">
+                <t t-call="report.external_layout">
+                    <t t-foreach="docs" t-as="o">
+
+                        <div class="page">
+
+                            <style type="text/css">
+                                @media (min-width: 992px) {
+                                    .container {
+                                        width: 100%;
+                                    }
+                                }
+
+                                @media (min-width: 768px) {
+                                    .container {
+                                        width: 100%;
+                                    }
+                                }
+                                .container {
+                                    width: 100%;
+                                }
+                                body {
+                                    margin: 0px !important;
+                                }
+                                body.o_in_iframe {
+                                    margin-top: 0px!important;
+                                }
+                                .clearfloat {
+                                    clear: both;
+                                    float: none;
+                                    width: 100%;
+                                    height: 1px;
+                                    display: block;
+                                }
+                                h2 {
+                                    text-align: center;
+                                    font-size: 25px;
+                                    text-decoration: underline;
+                                    font-weight: normal;
+                                }
+                                .report_wrapper {
+                                    width: 1150px;
+                                    margin: 0px auto;
+                                }
+                                table {
+                                    width: 100%;
+                                    border-spacing: 0px;
+                                }
+                                table tr td, 
+                                table tr th {
+                                    text-align: center;
+                                    padding: 3px 0px 3px 5px;
+                                    border-right: 2px solid #CCC;
+                                    border-bottom: 1px solid #eee;
+                                }
+                                table tr:first-child th {
+                                    border-top: 2px solid #CCC;
+                                }
+                                table tr:last-child td {
+                                    border-bottom: 2px solid #CCC;
+                                }
+                                table tr td:first-child, 
+                                table tr th:first-child {
+                                    border: none;
+                                    border-right: 2px solid #CCC;
+                                }
+                                .report_wrapper .cols {
+                                    width: 48%;
+                                    float: left;
+                                    margin: 1%;
+                                }
+                            </style>
+
+                            <div class="report_wrapper">
+                                
+                                <div class="cols">
+
+                                    <h2>Purchase</h2>
+                                    <t t-set="total_purchase" t-value="0" />
+
+                                    <table>
+                                        <tr>
+                                            <th></th>
+                                            <th>Date</th>
+                                            <th>Party</th>
+                                            <th>Mill</th>
+                                            <th>Quantity</th>
+                                            <th>Rate</th>
+                                            <th>Amount</th>
+
+                                        </tr>
+
+                                        <t t-foreach="o.trial_lines" t-as="data">
+                                            <t t-if="data.total_purchase_qty">
+                                                <tr>
+                                                    <td></td>
+                                                    <td><!-- <span t-esc="data.date"></span> --></td>
+                                                    <td><span t-esc="data.party.name"></span></td>
+                                                    <td><span t-esc="o.mill.name"></span></td>
+                                                    <td><span t-esc="data.total_purchase_qty"></span></td>
+                                                    <td><span t-esc="data.average_price"></span></td>
+                                                    <td>
+                                                        <span t-esc="data.total_amount"></span>
+                                                        <t t-set="total_purchase" t-value="total_purchase + data.total_amount" />
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </t>
+                                        <tr>
+                                            <td></td>
+                                            <td colspan="4"></td>
+                                            <td><b>Total</b></td>
+                                            <td><b><span t-esc="total_purchase"></span></b></td>
+                                        </tr>
+                                    </table>
+
+                                </div>
+                                
+                                <div class="cols">
+                                    <h2>Sales</h2>
+                                    <t t-set="total_sales" t-value="0" />
+
+                                    <table>
+                                        <tr>
+                                            <th></th>
+                                            <th>Date</th>
+                                            <th>Party</th>
+                                            <th>Mill</th>
+                                            <th>Quantity</th>
+                                            <th>Rate</th>
+                                            <th>Amount</th>
+
+                                        </tr>
+
+                                        <t t-foreach="o.trial_lines" t-as="data">
+                                            <t t-if="data.total_sales_qty">
+                                                <tr>
+                                                    <td></td>
+                                                    <td><!-- <span t-esc="data.date"></span> --></td>
+                                                    <td><span t-esc="data.party.name"></span></td>
+                                                    <td><span t-esc="o.mill.name"></span></td>
+                                                    <td><span t-esc="data.total_sales_qty"></span></td>
+                                                    <td><span t-esc="data.average_price"></span></td>
+                                                    <td>
+                                                        <span t-esc="data.total_amount"></span>
+                                                        <t t-set="total_sales" t-value="total_sales + data.total_amount" />
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </t>
+                                        <tr>
+                                            <td></td>
+                                            <td colspan="4"></td>
+                                            <td><b>Total</b></td>
+                                            <td><b><span t-esc="total_sales"></span></b></td>
+                                        </tr>
+                                    </table>
+
+                                </div>
+
+                            </div>
+
+                        </div><!--end of page-->
+
+                    </t>
+                </t>
+            </t>
+
+        </template>
+
+    </data>
+
+</openerp>

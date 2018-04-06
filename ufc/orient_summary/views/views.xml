@@ -1,0 +1,121 @@
+<?xml version="1.0"?> 
+<odoo> 
+
+
+    <record id="view_form_summary_ffc" model="ir.ui.view"> 
+      <field name="name">view_form_summary_ffc</field> 
+      <field name="model">orient.summ</field> 
+      <field name="type">form</field> 
+        <field name="arch" type="xml">
+        <form string="Summary">
+
+          <header>
+
+            <button name="generate" string="Create Invoice" type="object" attrs="{'invisible':[('stages','in',['validate'])]}" class="oe_highlight"/>
+            <button name="validate" string="Validate" type="object" attrs="{'invisible':[('stages','in',['validate'])]}"  class="oe_highlight"/>
+            <button name="draft" string="Reset To Draft" type="object" attrs="{'invisible':[('stages','in',['draft'])]}" class="oe_highlight"/>
+            <field name="stages" widget="statusbar" />
+  
+          </header>
+          
+            <group name="top">
+
+              <group name="left">
+                <field name="customer"/>
+                <field name="bl_number"/>
+                <field name="bill_no"/>
+              </group>
+
+              <group name="right">
+
+                <field name="invoice_date"/>
+                <field name="loading_date"/>
+                <field name="branch"/>
+                <field name="orient_link"/>
+                
+              </group>
+
+             </group>
+
+            <notebook> 
+             
+              <page string="Details"> 
+
+
+                <group name="top">
+
+                  <group name="left">
+
+                    <field name="item"/>
+                    <field name="weight"/>
+        
+                  </group>
+
+                  <group name="right">
+
+                    <field name="number"/>
+
+                  </group>
+
+                </group>
+
+                <group name="group_top">
+
+                    <field name="sum_ids2" nolabel='1'>
+                      <tree editable="bottom">
+
+                        
+                      
+                        <field name="crt_no"/>
+                        <field name="bilty_no"/>
+                        <field name="quantity"/>
+                        <field name="misc_charges"/>
+                        <field name="invoice_date"/>
+                        <field name="truck_no"/>
+                        <field name="sale_price"/>
+                        
+                        
+                      </tree>
+                    </field>
+
+                </group>
+
+                <group class="oe_subtotal_footer oe_right">
+          
+                  <field name="amt_total" class="oe_subtotal_footer_separator"/>
+                  
+                </group>
+                            
+              </page>
+
+            </notebook>
+
+        </form> 
+      </field> 
+    </record> 
+
+    <record id="view_tree_new_module" model="ir.ui.view"> 
+      <field name="name">view_form_summary_ffc</field> 
+      <field name="model">orient.summ</field> 
+      <field name="type">tree</field> 
+      <field name="arch" type="xml"> 
+        <tree> 
+         
+          <field name="customer"/>
+          <field name="bl_number"/>
+      
+        </tree> 
+      </field> 
+    </record>
+
+    <act_window id="action_orient_summ" 
+    name="Orient" 
+    res_model="orient.summ" 
+    view_mode="tree,form" />
+
+
+  <menuitem id="menu_orient_summ" name="Orient Summary" parent="ufc_automization_10.menu_new_module" action="action_orient_summ" sequence="8"/>
+
+
+
+</odoo>

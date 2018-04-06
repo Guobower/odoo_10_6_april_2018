@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <report
+            id="vat_invoice_report" 
+            model="account.invoice"
+            name="vat_invoice.vat_invoice_id"
+            file="vat_invoice.vat_invoice_id"
+            report_type="qweb-html"
+            string="Vat Invoice"/> 
+    </data>
+</openerp>

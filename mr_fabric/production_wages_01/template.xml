@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <report
+            id="report_for_mrfabric" 
+            model="hr.employee"
+            name="production_wages_01.mrfabricsheet_report"
+            file="production_wages_01.mrfabricsheet_report"
+            report_type="qweb-html"
+            string="Mrfabric Sheet"
+            menu="False"/> 
+
+        <record id="mrfabricsheet_wizard_form_view" model="ir.ui.view">
+            <field name="name">mrfabricsheet_wizard_form_view</field>
+            <field name="model">mrfabric.sheet</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Report">
+                    
+                    <group name="group_top">
+
+                        <group name="group_left">
+                        
+                            <field name="date_from" required="1"/>
+
+                        </group>
+
+                        <group name="group_right">
+
+                            <field name="date_to" required="1"/>
+                        
+                        </group>
+
+                    </group>
+                    
+                    <group name="group_bottom">
+
+                        <group name="group_left">
+
+                            <field name="work_order" widget="many2many_tags"/>
+
+                        </group>
+
+                        <group name="group_right">
+                        
+                            <field name="production"/>
+                        
+                        </group>
+
+                    </group>
+
+                    <footer>
+                        <button name="%(report_for_mrfabric)d" type="action" string="Print" class="oe_highlight"/>
+                    </footer>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="mrfabricsheet_wizard_action" model="ir.actions.act_window">
+            <field name="name">Mrfabric Sheet</field>
+            <field name="res_model">mrfabric.sheet</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="mrfabricsheet_wizard_form_view"/>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="PayrollReports" name="Reports" parent="hr_payroll.menu_hr_payroll_root" sequence="100"/>
+        <menuitem id="mrfabricsheet_menu_item" name="Summary Sheet" action="mrfabricsheet_wizard_action" parent="production_wages_01.PayrollReports" />
+
+    </data>
+
+</openerp>

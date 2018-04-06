@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <report
+            id="report_for_module_gothmachi" 
+            model="summary.ffc"
+            name="region_bill_gothmachi.module_report"
+            file="region_bill_gothmachi.module_report"
+            report_type="qweb-html"
+            string="Goth Machi Bill Summary"/> 
+    </data>
+</openerp>

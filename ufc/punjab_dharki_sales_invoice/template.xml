@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <report
+            id="report_for_module_sindh_sales" 
+            model="summary.ffc"
+            name="punjab_dharki_sales_invoice.module_report"
+            file="punjab_dharki_sales_invoice.module_report"
+            report_type="qweb-html"
+            string="Dharki Punjab Sales Tax Invoice"/> 
+    </data>
+</openerp>

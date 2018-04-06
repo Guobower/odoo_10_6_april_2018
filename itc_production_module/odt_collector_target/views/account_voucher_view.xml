@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+<!-- 
+        <record model="ir.ui.view" id="view_vendor_receipt_form">
+            <field name="name">account.voucher.receipt.form</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="account_voucher.view_vendor_receipt_form"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="after">
+                    <field name="collector_id" required="1"/>
+                </field>
+            </field>
+        </record> -->
+<!--         <record model="ir.ui.view" id="view_vendor_receipt_dialog_form">
+            <field name="name">account.voucher.receipt.dialog.form</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="account_voucher.view_vendor_receipt_dialog_form"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="after">
+                    <field name="collector_id" attrs="{'invisible': [('type','=','payment')],'required': [('type','=','receipt')]}"/>
+                </field>
+            </field>
+        </record>
+ -->
+    </data>
+</openerp>

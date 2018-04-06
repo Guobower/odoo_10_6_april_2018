@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model='ir.module.category' id='mall_profile_categ'>
+            <field name='name'>Attendance</field>
+            <field name='sequence'>555</field>
+        </record>
+        <record id='mall_group_manager' model='res.groups'>
+            <field name='name'>Attendance Manager</field>
+            <field name='category_id' eval='mall_profile_categ'/>
+        </record>
+    </data>
+</openerp>

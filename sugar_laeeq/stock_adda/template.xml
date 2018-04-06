@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <report
+            id="report_for_stock_movement_adda" 
+            model="res.partner"
+            name="stock_adda.stock_adda_report"
+            file="stock_adda.stock_adda_report"
+            report_type="qweb-html"
+            string="Store Stock Movement"
+            menu="False"/>
+
+        <record id="stock_movement_adda_wizard" model="ir.ui.view">
+            <field name="name">stock_movement_adda_wizard</field>
+            <field name="model">stock.movement.addas</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Report">
+
+                    <header>
+                        <button name="%(report_for_stock_movement_adda)d" type="action" string="Print" class="oe_highlight"/>
+
+                        <button name="genrate_lines" type="object" string="Genrate Lines" class="oe_highlight"/>
+
+                        <button name="delete_lines" type="object" string="Delete All Lines" class="oe_highlight"/>
+                    </header>
+                    
+                    <group name="group_top">
+
+                        <group name="group_left">
+
+                            <field name="adda_field"/>
+                            <field name="form"/>
+                            <field name="party"/>
+
+                        </group>
+
+                        <group name="group_right">
+
+                            <field name="mill" />
+                            <field name="to"/>
+                            <field name="ismill"/>
+
+                        </group>
+
+                    </group>
+                    
+                    <group name="group_bottom">
+
+                        <group name="group_left">
+
+                            <field name="openings" readonly="1"/>
+                            <field name="tranfers" readonly="1"/>
+
+                        </group>
+
+                        <group name="group_right">
+
+                            <field name="loadings"  readonly="1"/>
+
+                        </group>
+
+                    </group>
+
+                    <field name="stock_tree" >
+
+                        <tree editable="bottom" delete="false" create="false" edit="false">
+                            <field name="date"/>
+                            <field name="qty"/>
+                            <field name="adda"/>
+                            <field name="mill_loaded"/>
+                            <field name="destination"/>
+                            <field name="vehicle"/>
+                            <field name="billty"/>
+                            <field name="type_transfer"/>
+                        </tree>
+                        
+                    </field>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="stock_movement_adda_tree_view" model="ir.ui.view">
+            <field name="name">stock_movement_adda_tree_view</field>
+            <field name="model">stock.movement.addas</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Yarn Approval">
+
+                    <field name="adda_field"/>
+                    <field name="form"/>
+                    <field name="party"/>
+
+                    <field name="mill" />
+                    <field name="to"/>
+                    <field name="ismill"/>
+
+                </tree>
+            </field>
+        </record>
+
+        <record id="stock_movement_adda_action" model="ir.actions.act_window">
+            <field name="name">Stock Movement Adda Wise</field>
+            <field name="res_model">stock.movement.addas</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="stock_adda_menu_item" name="Store Stock Movement" action="stock_movement_adda_action" parent="sales_sugar.confirmation_level" />
+        
+    </data>
+</openerp>

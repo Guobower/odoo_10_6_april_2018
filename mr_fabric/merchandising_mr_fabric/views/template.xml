@@ -1,0 +1,437 @@
+<?xml version="1.0"?> 
+<odoo>
+
+    <template id="assets_backend" name="custom assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside"> 
+            <link rel="stylesheet" href="/merchandising_mr_fabric/static/css/style.css"/> 
+        </xpath> 
+    </template>
+
+    <record id="MerchandisingFormView" model="ir.ui.view">
+        <field name="name">MerchandisingFormView</field>
+        <field name="model">merchandising.costing</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Costing">
+                
+                <group name="group_top">
+                    
+                    <group name="group_left">
+
+
+                        <field name="won" />
+                        <field name="style" />
+                        <field name="buyer" domain= "[('buyer','=','True')]" context="{'default_buyer':True}"/>
+                        <field name="category" />
+                    </group>
+                    
+                    <group>
+                        <field name="customer_po" />
+                        <field name="style_name" />
+                        <field name="garment" domain="[('ttype','=','finished')]" context="{'default_ttype': 'finished'}"/>
+                        <field name="product_image" widget='image'/>
+                    </group>
+
+                </group>
+            
+                <group name="group_top">
+                    
+                    <group name="group_left">
+                        <field name="currency" />
+                    </group>
+                    
+                    <group>
+                        <field name="currency_rate" />
+                    </group>
+
+                </group>
+
+                <notebook>
+
+                    <page name="fabric" string="Fabric">
+
+                        <h2 class="o_horizontal_separator">R&amp;D</h2>
+
+                        <field name="fabric_tree" nolabel='1'>
+                            <tree editable="bottom">
+                                <field name="fabricno"/>
+                                <field name="fabric" context="{'default_ttype': 'fabric'}" domain= "[('ttype','=','fabric')]"/>
+                                <field name="yarn" widget="many2many_tags"/>
+                                <field name="texture"/>
+                                <field name="contents"/>
+                                <field name="gsm"/>
+                                <field name="dia"/>
+                                <field name="guage"/>
+                                <field name="width"/>
+                                <field name="color"/>
+                                <field name="rotary_rate"/>
+                                <field name="Kniting"/>
+                                <field name="knit_wastage"/>
+                                <field name="washingdyeing"/>
+                                <field name="wash_wastage"/>
+                                <field name="total_yarn"/>
+                            </tree>
+                        </field> 
+
+
+                        <div class="totals">
+                            <group class="oe_subtotal_footer oe_right">
+                                <field name="total_fabric"/>
+                            
+                                <div class="oe_subtotal_footer_separator oe_inline">
+                                    <label for="fabric_dollar" string="Cost in Selected Currency"/>
+                                </div>
+                                
+                                <field name="fabric_dollar" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'currency'}"/>
+
+                            </group>
+                        </div>
+
+                    </page>
+
+                    <page name="consumption" string="Consumption">
+
+                        <br />
+                        <button name="defaults" string="Get Defaults" type="object"/>
+
+                        <br />
+                        <h2 class="o_horizontal_separator">Consumption</h2>
+                        <br />
+
+                        <field name="consumption_tree" nolabel='1'>
+                            <tree editable="bottom">
+                                <field name="typed"/>
+                                <field name="uom"/>
+                                <field name="parts"/>
+                                <field name="fac"/>
+                                <field name="gsm"/>
+                                <field name="consumption"/>
+                            </tree>
+                        </field>
+
+                    </page>
+
+                    <page name="accessories" string="Accessories">
+                        
+                        <h2 class="o_horizontal_separator">Accessories Stiching</h2>
+                        <br />
+
+                        <field name="access_tree" nolabel='1'>
+                            <tree editable="bottom">
+                                <!-- <field name="access" domain= "[('ttype','=','accessories')]"/> -->
+                                <field name="defaults"/>
+                                <field name="remarks"/>
+                                <field name="qty"/>
+                                <field name="costing" sum="total"/>
+                                <field name="typed"/>
+                            </tree>
+                        </field> 
+
+
+                        <div class="totals">
+
+                            <group class="oe_subtotal_footer oe_right">
+
+                                <field name="total_access"/>
+                                
+                                <div class="oe_subtotal_footer_separator oe_inline">
+                                    <label for="access_dollar" string="Cost in Selected Currency"/>
+                                </div>
+                                
+                                <field name="access_dollar" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'currency'}"/>
+
+                            </group>
+                        </div>
+
+                        <br />
+                        <h2 class="o_horizontal_separator">Accessories Packing</h2>
+                        <br />
+
+                        <field name="pack_tree" nolabel='1'>
+                            <tree editable="bottom">
+                                <!-- <field name="access" domain= "[('ttype','=','accessories')]"/> -->
+                                <field name="defaults"/>
+                                <field name="remarks"/>
+                                <field name="qty"/>
+                                <field name="costing" sum="total"/>
+                                <field name="typed"/>
+                            </tree>
+                        </field> 
+
+
+                        <div class="totals">
+
+                            <group class="oe_subtotal_footer oe_right">
+
+                                <field name="total_access_pack"/>
+                                
+                                <div class="oe_subtotal_footer_separator oe_inline">
+                                    <label for="access_pack_dollar" string="Cost in Selected Currency"/>
+                                </div>
+                                
+                                <field name="access_pack_dollar" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'currency'}"/>
+
+                            </group>
+                        </div>
+
+                    </page>
+
+                    <page name="services" string="Services">
+
+                        <field name="service_tree" nolabel='1'>
+                            <tree editable="bottom">
+                                <field name="service"/>
+                                <field name="uom" invisible="1"/>
+                                <field name="costing" sum="total"/>
+                                <field name="remarks"/>
+                            </tree>
+                        </field> 
+
+                        <div class="totals">
+
+                            <group class="oe_subtotal_footer oe_right">
+
+                                <field name="total_service"/>
+                                
+                                <div class="oe_subtotal_footer_separator oe_inline">
+                                    <label for="service_dollar" string="Cost in Selected Currency"/>
+                                </div>
+                                
+                                <field name="service_dollar" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'currency'}"/>
+
+                            </group>
+                        </div>
+
+                    </page>
+
+                    <page name="others" string="Miscellaneous">
+
+                        <field name="others_tree" nolabel='1'>
+                            <tree editable="bottom">
+                                <field name="defaults"/>
+                                <field name="remarks"/>
+                                <field name="qty" invisible="1"/>
+                                <field name="costing" sum="total"/>
+                                <field name="typed" invisible="1"/>
+                            </tree>
+                        </field> 
+
+                        <div class="totals">
+
+                            <group class="oe_subtotal_footer oe_right">
+
+                                <field name="total_others"/>
+                                
+                                <div class="oe_subtotal_footer_separator oe_inline">
+                                    <label for="others_dollar" string="Cost in Selected Currency"/>
+                                </div>
+                                
+                                <field name="others_dollar" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'currency'}"/>
+
+                            </group>
+                        </div>
+
+                    </page>
+
+                    <page name="tech_pack" string="Tech Pack">
+
+                        <field name="tech_tree" nolabel='1'>
+                            <tree editable="bottom">
+                                <field name="description"/>
+                                <field name="tech_pack"/>
+                            </tree>
+                        </field> 
+
+                        <div class="totals">
+
+                            <group class="oe_subtotal_footer oe_right">
+
+                                <field name="total_pack"/>
+                                
+                                <div class="oe_subtotal_footer_separator oe_inline">
+                                    <label for="pack_dollar" string="Cost in Selected Currency"/>
+                                </div>
+                                
+                                <field name="pack_dollar" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'currency'}"/>
+
+                            </group>
+                        </div>
+
+                    </page>
+
+                </notebook>
+
+            </form>
+        </field>
+    </record>
+
+    <record id="MerchandisingTreeView" model="ir.ui.view">
+        <field name="name">MerchandisingTreeView</field>
+        <field name="model">merchandising.costing</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Costing">
+
+                <field name="buyer" />
+                <field name="style" />
+
+            </tree>
+        </field>
+    </record>
+
+    <record id="MerchandisingAction" model="ir.actions.act_window" >
+        <field name="name">Costing</field>
+        <field name="res_model">merchandising.costing</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'readonly_by_pass': True}</field>
+    </record>
+
+    <menuitem name="Costing" id="CostingMenuItem" parent="sales_team.menu_sales" action="MerchandisingAction" sequence="100" />
+
+    <record id="MeasureFormView" model="ir.ui.view">
+        <field name="name">MeasureFormView</field>
+        <field name="model">consumption.uom</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Consumption">
+                <sheet>
+                        
+                    <group name="group_left" string="CM">
+                        <field name="cm_fbl"/>
+                        <field name="cm_chest"/>
+                        <field name="parts"/>
+                        <field name="fac"/>
+                        <field name="gsm"/>
+                        <field name="cm_percent"/>
+                    </group>
+                        
+                    <group name="group_left" string="Inches">
+                        <field name="inch_fbl" />
+                        <field name="inch_chest" />
+                    </group>
+                    
+                    <group name="group_left" string="1.5/1">
+                        <field name="ml_fbl" />
+                        <field name="ml_chest" />
+                    </group>
+                        
+                    <group name="group_left" string="Consumption">
+                        <field name="ml_percent" />
+                        <field name="partial" />
+                        <field name="final_consumption" />
+                    </group>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="YarnMoveFormView" model="ir.ui.view">
+        <field name="name">YarnMoveFormView</field>
+        <field name="model">merchandising.yarn.move</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Costing">
+                <sheet>
+                
+                    <group name="group_top">
+                        
+                        <group name="group_left">
+                            <field name="yarn" domain= "[('ttype','=','yarn')]" context="{'default_ttype': yarn}" />
+                            <field name="weight"/>
+                        </group>
+                        
+                        <group name="group_right">
+                            <field name="cost" />
+                            <field name="ratio" />
+                        </group>
+
+                    </group>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="SeprateYarnFormView" model="ir.ui.view">
+        <field name="name">SeprateYarnFormView</field>
+        <field name="model">seperate.yarn</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Yarn">
+                <sheet>
+                
+                    <group name="group_top">
+                        
+                        <group name="group_left">
+                            <field name="name" invisible="1"/>
+                            <field name="count" domain="[('ttype','=','yarn')]"/>
+                            <field name="percentage"/>
+                        </group>
+                        
+                        <group name="group_right">
+                            <field name="yarnrate"/>
+                            <field name="countlbs"/>
+                        </group>
+
+                    </group>
+                
+                    <group name="group_top">
+                        
+                        <group name="group_left">
+                            <field name="yarndyeing"/>
+                            <field name="Twisting"/>
+                        </group>
+                        
+                        <group name="group_right">
+                            <field name="yarn_wastage"/>
+                            <field name="twist_wastage"/>
+                            <field name="invisible"/>
+                        </group>
+
+                    </group>
+                
+                    <group name="group_top">
+                        
+                        <group name="group_left">
+                        </group>
+                        
+                        <group name="group_right">
+                            <field name="total_yarn"/>
+                        </group>
+
+                    </group>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="SeprateYarnTreeView" model="ir.ui.view">
+        <field name="name">SeprateYarnTreeView</field>
+        <field name="model">seperate.yarn</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Yarn Costing">
+
+                <field name="name"/>
+                <field name="yarnrate"/>
+                <field name="yarndyeing"/>
+                <field name="Twisting"/>
+
+            </tree>
+        </field>
+    </record>
+
+    <record id="SeprateYarnAction" model="ir.actions.act_window" >
+        <field name="name">Yarn Costing</field>
+        <field name="res_model">seperate.yarn</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'readonly_by_pass': True}</field>
+    </record>
+
+    <menuitem name="Yarn Costing" id="YarnCostingMenuItem" parent="sales_team.menu_sales" action="SeprateYarnAction" sequence="100" />
+
+</odoo> 

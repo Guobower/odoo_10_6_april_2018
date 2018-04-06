@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_quality_inspection_qual,quality.inspection,model_quality_inspection,base.group_user,1,1,1,1
+access_quality_inspection_con,inspection.conclusion.tree,model_inspection_conclusion_tree,base.group_user,1,1,1,1
+access_quality_inspection_appe,wokrmanship.appearance.tree,model_wokrmanship_appearance_tree,base.group_user,1,1,1,1
+access_quality_inspection_packing,packing.tree,model_packing_tree,base.group_user,1,1,1,1
+access_quality_inspection_insp,quality.inspection.tree,model_quality_inspection_tree,base.group_user,1,1,1,1
+access_quality_inspection_note,quality.note,model_quality_note,base.group_user,1,1,1,1
+access_quality_inspection_note_tree,quality.note.tree,model_quality_note_tree,base.group_user,1,1,1,1
+access_quality_inspection_pack,commercial.packing.list,model_commercial_packing_list,base.group_user,1,1,1,1
+access_quality_inspection_comm,commercial.packing.list.tree,model_commercial_packing_list_tree,base.group_user,1,1,1,1

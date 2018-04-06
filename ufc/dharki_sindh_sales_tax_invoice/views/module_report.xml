@@ -1,0 +1,477 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+
+    <data>   
+
+        <template id="module_report">
+
+            <t t-call="report.html_container">
+                <t t-call="report.external_layout">
+                    <t t-foreach="docs" t-as="o">
+
+                        <div class="page">
+
+                            <style>
+                                .report-container {
+                                    width: 1000px;
+                                    margin: 0px auto;
+                                }
+
+                                .contaner {
+                                    width: 100%;
+                                }
+
+                                h1 {
+
+                                    margin: 0px auto;
+                                    width: 80%;
+                                    text-align: center;
+
+                                }
+
+
+                                h3 {
+
+                                    margin: 0px auto;
+                                    width: 80%;
+                                    text-align: center;
+
+                                }
+
+
+
+                                .line {
+                                    width: 100%;
+                                    float: left;
+                                    
+                                }
+
+                                .ser {
+                                    width: 33%;
+                                    float: left;
+                                    margin-bottom: 8px;
+                                }
+
+                                .ser .solid {
+                                    width: 27%;
+                                    float: left;
+                                    font-weight: bold;
+                                }
+
+                                .ser .liquid {
+                                    width: 70%;
+                                    float: left;
+                                
+                                }
+
+                                .date {
+                                    width: 33%;
+                                    float: left;
+                                }
+
+
+                                .date .solid {
+                                    width: 20%;
+                                    float: left;
+                                    font-weight: bold;
+                                }
+
+                                .date .liquid {
+                                    width: 70%;
+                                    float: left;
+                                
+                                }
+
+                                .time {
+                                    width: 33%;
+                                    float: left;
+                                }
+
+                                .time .solid {
+                                    width: 35%;
+                                    float: left;
+                                    font-weight: bold;
+                                }
+
+                                .time .liquid {
+                                    width: 64%;
+                                    float: left;
+                                
+                                }
+
+                                .bill {
+                                    width: 100%;
+                                    float: left;
+                                    margin-bottom: 8px;
+                                }
+
+                                .bill .solid {
+                                    width: 9%;
+                                    float: left;
+                                    font-weight: bold;
+                                }
+
+                                .bill .liquid {
+                                    width: 80%;
+                                    float: left;
+
+                                }
+
+
+                                .box {
+                                    width: 100%;
+                                    float: left;
+
+                                }
+
+                                .ntn {
+                                    width: 49%;
+                                    float: left;
+                                }
+
+                                .ntn .solid {
+                                    width: 18%;
+                                    float: left;
+                                    font-weight: bold;
+                                }
+
+                                .ntn .liquid {
+                                    width: 80%;
+                                    float: left;
+                                
+                                }
+
+                                .sale {
+                                    width: 50%;
+                                    float: left;
+                                }
+
+                                .sale .solid {
+                                    width: 24%;
+                                    float: left;
+                                    font-weight: bold;
+                                }
+
+                                .sale .liquid {
+                                    width: 70%;
+                                    float: left;
+                                
+                                }
+
+                               
+                                tr.upper td:last-child {
+                                    border-top: none;
+                                }
+
+
+
+                                table {
+                                    border: 1px solid #000;
+                                    margin: 10px 0px 0px;
+                                    width: 100%;
+                                    float: left;
+                                    border-spacing: 0px;
+                                }
+
+                                table tr th,
+                                table tr td {
+                                    border-right: 1px solid #000;
+                                    text-align: center;
+                                }
+
+                                table tr th {
+                                    padding: 10px 0px;
+                                    background: #ccc;
+                                                                    
+                                }
+
+                                table tr td {
+                                    border-top: 1px solid #000;
+                                    padding: 5px 0px;
+                                }
+
+                                .header {
+                                    display: none !important;
+                                }
+
+                                .footer {
+                                
+                                    display: none !important;
+                                }
+            
+                
+                            </style>
+
+                            
+                            <div class="report-container">
+
+                                <h1>UMER FAYYAZ &amp; COMPANY</h1>
+                                <h3>Branch Office:- Daharki , Distt. Ghotki</h3>
+                                <br></br>
+
+
+                                <div class="line">
+                                    <div class="ser">
+                                        <span class="solid">NTN #:</span>
+                                        <span class="liquid">1755376-8</span>
+                                    </div>
+
+                                    <div class="date">
+                                        <span class="solid">SNTN #:</span>
+                                        <span class="liquid">1755376-8</span>
+                                    </div>
+
+                                    <div class="time">
+                                        <span class="solid">PRN #:</span>
+                                        <span class="liquid">1755376-8</span>
+                                    </div>
+                                    
+                                </div>
+
+
+                                <div class="line">
+                                    <div class="ser">
+                                        <span class="solid">Bill No :</span>
+                                        <span class="liquid" t-esc="o.bill_no"></span>
+                                    </div>
+
+                                    <div class="date">
+                                        <span class="solid">Invoice</span>
+                                    </div>
+
+                                    <div class="time">
+                                        <span class="solid">Date :</span>
+                                        <sapn class="liquid" t-esc="datetime.datetime.strptime(o.invoice_date, '%Y-%m-%d').strftime('%d-%m-%Y')"/>
+                                    </div>
+                                    
+                                </div>
+
+                                <div class="bill">
+                                    <span class="solid">Bill To :</span>
+                                    <span class="liquid">ENGRO FERTILIZERS LTD . 7th &amp; 8th Floor Building Marine Drive, Block 4, Clifton Karachi, Pakistan</span>
+                                </div>
+
+                                <div class="box">
+
+                                    <div class="ntn">
+                                        <span class="solid">NTN # :</span>
+                                        <span class="liquid">3378860-0</span>
+                                    </div>
+
+                                    <div class="sale">
+                                        <span class="solid">SALES TAX # :</span>
+                                        <span class="liquid">1704-3102-001-64</span>
+                                    </div>
+
+                                </div>
+
+
+
+                                <table>
+                                    <tr>
+                                        <th>Sr No</th>
+                                        <th>Truck No</th>
+                                        <th>Shipment No</th>
+                                        <th>Shipment Date</th>
+                                        <th>Destination</th>
+                                        <th>Distance (KM)</th>
+                                        <th>Weight(MT)</th>
+                                        <th>Freight(Rs)</th>
+                                    </tr>
+
+                                    <t t-set="i" t-value="1"/>
+                                    <t t-set="dist" t-value="0"/>
+                                    <t t-set="net_value" t-value="0"/>
+                                    <t t-set="total" t-value="0"/>
+                                    <t t-set="net_total" t-value="0"/>
+                                    <t t-set="t_weight" t-value="0"/>
+
+                                    <t t-foreach="enteries" t-as="data">
+                                                        
+                                        <tr>
+                                            <td>
+                                                <t t-esc="i"/>
+                                                <t t-set="i" t-value="i+1"/> 
+                                            </td>
+                                            <td t-esc="data.truck_no"></td>
+                                            <td t-esc="data.shipper_invoice_no"></td>
+                                            <td t-esc="data.invoice_date"></td>
+                                            <td>
+                                                <span t-esc="data.dest_name"></span>.
+                                            </td>
+                                            <td>
+                                                <span t-esc="'{:0,}'.format(int(float(data.distance)))"></span>
+                                                <t t-set="dist" t-value="dist+data.distance"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="data.weight"></span> 
+                                                <t t-set="t_weight" t-value="t_weight+int(data.weight)"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="'{:0,}'.format(int(float(data.sale_price)))"></span>
+                                                <t t-set="total" t-value="total+data.sale_price"/>
+                                            </td>
+                                                
+                                        </tr>
+
+                                    </t>
+
+                                    <tr>
+                                        <td colspan="4"><b>Additional Freight Dirveted To Delar Rs.50/tons x MT</b></td>
+                                        <td colspan="3"><b>
+                                            <span t-esc="freight()"></span>
+                                        </b></td>
+                                        <td><b>
+                                            <span t-esc="'{:0,}'.format(int(float(50*freight())))"></span>
+                                            <t t-set="total" t-value="total+50*freight()"/>
+                                            <t t-set="subtract" t-value="0"/>
+                                            <t t-set="subtract" t-value="50*freight()"/>
+
+
+                                        </b></td>
+                                        
+                                    
+                                    </tr>
+
+                                    <tr>
+                                        <td colspan="5"><b>Total</b></td>
+                                        <td t-esc="'{:0,}'.format(int(float(dist)))"></td>
+                                        <td t-esc="'{:0,}'.format(int(float(t_weight)))"></td>
+                                        <td t-esc="'{:0,}'.format(int(float(total)))"></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td colspan="3">Fuel Deduction Amount</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <span t-esc="'{:0,}'.format(int(float(o.sin_fuel_deduct)))"></span>
+                                        </td>
+                                    
+                                    </tr>
+
+                                    <tr>
+                                        <td colspan="3">Net Amount After Fuel Deduction</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <span t-esc="'{:0,}'.format(int(float(total-o.sin_fuel_deduct)))"></span>
+                                        </td>
+                                        <t t-set="net_total" t-value="total-o.sin_fuel_deduct"/>
+
+                                    
+                                    </tr>
+
+                                    <tr>
+                                        <td colspan="3">Services Sales Tax (13.00%)SRB</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <span t-esc="'{:0,}'.format(int(float(net_total*13/100)))"></span>
+                                        </td>
+                                    
+                                    </tr>
+
+                                    <tr>
+                                        <td colspan="7"><b>Net Invoice Value</b></td>
+                                        <t t-set="net_value" t-value="total-o.sin_fuel_deduct"/>
+                                        <td>
+                                            <span t-esc="'{:0,}'.format(int(float(net_value)))"></span>
+                                        </td>
+                                        
+                                    </tr>
+
+                                    <tr>
+
+                                        <td><b>In Words</b></td>
+                                        <td colspan="7"><b>
+                                            <span t-esc="number_to_spell(net_value)"></span>
+                                        </b></td>
+                                        
+                                        
+                                    </tr>
+
+                                    <tr class="upper">
+
+                                        <td><b>Actual Freight</b></td>
+                                        <td><b>Rs</b></td>
+                                        <td colspan="2"><b>
+                                            <span t-esc="'{:0,}'.format(int(float(net_value-subtract)))"></span>
+                                        </b></td>
+                                        <td colspan="4"><b><u>  Sign &amp; Office Stamp  </u></b></td>
+                                        
+                                    
+                                    </tr>
+
+                                        <t t-set="add_total" t-value="0"/>
+                                        <t t-foreach="lists" t-as="line">
+
+                                            <tr class="upper">
+                                                <td>
+                                                    <span t-esc="line.reg_code"></span>
+                                                </td>
+                                                <td>Rs</td>
+                                                <td colspan="2"><b>
+
+                                                    <span t-esc="'{:0,}'.format(int(float(line.additional_freight_val)))"></span>
+                                                    <t t-set="add_total" t-value="add_total+line.additional_freight_val"/>
+                                                </b></td>
+                                                <td colspan="4"><b></b></td>
+                                                
+                                            </tr>
+
+                                    </t>
+
+                                     <tr class="upper">
+                                        <td colspan="2"><b>TOTAL</b></td>
+                                        <td colspan="2"><b>
+                                            <span t-esc="'{:0,}'.format(int(float(add_total+net_value-subtract)))"></span>
+                                        </b></td>
+                                        <td colspan="4"><b></b></td>
+                                        
+                                    </tr>
+
+                                     <tr class="upper">
+                                        <td colspan="2">CODED BY</td>
+                                        <td colspan="2">CHECKED BY</td>
+                                        <td colspan="4"><b>UMER FAYYAZ &amp; COMPANY</b></td>
+                                        
+                                    </tr>
+
+                                     <tr class="upper">
+                                        <td colspan="2">RATES &amp; TOTAL</td>
+                                        <td colspan="2">POSTED BY</td>
+                                        <td colspan="4"><b>DAHARKI DISTT. GHOTKI.</b></td>
+                                        
+                                    </tr>
+
+                                     <tr class="upper">
+                                        <td colspan="2"> SERVICES RECEIVED BILLS NOT VERIFIED EARLIER</td>
+                                        <td colspan="2"> APPROVED BY</td>
+                                        <td colspan="4"><b></b></td>
+                                        
+                                    </tr>
+
+                                </table>
+            
+
+                            </div>
+
+                        </div>
+
+                    </t>
+
+                </t>
+            </t>
+
+        </template>
+
+    </data>
+
+</openerp>

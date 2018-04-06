@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_workcenter_supervisor,mrp.production.workcenter.line.supervisor,mrp_operations.model_mrp_production_workcenter_line,odt_mrp_security.mrp_supervisor_group,1,1,1,1
+access_workcenter_teamleader,mrp.production.workcenter.line.teamleader,mrp_operations.model_mrp_production_workcenter_line,odt_mrp_security.mrp_team_leader_group,1,1,1,1
+access_mrp_production_supervisor,mrp_production_supervisor,mrp.model_mrp_production,odt_mrp_security.mrp_supervisor_group,1,1,1,1
+access_mrp_production_teamleader,mrp_production_teamleader,mrp.model_mrp_production,odt_mrp_security.mrp_team_leader_group,1,1,1,1
+access_tasks_supervisor,tasks_supervisor,project.model_project_task,odt_mrp_security.mrp_supervisor_group,1,1,1,1
+access_tasks_teamleader,tasks_teamleader,project.model_project_task,odt_mrp_security.mrp_team_leader_group,1,1,1,1
+project.access_task_on_partner,project.task on partners,project.model_project_task,base.group_user,1,1,1,1

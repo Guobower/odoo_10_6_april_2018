@@ -1,0 +1,356 @@
+<?xml version="1.0"?> 
+<odoo>
+    
+    <template id="assets_backend" name="custom assets" inherit_id="web.assets_backend"> 
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" href="/quality_and_inspection/static/src/css/styles.css"/>
+        </xpath> 
+    </template>
+
+    <record id="product_quality_note_form" model="ir.ui.view">
+        <field name="name">product_quality_note_form</field>
+        <field name="model">quality.note</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Quality Note">
+
+                <sheet>
+                    <group name="group_top"> 
+                        <field name="prod_customer" />
+                        <field name="m_order" />
+                        <field name="date" />
+                    </group>
+
+                    <field name="quality_note_tree_link">
+                      <tree editable="bottom">
+                        <field name="product" string="Product" domain="[('prod_customer','=',parent.prod_customer)]"/>
+                            <field name="material_des" />
+                            <field name="workmanship_des" />
+                            <field name="decor_des" />
+                            <field name="packing_des" />
+                            <field name="comments" />
+                      </tree>
+                    </field>
+
+                </sheet>
+
+            </form>
+        </field>
+    </record>
+
+    <record id="quality_inspection_form" model="ir.ui.view">
+        <field name="name">quality_inspection_form</field>
+        <field name="model">quality.inspection</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Inspection Report">
+
+                <sheet>
+                    <h3>Inspection Report</h3>
+                    <group name="group_top">
+                        <group name="group_left">
+                            <field name="q_to" />
+                            <field name="q_cc" />
+                            <field name="q_from" />
+                            <field name="q_attn" />
+                            <field name="q_file_no" />
+                            <field name="q_date" />
+                            <field name="q_registration_no" />
+                            <field name="q_buyer" />
+                            <field name="q_po_no" />
+                            <field name="q_agent" />
+                            <field name="q_product_des" />
+                        </group>
+
+                        <group name="group_right">
+                            <field name="q_to_faxmail" />
+                            <field name="q_cc_faxmail" />
+                            <field name="q_from_faxmail" />
+                            <field name="q_lc_no" />
+                            <field name="q_supplier" />
+                            <field name="q_total_pages" />
+                            <field name="q_manufacturer" />
+                            <field name="q_inspection_type_performed" />
+                            <field name="q_inspection_date" />
+                            <field name="q_inspection_location" />
+                        </group>
+
+                    </group>
+
+                    <field name="quality_inspection_tree_link">
+                      <tree editable="bottom">
+                            <field name="qt_style_item_article" />
+                            <field name="qt_ordered" sum="total"/>
+                            <field name="qt_declared" sum="total"/>
+                            <field name="qt_cartons" sum="total"/>
+                            <field name="qt_colour" />
+                            <field name="qt_status" />
+                      </tree>
+                    </field>
+                    <notebook>
+
+                        <page name="inspection_conclusion" string="Inspection Conclusion" groups="  product.group_product_variant">
+                            <field name="inspection_conclusion_tree_link">
+                              <tree editable="bottom">
+                                <field name="q_des" />
+                                <field name="q_status" />
+                                <field name="q_remaks" />
+                              </tree>
+                            </field>
+                            <group name="group_top">
+                                <field name="q_overall"/>
+                            </group> 
+                        </page>
+
+                        <page name="inspection_methos_applied:" string="Inspection Methos Applied" groups="  product.group_product_variant">
+
+                            <h3>Acceptance Quality Limit (AQL) for :</h3>
+                            <group name="group_top">
+                                <group name="group_left">
+                                    <field name="q_aql_critical" />
+                                    <field name="q_aql_major" />
+                                    <field name="q_aql_minor" />
+                                    
+                                 </group>
+                                 <group name="group_right">
+                                    <field name="q_ssf" />
+                                    <field name="q_carton" />
+                                    <field name="q_ssi" />
+                                    <field name="q_selected_samples" />
+                                    <field name="q_data_samples" />
+                                    <field name="q_repack_close" />
+                                </group>
+                            </group>
+                             
+                            <h3>1.PRODUCT CONFORMITY:</h3>
+                            <group name="group_top">
+                                <group name="group_left">
+                                    <field name="q_style_conformity" />
+                                    <field name="q_material_conformity" />
+                                    <field name="q_colour_conformity" />
+                                </group>
+                                <group name="group_right">
+                                    <field name="q_reference_sample" />
+                                </group>
+                            </group>
+
+                            <h3>2.WORKMANSHIP APPEARANCE / FUNCTION INSPECTION FINDINGS :</h3>
+                            <field name="wokrmanship_appearance_tree_link">
+                              <tree editable="bottom">
+                                <field name="wa_defective_samples" sum="total"/>
+                                <field name="wa_aql_critical" sum="total"/>
+                                <field name="wa_aql_major" sum="total"/>
+                                <field name="wa_aql_minor" sum="total"/>
+                              </tree>
+                            </field>
+                            <h4>Requested AQL</h4>
+                            <group name="group_top">
+                                <group name="group_left">
+                                    <field name="q_critical_defective" />
+                                    <field name="q_major_defective" />
+                                    <field name="q_minor_defective" />
+                                </group>
+                                <group name="group_right">
+                                    <field name="q_major_defective_allow" />
+                                    <field name="q_major_defective_allow" />
+                                    <field name="q_minor_defective_allow" />
+                                </group>
+                            </group>
+
+                        </page>
+
+                        <page name="packing" string="Packing" groups="product.group_product_variant">
+                            <h3>Packing</h3>
+                            <group name="group_top">
+                                <field name="q_packing_detalis" />
+                                <field name="q_carton_size" />
+                                <field name="q_individual_packing" />
+                                <field name="q_inner_packing" />
+                                <field name="q_export_packing" />
+                                <field name="q_packing_assortment" />
+                            </group>
+
+                            <field name="packing_tree_link">
+                              <tree editable="bottom">
+                                <field name="pt_carton_no" />
+                                <field name="pt_size_style" />
+                                <field name="pt_colour" />
+                                <field name="pt_deviation" />
+                              </tree>
+                            </field>
+
+                        </page>
+
+
+                    </notebook>
+                </sheet>
+
+            </form>
+        </field>
+    </record>
+
+    <record id="quality_notes_tree_view" model="ir.ui.view">
+        <field name="name">quality_notes_tree_view</field>
+        <field name="model">quality.note</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Quality Notes">
+                    <field name="prod_customer" />
+                    <field name="m_order" />
+                    <field name="date" />
+                    
+            </tree>
+        </field>
+    </record>
+
+    <record id="quality_inspection_tree_view" model="ir.ui.view">
+        <field name="name">quality_inspection_tree_view</field>
+        <field name="model">quality.inspection</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Inspection Report">
+                    <field name="q_to_faxmail" />
+                    <field name="q_from_faxmail" />
+                    <field name="q_registration_no" />
+                    
+            </tree>
+        </field>
+    </record>
+
+    <record id="commercial_packing_list_form" model="ir.ui.view">
+        <field name="name">commercial_packing_list_form</field>
+        <field name="model">commercial.packing.list</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Packing List">
+                <div class="custom_width">
+                    <sheet>
+
+                        <div class="top_table">
+                            <group name="group_top">
+
+                                <group name="group_left">
+                                    <field name="invoice_no" />
+                                    <field name="e_form" />
+                                    <field name="notify_to" />
+                                    <field name="awb_no" />
+                                    <field name="lc_no" />
+                                    <field name="shipment" />
+                                    <field name="cn" />
+                                    <field name="delivery_date"/>
+                                    <field name="ship_mark"/>
+                                </group>  
+
+                                <group name="group_right">
+                                    <field name="invoice_date"/>
+                                    <field name="e_date" />
+                                    <field name="ship_to" />
+                                    <field name="awb_date" />
+                                    <field name="lc_date" />
+                                    <field name="customer_order_no" />
+                                    <field name="cn_date"/>
+                                    <field name="issue_to"/>
+                                    <field name="supplier_code"/>
+                                    <field name="records" widget="many2many_tags" invisible="1"/>
+                                </group>
+
+                            </group>
+                        </div>
+
+                        <field name="commercial_packing_list_tree_link">
+                          <tree editable="bottom">
+                                <field name="carton" />
+                                <field name="artical_no" domain="[('id','in',parent.records[0][2])]"/>
+                                <field name="prod_name"/>
+                                <field name="carton_qty" />
+                                <field name="colour" domain="[('attribute_id.name','=','color')]" />
+                                <field name="des" />
+                                <field name="size" domain="[('attribute_id.name','=','size')]" />
+                                <field name="qty" />
+                                <field name="net_weight" />
+                                <field name="gross_weight" />
+                                <field name="volume" />
+                          </tree>
+                        </field>
+
+                        <group name="group_top">
+
+                            <group name="group_left">
+                                <field name="total_no_carton" />
+                                <field name="volume" />
+                                <field name="grand_total" />
+                            </group>
+
+                            <group name="group_right">
+                                <field name="gross_weight" />
+                                <field name="net_weight" />
+                                <field name="carton_size" />
+                            </group>
+
+                        </group>
+
+                    </sheet>
+                </div>
+
+            </form>
+        </field>
+    </record>
+
+    <record id="sale.action_orders" model="ir.actions.act_window">
+               
+        <field name="domain">[('state', 'not in', ('sent', 'cancel'))]</field>
+
+    </record>
+
+    <record id="commercial_packing_list_view" model="ir.ui.view">
+        <field name="name">commercial_packing_list_view</field>
+        <field name="model">commercial.packing.list</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Packing List">
+                    <field name="issue_to" />
+                    <field name="invoice_no" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="commercial_packing_list_action" model="ir.actions.act_window">
+        <field name="name">Packing List</field>
+        <field name="res_model">commercial.packing.list</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!--========================[Action - START]========================-->
+
+    <record model="ir.actions.act_window" id="quality_notes_action">
+        <field name="name">Quality Notes</field>
+        <field name="res_model">quality.note</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="quality_inspection_action">
+        <field name="name">Inspection Report</field>
+        <field name="res_model">quality.inspection</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!--========================[MenuItem - START]========================-->
+    <menuitem name="Quality Notes and Inspection" id="quality_notes_inspection_menu_item" parent="sales_team.menu_base_partner" sequence="5"/>
+
+    <menuitem name="Quality Notes" id="quality_notes_menu" parent="quality_notes_inspection_menu_item" action="quality_notes_action" sequence="12"/>
+
+    <menuitem name="Inspection Report" id="quality_inspection_menu" parent="quality_notes_inspection_menu_item" action="quality_inspection_action" sequence="13"/>
+
+    <menuitem action="account.action_invoice_tree1"
+        name="Customer Invoice"
+        id="account.menu_action_invoice_tree1"
+        parent="sale.menu_sale_invoicing"
+        sequence="1"/>
+
+    <menuitem name="Packing List" id="commercial_packing_list_menu" parent="sale.menu_sale_invoicing" action="commercial_packing_list_action"  sequence="1"/>
+
+</odoo>
+

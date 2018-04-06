@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="unpaid_rule_ded" model="hr.salary.rule">
+            <field name="name">Unpaid Leaves Deduction</field>
+            <field name="sequence" eval="12"/>
+            <field name="code">UNPAID</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result= inputs and inputs.UNPAID and -inputs.UNPAID or False</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = inputs and inputs.UNPAID and inputs.UNPAID.amount</field>
+        </record>
+
+        <record id="hr_rule_input_unpaid_ded" model="hr.rule.input">
+            <field name="code">UNPAID</field>
+            <field name="name">Deduction For Unpaid Leaves</field>
+            <field name="input_id" ref="unpaid_rule_ded"/>
+        </record>
+
+    </data>
+</openerp>

@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_money_collector,access_money_collector,model_money_collector,,1,1,1,1
+access_collector_target,access_collector_target,model_collector_target,,1,1,1,1

@@ -1,0 +1,1059 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+
+    <data>   
+
+        <template id="module_report">
+
+            <t t-call="report.html_container">
+                <t t-call="report.external_layout">
+                    <t t-foreach="docs" t-as="o">
+
+                        <div class="page">
+
+                            <style>
+
+                                .container {
+                                    width: 100%;
+                                    margin: 0px auto;
+                                }
+                                .center-container {
+                                    width: 1000px;
+                                    margin: 0px auto;
+                                }
+
+                                .heading {
+                                    width: 24%;
+                                    margin: 0px auto;
+                                    text-align: center;
+                                    font-weight: bold;
+                                    font-size: 40px;
+                                    margin-bottom: 10px;
+                                }
+
+                                .image {
+                                    width: 50%;
+                                    float: left;
+                                    margin-top: 8px;
+                                }
+
+                                .memberpic {
+                                    width: 20%;
+                                    float: left;
+                                    margin-top: 8px;
+                                }
+
+                                .memberhead {
+                                    width: 28%;
+                                    float: left;
+                                    margin-top: 8px;
+                                    border: 1px solid;
+                                    padding: 5px;
+                                }
+
+                                .memberhead .solid {
+                                    width: 40%;
+                                    font-weight: bold;
+                                    display: inline-block;
+                                }
+
+                                .memberhead .liquid {
+                                    width: 50%;
+                                    border-bottom: 1px solid;
+                                    margin-left: 20px;
+                                    text-align: center;
+                                    display: inline-block;
+                                }
+
+                                .personal {
+                                    width: 100%;
+                                    float: left;
+                                    margin-top: 10px;
+                                    margin-bottom: 10px;
+                                }
+
+                                .fullname {
+                                    width: 100%;
+                                    float: left;
+                                    margin-top: 10px;
+                                }
+
+                                .fullname .solid {
+                                    width: 26%;
+                                    font-weight: bold;
+                                    display: inline-block;
+                                }
+
+                                .fullname .liquid {
+                                    width: 73.3%;
+                                    border-bottom: 1px solid;
+                                    text-align: center;
+                                    display: inline-block;
+                                }
+
+                                .dob {
+                                    width: 50%;
+                                    float: left;
+                                    margin-top: 8px;
+                                }
+
+                                .dob .solid {
+                                    width: 27%;
+                                    font-weight: bold;
+                                    display: inline-block;
+                                }
+
+                                .dob .liquid {
+                                    width: 60%;
+                                    border-bottom: 1px solid;
+                                    text-align: center;
+                                    display: inline-block;
+                                }
+
+                                .cnic {
+                                    width: 50%;
+                                    float: left;
+                                    margin-top: 8px;
+                                }
+
+                                .cnic .solid {
+                                    width: 11%;
+                                    font-weight: bold;
+                                    display: inline-block;
+                                }
+
+                                .cnic .liquid {
+                                    width: 87.5%;
+                                    border-bottom: 1px solid;
+                                    text-align: center;
+                                    display: inline-block;
+                                }
+
+                                .profession {
+                                    width: 100%;
+                                    float: left;
+                                    margin-top: 8px;
+                                }
+
+                                .profession .solid {
+                                    width: 11%;
+                                    display: inline-block;
+                                    font-weight: bold;
+                                }
+
+                                .profession .liquid {
+                                    width: 88%;
+                                    display: inline-block;
+                                    border-bottom: 1px solid;
+                                    text-align: center;
+                                }
+
+                                .organ {
+                                    width: 50%;
+                                    float: left;
+                                    margin-top: 8px;
+                                }
+
+                                .organ .solid {
+                                    width: 27%;
+                                    display: inline-block;
+                                    font-weight: bold;
+                                }
+
+                                .organ .liquid {
+                                    width: 60%;
+                                    display: inline-block;
+                                    border-bottom: 1px solid;
+                                    text-align: center;
+                                }
+
+                                .job {
+                                    width: 50%;
+                                    float: left;
+                                    margin-top: 8px;
+                                }
+
+                                .job .solid {
+                                    width: 18%;
+                                    display: inline-block;
+                                    font-weight: bold;
+                                }
+
+                                .job .liquid {
+                                    width: 80.5%;
+                                    display: inline-block;
+                                    border-bottom: 1px solid;
+                                    text-align: center;
+                                }
+
+                                .home {
+                                    width: 100%;
+                                    float: left;
+                                    margin-top: 8px;
+                                }
+
+                                .home .solid {
+                                    width: 15%;
+                                    display: inline-block;
+                                    font-weight: bold;
+                                }
+
+                                .home .liquid {
+                                    width: 84%;
+                                    display: inline-block;
+                                    border-bottom: 1px solid;
+                                }
+
+                                .office {
+                                    width: 100%;
+                                    float: left;
+                                    margin-top: 8px;
+                                }
+
+                                .office .solid {
+                                    width: 15%;
+                                    display: inline-block;
+                                    font-weight: bold;
+                                }
+
+                                .office .liquid {
+                                    width: 84%;
+                                    display: inline-block;
+                                    border-bottom: 1px solid;
+                                }
+
+
+                                .tel {
+                                    width: 50%;
+                                    float: left;
+                                    margin-top: 8px;
+                                }
+
+                                .tel .solid {
+                                    width: 8%;
+                                    display: inline-block;
+                                    font-weight: bold;
+                                }
+
+                                .tel .liquid {
+                                    width: 79%;
+                                    display: inline-block;
+                                    border-bottom: 1px solid;
+                                    text-align: center;
+                                }
+
+                                .tel1 {
+                                    width: 50%;
+                                    float: left;
+                                    margin-top: 8px;
+                                }
+
+                                .tel1 .solid {
+                                    width: 8%;
+                                    display: inline-block;
+                                    font-weight: bold;
+                                }
+
+                                .tel1 .liquid {
+                                    width: 90.3%;
+                                    display: inline-block;
+                                    border-bottom: 1px solid;
+                                    text-align: center;
+                                }
+
+                                .mob {
+                                    width: 50%;
+                                    float: left;
+                                    margin-top: 8px;
+                                }
+
+                                .mob .solid {
+                                    width: 15%;
+                                    display: inline-block;
+                                    font-weight: bold;
+                                }
+
+                                .mob .liquid {
+                                    width: 72%;
+                                    display: inline-block;
+                                    border-bottom: 1px solid;
+                                    text-align: center;
+                                }
+
+                                .email {
+                                    width: 50%;
+                                    float: left;
+                                    margin-top: 8px;
+                                }
+
+                                .email .solid {
+                                    width: 13%;
+                                    display: inline-block;
+                                    font-weight: bold;
+                                }
+
+                                .email .liquid {
+                                    width: 85.3%;
+                                    display: inline-block;
+                                    border-bottom: 1px solid;
+                                    text-align: center;
+                                }
+
+                                .update {
+                                    width: 100%;
+                                    float: left;
+                                    margin-top: 20px;
+
+                                }
+
+                                .sms {
+                                    width: 15%;
+                                    float: left;
+                                    margin-top: 12px;
+                                }
+
+                                .sms .solid {
+                                    width: 33%;
+                                    display: inline-block;
+                                }
+
+                                .sms .liquid {
+                                    width: 55%;
+                                    display: inline-block;
+                                    border: 1px solid;
+                                    height: 22px;
+                                    text-align: center;
+                                }
+
+                                .emai {
+                                    width: 15%;
+                                    float: left;
+                                    margin-top: 12px;
+                                    margin-left: 50px;
+                                }
+
+                                .emai .solid {
+                                    width: 40%;
+                                    display: inline-block;
+                                }
+
+                                .emai .liquid {
+                                    width: 55%;
+                                    display: inline-block;
+                                    border: 1px solid;
+                                    height: 22px;
+                                    text-align: center;
+                                }
+
+                                .emergency1 {
+                                    width: 50%;
+                                    float: left;
+                                    margin-top: 20px;
+                                }
+
+                                .emergency2 {
+                                    width: 50%;
+                                    float: left;
+                                    margin-top: 20px;
+                                }
+
+                                .name {
+                                    width: 100%;
+                                    float: left;
+                                    margin-top: 4px;
+                                }
+
+                                .name .solid {
+                                    width: 12%;
+                                    display: inline-block;
+                                    font-weight: bold;
+                                }
+
+                                .name .liquid {
+                                    width: 75%;
+                                    display: inline-block;
+                                    text-align: center;
+                                    border-bottom: 1px solid;
+                                }
+
+                                .add {
+                                    width: 100%;
+                                    float: left;
+                                    margin-top: 8px;
+                                }
+
+                                .add .solid {
+                                    width: 17%;
+                                    display: inline-block;
+                                    font-weight: bold;
+                                }
+
+                                .add .liquid {
+                                    width: 70%;
+                                    display: inline-block;
+                                    text-align: center;
+                                    border-bottom: 1px solid;
+                                }
+
+                                .con {
+                                    width: 100%;
+                                    float: left;
+                                    margin-top: 8px;
+                                }
+
+                                .con .solid {
+                                    width: 18%;
+                                    display: inline-block;
+                                    font-weight: bold;
+                                }
+
+                                .con .liquid {
+                                    width: 69%;
+                                    display: inline-block;
+                                    text-align: center;
+                                    border-bottom: 1px solid;
+                                }
+
+                                .rel {
+                                    width: 100%;
+                                    float: left;
+                                    margin-top: 8px;
+                                }
+
+                                .rel .solid {
+                                    width: 26%;
+                                    display: inline-block;
+                                    font-weight: bold;
+                                }
+
+                                .rel .liquid {
+                                    width: 61%;
+                                    display: inline-block;
+                                    text-align: center;
+                                    border-bottom: 1px solid;
+                                }
+
+                                .rel1 {
+                                    width: 100%;
+                                    float: left;
+                                    margin-top: 8px;
+                                }
+
+                                .rel1 .solid {
+                                    width: 26%;
+                                    display: inline-block;
+                                    font-weight: bold;
+                                }
+
+                                .rel1 .liquid {
+                                    width: 72%;
+                                    display: inline-block;
+                                    text-align: center;
+                                    border-bottom: 1px solid;
+                                }
+
+                                .name1 {
+                                    width: 100%;
+                                    float: left;
+                                    margin-top: 8px;
+                                }
+
+                                .name1 .solid {
+                                    width: 12%;
+                                    display: inline-block;
+                                    font-weight: bold;
+                                }
+
+                                .name1 .liquid {
+                                    width: 86%;
+                                    display: inline-block;
+                                    text-align: center;
+                                    border-bottom: 1px solid;
+                                }
+
+                                .add1 {
+                                    width: 100%;
+                                    float: left;
+                                    margin-top: 8px;
+                                }
+
+                                .add1 .solid {
+                                    width: 17%;
+                                    display: inline-block;
+                                    font-weight: bold;
+                                }
+
+                                .add1 .liquid {
+                                    width: 81%;
+                                    display: inline-block;
+                                    text-align: center;
+                                    border-bottom: 1px solid;
+                                }
+
+                                .con1 {
+                                    width: 100%;
+                                    float: left;
+                                    margin-top: 8px;
+                                }
+
+                                .con1 .solid {
+                                    width: 18%;
+                                    display: inline-block;
+                                    font-weight: bold;
+                                }
+
+                                .con1 .liquid {
+                                    width: 80%;
+                                    display: inline-block;
+                                    text-align: center;
+                                    border-bottom: 1px solid;
+                                }
+
+                                .timing {
+                                    width: 100%;
+                                    float: left;
+                                    margin-top: 20px;
+                                }
+
+                                .morning {
+                                    width: 24%;
+                                    float: left;
+                                    font-weight: bold;
+                                    margin-top: 8px;
+                                }
+
+                                .morning .solid {
+                                    width: 32%;
+                                    display: inline-block;
+                                    font-weight: bold;
+                                }
+
+                                .morning .liquid {
+                                    width: 55%;
+                                    display: inline-block;
+                                    border: 1px solid;
+                                    height: 22px;
+                                    padding: 2px;
+                                    text-align: center;
+                                }
+
+                                .noon {
+                                    width: 24%;
+                                    float: left;
+                                    font-weight: bold;
+                                    margin-top: 8px;
+                                }
+
+                                .noon .solid {
+                                    width: 22%;
+                                    display: inline-block;
+                                    font-weight: bold;
+                                }
+
+                                .noon .liquid {
+                                    width: 55%;
+                                    display: inline-block;
+                                    border: 1px solid;
+                                    height: 22px;
+                                    padding: 2px;
+                                    text-align: center;
+                                }
+
+                                .afternoon {
+                                    width: 24%;
+                                    float: left;
+                                    font-weight: bold;
+                                    margin-top: 8px;
+                                }
+
+                                .afternoon .solid {
+                                    width: 42%;
+                                    display: inline-block;
+                                    font-weight: bold;
+                                }
+
+                                .afternoon .liquid {
+                                    width: 55%;
+                                    display: inline-block;
+                                    border: 1px solid;
+                                    height: 22px;
+                                    padding: 2px;
+                                    text-align: center;
+                                }
+
+                                .evening {
+                                    width: 24%;
+                                    float: left;
+                                    font-weight: bold;
+                                    margin-top: 8px;
+                                    margin-left: 20px;
+                                }
+
+                                .evening .solid {
+                                    width: 30%;
+                                    display: inline-block;
+                                    font-weight: bold;
+                                }
+
+                                .evening .liquid {
+                                    width: 55%;
+                                    display: inline-block;
+                                    border: 1px solid;
+                                    height: 22px;
+                                    padding: 2px;
+                                    text-align: center;
+                                }
+
+                                .ref {
+                                    width: 100%;
+                                    float: left;
+                                    margin-top: 20px;
+                                }
+
+                                .one {
+                                    width: 50%;
+                                    float: left;
+                                }
+
+                                .two {
+                                    width: 50%;
+                                    float: left;
+                                }
+
+                                .health {
+                                    width: 100%;
+                                    float: left;
+                                    margin-top: 20px;
+                                    margin-bottom: 10px;
+                                }
+
+                                .bmi {
+                                    width: 30%;
+                                    float: left;
+                                    margin-top: 8px;
+                                }
+
+                                .bmi .solid {
+                                    width: 20%;
+                                    display: inline-block;
+                                    font-weight: bold;
+                                }
+
+                                .bmi .liquid {
+                                    width: 75%;
+                                    display: inline-block;
+                                    text-align: center;
+                                    border-bottom: 1px solid;
+                                }
+
+                                .weight {
+                                    width: 30%;
+                                    float: left;
+                                    margin-left: 45px;
+                                    margin-top: 8px;
+                                }
+
+                                .weight .solid {
+                                    width: 29%;
+                                    display: inline-block;
+                                    font-weight: bold;
+                                }
+
+                                .weight .liquid {
+                                    width: 64%;
+                                    display: inline-block;
+                                    text-align: center;
+                                    border-bottom: 1px solid;
+                                }
+
+                                .fat {
+                                    width: 30%;
+                                    float: left;
+                                    margin-left: 40px;
+                                    margin-top: 8px;
+                                }
+
+                                .fat .solid {
+                                    width: 25%;
+                                    display: inline-block;
+                                    font-weight: bold;
+                                }
+
+                                .fat .liquid {
+                                    width: 70%;
+                                    display: inline-block;
+                                    text-align: center;
+                                    border-bottom: 1px solid;
+                                }
+
+                                .color {
+
+                                    color: #8B4513;
+                                    font-weight: bold;
+                                }
+
+        
+                            </style>
+      
+                            <div class="container">
+
+                                <div class="center-container">
+
+                                    <div class="heading">
+                                        <span class="color">KYC FORM</span>
+                                    </div>
+
+                                    <div class="image">
+                                        <img src="/membership_form/static/src/img/company.jpeg" alt="" />
+                                    </div>
+
+                                    <div class="memberpic">
+                                        <span t-field="o.member_photo" t-field-options='{"widget": "image"}'></span>
+                                    </div>
+
+                                    <div class="memberhead">
+
+                                        <span class="solid">PACAKAGE</span>
+                                        <span class="liquid">
+                                            <t t-esc="o.package.name"></t>
+                                        </span>
+
+                                        <span class="solid">JOINING</span>
+                                        <span class="liquid">
+                                            <t t-esc="o.joining"></t>
+                                        </span>
+
+                                        <span class="solid">MONTHLY</span>
+                                        <span class="liquid">
+                                            <t t-esc="'{:0,}'.format(int(float(o.avg_per_month)))"></t>
+                                        </span>
+
+                                        <span class="solid">TOTAL</span>
+                                        <span class="liquid">
+                                            <t t-esc="'{:0,}'.format(int(float(o.total)))"></t>
+                                        </span>
+
+                                        <span class="solid">DISCOUNT</span>
+                                        <span class="liquid">
+                                            <t t-esc="'{:0,}'.format(int(float(o.discount_amt)))"></t>
+                                        </span>
+
+                                        <span class="solid">ADVANCE</span>
+                                        <span class="liquid">
+                                            <!-- <t t-esc="o.name"></t> -->
+                                        </span>
+
+                                        <span class="solid">BALANCE</span>
+                                        <span class="liquid">
+                                            <!-- <t t-esc="o.name"></t> -->
+                                        </span>
+
+                                    </div>
+
+                                    <div class="personal">
+                                        <h4 style="color:#8B4513;"><i>PERSONAL INFORMATION</i></h4>
+
+                                        <div class="fullname">
+                                            <span class="solid">FULL NAME: MR./MISS/MRS/MS.</span>
+                                            <span class="liquid">
+                                                <t t-esc="o.name"></t>
+                                            </span>
+                                        </div>
+
+                                        <div class="dob">
+                                            <span class="solid">DATE OF BIRTH:</span>
+                                            <span class="liquid">
+                                                <t t-esc="o.dob"></t>
+                                            </span>
+                                        </div>
+
+                                        <div class="cnic">
+                                            <span class="solid">CNIC:</span>
+                                            <span class="liquid">
+                                                <t t-esc="o.cnic"></t>
+                                            </span>
+                                        </div>
+
+                                        <div class="profession">
+                                            <span class="solid">PROFESSION:</span>
+                                            <span class="liquid">
+                                                <t t-esc="o.profession"></t>
+                                            </span>
+                                        </div>
+
+                                        <div class="organ">
+                                            <span class="solid">ORGANIZATION:</span>
+                                            <span class="liquid">
+                                                <t t-esc="o.organization"></t>
+                                            </span>
+                                        </div>
+
+                                        <div class="job">
+                                            <span class="solid">JOB TITLE:</span>
+                                            <span class="liquid">
+                                                <t t-esc="o.job_title"></t>
+                                            </span>
+                                        </div>
+
+                                        <div class="home">
+                                            <span class="solid">HOME ADDRESS:</span>
+                                            <span class="liquid">
+                                                <t t-esc="o.home_addres"></t>
+                                            </span>
+                                        </div>
+
+                                        <div class="office">
+                                            <span class="solid">OFFICE ADDRESS:</span>
+                                            <span class="liquid">
+                                                <t t-esc="o.office_addres"></t>
+                                            </span>
+                                        </div>
+
+                                        <div class="tel">
+                                            <span class="solid">TEL:</span>
+                                            <span class="liquid">
+                                                <t t-esc="o.tel_home"></t>
+                                            </span>
+                                        </div>
+
+                                        <div class="tel1">
+                                            <span class="solid">TEL:</span>
+                                            <span class="liquid">
+                                                <t t-esc="o.tel_office"></t>
+                                            </span>
+                                        </div>
+
+                                        <div class="mob">
+                                            <span class="solid">MOBILE:</span>
+                                            <span class="liquid">
+                                                <t t-esc="o.mob"></t>
+                                            </span>
+                                        </div>
+
+                                        <div class="email">
+                                            <span class="solid">EMAIL:</span>
+                                            <span class="liquid">
+                                                <t t-esc="o.email"></t>
+                                            </span>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="update">
+                                        <h4 style="color:#8B4513;"><i>HOW WOULD YOU LIKE TO BE UPDATED ON OUR NEW SERVICES, PROMOTIONS AND OTHER PERIODIC UPDATES</i></h4>
+
+                                        <div class="sms">
+                                            <span class="solid">SMS</span>
+                                            <span class="liquid">
+                                                <t t-esc="o.sms"></t>
+                                            </span>
+                                        </div>
+
+                                        <div class="emai">
+                                            <span class="solid">EMAIL</span>
+                                            <span class="liquid">
+                                                <t t-esc="o.bol_email"></t>
+                                            </span>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="emergency1">
+                                        <h4 style="color:#8B4513;"><i>EMERGENCY CONTACT 1:</i></h4>
+
+                                        <div class="name">
+                                            <span class="solid">NAME:</span>
+                                            <span class="liquid">
+                                                <t t-esc="o.emg_name"></t>
+                                            </span>
+                                        </div>
+
+                                        <div class="add">
+                                            <span class="solid">ADDRESS:</span>
+                                            <span class="liquid">
+                                                <t t-esc="o.emg_addres"></t>
+                                            </span>
+                                        </div>
+
+                                        <div class="con">
+                                            <span class="solid">CONTACT:</span>
+                                            <span class="liquid">
+                                                <t t-esc="o.emg_contact"></t>
+                                            </span>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="emergency2">
+                                        <h4 style="color:#8B4513;"><i>EMERGENCY CONTACT 2:</i></h4>
+
+                                        <div class="name1">
+                                            <span class="solid">NAME:</span>
+                                            <span class="liquid">
+                                                <t t-esc="o.emg_name_1"></t>
+                                            </span>
+                                        </div>
+
+                                        <div class="add1">
+                                            <span class="solid">ADDRESS:</span>
+                                            <span class="liquid">
+                                                <t t-esc="o.emg_addres_1"></t>
+                                            </span>
+                                        </div>
+
+                                        <div class="con1">
+                                            <span class="solid">CONTACT:</span>
+                                            <span class="liquid">
+                                                <t t-esc="o.emg_contact_1"></t>
+                                            </span>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="timing">
+                                        <h4 style="color:#8B4513;"><i>WHAT IS THE CONVENIENT TIME FOR Y0U TO VISIT STRUCTURE GYM ?</i></h4>
+
+                                        <div class="morning">
+                                            <span class="solid">MORNING</span>
+                                            <span class="liquid" t-esc="o.time_slot_m.name">
+                                                <t t-esc="o.time_slot_m.name"></t>
+                                            </span>
+                                        </div>
+
+                                        <div class="noon">
+                                            <span class="solid">NOON</span>
+                                            <span class="liquid" t-esc="o.time_slot_n.name">
+                                                <t t-esc="o.time_slot_n.name"></t>
+                                            </span>
+                                        </div>
+
+                                        <div class="afternoon">
+                                            <span class="solid">AFTERNOON</span>
+                                            <span class="liquid">
+                                                <t t-esc="o.time_slot_af.name"></t>
+                                            </span>
+                                        </div>
+
+                                        <div class="evening">
+                                            <span class="solid">EVENING</span>
+                                            <span class="liquid">
+                                                <t t-esc="o.time_slot_e.name"></t>
+                                            </span>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="ref">
+                                        <h4 style="color:#8B4513;"><i>REFERENCES:</i></h4>
+
+                                        <div class="one">
+
+                                            <div class="name">
+                                                <span class="solid">NAME:</span>
+                                                <span class="liquid">
+                                                    <t t-esc="o.ref_name"></t>
+                                                </span>
+                                            </div>
+
+                                            <div class="con">
+                                                <span class="solid">CONTACT:</span>
+                                                <span class="liquid">
+                                                    <t t-esc="o.ref_contact"></t>
+                                                </span>
+                                            </div>
+
+                                            <div class="add">
+                                                <span class="solid">ADDRESS:</span>
+                                                <span class="liquid">
+                                                    <t t-esc="o.ref_addres"></t>
+                                                </span>
+                                            </div>
+
+                                            <div class="rel">
+                                                <span class="solid">RELATIONSHIP:</span>
+                                                <span class="liquid">
+                                                    <t t-esc="o.ref_realtion"></t>
+                                                </span>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="two">
+
+                                            <div class="name1">
+                                                <span class="solid">NAME:</span>
+                                                <span class="liquid">
+                                                    <t t-esc="o.ref_name_1"></t>
+                                                </span>
+                                            </div>
+
+                                            <div class="con1">
+                                                <span class="solid">CONTACT:</span>
+                                                <span class="liquid">
+                                                    <t t-esc="o.ref_contact_1"></t>
+                                                </span>
+                                            </div>
+
+                                            <div class="add1">
+                                                <span class="solid">ADDRESS:</span>
+                                                <span class="liquid">
+                                                    <t t-esc="o.ref_addres_1"></t>
+                                                </span>
+                                            </div>
+
+                                            <div class="rel1">
+                                                <span class="solid">RELATIONSHIP:</span>
+                                                <span class="liquid">
+                                                    <t t-esc="o.ref_realtion_1"></t>
+                                                </span>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="health">
+
+                                        <h4 style="color:#8B4513;"><i>HEALTH ASSESSMENT:</i></h4>
+
+                                        <div class="bmi">
+                                            <span class="solid">1. BMI</span>
+                                            <span class="liquid">
+                                                <t t-esc="o.bmi"></t>
+                                            </span>
+                                        </div>
+
+                                        <div class="weight">
+                                            <span class="solid">2. WEIGHT</span>
+                                            <span class="liquid">
+                                                <t t-esc="o.weight"></t>
+                                            </span>
+                                        </div>
+
+                                        <div class="fat">
+                                            <span class="solid">3. FAT %</span>
+                                            <span class="liquid">
+                                                <t t-esc="o.fat"></t>
+                                            </span>
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+        
+                            </div>
+
+                        </div>
+
+                    </t>
+
+                </t>
+            </t>
+
+        </template>
+
+    </data>
+
+</openerp>

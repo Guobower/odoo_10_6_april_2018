@@ -1,0 +1,14 @@
+.trans {
+	width:18%;
+	margin:0px 0px 0px 600px; 
+}
+.strech .o_form_sheet_bg .o_form_sheet {
+	max-width: 1050px;
+	width: 1050px;
+}
+.strech .o_form_sheet_bg {
+	min-height: 745px;
+}
+.knitting_prog_wrap .o_form_sheet {
+	min-width: 1100px !important;
+}

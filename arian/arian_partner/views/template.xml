@@ -1,0 +1,101 @@
+<?xml version="1.0"?> 
+<odoo> 
+
+    <record id="supplier_form_view_extension" model="ir.ui.view"> 
+        <field name="name">supplier_form_view_extension</field> 
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="type">form</field> 
+        <field name="arch" type="xml">
+
+            <xpath expr="//group[@name ='purchase']" position="inside">
+                <field name="forwarder"/>
+                <field name="forwarder_name"/>
+                </xpath>
+
+                <xpath expr="//field[@name='opt_out']" position="after">
+                <field name="incoterms" />
+
+            </xpath>
+
+            <xpath expr="//field[@name ='category_id']" position="before">
+
+                <field name="ntn"/>
+                <field name="vendor_ref_no"/>
+
+            </xpath>
+
+            <xpath expr="//field[@name='vendor_ref_no']" position="attributes">
+                <attribute name="attrs">{'invisible': [('customer','=', True)]}</attribute>
+            </xpath>
+
+           <!-- <xpath expr="//field[@name='property_product_pricelist']" position="attributes">
+                <attribute name="attrs">{'invisible': [('supplier','=', True)]}</attribute>
+            </xpath>  -->
+
+            <!-- <xpath expr="//field[@name='property_payment_term_id']" position="attributes">
+                <attribute name="attrs">{'invisible': [('supplier','=', True)]}</attribute>
+            </xpath>  -->
+
+            <xpath expr="//field[@name='forwarder_name']" position="attributes">
+                <attribute name="attrs">{'invisible': [('supplier','=', True)]}</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='forwarder']" position="attributes">
+                <attribute name="attrs">{'invisible': [('supplier','=', True)]}</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='incoterms']" position="attributes">
+                <attribute name="attrs">{'invisible': [('supplier','=', True)]}</attribute>
+            </xpath>
+
+        </field> 
+    </record>
+
+
+
+    <record id="customer_form_packaging" model="ir.ui.view"> 
+        <field name="name">customer_form_packaging</field> 
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="account.view_partner_property_form"/>
+        <field name="type">form</field> 
+        <field name="arch" type="xml">
+
+            <xpath expr="//page[@name='accounting']" position="after">
+                <page name="packaging" string="Packaging">
+                    <group name="top">
+                        
+                        <group name="left" string="Master Carton">
+                            <field name="length" />
+                            <field name="master_height" />
+                            <field name="width" />
+                            <field name="volume" />
+                            <field name="net_weight" />
+                            <field name="weight" />
+                            <field name="size_from" />
+                            <field name="size_to" />
+                            <field name="inner_carton" />
+                        </group>
+
+                        <group name="right" string="Inner Carton">
+                            <field name="carton_lenght" />
+                            <field name="carton_height" />
+                            <field name="carton_width" />
+                            <field name="i_volume" />
+                            <field name="i_net_weight" />
+                            <field name="carton_weight" />
+                            <field name="pcs_carton" />
+                        </group>
+
+                    </group>
+                </page>
+            </xpath>
+
+            <xpath expr="//page[@name='packaging']" position="attributes">
+                <attribute name="attrs">{'invisible': [('supplier','=', True)]}</attribute>
+            </xpath>
+
+        </field> 
+    </record>
+
+</odoo> 

@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <report
+            id="demand_report" 
+            model="fabric.demand"
+            name="demand_report.demand_report_report"
+            file="demand_report.demand_report_report"
+            report_type="qweb-html"
+            string="Demand Report"/> 
+    </data>
+</openerp>

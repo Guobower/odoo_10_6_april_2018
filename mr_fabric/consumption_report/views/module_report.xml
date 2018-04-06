@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+
+  <data>   
+
+    <template id="consumption_report">
+
+      <t t-call="report.html_container">
+        <t t-call="report.external_layout">
+          <t t-foreach="docs" t-as="o">
+
+            <div class="page">
+
+              <style>
+
+                .mainwraper {
+                  width: 1080px;
+                  margin: 0px auto;
+                }
+                h2 {
+                  margin: 5px;
+                  text-align: center;
+                }
+                table {
+                  width: 100%;
+                }
+                table ,th,td {
+                  border : 1px solid black;
+                  border-collapse: collapse;
+                  padding: 5px;
+                  text-align: center;
+                }
+                .header {
+                    display: none !important;
+                }
+                .footer {
+                    display: none !important;
+                  }
+              </style>
+
+              <div class="mainwraper">
+
+                <h2>MR.FABRICS(PVT) LTD.</h2>
+                <h2>Consumption Report</h2>
+                
+                  <table>
+
+                    <tr>
+                      <th></th>
+                      <th>FBL</th>
+                      <th>CHEST</th>
+                      <th>PARTS</th>
+                      <th>FAC</th>
+                      <th>GSM</th>
+                      <th>%</th>
+                      <th></th>
+                      <th>CONSP</th>
+                    </tr>
+
+                    <t t-foreach="o.consumption_tree" t-as="data">
+
+                      <tr>
+                        <td t-esc="data.typed.name"></td>
+                        <td t-esc="data.uom.cm_fbl"></td>
+                        <td t-esc="data.uom.cm_chest"></td>
+                        <td t-esc="data.uom.parts"></td>
+                        <td t-esc="data.uom.fac"></td>
+                        <td t-esc="data.uom.gsm"></td>
+                        <td t-esc="data.uom.cm_percent"></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+
+                      <tr>
+                        <td></td>
+                        <td t-esc="data.uom.inch_fbl"></td>
+                        <td t-esc="data.uom.inch_chest"></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+
+                      <tr>
+                        <td></td>
+                        <td t-esc="data.uom.ml_fbl"></td>
+                        <td t-esc="data.uom.ml_chest"></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td t-esc="data.uom.ml_percent"></td>
+                        <td t-esc="data.uom.partial"></td>
+                        <td t-esc="data.uom.final_consumption"></td>
+                      </tr>
+
+
+
+                    </t>
+
+                  </table>
+
+              </div>
+
+            </div><!--end of page-->
+
+          </t>
+        </t>
+      </t>
+    </template>
+  </data>
+</openerp>

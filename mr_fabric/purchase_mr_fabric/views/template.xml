@@ -1,0 +1,2113 @@
+<?xml version="1.0"?> 
+<odoo>
+
+    <template id="assets_backend" name="custom assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside"> 
+            <link rel="stylesheet" href="/purchase_mr_fabric/static/css/style.css"/> 
+        </xpath> 
+    </template>
+    
+    <record id="purchase_order_ext_form_path" model="ir.ui.view"> 
+        <field name="name">purchase_order_ext_form_path</field> 
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="type">form</field> 
+        <field name="arch" type="xml">
+
+            <xpath expr="//form[1]" position="replace">
+
+                <form string="Purchase Order">
+
+                    <header>
+
+                        <button name="action_rfq_send" states="sent" string="Re-Send RFQ by Email" type="object" context="{'send_rfq':True}" attrs="{'invisible': [('ttype', 'in', ('accessories','yarn'))]}"/>
+
+                        <button name="print_quotation" string="Print RFQ" type="object" states="sent" groups="base.group_user" attrs="{'invisible': [('ttype', 'in', ('accessories','yarn'))]}"/>
+                        
+                        <button name="custom_button" type="object" string="Confirm" id="draft_confirm" attrs="{'invisible': ['|',('ttype', 'not in', ('accessories')),('state','in', 'purchase')]}"/>
+
+                        <field name="state" widget="statusbar" statusbar_visible="draft,sent,purchase" readonly="1"/>
+                        
+                        <button name="button_confirm" type="object" states="sent" string="Confirm Order" class="oe_highlight" id="bid_confirm" attrs="{'invisible': ['|',('ttype', 'not in', ('yarn','fabric')),('state','in', 'purchase')]}"/>
+
+                    </header>
+
+                    <sheet>
+                        
+                        <div class="oe_button_box" name="button_box">
+                            <button type="object"
+                                name="action_view_picking"
+                                class="oe_stat_button"
+                                icon="fa-truck" attrs="{'invisible':[('state', 'in', ('draft','sent','to approve')),('picking_ids','=',[])]}">
+                                <field name="picking_count" widget="statinfo" string="Shipment" help="Incoming Shipments"/>
+                                <field name="picking_ids" invisible="1"/>
+                            </button>
+                            <button type="object"  name="action_view_invoice"
+                                class="oe_stat_button"
+                                icon="fa-pencil-square-o" attrs="{'invisible':[('state', 'in', ('draft','sent','to approve')),('invoice_ids','=',[])]}">
+                                <field name="invoice_count" widget="statinfo" string="Vendor Bills"/>
+                                <field name='invoice_ids' invisible="1"/>
+                            </button> 
+                        </div>
+
+                        <div class="oe_title">
+                            <label string="Request for Quotation " attrs="{'invisible': [('state','not in',('draft','sent','bid'))]}"/>
+                            <label string="Purchase Order " attrs="{'invisible': [('state','in',('draft','sent','bid'))]}"/>
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+
+                        <group>
+
+                            <group>
+                                <field name="partner_id" context="{'search_default_supplier':1, 'default_supplier':1, 'default_customer':0}" domain="[('supplier','=',True)]"/>
+                                <field name="partner_ref" attrs="{'readonly':[('state', 'in', 'purchase')]}"/>
+                                <field name="currency_id" groups="base.group_multi_currency"/>
+                                <field name="is_shipped" invisible="1"/>
+                                <label for="date_planned"/>
+                                <div>
+                                    <field name="date_planned" required="1" attrs="{'readonly': [('state', 'not in', ('draft', 'sent'))]}" string="Current Date"/>
+                                    <button name="action_set_date_planned" type="object"
+                                        states="draft,sent"
+                                        string="Set date to all order lines"
+                                        help="This changes the scheduled date of all order lines to the given date"
+                                        class="fa fa-calendar o_icon_button oe_edit_only"/>
+                                </div>
+                            </group>
+                            
+                            <group>
+                                <field name="wo_no" attrs="{'required': ['|','|',('ttype','=','yarn'),('ttype','=','fabric'),('ttype','=','accessories')],'readonly':[('state', 'in', 'purchase')]}" domain="[('state','in',('confirmed','inprogress'))]" widget="many2many_tags" />
+                                <field name="date_order" attrs="{'readonly':[('state', 'in', 'purchase')]}"/>
+                                <field name="style" attrs="{'readonly':[('state', 'in', 'purchase')],'invisible':[('ttype', 'in', ('accessories'))]}"/>
+                                <field name="merchant" domain="[('merchant','=','True')]" attrs="{'readonly':[('state', 'in', 'purchase')]}"/>
+                                <field name="ttype" invisible="1"/>
+                                <field name="origin" attrs="{'invisible': [('origin','=',False)],'readonly': [('state', 'in', 'purchase')]}"/>
+                                <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+                            </group>
+
+                        </group>
+
+                        <notebook>
+
+                            <page string="Products">
+                                
+                                <div attrs="{'invisible': [('ttype', '=', 'yarn')]}">
+
+                                    <field name="order_line" attrs="{'readonly':[('state', 'in', 'purchase')]}">
+                                        <tree string="Purchase Order Lines" editable="bottom">
+                                            <field name="currency_id" invisible="1"/>
+                                            <field name="state" invisible="1"/>
+                                            <field name="name" invisible="1" string="Description"/>
+                                            <field name="sequence" widget="handle"/>
+                                            <field name="product_id" attrs="{'readonly': [('state', 'in', ('purchase', 'to approve','done', 'cancel'))]}" context="{'partner_id':parent.partner_id, 'quantity':product_qty,'uom':product_uom, 'company_id': parent.company_id}" domain="[('ttype', '=', parent.ttype)]"/>
+                                            <field name="wo_no" domain="[('state','in',('confirmed','inprogress')),('id','=',parent.wo_no[0][2])]" required="1"/>
+                                            <field name="buyer" domain="[('buyer', '=', True)]"/>
+                                            <field name="date_planned"/>
+                                            <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+                                            <field name="account_analytic_id" context="{'default_partner_id':parent.partner_id}" groups="purchase.group_analytic_accounting"/>
+                                            <field name="analytic_tag_ids" groups="purchase.group_analytic_accounting" widget="many2many_tags"/>
+                                            <field name="product_qty"/>
+
+                                            <field name="product_uom" groups="product.group_uom" attrs="{'readonly': [('state', 'in', ('purchase', 'done', 'cancel'))]}"/>
+                                            <field name="price_unit"/>
+                                            <field name="taxes_id" widget="many2many_tags" domain="[('type_tax_use','=','purchase')]" context="{'default_type_tax_use': 'purchase'}"/>
+                                            <field name="price_subtotal" widget="monetary"/>
+                                        </tree>
+
+                                        <form string="Purchase Order Line">
+                                            <sheet>
+                                                <group>
+                                                    <group>
+                                                        <field name="product_id"
+                                                               context="{'partner_id': parent.partner_id}"/>
+                                                        <label for="product_qty"/>
+                                                        <div>
+                                                            <field name="product_qty" class="oe_inline"/>
+                                                            <span class="oe_inline">&#160;</span>
+                                                            <field name="product_uom" groups="product.group_uom" class="oe_inline"/>
+                                                        </div>
+                                                        <field name="price_unit"/>
+                                                    </group>
+                                                    <group>
+                                                        
+                                                        <field name="taxes_id" widget="many2many_tags" domain="[('type_tax_use', '=', 'purchase')]"/>
+                                                        
+                                                        <field name="date_planned" widget="date"/>
+                                                        
+                                                        <field name="account_analytic_id" colspan="2" groups="purchase.group_analytic_accounting"/>
+
+                                                        <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+
+                                                    </group>
+                                                </group>
+                                                <notebook>
+                                                <page string="Notes">
+                                                    <field name="name"/>
+                                                </page><page string="Invoices and Incoming Shipments">
+                                                    <field name="invoice_lines"/>
+                                                    <field name="move_ids"/>
+                                                </page>
+                                                </notebook>
+                                            </sheet>
+                                        </form>
+                                    </field>
+
+                                </div>
+
+                                <div attrs="{'invisible': [('ttype', '!=', 'yarn')]}">
+
+                                    <field name="order_line2" attrs="{'readonly':[('state', 'in', 'purchase')]}">
+
+                                        <tree string="Purchase Order Lines" editable="bottom">
+                                            <field name="currency_id" invisible="1"/>
+                                            <field name="state" invisible="1"/>
+                                            <field name="name" invisible="1"/>
+                                            <field name="sequence" widget="handle"/>
+                                            <field name="product_id" domain="[('ttype', '=', parent.ttype)]"/>
+                                            <field name="wo_no" domain="[('state','in',('confirmed','inprogress')),('id','=',parent.wo_no[0][2])]" required="1"/>
+                                            <field name="date_planned"/>
+                                            <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+                                            <field name="account_analytic_id" context="{'default_partner_id':parent.partner_id}" groups="purchase.group_analytic_accounting"/>
+                                            <field name="analytic_tag_ids" groups="purchase.group_analytic_accounting" widget="many2many_tags"/>
+                                            
+                                            <field name="measuring_unit"/>
+                                            <field name="product_qty"/>
+                                            <field name="nob" invisible=
+                                                "1"/>
+                                            <field name="no_kgs" invisible=
+                                                "1"/>
+
+                                            <field name="product_uom" groups="product.group_uom" attrs="{'readonly': [('state', 'in', ('purchase', 'done', 'cancel'))]}" invisible="1" />
+                                            <field name="price_unit"/>
+                                            <field name="taxes_id" widget="many2many_tags" domain="[('type_tax_use','=','purchase')]" context="{'default_type_tax_use': 'purchase'}"/>
+                                            <field name="price_subtotal" widget="monetary"/>
+                                        </tree>
+
+                                        <form string="Purchase Order Line">
+                                            <sheet>
+                                                <group>
+                                                    <group>
+                                                        <field name="product_id"
+                                                               context="{'partner_id': parent.partner_id}"/>
+                                                        <label for="product_qty"/>
+                                                        <div>
+                                                            <field name="product_qty" class="oe_inline"/>
+                                                            <span class="oe_inline">&#160;</span>
+                                                            <field name="product_uom" groups="product.group_uom" class="oe_inline"/>
+                                                        </div>
+                                                        <field name="price_unit"/>
+                                                    </group>
+
+                                                    <group>
+                                                        <field name="taxes_id" widget="many2many_tags" domain="[('type_tax_use', '=', 'purchase')]"/>
+                                                        <field name="date_planned" widget="date"/>
+                                                        <field name="account_analytic_id" colspan="2" groups="purchase.group_analytic_accounting"/>
+                                                        <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+                                                    </group>
+
+                                                </group>
+                                                <notebook>
+                                                <page string="Notes">
+                                                    <field name="name"/>
+                                                </page><page string="Invoices and Incoming Shipments">
+                                                    <field name="invoice_lines"/>
+                                                    <field name="move_ids"/>
+                                                </page>
+                                                </notebook>
+                                            </sheet>
+                                        </form>
+                                    </field>
+
+                                </div>
+
+                                <group class="oe_subtotal_footer oe_right">
+
+                                    <field name="amount_untaxed" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                    
+                                    <field name="amount_tax" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                    
+                                    <div class="oe_subtotal_footer_separator oe_inline">
+                                        <label for="amount_total"/>
+                                    </div>
+                                    
+                                    <field name="amount_total" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+
+                                </group>
+                                
+                                <field name="notes" class="oe_inline" placeholder="An administrator can set up default Terms and conditions in your Company settings."/>
+                                <div class="oe_clear"/>
+
+                            </page>
+                
+                            <page string="Deliveries &amp; Invoices">
+                                <group>
+                                    <group>
+                                        <field name="picking_type_id" domain="[('code','=','incoming')]" options="{'no_create': True}" groups="stock.group_stock_multi_locations" readonly="1"/>
+                                        <field name="dest_address_id" groups="stock.group_stock_multi_locations" attrs="{'invisible': [('default_location_dest_id_usage', '!=', 'customer')], 'required': [('default_location_dest_id_usage', '=', 'customer')]}"/>
+                                        <field name="default_location_dest_id_usage" invisible="1"/>
+                                        <field name="incoterm_id"/>
+                                        <field name="date_approve" groups="base.group_no_one"/>
+                                    </group>
+                                    <group>
+                                        <field name="invoice_status"/>
+                                        <field name="payment_term_id" options="{'no_open': True, 'no_create': True}" attrs="{'readonly': ['|', ('invoice_status','=', 'invoiced'), ('state', '=', 'done')]}"/>
+                                        <field name="fiscal_position_id" attrs="{'readonly': ['|', ('invoice_status','=', 'invoiced'), ('state', '=', 'done')]}"/>
+                                    </group>
+                                </group>
+                            </page>
+
+                        </notebook>
+
+                    </sheet>
+
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                
+                </form>
+
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="yarn_rates_form_view" model="ir.ui.view">
+        <field name="name">yarn_rates_form_view</field>
+        <field name="model">yarn.rates</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+
+            <form>
+                 <group name="group_top">
+
+                    <group name="group_left">
+                        <field name="name" />
+                    </group>
+
+                    <group name="group_right">
+                         <field name="partner" />
+                         <field name="rec" invisible="1"/>
+                         <field name="yarn"/>
+                    </group>
+
+                </group>
+               
+            </form>
+        </field>
+    </record>
+
+    <record id="accessories_form_view" model="ir.ui.view">
+        <field name="name">accessories_form_view</field>
+        <field name="model">purchase.accessories</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Accessories Order">
+
+                <header>
+                    <button name="in_draft" type="object" string="Set to Draft" attrs="{'invisible': [('accessories_stages','not in', ('validate'))]}" />
+
+                    <button name="in_customer_approval" type="object" string="Customer Approval" class= "oe_highlight" attrs="{'invisible': [('accessories_stages','not in', 'draft')]}" />
+
+                    <button name="in_validate" type="object" string="Validate" class= "oe_highlight" attrs="{'invisible': [('accessories_stages','not in', ('customer_approval'))]}" />
+
+                    <field name="accessories_stages" widget="statusbar" />
+
+                </header>
+
+                <sheet>
+       
+                    <div class="oe_title">
+                        <label string="Accessories order"/>
+                        <h1>
+                            <field name="sr_no" readonly="1"/>
+                        </h1>
+                    </div>
+
+                    <group name="group_top">
+
+                        <group name="group_left">
+                            <field name="vendor" domain= "[('supplier','=','True')]" />
+                            <field name="style" />
+                            <field name="merchant" domain="[('merchant','=','True')]" attrs="{'readonly': [('accessories_stages','in', ('validate'))]}"/>
+                            <field name="customer"  attrs="{'readonly': [('accessories_stages','in', ('validate'))]}"/>
+                            <field name="delivery_date" readonly="1"  attrs="{'readonly': [('accessories_stages','in', ('validate'))]}"/>
+                            <field name="picking_type_id" attrs="{'readonly': [('accessories_stages','in', ('validate'))]}" readonly="1"/>
+                        </group>
+
+                        <group name="group_right">
+                            <field name="date" />
+                            <field name="wonumber" widget="many2many_tags" />
+                            <field name="seq_code"  attrs="{'readonly': [('accessories_stages','in', ('validate'))]}"/>
+                            <field name="req_code"  attrs="{'readonly': [('accessories_stages','in', ('validate'))]}"/>
+                            <field name="access_po_num" invisible="1" attrs="{'readonly': [('accessories_stages','in', ('validate'))]}"/>
+                            <field name="reference" readonly="1"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+
+                        <page name="products" string="Products">
+
+                            <field name="tree_link" nolabel='1' attrs="{'readonly': [('accessories_stages','in', ('validate'))]}">
+                                <tree editable="bottom">
+                                    <field name="product" readonly="1" required="1"/>
+                                    <field name="unit_measurement" readonly="1"/>
+                                    <field name="wo_no" domain="[('state','in',('confirmed','inprogress'))]" />
+                                    <field name="buyer" domain="[('buyer', '=', True)]"/>
+                                    <field name="qty" readonly="1"/>
+                                    <field name="recieved"/>
+                                    <field name="approved"/>
+                                    <field name="remarks"/>
+                                </tree>
+                            </field> 
+
+                        </page>
+
+                    </notebook>
+                </sheet>
+
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+
+            </form>
+        </field>
+    </record>
+
+    <record id="accessories_wizard_form_view" model="ir.ui.view">
+        <field name="name">accessories_wizard_form_view</field>
+        <field name="model">accessories.wizard</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Accessories Order">
+                
+                <table class="o_group o_inner_group">
+                    <tr>
+                        <td colspan="1" style="width: 50%;">
+                            <p>You have processed less products than the initial demand.</p>
+                        </td>
+                        <td colspan="1" style="width: 50%;">
+                            <p class="text-muted">Create a backorder, if you expect to process the remaining products later.  Do not create a backorder if you will not supply the remaining products.</p>
+                        </td>
+                    </tr>
+                </table>
+
+                <footer>
+
+                    <button name="create_backorder" string="Create Backorder" type="object" class= "oe_highlight" />
+
+                    <button name="no_backorder" string="No Backorder" type="object" class= "oe_highlight" />
+
+                    <button name="cancel" string="Cancel" type="object" />
+
+                </footer>
+
+            </form>
+        </field>
+    </record>
+    
+    <record id="yarn_form_view" model="ir.ui.view">
+        <field name="name">yarn_form_view</field>
+        <field name="model">purchase.yarn</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Accessories Order">
+                <sheet>
+       
+                    <div class="oe_title">
+                        <label string="Purchase Order"/>
+                        <h1>
+                            <field name="sr_no" readonly="1"/>
+                        </h1>
+                    </div>
+
+                    <group name="group_top">
+
+                        <group name="group_left">
+                            <field name="vendor" domain= "[('mill','=','True')]"/>
+                            <field name="style" />
+                            <field name="merchant" />
+                            <field name="wo_num" />
+                        </group>
+
+                        <group name="group_right">
+                            <field name="date" />
+                            <field name="wonumber" />
+                            <field name="broker" domain= "[('broker','=','True')]" />
+                        </group>
+
+                    </group>
+
+                <notebook>
+
+                    <page name="products" string="Products">
+
+                        <field name="tree_link" nolabel='1'>
+                            <tree editable="bottom">
+                                <field name="product"/>
+                                <field name="unit_measurement"/>
+                                <field name="qty"/>
+                                <field name="price"/>
+                                <field name="to_recieve"/>
+                                <field name="recieved"/>
+                                <field name="rejected"/>
+                                <field name="sub_total"/>
+                                <field name="remarks"/>
+                            </tree>
+                        </field>
+
+                        <group class="oe_subtotal_footer oe_right">
+
+                            <field name="total"/>
+                            <field name="tax_id"/>
+                            <field name="amt_total"/>
+                            
+                        </group> 
+
+                    </page>
+
+                    <page name="locations" string="Locations">
+                        
+                        <group name="group_top">
+                            
+                            <group name="group_left">
+                                <field name="destination_location" />
+                                <field name="delivery" />
+                            </group>
+
+                            <group name="group_right">
+                                <field name="warehouse" />
+                                <field name="source_location" />
+                            </group>
+                        
+                        </group>
+
+                    </page>
+
+                </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+
+            </form>
+        </field>
+    </record>
+
+    <record id="yarn_approval_form_view" model="ir.ui.view">
+        <field name="name">yarn_approval_form_view</field>
+        <field name="model">yarn.approval</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+
+            <form string="Yarn Approval">
+                <header>
+                    <button name="get_values" type="object" string="Genrate values" />
+
+                </header>
+
+
+                <div class="strech">
+                    <sheet>
+                        <h3>Yarn Approval</h3>
+                        <separator/>
+                        <group name="group_top">
+
+                            <group name="group_left">
+                                <field name="won" domain="[('state','in',('confirmed','inprogress'))]"/>
+                                <field name="yarn_count"/>
+                                <field name="week"/>
+                            </group>
+
+                            <group name="group_right">
+                                <field name="date"/>
+                                <field name="start_date"/>
+                                <field name="end_date"/>
+                            </group>
+
+                        </group>
+
+                        <field name="tree_link" nolabel='1'>
+                            <tree editable="bottom" delete="false" create="false">
+                                <field name="product" readonly="1"/>
+                                <field name="yarn" readonly="1"/>
+                                <field name="won" readonly="1"/>
+                                <field name="buyer" domain= "[('buyer','=','True'),('knitting','=','True')]" context="{'default_knitting':True,'default_buyer':True}"  readonly="1"/>
+                                <field name="prod_type" readonly="1"/>
+                                <field name="delv_date" readonly="1"/>
+                                <field name="week" readonly="1"/>
+                                <field name="qty" readonly="1"/>
+                                <field name="nob" readonly="1"/>
+                                <field name="rate" widget="many2many_tags" readonly="1"/>
+                                <field name="appr_rate" domain= "[('id','=',rate[0][2])]" required="1"/>
+                                <field name="unit_price" readonly="1"/>
+                                <field name="broker" readonly="1"/>
+                                <field name="approved"/>
+                                <button name="approve_line" type="object" string="Approve" />
+                            </tree>
+                        </field> 
+
+                    </sheet>
+
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="yarn_approval_tree_view" model="ir.ui.view">
+        <field name="name">yarn_approval_tree_view</field>
+        <field name="model">yarn.approval</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Yarn Approval">
+                <field name="yarn_count"/>
+                <field name="date"/>
+                <field name="won"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="yarn_req_form_view" model="ir.ui.view">
+        <field name="name">yarn_req_form_view</field>
+        <field name="model">yarn.requirement</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Yarn Requirements">
+
+                <header>
+
+                    <button name="in_draft" type="object" string="Set to Draft" attrs="{'invisible': [('stage','in', ('draft','val','wait','approve'))]}" />
+                    
+                    <button name="val" type="object" string="Validate" class= "oe_highlight" attrs="{'invisible': [('stage','not in', ('draft'))]}" />
+                    
+                    <button name="create_po" type="object" string="Create PO" attrs="{'invisible': [('stage','in', ('draft'))]}" />
+
+                    <button name="cancel" type="object" string="Cancel" class= "oe_highlight" attrs="{'invisible': [('stage','not in', ('val'))]}" />
+
+                    <field name="stage" widget="statusbar" statusbar_visible="draft,val,wait,approve"/>
+                    
+                </header>
+
+                <div class="strech">
+                    <sheet>
+                        <h3>Yarn Requirements</h3>
+                        <separator/>
+                        <group name="group_top">
+
+                            <group name="group_left">
+                                <field name="date"/>
+                            </group>
+
+                            <group name="group_right">
+                                <field name="won" widget="many2many_tags" domain="[('state','in',('confirmed','inprogress'))]" required="1"/>
+                            </group>
+
+                        </group>
+
+                        <notebook>
+
+                            <page name="detail" string="Detail">
+
+                                <field name="tree_link" nolabel='1' attrs="{'readonly': [('stage', 'not in', 'draft')]}">
+                                    <tree editable="bottom">
+                                        <field name="product" domain= "[('ttype','=','yarn')]"/>
+                                        <!-- <field name="yarn"/> -->
+                                        <field name="won" domain="[('id','=',parent.won[0][2])]" required="1"/>
+                                        <field name="buyer"/>
+                                        <field name="prod_type" domain="[('ttype','=','fabric')]" context="{'default_ttype': 'fabric'}"/>
+                                        <field name="delv_date"/>
+                                        <field name="week"/>
+                                        <field name="measuring_unit"/>
+                                        <field name="qty"/>
+                                        <field name="nob" readonly="1" invisible="1"/>
+                                        <field name="no_kgs" readonly="1" invisible="1"/>
+                                        <field name="rate" widget="many2many_tags"/>
+                                        <field name="lpp" readonly="1" invisible="1"/>
+                                        <field name="appr_rate" domain= "[('id','=',rate[0][2])]" readonly="1"/>
+                                        <field name="unit_price" readonly="1"/>
+                                        <field name="broker" readonly="1"/>
+                                        <field name="approved" readonly="1"/>
+                                        <field name="created" readonly="1"/>
+                                        <field name="validated" invisible="1"/>
+                                        <field name="date" invisible="1"/>
+                                        <field name="uom_id" invisible="1"/>
+                                    </tree>
+                                </field> 
+
+                            </page>
+
+                        </notebook>
+
+                    </sheet>
+
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="yarn_req_report_form_view" model="ir.ui.view">
+        <field name="name">yarn_req_report_form_view</field>
+        <field name="model">yarn.requirement.tree</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Yarn Requirements Report" delete="false" create="false" edit="false">
+                <header>
+                    
+                </header>
+
+                <sheet> 
+
+                    <group name="group_top">
+
+                        <group name="group_left">
+                            <field name="product"/>
+                            <field name="won" widget="many2many_tags"/>
+                            <field name="buyer" widget="many2many_tags"/>
+                            <field name="prod_type"/>
+                            <field name="delv_date"/>
+                            <field name="qty"/>
+                            <field name="broker"/>
+                        </group>
+
+                        <group name="group_right">
+                            <field name="nob"/>
+                            <field name="rate"/>
+                            <field name="appr_rate" options="{'no_create':True,'no_edit':True}"/>
+                            <field name="unit_price"/>
+                            <field name="week"/>
+                            <field name="nob" readonly="1"/>
+                            <field name="no_kgs" readonly="1"/>
+                            <field name="date" readonly="1"/>
+                        </group>
+
+                    </group>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="yarn_report_tree_view" model="ir.ui.view">
+        <field name="name">yarn_report_tree_view</field>
+        <field name="model">yarn.requirement.tree</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Yarn Requirements Report" editable="bottom" delete="false" create="false">
+                <field name="won" readonly="1"/>
+                <field name="product" readonly="1"/>
+                <field name="date" readonly="1"/>
+                <field name="delv_date" readonly="1"/>
+                <field name="rate" widget="many2many_tags" readonly="1"/>
+                <field name="appr_rate" domain= "[('id','=',rate[0][2])]" required="1"  options="{'no_create':True,'no_edit':True}"/>
+                <field name="approved" readonly="1"/>
+                <button name="approve_line" type="object" string="Approve" />
+                <field name="buyer" domain= "[('buyer','=','True'),('knitting','=','True')]" context="{'default_knitting':True,'default_buyer':True}"  readonly="1" invisible="1"/>
+                <field name="prod_type" readonly="1" invisible="1"/>
+                <field name="week" readonly="1" invisible="1"/>
+                <field name="qty" readonly="1" invisible="1"/>
+                <field name="nob" readonly="1" invisible="1"/>
+                <field name="unit_price" readonly="1" invisible="1"/>
+                <field name="broker" readonly="1" invisible="1"/>
+                <field name="validated" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="yarn_report_tree_extension" model="ir.ui.view"> 
+        <field name="name">yarn_report_tree_extension</field> 
+        <field name="model">yarn.requirement.tree</field>
+        <field name="inherit_id" ref="purchase_mr_fabric.yarn_report_tree_view"/>
+        <field name="arch" type="xml">
+
+            <tree position="attributes">
+                <attribute name="colors" translation="off">green:approved==True;red:approved==False;</attribute>
+            </tree>
+        </field>
+    </record>
+
+    <record id="custom_class_search_view" model="ir.ui.view">
+
+        <field name="name">custom.class.search.view</field>
+
+        <field name="model">yarn.requirement.tree</field>
+
+        <field name="arch" type="xml">
+
+            <search string="Custom Class">        
+
+                <filter name="group_start_datetime" string="Start time" icon="terp-partner" context="{'group_by':'approved'}"/>
+
+            </search>
+
+        </field>
+    </record>
+
+    <record id="yarn_wizard_view" model="ir.ui.view">
+        <field name="name">yarn_wizard_view</field>
+        <field name="model">create.po.wizard</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Create Po" delete="false" create="false" edit="false">
+
+                    <sheet>
+                        
+                        <group name="group_left" invisible="1">
+                            <field name="yarn_require"/>
+                            <field name="get_val" />
+                        </group>
+
+                        <p>Please Check the Create Po Field of the requirement Whose PO you want to create</p>
+                        <br />
+
+                        <field name="tree_link" nolabel='1'>
+                            <tree editable="bottom" delete="false" create="false">
+                                <field name="create_po"/>
+                                <field name="product" readonly="1" domain= "[('ttype','=','yarn')]"/>
+                                <field name="yarn" readonly="1"/>
+                                <field name="won" readonly="1"/>
+                                <field name="buyer" readonly="1"/>
+                                <field name="prod_type" readonly="1" domain="[('ttype','=','finished')]"/>
+                                <field name="delv_date" readonly="1"/>
+                                <field name="week" readonly="1"/>
+                                <field name="qty" readonly="1"/>
+                                <field name="nob" readonly="1"/>
+                                <field name="rate" readonly="1" widget="many2many_tags"/>
+                                <field name="lpp" readonly="1"/>
+                                <field name="appr_rate" readonly="1" domain= "[('id','=',rate[0][2])]" />
+                                <field name="unit_price" readonly="1"/>
+                                <field name="broker" readonly="1"/>
+                                <field name="approved" readonly="1"/>
+                                <field name="created" readonly="1"/>
+                            </tree>
+                        </field>
+
+                    </sheet>
+
+                    <footer>
+
+                        <button name="create_po" type="object" string="Craete Po" class="oe_highlight" />
+                        <button name="cancel" type="object" string="Cancel" />
+
+                    </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="yarn_wizard_form" model="ir.ui.view">
+        <field name="name">yarn_wizard_form</field>
+        <field name="model">yarn.wizard.class</field>
+        <field name="arch" type="xml">
+            <form string="Yarn Receiving">
+                <header>
+                    <button name="update" string="Validate" type="object" class="oe_highlight" attrs="{'readonly': [('stage','=','validate')]}"/>
+                    <field name="stage" widget="statusbar"/>
+                </header>
+
+                <sheet>
+                    <group name="group_top">
+                        <group name="group_left">
+                            <field name="get_list" invisible="1"/>
+                            <field name="date" attrs="{'readonly': [('stage','=','validate')]}"/>
+                            <field name="req_code" attrs="{'readonly': [('stage','=','validate')]}"/>
+                            <field name="name" invisible="1"/>
+                            <field name="least_wastage" attrs="{'readonly': [('stage','=','validate')]}" invisible="1" />
+                        </group>
+
+                        <group name="group_right">
+                            <field name="tree_id" invisible="1"/>
+                            <field name="l_list" invisible="1"/>
+                            <field name="mf_no" attrs="{'readonly': [('stage','=','validate')]}"/>
+                            <field name="seq_code" attrs="{'readonly': [('stage','=','validate')]}"/>
+                            <field name="picking_type_id" readonly="1"/>
+                        </group>
+
+                    </group>
+
+                    <field name="yarn_link" attrs="{'readonly': [('stage','=','validate')]}">
+                        <tree editable="bottom" delete="false" create="false">
+                            <field name="fr_won" readonly="1"/>
+                            <field name="color" readonly="1"/>
+                            <field name="yarn_count" readonly="1"/>
+                            <field name="fr_lot" readonly="1"/>
+                            <field name="fr_todo" readonly="1"/>
+                            <field name="fr_done"/>
+                        </tree>
+                    </field>
+                </sheet>
+            </form>
+
+        </field>
+    </record>
+
+    <record id="yarn_wizard_tree_view" model="ir.ui.view">
+        <field name="name">yarn_wizard_tree_view</field>
+        <field name="model">yarn.wizard.class</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Yarn Receiving">
+                <field name="name"/>
+                <field name="date"/>
+                <field name="stage"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="yarn_receiving_button" model="ir.actions.act_window">
+        <field name="name">Yarn Receiving</field> 
+        <field name="res_model">yarn.wizard.class</field>
+        <field name="view_id" ref="purchase_mr_fabric.yarn_wizard_tree_view"/>
+        <field name="context">{'search_default_todo':1,'l_list': True}</field> 
+        <field name="domain">[('tree_id', '=', active_ids)]</field>
+    </record>
+
+    <record id="yarn_dye_form_view" model="ir.ui.view">
+        <field name="name">yarn_dye_form_view</field>
+        <field name="model">yarn.dyeing</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Yarn Dyeing">
+
+                <header>
+
+                    <button name="in_draft" type="object" string="Set to Draft" attrs="{'invisible': ['|',('stage','=','sent'),('stage','=','draft')]}" />
+
+                    <button name="in_sent" type="object" string="Sent" class= "oe_highlight" attrs="{'invisible': ['|',('stage','=','sent'),('stage','=','complete')]}" />
+
+                    <button name="complete" type="object" string="Complete" class= "oe_highlight" attrs="{'invisible': [('stage','not in','sent')]}"/>
+                    
+                    <button name="yarn_receiving" type="object" string="Yarn Receiving" class= "oe_highlight" attrs="{'invisible': [('stage','not in','sent')]}"/>
+
+                    <field name="stage" widget="statusbar" statusbar_visible="draft,sent,in_house,complete"/>
+                </header>
+
+                <sheet>
+                    <h3>Yarn Dyeing</h3>
+                    <separator/>
+                    <button name="%(yarn_receiving_button)d" type="action" class="oe_stat_button trans" icon="fa-list" help="show all the receipts for this Record"> <field name="recharge_count" widget="statinfo" string="Yarn Receiving"/> </button>
+                    <separator/>
+                    
+                    <group name="group_top">
+
+                        <group name="group_left">
+                            <field name="mf" attrs="{'readonly': [('stage','not in','draft')]}"/>
+                            <field name="won" widget="many2many_tags" domain="[('state','in',('confirmed','inprogress'))]" attrs="{'readonly': [('stage','not in','draft')]}"/>
+                            <field name="buyer" widget="many2many_tags" domain= "[('buyer','=','True'),('knitting','=','True')]" context="{'default_knitting':True,'default_buyer':True}" attrs="{'readonly': [('stage','not in','draft')]}"/>
+                            <field name="style" widget="many2many_tags" attrs="{'readonly': [('stage','not in','draft')]}"/>
+                            <field name="picking_type_id" attrs="{'readonly': [('stage','not in','draft')]}" />
+                            <field name="least_wastage" attrs="{'readonly': [('stage','not in','draft')]}" invisible="1" />
+                        </group>
+
+                        <group name="group_right">
+                            <field name="plan_date" />
+                            <field name="name" domain= "[('supplier','=','True')]" attrs="{'readonly': [('stage','not in','draft')]}" context="{'default_supplier': True,'default_customer': False}" />
+                            <field name="date" attrs="{'readonly': [('stage','not in','draft')]}"/>
+                            <field name="c_date" attrs="{'readonly': [('stage','not in','draft')]}"/>
+                            <field name="delv_date" attrs="{'readonly': [('stage','not in','draft')]}"/>
+                            <field name="scrap_type_id" readonly="1" />
+                        </group>
+
+                    </group>
+                    <separator/>
+                    <group name="group_top" string="Light Source">
+
+                        <group name="group_left">
+                            <field name="primary" attrs="{'readonly': [('stage','not in','draft')]}"/>
+                        </group>
+
+                        <group name="group_right">
+                            <field name="secondary" attrs="{'readonly': [('stage','not in','draft')]}"/>
+                        </group>
+
+                    </group>
+
+                    <notebook>
+
+                        <page name="detail" string="Detail">
+
+                            <field name="tree_link" nolabel='1'>
+                                <tree editable="bottom">
+                                    <field name="won" domain="[('id','=',parent.won[0][2])]" attrs="{'readonly': [('stageed','not in','draft')]}"/>
+                                    <field name="color" attrs="{'readonly': [('stageed','not in','draft')]}" />
+                                    <field name="yarn" domain= "[('ttype','=','yarn')]" attrs="{'readonly': [('stageed','not in','draft')]}"/>
+                                    <field name="lot" attrs="{'readonly': [('stageed','not in','draft')]}" />
+                                    <field name="rate" sum="total" attrs="{'readonly': [('stageed','not in','draft')]}"/>
+                                    <field name="issue_qty" sum="total" attrs="{'readonly': [('stageed','not in','draft')]}"/>
+                                    <field name="agree_wastage" sum="total" attrs="{'readonly': [('stageed','not in','draft')]}"/>
+                                    <field name="receiveable_qty" sum="total" readonly="1" attrs="{'readonly': [('stageed','not in','draft')]}"/>
+                                    <field name="receive_qty" sum="total" readonly="1" attrs="{'readonly': [('stageed','not in','draft')]}"/>
+                                    <field name="wastage" sum="total" attrs="{'readonly': [('stageed','not in','draft')]}"/>
+                                    <field name="blc" sum="total" attrs="{'readonly': [('stageed','not in','draft')]}"/>
+                                    <field name="stage" attrs="{'readonly': [('stageed','in','complete')]}"/>
+                                    <field name="stageed" invisible="1"/>
+                                </tree>
+                            </field> 
+                            <separator/>
+                            <h3>Note</h3>
+                            <field name= "des" attrs="{'readonly': [('stage','not in','draft')]}"/>
+                            <separator/>
+                        </page>
+
+                    </notebook>
+
+                </sheet>
+
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+
+            </form>
+        </field>
+    </record>
+
+    <record id="fabric_receiving_button" model="ir.actions.act_window">
+        <field name="name">Fabric Receiving</field> 
+        <field name="res_model">fabric.wizard.class</field>
+        <field name="view_id" ref="purchase_mr_fabric.fabric_wizard_tree_view"/>
+        <field name="context">{'search_default_todo':1,'l_list': True}</field> 
+        <field name="domain">[('tree_id', '=', active_ids)]</field>
+    </record>
+
+    <record id="fabric_dye_form_view" model="ir.ui.view">
+        <field name="name">fabric_dye_form_view</field>
+        <field name="model">fabric.dyeing</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Fabric Dyeing">
+                <header>
+
+                    <button name="in_draft" type="object" string="Set to Draft" attrs="{'invisible': [('stage','not in','complete')]}" />
+
+                    <button name="in_sent" type="object" string="Sent" class= "oe_highlight" attrs="{'invisible': ['|',('stage','not in','draft')]}" />
+
+                    <button name="in_complete" type="object" string="Complete" class= "oe_highlight" attrs="{'invisible': [('stage','not in','sent')]}"/>
+
+                    <button name="fabric_receiving" type="object" string="Fabric Receiving" class= "oe_highlight" attrs="{'invisible': [('stage','not in','sent')]}"/>
+
+                    <field name="stage" widget="statusbar" statusbar_visible="draft,sent,complete"/>
+                </header>
+                
+                <div class="knitting_prog_wrap">
+
+                    <sheet>
+                        <h3>Fabric Dyeing</h3>
+                        
+                        <separator/>
+                        <button name="%(fabric_receiving_button)d" type="action" class="oe_stat_button trans" icon="fa-list" help="show all the receipts for this Record"> <field name="recharge_count" widget="statinfo" string="Fabric Receiving"/> </button>
+                        <separator/>
+
+                        <group name="group_top">
+
+                            <group name="group_left">
+
+                                <field name="won" widget="many2many_tags" domain="[('state','in',('confirmed','inprogress'))]" attrs="{'readonly': [('stage','not in','draft')]}"/>
+                                <field name="buyer" widget="many2many_tags" domain= "[('buyer','=','True'),('knitting','=','True')]" context="{'default_knitting':True,'default_buyer':True}" attrs="{'readonly': [('stage','not in','draft')]}"/>
+                                <field name="style" widget="many2many_tags" attrs="{'readonly': [('stage','not in','draft')]}"/>
+                                <field name="subject" attrs="{'readonly': [('stage','not in','draft')]}"/>
+                                <field name="scrap_move" readonly="1"/>
+                            
+                            </group>
+
+                            <group name="group_right">
+
+                                <field name="name" domain= "[('supplier','=','True')]" attrs="{'readonly': [('stage','not in','draft')]}" context="{'default_supplier': True,'default_customer': False}"/>
+                                <field name="plan_date" />
+                                <field name="date" attrs="{'readonly': [('stage','not in','draft')]}"/>
+                                <field name="c_date" attrs="{'readonly': [('stage','not in','draft')]}"/>
+                                <field name="delv_date" attrs="{'readonly': [('stage','not in','draft')]}"/>
+                                <field name="picking_type_id" attrs="{'readonly': [('stage','not in','draft')]}" />
+
+                            </group>
+
+                        </group>
+                        <separator/>
+                        <group name="group_top" string = "Light Source">
+
+                            <group name="group_left">
+                                <field name="primary" attrs="{'readonly': [('stage','not in','draft')]}"/>
+                            </group>
+
+                            <group name="group_right">
+                                <field name="secondary" attrs="{'readonly': [('stage','not in','draft')]}"/>
+                            </group>
+                        </group>
+
+                        <notebook>
+
+                            <page name="detail" string="Detail">
+
+                                <field name="tree_link" nolabel='1'>
+                                    <tree editable="bottom">
+                                        <field name="won" domain="[('id','=',parent.won[0][2])]" attrs="{'readonly': [('stageed','not in','draft')]}"/>
+                                        <field name="fabric" domain= "[('ttype','=','fabric')]" attrs="{'readonly': [('stageed','not in','draft')]}"/>
+                                        <field name="descrip" attrs="{'readonly': [('stageed','not in','draft')]}"/>
+                                        <field name="color" attrs="{'readonly': [('stageed','not in','draft')]}" />
+                                        <field name="lot" attrs="{'readonly': [('stageed','not in','draft')]}" />
+                                        <field name="dia" attrs="{'readonly': [('stageed','not in','draft')]}"/>
+                                        <field name="gauge" attrs="{'readonly': [('stageed','not in','draft')]}"/>
+                                        <field name="ndl" attrs="{'readonly': [('stageed','not in','draft')]}"/>
+                                        <field name="width" attrs="{'readonly': [('stageed','not in','draft')]}"/>
+                                        <field name="gsm" attrs="{'readonly': [('stageed','not in','draft')]}"/>
+                                        <field name="process" attrs="{'readonly': [('stageed','not in','draft')]}"/>
+                                        <field name="rate" attrs="{'readonly': [('stageed','not in','draft')]}"/>
+                                        <field name="issue_qty" sum="total" attrs="{'readonly': [('stageed','not in','draft')]}"/>
+                                        <field name="agree_wastage" sum="total" attrs="{'readonly': [('stageed','not in','draft')]}"/>
+                                        <field name="receivable_qty" sum="total" attrs="{'readonly': [('stageed','not in','draft')]}"/>
+                                        <field name="receive_qty" sum="total" readonly="1" attrs="{'readonly': [('stageed','not in','draft')]}"/>
+                                        <field name="wastage" sum="total" attrs="{'readonly': [('stageed','not in','draft')]}"/>
+                                        <field name="blc" sum="total" attrs="{'readonly': [('stageed','not in','draft')]}"/>
+                                        <field name="stage" attrs="{'readonly': [('stageed','in','complete')]}"/>
+                                        <field name="stageed" invisible="1"/>
+                                    </tree>
+                                </field> 
+                                <separator/>
+                                <h3>Note</h3>
+                                <field name= "des"/>
+                                <separator/>
+                            </page>
+                        </notebook>
+
+                    </sheet>
+                    
+                </div>
+
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="fabric_wizard_form" model="ir.ui.view">
+        <field name="name">fabric_wizard_form</field>
+        <field name="model">fabric.wizard.class</field>
+        <field name="arch" type="xml">
+            <form string="Fabric Receiving">
+
+                <header>
+                    <button name="update" string="Validate" type="object" class="oe_highlight" attrs="{'invisible': [('stage','=','validate')]}"/>
+                    <field name="stage" widget="statusbar"/>
+                </header>
+
+                <sheet>
+                    <group name="group_top">
+                        <group name="group_left">
+                            <field name="get_list" invisible="1"/>
+                            <field name="date" attrs="{'readonly': [('stage','=','validate')]}"/>
+                            <field name="name" invisible="1"/>
+                            <field name="picking_type_id" readonly="1"/>
+
+                        </group>
+
+                        <group name="group_right">
+                            <field name="tree_id" invisible="1"/>
+                            <field name="l_list" invisible="1"/>
+                            <field name="seq_code" attrs="{'readonly': [('stage','=','validate')]}"/>
+                            <field name="req_code" attrs="{'readonly': [('stage','=','validate')]}"/>
+                            <field name="least_wastage" invisible="1"/>
+
+                        </group>
+
+                    </group>
+
+                    <field name="fabric_link" attrs="{'readonly': [('stage','=','validate')]}">
+                        <tree editable="bottom" delete="false" create="false">
+                            <field name="fr_won" readonly="1"/>
+                            <field name="color" readonly="1"/>
+                            <field name="yarn_count" readonly="1"/>
+                            <field name="fr_lot" readonly="1"/>
+                            <field name="fr_todo" readonly="1"/>
+                            <field name="fr_done"/>
+                        </tree>
+                    </field>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="fabric_wizard_tree_view" model="ir.ui.view">
+        <field name="name">fabric_wizard_tree_view</field>
+        <field name="model">fabric.wizard.class</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Fabric Receiving">
+                <field name="name"/>
+                <field name="date"/>
+                <field name="stage"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="product_tree_view_extension" model="ir.ui.view"> 
+        <field name="name">product_tree_view_extension</field> 
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_product_tree_view"/>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='default_code']" position="replace">
+            </xpath>
+
+            <xpath expr="//field[@name='attribute_value_ids']" position="replace">
+                <field name="type"/>
+            </xpath>
+
+            <xpath expr="//field[@name='lst_price']" position="replace">
+            </xpath>
+
+            <xpath expr="//field[@name='barcode']" position="replace">
+            </xpath>
+
+        </field> 
+    </record>
+
+    <record id="work_order_tree_view_extension" model="ir.ui.view"> 
+        <field name="name">work_order_tree_view_extension</field> 
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase_mr_fabric.purchase_order_ext_tree"/>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='origin']" position="replace">
+            </xpath>
+
+            <xpath expr="//field[@name='date_planned']" position="replace">
+            </xpath>
+
+            <xpath expr="//field[@name='amount_untaxed']" position="replace">
+            </xpath>
+
+        </field> 
+    </record>
+
+    <record id="knit_wizard_form" model="ir.ui.view">
+        <field name="name">knit_wizard_form</field>
+        <field name="model">knit.wizard.class</field>
+        <field name="arch" type="xml">
+            <form string="Knitting Receiving">
+                
+                <header>
+                    <button name="update" string="Validate" type="object" class="oe_highlight" attrs="{'invisible': [('stage','not in', 'draft')]}"/>
+                    <field name="stage" widget="statusbar"/>
+                </header>
+
+                <sheet>
+
+                    <group name="group_top">
+                        <group name="group_left">
+                            <field name="get_list" invisible='1'/>
+                            <field name="date" attrs="{'readonly': [('stage','not in', 'draft')]}"/>
+                            <field name="name" invisible="1"/>
+                            <field name="fabric_type_id" readonly="1"/>
+                        </group>
+
+                        <group name="group_right">
+                            <field name="tree_id" invisible="1"/>
+                            <field name="l_list" invisible="1"/>
+                            <field name="picking_type_id" readonly="1"/>
+                        </group>
+                    </group>
+
+                    <field name="knit_link" attrs="{'readonly': [('stage','not in', 'draft')]}">
+                        <tree editable="bottom" delete="false" create="false">
+                            <field name="product" readonly="1"/>
+                            <field name="yarn" readonly="1" invisible="1"/>
+                            <field name="required" readonly="1" invisible="1"/>
+                            <field name="fr_won" readonly="1"/>
+                            <field name="fr_lot" readonly="1"/>
+                            <field name="fr_todo" readonly="1"/>
+                            <field name="fr_done"/>
+                        </tree>
+                    </field>
+
+                </sheet>
+
+            </form>
+        </field>
+    </record>
+    
+    <record id="knit_wizard_tree_view" model="ir.ui.view">
+        <field name="name">knit_wizard_tree_view</field>
+        <field name="model">knit.wizard.class</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Knitting Receiving">
+                <field name="name"/>
+                <field name="date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="knit_receiving_button" model="ir.actions.act_window">
+        <field name="name">Knitting Receiving</field> 
+        <field name="res_model">knit.wizard.class</field>
+        <field name="view_id" ref="purchase_mr_fabric.knit_wizard_tree_view"/>
+        <field name="context">{'search_default_todo':1,'l_list': True}</field> 
+        <field name="domain">[('tree_id', '=', active_ids)]</field>
+    </record>
+    
+    <record id="fabric_knitting_form_view" model="ir.ui.view">
+        <field name="name">fabric_knitting_form_view</field>
+        <field name="model">fabric.knitting</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Fabric Knitting">
+                    
+                <header>
+
+                    <button name="in_draft" type="object" string="Set to Draft" attrs="{'invisible': [('stage','not in','complete')]}" />
+
+                    <button name="in_sent" type="object" string="Send" class= "oe_highlight" attrs="{'invisible': [('stage','not in','draft')]}"/>
+
+                    <button name="in_complete" type="object" string="Complete"  attrs="{'invisible': [('stage','not in','sent')]}"/>
+
+                    <button name="knit_receiving" type="object" string="Knitting Receiving" class= "oe_highlight" attrs="{'invisible': [('stage','not in','sent')]}"/>
+
+                    <field name="stage" widget="statusbar" statusbar_visible="draft,sent,in_house,complete,cancel"/>
+                </header>
+                
+                <div class="knitting_prog_wrap">
+
+                    <sheet>
+                        <h3>Fabric Knitting</h3>
+
+                        <separator/>
+                            <button name="%(knit_receiving_button)d" type="action" class="oe_stat_button trans" icon="fa-list" help="show all the receipts for this Record"> <field name="recharge_count" widget="statinfo" string="Knitting Receiving"/> </button>
+                        <separator/>
+                        
+                        <group name="group_top">
+
+                            <group name="group_left">
+                                <field name="won" widget="many2many_tags" domain="[('state','in',('confirmed','inprogress'))]"  attrs="{'readonly': [('stage','not in','draft')]}" required="1"/>
+                                <field name="buyer" widget="many2many_tags"  attrs="{'readonly': [('stage','not in','draft')]}"/>
+                                <field name="style" widget="many2many_tags"  attrs="{'readonly': [('stage','not in','draft')]}"/>
+                                <field name="delv_date" attrs="{'readonly': [('stage','not in','draft')]}"/>
+                                <field name="scrap_move" readonly="1" />
+                                <field name="fabric_move" readonly="1" />
+                            </group>
+
+                            <group name="group_right">
+                                <field name="name" domain= "[('supplier','=','True'),('knitting','=','True')]" context="{'default_knitting':True,'default_supplier':True,'default_customer':False}"  attrs="{'readonly': [('stage','not in','draft')]}"/>
+                                <field name="plan_date" />
+                                <field name="date" attrs="{'readonly': [('stage','not in','draft')]}"/>
+                                <field name="c_date" attrs="{'readonly': [('stage','not in','draft')]}"/>
+                                <field name="picking_type_id" attrs="{'readonly': [('stage','not in','draft')]}"/>
+                                <field name="yarn_move" readonly="1"/>
+                            </group>
+
+                        </group>
+
+                        <notebook>
+
+                            <page name="detail" string="Detail">
+
+                                <field name="tree_link" nolabel='1' attrs="{'readonly': [('stage','not in','draft')]}">
+                                    <tree editable="bottom">
+                                        <field name="won" domain="[('id','=',parent.won[0][2])]"/>
+                                        <field name="fabric" domain= "[('ttype','=','fabric')]"/>
+                                        <field name="yarn" widget="many2many_tags" domain="[('id','=',0)]"/>
+                                        <field name="lot"/>
+                                        <field name="sl"/>
+                                        <field name="otm"/>
+                                        <field name="dia"/>
+                                        <field name="gauge" />
+                                        <field name="ndl" />
+                                        <field name="rate"/>
+                                        <field name="required"/>
+                                        <field name="a_wastage"/>
+                                        <field name="receivable" readonly="1"/>
+                                        <field name="received" readonly="1"/>
+                                        <field name="wastage" readonly="1"/>
+                                        <field name="balance" readonly="1"/>
+                                        <field name="remarks"/>
+                                    </tree>
+                                </field> 
+
+                            </page>
+                        </notebook>
+
+                    </sheet>
+
+                </div>
+
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+
+            </form>
+        </field>
+    </record>
+
+    <record id="access_issue_form_view" model="ir.ui.view">
+        <field name="name">access_issue_form_view</field>
+        <field name="model">purchase.access.issue</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Accessories Issuance">
+
+                <header>
+
+                    <button name="in_validate" string="Validate" type="object" class="oe_highlight" attrs="{'invisible': [('accessories_stages', 'in', ('done'))]}"/>
+                    <field name="accessories_stages" widget="statusbar"/>
+
+                </header>
+                
+                <sheet>
+                    <h3>Accessories Issuance</h3>
+                    
+                    <group name="group_top">
+
+                        <group name="group_left">
+                            <field name="name" attrs="{'readonly': [('accessories_stages','in', 'done')]}"/>
+                            <field name="wo" attrs="{'readonly': [('accessories_stages','in', 'done')]}" required="1"/>
+                            <field name="picking_type_id" readonly="1" />
+                        </group>
+
+                        <group name="group_right">
+                            <field name="unit" attrs="{'readonly': [('accessories_stages','in', 'done')]}" />
+                            <field name="issue_Person" attrs="{'readonly': [('accessories_stages','in', 'done')]}"/>
+                        </group>
+
+                    </group>
+
+                <notebook>
+
+                    <page name="detail" string="Detail">
+
+                        <field name="tree_link" nolabel='1' attrs="{'readonly': [('accessories_stages','in', 'done')]}">
+                            <tree editable="bottom">
+                                <field name="product_id" domain= "[('ttype','=','accessories')]" context="{'default_ttype':'accessories'}" options="{'no_create': True}"/>
+                                <field name="uom"/>
+                                <field name="qty"/>
+                                <field name="qoh" readonly="1"/>
+                                <field name="remark"/>
+                            </tree>
+                        </field> 
+
+                    </page>
+
+                </notebook>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="production_unit_form_view" model="ir.ui.view">
+        <field name="name">production_unit_form_view</field>
+        <field name="model">purchase.production.unit</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Production Unit">
+                <sheet>
+                    <h3>Production Unit</h3>
+                    <separator/>
+                    <group name="group_top">
+
+                        <group name="group_left">
+                            <field name="name"/>
+                        </group>
+
+                        <group name="group_right">
+                        </group>
+
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="inventory_config_form_view" model="ir.ui.view">
+        <field name="name">inventory_config_form_view</field>
+        <field name="model">inventory.config</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Inventory Configuration">
+                <sheet>
+                    <h3 class="o_horizontal_separator">Inventory Configuration</h3>
+                    <separator/>
+                    <group name="group_top">
+
+                        <field name="name" invisible="1" />
+
+                        <group name="group_left" string="Accessories Order">
+                            <field name="access_order_config"/>
+                        </group>
+
+                        <group name="group_right" string="Accessories Issuance">
+                            <field name="access_issue_config"/>
+                        </group>
+
+                    </group>
+
+                    <group name="group_top">
+
+                        <group name="group_left" string="Yarn PO">
+                            <field name="yarn_po_config"/>
+                        </group>
+
+                        <group name="group_right" string="Yarn Dying">
+                            <field name="yarn_dying_config"/>
+                            <field name="yarn_dying_config_scrap"/>
+                        </group>
+
+                    </group>
+
+                    <group name="group_top">
+
+                        <group name="group_left" string="Fabric Dying">
+                            <field name="fabric_dying_config"/>
+                            <field name="fabric_dying_config_scrap"/>
+                        </group>
+
+                        <group name="group_right" string="Fabric Knitting">
+                            <field name="knitting_dying_config"/>
+                            <field name="knitting_dying_config_yarn"/>
+                            <field name="knitting_dying_config_fabric"/>
+                            <field name="knitting_dying_config_scrap"/>
+                        </group>
+
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="yarn_move_form_view" model="ir.ui.view">
+        <field name="name">yarn_move_form_view</field>
+        <field name="model">yarn.move</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Yarn Move">
+                <sheet>
+                    <group name="group_top">
+                        
+                        <group name="group_left">
+                            <field name="yarn" domain= "[('ttype','=','yarn')]"/>
+                        </group>
+                        
+                        <group name="group_right">
+                            <field name="weight" />
+                        </group>
+
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- TREE VIEWS -->
+
+    <record id="inventory_config_tree_view" model="ir.ui.view">
+        <field name="name">inventory_config_tree_view</field>
+        <field name="model">inventory.config</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Inventory Configuration">
+                <field name="access_order_config" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="accessories_tree_view" model="ir.ui.view">
+        <field name="name">accessories_tree_view</field>
+        <field name="model">purchase.accessories</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Accessories Order">
+                <field name="wonumber" />
+                <field name="vendor"/>
+                <field name="date" />
+                <field name="accessories_stages" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="yarn_tree_view" model="ir.ui.view">
+        <field name="name">yarn_tree_view</field>
+        <field name="model">purchase.yarn</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Accessories Order">
+                <field name="wonumber" />
+                <field name="vendor"/>
+                <field name="date" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="yarn_req_tree_view" model="ir.ui.view">
+        <field name="name">yarn_req_tree_view</field>
+        <field name="model">yarn.requirement</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Yarn Requirements">
+                <field name="date" />
+                <field name="won"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="yarn_dye_tree_view" model="ir.ui.view">
+        <field name="name">yarn_dye_tree_view</field>
+        <field name="model">yarn.dyeing</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Yarn Dyeing">
+                <field name="name" />
+                <field name="date"/>
+                <field name="buyer"/>
+                <field name="req_code"/>
+                <field name="sec_code"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="fabric_knitting_tree_view" model="ir.ui.view">
+        <field name="name">fabric_knitting_tree_view</field>
+        <field name="model">fabric.knitting</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Fabric Knitting">
+                <field name="name" />
+                <field name="date"/>
+                <field name="buyer"/>
+                <field name="req_code"/>
+                <field name="sec_code"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="fabric_dye_tree_view" model="ir.ui.view">
+        <field name="name">fabric_dye_tree_view</field>
+        <field name="model">fabric.dyeing</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Fabric Dyeing">
+                <field name="name" />
+                <field name="date"/>
+                <field name="subject"/>
+                <field name="buyer"/>
+                <field name="req_code"/>
+                <field name="sec_code"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="access_issue_tree_view" model="ir.ui.view">
+        <field name="name">access_issue_tree_view</field>
+        <field name="model">purchase.access.issue</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Accessories Issuance">
+                <field name="name" />
+                <field name="wo"/>
+                <field name="unit"/>
+                <field name="issue_Person"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="production_unit_tree_view" model="ir.ui.view">
+        <field name="name">production_unit_tree_view</field>
+        <field name="model">purchase.production.unit</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Production Unit">
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="purchase_order_ext_tree" model="ir.ui.view">
+        <field name="name">purchase_order_ext_tree</field>
+        <field name="model">purchase.order</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree decoration-bf="message_unread==True" decoration-muted="state=='cancel'" decoration-info="state in ('wait','confirmed')" string="Purchase Order">
+                <field name="message_unread" invisible="1"/>
+                <field name="name" string="Reference"/>
+                <field name="date_order" />
+                <field name="partner_id"/>
+                <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+                <field name="date_planned" invisible="context.get('quotation_only', False)"/>
+                <field name="origin"/>
+                <field name="amount_untaxed" sum="Total Untaxed amount" string="Untaxed" widget="monetary"/>
+                <field name="amount_total" sum="Total amount" widget="monetary"/>
+                <field name="currency_id" invisible="1"/>
+                <field name="state"/>
+                <field name="invoice_status" invisible="not context.get('show_purchase', False)"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_purchase_order_ext_filter" model="ir.ui.view">
+        <field name="name">view_purchase_order_ext_filter</field>
+        <field name="model">purchase.order</field>
+        <field name="arch" type="xml">
+            <search string="Search Purchase Order">
+                <field name="name" string="Reference"/>
+                <field name="partner_id" operator="child_of"/>
+                <field name="product_id"/>
+                <field name="create_uid"/>
+                <filter name="draft" string="Quotations" domain="[('state','in',('draft','sent','to approve'))]"/>
+                <filter name="approved" string="Purchase Orders" domain="[('state','in',('purchase','done'))]"/>
+                <filter name="to_approve" string="To Approve" domain="[('state', '=', 'to approve')]"/>
+                <separator/>
+                <filter name="not_invoiced" string="Waiting Bills" domain="[('invoice_status','=', 'to invoice')]" help="Purchase orders that include lines not invoiced."/>
+                <filter name="invoiced" string="Bills Received" domain="[('invoice_status','=', 'invoiced')]" help="Purchase orders that have been invoiced."/>
+                <filter string="Unread Messages" name="message_needaction" domain="[('message_needaction','=',True)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Vendor" domain="[]" context="{'group_by':'partner_id'}"/>
+                    <filter string="Order Date" domain="[]" context="{'group_by':'date_order'}"/>
+                    <filter string="Expected Date" domain="[]" context="{'group_by':'date_planned'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!--Modules Extentions-->
+
+    <record id="res_partner_form_view_extension" model="ir.ui.view"> 
+        <field name="name">res_partner_form_view_extension</field> 
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="type">form</field> 
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='category_id']" position="after">
+                <field name="knitting"/>
+                <field name="buyer"/>
+                <field name="broker"/>
+                <field name="mill"/>
+            </xpath>
+
+            <xpath expr="//field[@name='parent_id']" position="after">
+                <label for="ttype" class="oe_edit_only" string="Type" attrs="{'invisible': [('supplier','=',False)]}"/>
+                <field name="ttype" attrs="{'invisible': [('supplier','=',False)]}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="res_partner_view" model="ir.ui.view">
+            <field name="name">res_partner_view</field>
+            <field name="model">res.partner</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="base.view_partner_tree"/>
+            <field name="arch" type="xml">
+            <xpath expr="//field[@name ='email']" position="after">
+                <field name="ttype"/>
+            </xpath>
+         </field>
+    </record>
+
+    <record model="ir.ui.view" id="new_partner_kanban_view">
+        <field name="name">res.partner.kanban.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.res_partner_kanban_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@class='oe_kanban_partner_links']" position="after">
+                <field name="ttype"/>
+
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="stock_picking_form_view_extension" model="ir.ui.view"> 
+        <field name="name">stock_picking_form_view_extension</field> 
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="type">form</field> 
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="req_code"/>
+                <field name="sec_code"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_variants_form_view_extension" model="ir.ui.view"> 
+        <field name="name">product_variants_form_view_extension</field> 
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="type">form</field> 
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='categ_id']" position="after">
+                <field name="ttype"/>
+                <field name="accessories_type" attrs="{'invisible': [('ttype', 'not in', ('accessories'))]}"/>
+                <field name="net_weight" attrs="{'invisible': [('ttype', 'not in', ('yarn'))]}"/>
+                <field name="yarn" widget="many2many_tags" attrs="{'invisible': [('ttype', 'not in', ('fabric'))]}" domain="[('ttype','=','yarn')]" />
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="product_form_view_extension" model="ir.ui.view"> 
+        <field name="name">product_form_view_extension</field> 
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="type">form</field> 
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='categ_id']" position="after">
+                <field name="ttype"/>
+            </xpath><!-- 
+            <xpath expr="//field[@name='type']" position="replace">
+                <field name="type"/>
+            </xpath> -->
+        </field>
+    </record>
+
+    <!--ACTIONS-->
+
+    <record model="ir.actions.act_window" id="accessories_action">
+        <field name="name">Accessories Order</field>
+        <field name="res_model">purchase.accessories</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="yarn_action">
+        <field name="name">Yarn</field>
+        <field name="res_model">purchase.yarn</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="yarn_req_action">
+        <field name="name">Yarn Requirements</field>
+        <field name="res_model">yarn.requirement</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'readonly_by_pass': True}</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="yarn_dye_action">
+        <field name="name">Yarn Dyeing</field>
+        <field name="res_model">yarn.dyeing</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'readonly_by_pass': True}</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="fabric_dye_action">
+        <field name="name">Fabric Dyeing</field>
+        <field name="res_model">fabric.dyeing</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'readonly_by_pass': True}</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="fabric_knitting_action">
+        <field name="name">Fabric Knitting</field>
+        <field name="res_model">fabric.knitting</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'readonly_by_pass': True}</field>
+    </record>
+    
+    <record id="purchase_form_ext_action" model="ir.actions.act_window">
+        <field name="name">Purchase Orders</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">purchase.order</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form,pivot</field>
+        <!-- <field name="view_id" ref="purchase.purchase_order_form"></field> -->
+        <field name="context">{'search_default_todo':1, 'show_purchase': True,'readonly_by_pass': True}</field>
+        <field name="domain">[('state','not in',('draft','sent','bid', 'confirmed'))]</field>
+        <field name="search_view_id" ref="view_purchase_order_ext_filter"/>
+        <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            Click to create a quotation that will be converted into a purchase order. 
+          </p><p>
+            Use this menu to search within your purchase orders by
+            references, vendor, products, etc. For each purchase order,
+            you can track the related discussion with the vendor, control
+            the products received and control the vendor bills.
+          </p>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="new_action_yarn_product">
+        <field name="name">Yarn</field>
+        <field name="res_model">product.product</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain" >[('ttype', '=','yarn')]</field>
+        <field name="context">{'default_ttype': 'yarn','default_sale_ok': False}</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="new_action_fabric_product">
+        <field name="name">Fabric</field>
+        <field name="res_model">product.product</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain" >[('ttype', '=','fabric')]</field>
+        <field name="context">{'default_ttype': 'fabric','default_sale_ok': False}</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="new_action_accessories_product">
+        <field name="name">Accessories</field>
+        <field name="res_model">product.product</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain" >[('ttype', '=','accessories')]</field>
+        <field name="context">{'default_ttype': 'accessories','default_sale_ok': False}</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="new_action_accessories_supplier">
+        <field name="name">Supplier</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_supplier':1, 'default_customer':0,'default_supplier':1}</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="new_action_general_product">
+        <field name="name">General Products</field>
+        <field name="res_model">product.product</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain" >[('ttype', '=','general')]</field>
+        <field name="context">{'default_ttype': 'general','default_sale_ok': False}</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="new_action_finished_product">
+        <field name="name">Finished Products</field>
+        <field name="res_model">product.product</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain" >[('ttype', '=','finished')]</field>
+        <field name="context">{'default_ttype': 'finished'}</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="new_action_yarn_PO">
+        <field name="name">Yarn PO</field>
+        <field name="res_model">purchase.order</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_todo':1, 'show_purchase': True,'default_ttype': 'yarn','readonly_by_pass': True}</field>
+        <field name="domain">[('ttype', '=','yarn')]</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="new_action_fabric_PO">
+        <field name="name">Fabric PO</field>
+        <field name="res_model">purchase.order</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_todo':1, 'show_purchase': True,'default_ttype': 'fabric','default_yarnt_fabricf':1,'readonly_by_pass': True}}</field>
+        <field name="domain"></field>
+    </record>
+
+    <record model="ir.actions.act_window" id="new_action_accessories_PO">
+        <field name="name">Accessories PO</field>
+        <field name="res_model">purchase.order</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_todo':1, 'show_purchase': True,'default_ttype': 'accessories','readonly_by_pass': True}</field>
+        <field name="domain">[('ttype', '=','accessories')]</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="new_action_general_PO">
+        <field name="name">General PO</field>
+        <field name="res_model">purchase.order</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_todo':1, 'show_purchase': True,'default_ttype': 'general','readonly_by_pass': True}</field>
+        <field name="domain">[('ttype', '=','general')]</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="access_issue_action">
+        <field name="name">Accessories Issuance</field>
+        <field name="res_model">purchase.access.issue</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'readonly_by_pass': True}</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="inventory_config_action">
+        <field name="name">Inventory Configuration</field>
+        <field name="res_model">inventory.config</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="production_unit_action">
+        <field name="name">Production Unit</field>
+        <field name="res_model">purchase.production.unit</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    
+    <record id="fabric_wizard" model="ir.actions.act_window">
+        <field name="name">fabric_wizard</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">fabric.wizard.class</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="fabric_wizard_form"/>
+        <field name="target">new</field>
+    </record> 
+
+    <record id="yarn_wizard" model="ir.actions.act_window">
+        <field name="name">Yarn_wizard</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">yarn.wizard.class</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="yarn_wizard_form"/>
+        <field name="target">new</field>
+    </record>
+
+    <record id="order_action" model="ir.actions.act_window"> 
+        <field name="domain">[('access_po_num', '=', active_id)]</field> 
+        <field name="name">Purchase Accessories</field>
+        <field name="res_model">purchase.accessories</field> 
+        <field name="view_id" ref="purchase_mr_fabric.accessories_tree_view" /> 
+    </record>
+
+    <record id="yarn_approval_action" model="ir.actions.act_window"> 
+        <field name="name">Yarn Approval</field>
+        <field name="res_model">yarn.approval</field> 
+        <field name="view_id" ref="yarn_approval_tree_view" /> 
+        <field name="context">{'readonly_by_pass': True}</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="yarn_report_action">
+        <field name="name">Yarn Requirements Report</field>
+        <field name="res_model">yarn.requirement.tree</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'readonly_by_pass': True}</field>
+        <field name="domain">[('validated', '=', True)]</field>
+    </record>
+
+    <!--ACTIONS-->
+
+    <!--SEQUENCES-->
+
+    <record id="accessories_seq" model="ir.sequence">
+      <field name="name">accessories_seq</field>
+      <field name="code">purchase.accessories</field>
+      <field name="prefix">PA</field>
+      <field name="padding">4</field>
+    </record>
+
+    <record id="yarn_seq" model="ir.sequence">
+      <field name="name">yarn_seq</field>
+      <field name="code">purchase.yarn</field>
+      <field name="prefix">PY</field>
+      <field name="padding">4</field>
+    </record>
+
+    <record model="ir.ui.menu" id="mrp.menu_mrp_production_action">
+        <field name="name">Work Order</field>
+    </record>
+
+    <!--SEQUENCES-->
+
+    <!--MENUS-->
+    <menuitem id="product_menu" parent="purchase.menu_purchase_root" name="Products" sequence="3"/>
+
+    <menuitem id="PO_menu" parent="purchase.menu_purchase_root" name="PO Orders" sequence="4"/>
+
+    <menuitem id="fabrication_menu" parent="purchase.menu_purchase_root" sequence="5" name="Fabrication"/>
+
+    <menuitem id="yarn_dye_menu_item" parent="fabrication_menu" name="Yarn Dyeing Program" action="yarn_dye_action" sequence="13"/>
+
+    <menuitem id="fabric_dye_menu_item" parent="fabrication_menu" name="Fabric Dyeing Program" action="fabric_dye_action" sequence="14"/>
+
+    <menuitem id="fabric_knitting_menu_item" parent="fabrication_menu" name="Fabric Knitting Program" action="fabric_knitting_action" sequence="15"/>
+
+    <menuitem id="accessories_product_menu_item_duplicate" parent="purchase_mr_fabric.inventory_ext_menu_item" action="new_action_accessories_product"/>
+
+    <menuitem id="accessories_product_menu_item_supplier" name="Supplier" parent="product_menu" action="new_action_accessories_supplier"/>
+
+    <menuitem id="menu_purchase_form_ext_action" action="purchase_form_ext_action"  parent="purchase.menu_procurement_management" sequence="8"/>
+
+    <menuitem id="yarn_menu_item" parent="purchase.menu_procurement_management" action="yarn_action" sequence="11"/>
+
+    <menuitem id="yarn_product_menu_item" parent="product_menu" action="new_action_yarn_product" sequence="16"/>
+
+    <menuitem id="fabric_product_menu_item" parent="product_menu" action="new_action_fabric_product" sequence="17"/>
+
+    <menuitem id="accessories_product_menu_item" parent="product_menu" action="new_action_accessories_product" sequence="18"/>
+
+    <menuitem id="general_product_menu_item" parent="product_menu" action="new_action_general_product" sequence="19"/>
+
+    <menuitem id="finished_product_menu_item" parent="product_menu" action="new_action_finished_product" sequence="20"/>
+
+    <menuitem id="yarn_PO_menu_item" parent="PO_menu" action="new_action_yarn_PO" sequence="20"/>
+
+    <menuitem id="fabric_PO_menu_item" parent="PO_menu" action="new_action_fabric_PO" sequence="20"/>
+
+    <menuitem id="accessories_PO_menu_item" parent="PO_menu" action="new_action_accessories_PO" sequence="21"/>
+
+    <menuitem id="general_PO_menu_item" parent="PO_menu" action="new_action_general_PO" sequence="22"/>
+
+    <menuitem id="production_unit_menu_item" parent="mrp.menu_mrp_manufacturing" action="production_unit_action" sequence="5"/>
+
+    <menuitem id="inventory_ext_menu_item" name="Accessories" parent="stock.menu_stock_root" sequence="4"/>
+
+    <menuitem id="accessories_menu_item" parent="inventory_ext_menu_item" action="accessories_action" sequence="10"/>
+
+    <menuitem id="access_issue_menu_item"  parent="inventory_ext_menu_item" action="access_issue_action" sequence="5"/>
+
+    <menuitem id="inventory_config" parent="inventory_ext_menu_item" action="inventory_config_action" sequence="11" />
+
+    <menuitem id="yarn_menu" parent="purchase.menu_purchase_root" name="Yarn" sequence="6"/>
+
+    <menuitem id="yarn_req_menu_item" parent="yarn_menu" action="yarn_req_action" sequence="5"/>
+
+    <menuitem id="yarn_approval_menu_item"  parent="yarn_menu" action="yarn_approval_action" name="Yarn Approval" sequence="12"/>
+
+    <menuitem id="yarn_report_menu" parent="yarn_menu" name="Yarn Requirement Report" sequence="13" action="yarn_report_action" />
+
+    <!--MENUS-->
+
+    <!--Menu Removes-->
+
+    <record id="purchase.menu_purchase_form_action" model="ir.ui.menu">
+        <field name="active">false</field>
+    </record>
+
+    <record id="mail.mail_channel_menu_root_chat" model="ir.ui.menu"> 
+        <field name="active">False</field> 
+    </record>
+
+    <record id="calendar.mail_menu_calendar" model="ir.ui.menu"> 
+        <field name="active">False</field> 
+    </record>
+
+    <record id="purchase.menu_procurement_management" model="ir.ui.menu"> 
+        <field name="active">False</field> 
+    </record>
+
+    <record id="purchase.menu_purchase_control" model="ir.ui.menu"> 
+        <field name="active">False</field> 
+    </record>
+
+    <record id="purchase.purchase_report" model="ir.ui.menu"> 
+        <field name="active">False</field> 
+    </record>
+
+    <!--Menu Removes-->
+
+</odoo> 

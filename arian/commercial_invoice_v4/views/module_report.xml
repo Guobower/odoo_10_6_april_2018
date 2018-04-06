@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+
+    <data>   
+
+        <template id="module_report">
+
+            <t t-call="report.html_container">
+                <t t-call="report.external_layout">
+                    <t t-foreach="docs" t-as="o">
+
+                        <div class="page">
+    
+                            <style>
+
+                                .main_header {
+                                    width: 1000px;
+                                    margin: 0px auto;
+                                }
+                                .report-header {
+                                    width: 100%;
+                                    float: left;
+                                    margin: 0px 0px 8px;
+                                }
+                                .header-col-01,
+                                .header-col-02 {
+                                    width: 498px;
+                                    min-height: 115px;
+                                    float: left;
+                                    border: 2px solid #000;
+                                    padding: 10px 15px;
+                                    margin: 0px 1px;
+                                }
+                                .clearfloat {
+                                    clear: both;
+                                    float: none;
+                                    display: block;
+                                }
+                                .logo {
+                                    width: 100px;
+                                    height: auto;
+                                    float: left;
+                                }
+                                .logo img {
+                                    width: 100%;
+                                }
+                                .logo-text {
+                                    margin: 0px 0px 0px 10px;
+                                    float: left;
+                                }
+                                .logo-text p {
+                                    margin: 5px 0px;
+                                }
+                                .header-col-02 p {
+                                    margin: 5px 0px;
+                                }
+                                .tower {
+                                    width: 100%;
+                                    float: left;
+                                    margin: 0px 0px 2px
+                                }
+                                .two-col-01,
+                                .two-col-02 {
+                                    width: 498px;
+                                    border: 2px solid #000;
+                                    float: left;
+                                    margin: 0px 1px;
+                                    padding: 7px 10px;
+                                }
+                                .tower p {
+                                    margin: 0px;
+                                }
+                                table {
+                                    width: 100%;
+                                    border-top: 2px solid #000;
+                                    margin: 20px 0px 0px;
+                                    float: left;
+                                }
+                                table tr th,
+                                table tr td {
+                                    border-bottom: 2px solid #000;
+                                    border-left: 2px solid #000;
+                                    padding: 5px;
+                                    text-align: center;
+                                }
+                                table tr th:last-child,
+                                table tr td:last-child {
+                                    border-right: 2px solid #000;
+                                }
+                                .table-head {
+                                    text-align: center;
+                                    color: #FFF;
+                                    background: #666;
+                                }
+                                table table {
+                                    border: none;
+                                }
+                                table table tr td {
+                                    border: none !important;
+                                }
+
+                                .report-footer {
+                                    width: 100%;
+                                    float: left;
+                                }
+                                .foot-col-01 ,
+                                .foot-col-02 ,
+                                .foot-col-03 {
+                                    width: 33%;
+                                    float: left;
+                                }
+                                .report-footer p {
+                                    text-align: center;
+                                }
+                                .last-values {
+                                    width: 100%;
+                                    float: left;
+                                    margin: 15px 0px 0px;
+                                }
+                                .qty,
+                                .amount {
+                                    width: 50%;
+                                    float: left;
+                                }
+                                .qty p {
+                                    text-align: center;
+                                }
+                                .amount p {
+                                    text-align: center;
+                                }
+
+                            </style>
+
+                            <div class="main_header">
+
+                                <div class="report-header">
+                                    
+                                    <div class="header-col-01">
+
+                                        <div class="logo">
+                                            <img src="/custom_invoice_arian/static/src/img/logo.jpg" alt="" />
+                                        </div>
+
+                                        <div class="logo-text">
+
+                                            <p><b>Arian Sports (Pvt) Ltd Customer</b></p>
+                                            <p><b>1Km off Naul More Roras Road</b></p>
+                                            <p><b>Sialkot Pakistan</b></p>
+                                            
+                                        </div>
+
+                                    </div><!--end of header col 01-->
+
+                                    <div class="header-col-02">
+                                        <p>
+                                            <span class="solid"><b>CONSIGNED TO:</b></span> 
+
+                                            <span class="liquid" t-esc="o.partner_id.name"></span>
+                                            <br />
+
+                                            <span class="liquid" t-esc="o.partner_id.street"></span>
+                                            <span class="liquid" t-esc="o.partner_id.street2"></span>
+                                            <span class="liquid" t-esc="o.partner_id.city"></span>
+                                            <br />
+                                            
+                                            <span class="liquid" t-esc="o.partner_id.zip"></span>
+                                            <span class="liquid" t-esc="o.partner_id.state_id.name"></span>
+                                            <br />
+                                            
+                                            <span class="liquid" t-esc="o.partner_id.country_id.name"></span>
+                                        </p>
+                                    </div><!--end of header col 02-->
+
+                                </div><!--end of header-->
+
+                                <div class="report-header">
+                                    
+                                    <div class="header-col-01">
+
+                                        <p>
+                                            <span class="solid"><b>NOTIFY TO:</b></span>
+
+                                            <span class="liquid"></span>
+                                        </p>
+
+                                    </div><!--end of header col 01-->
+
+                                    <div class="header-col-02">
+                                        <p>
+                                            <span class="solid"><b>Form of Documentrary Credit:</b></span> 
+                                            <span class="liquid">IRREVOCABLE</span>
+                                            <br />
+                                            <br />
+
+                                            <span class="solid"><b>Documentrary Credit # </b></span> 
+                                            <span class="liquid">Y20L170041000030</span>
+                                            <br />
+                                            
+                                            <span class="solid"><b>Date of Issue: </b></span> 
+                                            <span class="liquid">170203</span>
+
+                                        </p>
+                                    </div><!--end of header col 02-->
+
+                                </div><!--end of header-->
+
+                                <div class="tower">
+
+                                    <div class="two-col-01">
+
+                                        <p><span class="solid"><b>Invoice No : </b></span> <span class="liquid" t-esc="o.number"></span></p>
+
+                                    </div>
+
+                                    <div class="two-col-02">
+
+                                        <p><span class="solid"><b>Date : </b></span> <span class="liquid" t-esc="o.date_invoice"></span></p>
+
+                                    </div>
+
+                                </div><!--end of tower-->
+
+                                <div class="tower">
+
+                                    <div class="two-col-01">
+
+                                        <p><span class="solid"><b>Form E Date : </b></span> <span class="liquid" t-esc="o.form_e_date"></span></p>
+
+                                    </div>
+
+                                    <div class="two-col-02">
+
+                                        <p><span class="solid"><b>Form E # : </b></span> <span class="liquid" t-esc="o.e_form_no"></span></p>
+
+                                    </div>
+
+                                </div><!--end of tower-->
+                                
+                                <div class="tower">
+
+                                    <div class="two-col-01">
+
+                                        <p><span class="solid"><b>A.W.B.No. : </b></span> <span class="liquid" t-esc="o.awb_no"></span></p>
+
+                                    </div>
+
+                                    <div class="two-col-02">
+
+                                        <p>
+
+                                            <span class="solid"><b>A.W.B Date : </b></span>
+                                            <span class="liquid" t-esc="o.awb_date"></span>
+
+                                        </p>
+
+                                    </div>
+
+                                </div><!--end of tower-->
+
+                                <div class="tower">
+
+                                    <div class="two-col-01">
+
+                                        <p><span class="solid"><b>Ship Via : </b></span> <span class="liquid" t-esc="o.ship_mode"></span></p>
+
+                                    </div>
+
+                                    <div class="two-col-02">
+
+                                        <p><span class="solid"><b>PAYMENT TERM: </b></span> <span class="liquid" t-esc="o.payment_term_id.name"></span></p>
+
+                                    </div>
+
+                                </div><!--end of tower-->
+
+                                <div class="tower">
+
+                                    <div class="two-col-01">
+
+                                        <p><span class="solid"><b>AIRPORT OF DEPARTURE : </b></span> <span class="liquid">ISLAMABAD</span></p>
+
+                                    </div>
+
+                                    <div class="two-col-02">
+
+                                        <p><span class="solid"><b>Port of Discharge : </b></span> <span class="liquid" t-esc="o.port"></span></p>
+
+                                    </div>
+
+                                </div><!--end of tower-->
+
+                                <div class="tower">
+
+                                    <div class="two-col-01">
+
+                                        <p><span class="solid"><b>Shipment of : </b></span> <span class="liquid" t-esc="o.shipment_of"></span></p>
+
+                                    </div>
+
+                                    <div class="two-col-02">
+
+                                        <p><span class="solid"><b>PAYMENT TERM: </b></span> <span class="liquid" t-esc="o.payment_term_id.name"></span></p>
+
+                                    </div>
+
+                                </div><!--end of tower-->
+                                
+                                <div class="tower">
+
+                                    <div class="two-col-01">
+
+                                        <p><span class="solid"><b>TRADE TERM: </b></span> <span class="liquid" t-esc="o.inco_terms.code"></span></p>
+
+                                    </div>
+
+                                    <div class="two-col-02">
+
+                                        <p><span class="solid"><b>Ship Via : </b></span> <span class="liquid" t-esc="o.ship_mode"></span></p>
+
+                                    </div>
+
+                                </div><!--end of tower-->
+                                
+                                <div class="tower">
+
+                                    <div class="two-col-01">
+
+                                        <p><span class="solid"><b>No. of Cartons: </b></span> <span class="liquid" t-esc="o.no_of_cartons"></span></p>
+
+                                    </div>
+
+                                    <div class="two-col-02">
+
+                                        <p><span class="solid"><b>COUNTRY OF ORIGIN: </b></span> <span class="liquid">Pakistan</span></p>
+
+                                    </div>
+
+                                </div><!--end of tower-->
+
+                                <table cellspacing='0'>
+
+                                    <tr>
+                                        <th>Style No</th>
+                                        <th>DESCRIPTION OF GOODS</th>
+                                        <th>Colors</th>
+                                        <th>QTY UNIT (Pairs)</th>
+                                        <th>PRICE CIF US$</th>
+                                        <th>TOTAL AMOUNT</th>
+                                    </tr>
+
+                                    <tr>
+                                        <td colspan="6" class="table-head">MO/219/16</td>
+                                    </tr>
+
+                                    <t t-set="total_quantity" t-value="0" />
+                                    <t t-set="total_amount" t-value="0" />
+
+                                    <t t-foreach="temple_ids" t-as="data">
+                                        <t t-set="prod_id" t-value="data" />
+
+                                        <tr>
+
+                                            <td>
+                                                <span t-esc="temple_products(prod_id, 'name')"></span><br />
+                                            </td>
+                                            
+                                            <td>
+                                                <span><span t-esc="temple_products(prod_id, 'descrip')"></span>, "<span t-esc="temple_products(prod_id, 'name')"></span> <span t-esc="temple_products(prod_id, 'color')"></span></span>
+
+                                                <table cellspacing='0'>
+                                                    <t t-set="sizing_id" t-value="set_sizing(prod_id)" />
+
+                                                    <tr>
+
+                                                        <td><b>Size</b></td>
+                                                        <t t-foreach="sizing_ids" t-as="sizer">
+                                                            <td><span t-esc="sizer"></span></td>
+                                                        </t>
+
+                                                    </tr>
+
+                                                    <tr>
+
+                                                        <td><b>QTY</b></td>
+                                                        <t t-foreach="sizing_ids" t-as="sizer">
+                                                            <td><span t-esc="get_size_qty(sizer,prod_id)"></span></td>
+                                                        </t>
+
+                                                    </tr>
+                                                
+                                                </table>
+
+                                            </td>
+
+                                            <td><span t-esc="temple_products(prod_id, 'color')"></span></td>
+
+                                            <td>
+                                                <span t-esc="temple_products(prod_id, 'qty')"></span> Pair
+
+                                                <t t-set="total_quantity" t-value="total_quantity + temple_products(prod_id, 'qty')" />
+                                            </td>
+                                            <td><span t-esc="temple_products(prod_id, 'avg_price')"></span></td>
+                                            <td>
+                                                <span t-esc="temple_products(prod_id, 'total_price')"></span>
+                                                <t t-set="total_amount" t-value="total_amount + temple_products(prod_id, 'total_price')" />
+                                            </td>
+
+                                        </tr>
+
+                                    </t>
+
+                                </table>
+
+                                <div class="last-values">
+
+                                    <div class="qty">
+                                        <p><span><b>Total Quantity: </b></span><span t-esc="total_quantity"></span></p>
+                                    </div>
+
+                                    <div class="amount">
+                                        <p><span><b>Payment Details: </b></span></p>
+
+                                        <table>
+
+                                            <tr>
+
+                                                <td>Total Proforma Invoice Amount:</td>
+                                                <td>EUR <span t-esc="total_amount"></span></td>
+
+                                            </tr>
+
+                                            <tr>
+
+                                                <td>Deposit Paid of this L/C:</td>
+                                                <td>EUR 42138.60</td>
+
+                                            </tr>
+
+                                            <tr>
+
+                                                <td>Total Amount Coverd Under this Invoice</td>
+                                                <td>EUR 151920.24</td>
+
+                                            </tr>
+
+                                        </table>
+
+                                    </div>
+
+                                </div><!--end of last values-->
+
+                                <p style="width: 100%; float: left; margin: 20px 0px; font-weight: bold;"><span class="solid">TOTAL AMOUNT</span> <span class="liquid">US$: <span t-esc="o.convert_amount()"></span></span></p>
+
+                                <div class="report-footer">
+                                    
+                                    <div class="foot-col-01">
+
+                                        <p><b><u>MARKS &amp; NO.</u></b></p>
+                                        <p><span class="liquid">UNIK 1/<span  t-esc="o.no_of_cartons"></span> TO <span  t-esc="o.no_of_cartons"></span>/<span  t-esc="o.no_of_cartons"></span></span></p>
+
+                                    </div>
+                                    
+                                    <div class="foot-col-02">
+
+                                        <p> </p>
+
+                                    </div>
+                                    
+                                    <div class="foot-col-03">
+
+                                        <table>
+                                            <tr>
+                                                <td>CARTON DIM</td>
+                                                <td><span t-esc="o.carton_size"></span> cm</td>
+                                            </tr>
+                                            <tr>
+                                                <td>APX GROSS WEIGHT KG'S</td>
+                                                <td><span t-esc="o.gross_weight"></span> KG</td>
+                                            </tr>
+                                            <tr>
+                                                <td>APX NET WEIGHT KG'S</td>
+                                                <td><span t-esc="o.net_weight"></span> KG</td>
+                                            </tr>
+                                        </table>
+
+                                    </div>
+
+                                </div><!--end of footer-->
+
+                            </div><!--end of main wrapper-->
+
+                        </div><!--end of page-->
+                    </t>
+                </t>
+            </t>
+
+        </template>
+
+    </data>
+
+</openerp>

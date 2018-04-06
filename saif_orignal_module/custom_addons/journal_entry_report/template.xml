@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <report
+            id="journal_entry_report" 
+            model="account.move"
+            name="journal_entry_report.journal_entry"
+            file="journal_entry_report.journal_entry"
+            report_type="qweb-html"
+            string="Journal Entry Report"/> 
+    </data>
+</openerp>

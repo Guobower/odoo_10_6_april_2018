@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <report
+            id="settlement_report_id" 
+            model="settlement"
+            name="settlement_report.leave_cashment_report"
+            file="settlement_report.leave_cashment_report"
+            report_type="qweb-html"
+            string="Settlement"/> 
+    </data>
+</openerp>

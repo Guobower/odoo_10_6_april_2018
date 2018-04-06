@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+
+    <data>   
+
+        <template id="leave_cashment_report">
+
+            <t t-call="report.html_container">
+                <t t-call="report.external_layout">
+                    <t t-foreach="docs" t-as="o">
+
+                        <div class="page">
+
+                            <style>
+
+                                .mainwraper {
+                                  width: 1080px;
+                                  margin: 0px auto;
+                                  margin-top: 40px;
+                                }
+                                img {
+                                  width: 20%;
+                                  height: 60px;
+                                  float: left;
+                                  display: inline-block;
+                                }
+                                .head {
+                                  width: 50%;
+                                  text-align: center;
+                                  float: left;
+                                  margin: 0px 0px 0px 0px;
+                                }
+                                .head2 {
+                                  width: 90%;
+                                    display: inline-block;
+                                    float: left;
+                                    text-align: center;
+                                }
+                                p {
+                                  margin: 0px;
+                                }
+                                table {
+                                  border: 2px solid black;
+                                  border-collapse: collapse;
+                                  width: 100%;
+                                  padding: 2px;
+                                }
+                                th ,td {
+                                  border: 1px solid black;
+                                  border-collapse: collapse;
+                                  padding: 10px;
+                                  text-align: left;
+                                }
+                                .total {
+                                  border-bottom: hidden;
+                                  border-top: 2px solid;
+                                }
+                                .left {
+                                  border-left: hidden;
+                                }
+                                .border {
+                                  border: 2px solid;
+                                }
+                                .rotate {
+                                  transform: rotate(-90.0deg);
+                                  text-align: center;
+                                  font-weight: bold;
+                                  font-size: 12px;
+                                }
+                                .last-p {
+                                  float: right;
+                                    width: 28%;
+                                    margin-right: 333px;
+                                }
+                                .box {
+                                    border: 2px solid black;
+                                    padding: 35px;
+                                    margin-top: 70px;
+                                    margin-left: 786px;
+
+                                }
+                                .prep {
+                                  width: 20%;
+                                  font-weight: bold;
+                                  border-top: 2px solid black;
+                                  text-align: center; 
+                                  display: inline-block;
+                                  float: left;
+                                }
+                                .accont {
+                                  width: 25%;
+                                  font-weight: bold;
+                                  text-align: center;
+                                  float: right;
+                                  border-top: 2px solid black;
+                                  margin: 0px 530px 0px 0px; 
+                                }
+
+                            </style>
+
+                            <div class="mainwraper">
+
+                                <img src="/settlement_report/static/src/img/logo.png" alt=" "/>
+
+                                <h2 class="head">MR.FABRICS(PVT) LTD.</h2>
+
+                                <div class="head2">
+                                  <p>FULL AND FINAL SETTLEMENT</p>
+                                  <p>M/O <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%B %Y')"/></p>
+                                </div>
+
+                                <table>
+                                  <tr>
+                                    <th>NAME</th>
+                                    <td>
+                                      <span t-esc="o.name.name"></span>
+                                    </td>
+                                    <th>H/NAME</th>
+                                    <td>
+                                      <span t-esc="o.fname"></span>
+                                    </td>
+                                    <th>C/NO</th>
+                                    <td>
+                                      <span t-esc="o.cnic"></span>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <th>DESIGNATION:</th>
+                                    <td>
+                                      <span t-esc="o.designation.name"></span>
+                                    </td>
+                                    <th>SHIFT</th>
+                                    <td>
+                                      <span t-esc="o.shift.name"></span>
+                                    </td>
+                                    <th>DEPART</th>
+                                    <td>
+                                      <span t-esc="o.depart_id.name"></span>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <th>DATE OF APPTT:</th>
+                                    <td>
+                                      <span t-esc="o.date_app"></span>
+                                    </td>
+                                    <th>DATE OF S.O.S/ Resign</th>
+                                    <td>
+                                      <span t-esc="o.date_resign"></span>
+                                    </td>
+                                    <th></th>
+                                    <td></td>
+                                  </tr>
+                                  <tr>
+                                    <th colspan ="2" class="total">
+                                    TOTAL /MONTH/DAYS WORKED</th>
+                                    <td colspan="4" class=" total left"><span t-esc="year"></span> YEAR,<span t-esc="month"></span> MONTHS &amp; <span t-esc="days"></span> DAYS</td>
+                                  </tr>
+                                  <tr>
+                                    <th colspan ="2">RATE OF PAY PER MONTH RS.</th>
+                                    <td colspan="4" class="left">--</td>
+                                  </tr>
+                                  <tr class="border">
+                                    <th></th>
+                                    <th colspan="2">EARNED</th>
+                                    <th colspan="3">AMOUNT</th>
+                                  </tr>
+                                  <tr>
+                                    <td colspan="6" style="font-weight:bold;padding-left:8px">Basic</td>
+                                  </tr>
+
+                                  <t t-set="btotal" t-value="0"/>
+                                  <t t-set="gtotal" t-value="0"/>
+                                  <t t-set="ntotal" t-value="0"/>
+                                  <t t-foreach="o.settle_id" t-as="line">
+                                    <t t-if = "line.name == 'Basic'">
+
+                                      <tr>
+                                        <td></td>
+                                          <td colspan="2">
+                                            <span t-esc="line.types.name"></span>
+                                          </td>
+                                          <td colspan="3">
+                                            <span t-esc="'{:0,}'.format(int(float(line.amount)))"></span>
+                                            <t t-set="btotal" t-value="btotal+line.amount"/>
+                                          </td>
+                                          
+                                      </tr>
+
+                                    </t>
+                                  </t>
+                                  <tr class="border">
+                                    <td></td>
+                                    <th>TOTAL (SALARY / WAGES)</th>
+                                    <td>--</td>
+                                    <td colspan="3">
+                                      <span t-esc="'{:0,}'.format(int(float(btotal)))"></span>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td colspan="6" style="font-weight:bold;padding-left:8px">Allowances</td>
+                                  </tr>
+
+                                  <t t-set="atotal" t-value="0"/>
+                                  <t t-foreach="o.settle_id" t-as="line">
+                                    <t t-if = "line.name == 'Allowances'">
+
+                                      <tr>
+                                        <td></td>
+                                          <td colspan="2">
+                                            <span t-esc="line.types.name"></span>
+                                          </td>
+                                          <td colspan="3">
+                                            <span t-esc="'{:0,}'.format(int(float(line.amount)))"></span>
+                                            <t t-set="atotal" t-value="atotal+line.amount"/>
+                                          </td>
+                                       
+                                      </tr>
+                                      
+                                    </t>
+                                  </t>
+                                  <tr class="border">
+                                    <td></td>
+                                    <th>TOTAL</th>
+                                    <td >--</td>
+                                    <td colspan="3">
+                                      <span t-esc="'{:0,}'.format(int(float(atotal)))"></span>
+                                    </td>
+                                  </tr>
+                                  <tr class="border">
+                                    <td></td>
+                                    <th>GRAND TOTAL</th>
+                                    <td>--</td>
+                                    <td colspan="3">
+                                      <t t-set="gtotal" t-value="btotal+atotal"/>
+                                      <span t-esc="'{:0,}'.format(int(float(gtotal)))"></span>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td colspan="6" style="font-weight:bold;padding-left:8px">Deduction</td>
+                                  </tr>
+
+                                  <t t-set="dtotal" t-value="0"/>
+                                  <t t-foreach="o.settle_id" t-as="line">
+                                    <t t-if = "line.name == 'Deduction'">
+
+                                      <tr>
+                                        <td></td>
+                                          <td colspan="2">
+                                            <span t-esc="line.types.name"></span>
+                                          </td>
+                                          <td colspan="3">
+                                            <span t-esc="'{:0,}'.format(int(float(line.amount)))"></span>
+                                            <t t-set="dtotal" t-value="dtotal+line.amount"/>
+                                          </td>
+                                       
+                                      </tr>
+                                      
+                                    </t>
+                                  </t>
+                                  <tr class="border">
+                                    <td></td>
+                                    <th>TOTAL</th>
+                                    <td>--</td>
+                                    <td colspan="3">
+                                      <span t-esc="'{:0,}'.format(int(float(dtotal)))"></span>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td colspan="2" 
+                                    style="border-bottom:hidden;border-left:hidden;">
+                                    </td>
+                                    <th>NET AMOUNT</th>
+                                    <td colspan="3">
+                                      <t t-set="ntotal" t-value="gtotal-dtotal"/>
+                                      <span t-esc="'{:0,}'.format(int(float(ntotal)))"></span>
+                                    </td>
+                                  </tr>
+
+                                </table>
+
+                                <p class="last-p">RECEIVED ALL MY DUES AS ABOVE AND OTHER UP TILL NOW NOTHING IS DUE MORE WITH THE ORGANIZATION.</p>
+                                <p class="box">
+                                  <span style="margin-left:40px;font-weight:bold;">Signature / L. T .I.</span>
+                                </p>
+
+                                <p class="prep">Prepared by</p>
+
+                                <p class="accont">ACCOUNT DEPART</p>
+
+                            </div>
+
+                        </div><!--end of page-->
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</openerp>

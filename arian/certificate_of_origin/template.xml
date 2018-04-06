@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <report
+            id="report_for_module_sr" 
+            model="account.invoice"
+            name="certificate_of_origin.module_report"
+            file="certificate_of_origin.module_report"
+            report_type="qweb-html"
+            string="Certificate of Origin"/> 
+    </data>
+</openerp>

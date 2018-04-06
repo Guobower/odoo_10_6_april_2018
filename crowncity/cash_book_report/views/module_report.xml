@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+
+    <data>   
+
+        <template id="module_report">
+
+            <t t-call="report.html_container">
+                <t t-call="report.external_layout">
+                    <t t-foreach="docs" t-as="o">
+
+                        <div class="page">
+
+                            <style>
+
+                                .main-data {
+                                    width: 100%;
+                                }
+                                .center-data {
+                                    width: 1000px;
+                                    margin: 0px auto;
+                                }
+                                .solid {
+                                    width: 5%;
+                                    font-weight: bold;
+                                    margin-left: 8px;
+                                }
+                                .liquid {
+                                    margin-left: 5px;
+                                }
+                                table, td, th {
+                                    border: 1px solid;
+                                    border-collapse: collapse;
+                                    text-align: center;
+                                    padding: 6px;
+                                }
+                                .general {
+                                    width: 50%;
+                                    float: left;
+                                }
+            
+                            </style>
+      
+                            <div class="main-data">
+
+
+
+                                <div class="center-data">
+                                    <h3>
+                                        <t t-esc="o.name"/>
+                                    </h3>
+                                    <div class="general">
+                                        <p><span class="solid">Journal</span>
+                                            <span class="liquid" t-esc="o.journal_id.name"></span>
+                                        </p>
+                                        <p><span class="solid">Date</span>
+                                            <span class="liquid" t-esc="time.strftime('%d-%m-%Y',time.strptime(o.date,'%Y-%m-%d'))"></span>
+                                        </p>
+                                    </div>
+                                    <div class="general">
+                                        <p><span class="solid">Starting Balance</span>
+                                            <span class="liquid" t-esc="'{:0,}'.format(int(float(get_open()+o.balance_start)))"></span>
+                                        </p>
+                                        <p><span class="solid">Ending Balance</span>
+                                            <span class="liquid" t-esc="'{:0,}'.format(int(float(o.balance_end_real)))"></span>
+                                        </p>
+                                    </div>
+                                    <p><b>Transaction</b></p>
+                                    <table width="100%">
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Label</th>
+                                            <th>Account</th>
+                                            <th>Paid</th>
+                                            <th>Received</th>
+                                            <!-- <th>Amount</th> -->
+                                        </tr>
+
+                                        <t t-set="total" t-value="0"/>
+                                        <t t-foreach="enteries" t-as="line">
+                                            
+
+                                            <tr>
+                                                <td>
+                                                    <span t-esc="time.strftime('%d-%m-%Y',time.strptime(line.date,'%Y-%m-%d'))"></span>
+                                                </td>
+                                                <td style="text-align:left">
+                                                    <span t-esc="line.name"></span>
+                                                </td>
+                                                <td>
+                                                    <span t-esc="line.account.name"></span>
+                                                </td>
+                                                <td>
+                                                    <span t-esc="'{:0,}'.format(int(float(line.paid)))"></span>
+                                                </td>
+                                                <td>
+                                                    <span t-esc="'{:0,}'.format(int(float(line.received)))"></span>
+                                                    <t t-set="total" t-value="total+line.amount"/>
+                                                </td>
+                                                <!-- <td>
+                                                    <span t-esc="'{:0,}'.format(int(float(line.amount)))"></span>
+                                                </td> -->
+
+                                            </tr>
+
+                                        </t>
+
+                                        
+
+                                        <tr>
+                                            <td colspan="3" style="font-weight:bold">Computed Balance</td>
+                                            <td colspan="2">
+                                                <span t-esc="'{:0,}'.format(int(float(total+get_open()+o.balance_start)))"></span>
+                                            </td>
+                                        </tr>
+
+                                    </table>
+
+                                </div>
+
+                                    <!-- </t> -->
+
+                                <!-- </t> -->
+                                
+                            </div>
+
+                        </div>
+
+                    </t>
+
+                </t>
+            </t>
+
+        </template>
+
+    </data>
+
+</openerp>

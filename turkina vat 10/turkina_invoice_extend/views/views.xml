@@ -1,0 +1,108 @@
+<odoo>
+  <data>
+
+    
+    <record id="date_form_view"   model="ir.ui.view"> 
+        <field name="name">date_form_view</field> 
+        <field name="model">account.invoice</field> 
+        <field name="inherit_id" ref="account.invoice_form"/> 
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='team_id']" position="after">
+              <field name="due_date" />
+            </xpath>
+
+        </field> 
+    </record>
+
+     <record id="discount_form_view"   model="ir.ui.view"> 
+        <field name="name">discount_form_view</field> 
+        <field name="model">account.invoice</field> 
+        <field name="inherit_id" ref="account.invoice_form"/> 
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='payment_term_id']" position="after">
+              <field name="give_discount" />
+              <field name="percent" attrs="{'invisible':[('give_discount','=',False)]}"/>
+              <field name="days" attrs="{'invisible':[('give_discount','=',False)]}"/>
+            </xpath>
+
+        </field> 
+    </record>
+
+
+    <record id="sale_form_view"   model="ir.ui.view"> 
+      <field name="name">sale_form_view</field> 
+      <field name="model">sale.order</field> 
+      <field name="inherit_id" ref="sale.view_order_form"/> 
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='payment_term_id']" position="after">
+          <field name="give_discount" />
+          <field name="percent" attrs="{'invisible':[('give_discount','=',False)]}"/>
+          <field name="days" attrs="{'invisible':[('give_discount','=',False)]}"/>
+        </xpath>
+
+      </field> 
+    </record>
+
+       <!--Inherit Form View to Modify it invoice line-->
+
+
+      <record id="InvLineExt" model="ir.ui.view">
+          <field name="name">InvLineExt</field>
+          <field name="model">account.invoice</field>
+          <field name="inherit_id" ref="account.invoice_form"/>
+          <field name="arch" type="xml">
+              <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name= 'price_subtotal']" position="after">
+                <field name="afterTaxAmt"/>
+              </xpath>
+          </field>
+      </record>
+
+
+    <!-- Inherit Form View to Modify it sale order line-->
+
+    <record id="SaleOrderLineExt" model="ir.ui.view">
+        <field name="name">SaleOrderLineExt</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+           <xpath expr="//field[@name='order_line']/tree/field[@name= 'price_subtotal']" position="after">
+               <field name="afterTaxAmt"/>
+           </xpath>
+        </field>
+    </record>
+
+      <!-- Inherit Form View to Modify it -->
+      <record id="ResPartnerExtFrom" model="ir.ui.view">
+          <field name="name">ResPartnerExtFrom</field>
+          <field name="model">res.partner</field>
+          <field name="inherit_id" ref="base.view_partner_form"/>
+          <field name="arch" type="xml">
+
+              <xpath expr="//field[@name='category_id']" position="after">
+                  <!-- Add your fields or attributes here -->
+                  <field name="vat"/>
+              </xpath>
+
+          </field>
+      </record>
+
+
+       Inherit Form View to Modify it
+      <record id="ResCompanyExtFrom" model="ir.ui.view">
+          <field name="name">ResCompanyExtFrom</field>
+          <field name="model">res.company</field>
+          <field name="inherit_id" ref="base.view_company_form"/>
+          <field name="arch" type="xml">
+
+              <xpath expr="//field[@name='website']" position="after">
+                  <!-- Add your fields or attributes here -->
+                  <field name="vat"/>
+              </xpath>
+
+          </field>
+      </record>
+
+    
+    
+  </data>
+</odoo>

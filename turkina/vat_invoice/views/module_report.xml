@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+
+    <data>   
+
+        <template id="vat_invoice_id">
+
+            <t t-call="report.html_container">
+                <t t-call="report.external_layout">
+                    <t t-foreach="docs" t-as="o">
+
+                        <div class="page">
+        
+                            <style>
+                                .container {
+                                    width: 100%;
+                                }
+                                
+                                body {
+                                    margin: 0px !important;
+                                }
+                                body.o_in_iframe {
+                                    margin-top: 0px!important;
+                                }
+                                table, td, th {
+                                    border: 1px solid;
+                                    border-collapse: collapse;
+                                    margin-top: 10px;
+                                    text-align: right;
+                                    padding: 5px;
+                                    font-size: 15px;
+                                    border-color:#95A5A6;
+                                }
+                               
+                                table th {
+                                    background-color:#077D6A;
+                                    padding-right: 20px;
+                                }
+                                table td {
+                                    padding-right: 20px;
+                                }
+                                .main-data {
+                                    width: 100%;
+                                }
+                                .center-data {
+                                    width: 100%;
+                                    margin: 0px auto;
+                                    margin: 20px 0px 20px 0px;
+                                }
+                                .clearfloat {
+                                    clear: both;
+                                    float: none;
+                                }
+                                .liquid {
+                                    margin-right: 20px;
+                                }
+                                .solid {
+                                    font-weight: bold;
+                                    margin-right: 10px;
+                                }
+                                clearfloat {
+                                    float: none;
+                                    clear:both;
+                                }
+                                .experience {
+                                    width: 50%;
+                                    text-align: right;
+                                    margin-right: 20px;
+                                    float:right;
+                                    margin-top: 20px;
+                                    margin-bottom: 20px;
+                                }
+                                img {
+                                    float: left;
+                                    margin-bottom: 20px;
+                                }
+                                .arabic_1 {
+									width: 70%;
+									float: left;
+									margin-top: 15px;
+								}
+
+								.arabic_1 .solid {
+									width: 100%;
+									float: left;
+									font-weight: bold;
+
+								}
+                                .arabic_2 {
+									width: 70%;
+									float: left;
+									margin-top: 15px;
+								}
+                                .margin {
+                                     max-width: 300px;
+                                    width: 300px;
+                                    min-width: 300px;
+                                }
+                                .colors {
+                                    background-color: #AED6F1 ;
+                                }
+								.arabic_2 .solid {
+									width: 100%;
+									float: left;
+									font-weight: bold;
+
+								}
+                                table.smalls {
+                                    width: 512px;
+                                    float:right;
+                                    margin-bottom:10px;
+                                    border: none;
+                                }
+                                table.large {
+                                    width: 700px;
+                                }
+                                table.smalls tr {
+                                    border: none;
+                                }
+                                table.smalls tr td {
+                                    border: none;
+                                }
+                                table.smalls tr td.extra-width {
+                                    min-width: 400px;
+                                    width: 400px;
+                                }
+                                table.smalls tr td.headings {
+                                    width: 250px;
+                                    min-width: 250px;
+                                }
+                                table tr td.space { 
+                                width: 123px; 
+                                min-width: 123px;
+                                 max-width: 123px; 
+                                 }
+                            </style>
+                            <div class="main-data">
+                                <div class="center-data">
+                                    
+
+                                    <table class="smalls">
+                                        <tr>
+                                            
+                                            <td>
+                                                <h3><span class="liquid" t-esc="o.company_id.name"></span></h3>
+                                            </td>
+
+                                            <td>
+                                                <span class="solid"></span>
+                                            </td>
+
+                                        </tr>
+
+                                        <tr>
+
+                                            <td class="extra-width">
+                                                <span class="liquid" t-esc = "o.company_id.street2"></span>
+                                                <span class="liquid" t-esc = "o.company_id.street"></span>
+                                            </td>
+
+                                            <td rowspan="2">
+                                                <!-- <span class="solid">العنوان </span> -->
+                                            </td>
+
+                                        </tr>
+
+                                        <tr>
+                                            
+                                            <td class="extra-width">
+                                                <span class="liquid" t-esc = "o.company_id.country_id.name"></span>
+                                                <span class="liquid" t-esc = "o.company_id.city"></span>
+                                            </td>
+
+                                        </tr>
+                                         <tr>
+                                            
+                                            <td>
+                                                <span class="liquid" t-esc="o.user_id.name"></span>
+                                            </td>
+
+                                            <td>
+                                                <span class="solid">إسم مندوب</span>
+                                            </td>
+
+                                        </tr>
+
+                                    </table>
+
+                                    <span class="logo"><img src="/vat_invoice/static/src/img/turkina.jpeg" alt="turkina.jpeg"/></span>
+
+                                    <table class="table-one" width="100%" style="float: right;">
+                                        <tr>
+                                            <td class="margin"> <span t-esc="o.date_invoice"></span></td>
+                                            <td class="colors">تاريخ اإلصدار</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="margin"><span t-esc="o.number"></span></td>
+                                            <td class="colors">رقم الفاتورة</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="margin"><span t-esc = "o.company_id.vat"></span></td>
+                                            <td class="colors">الرقم التعريفي للمنشأة الموردة الخاص
+                                                بضريبة القيمة المضافة</td>
+                                        </tr>
+                                    </table>
+                                    <br class="clearfloat"/>
+                                    
+                                    <table class="smalls large">
+                                        
+                                        <tr >
+                                            <td >
+                                                <h3><span class="liquid" t-esc="o.partner_id.name"></span></h3>
+                                            </td>
+                                            <td class="headings">
+                                                <!-- <span class="solid">إلى:</span> -->
+                                            </td>
+                                        </tr>
+                                        
+                                        <tr >
+                                            <td class="extra-width" >
+                                                <span class="liquid" t-esc = "o.partner_id.street2"></span>
+                                                <span class="liquid" t-esc = "o.partner_id.street"></span>
+                                            </td>
+                                            <td rowspan="2" class="headings">
+                                                <!-- <span class="solid">العنوان </span> -->
+                                            </td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td class="extra-width">
+                                                <span class="liquid" t-esc = "o.partner_id.country_id.name"></span>
+                                                <span class="liquid" t-esc = "o.partner_id.city"></span>
+                                            </td>
+                                        </tr>
+
+                                        <tr >
+
+                                            <td class="extra-width">
+                                                <span class="liquid" t-esc = "o.partner_id.vat"></span>
+                                            </td>
+                                            
+                                            <td class="headings">
+                                                <span class="solid">رقم ضريبة القيمة المضافة</span>
+                                            </td>
+
+                                        </tr>
+
+                                    </table>
+
+                                    <table width="100%">
+
+                                        <tr>
+                                            <td class="colors">اإلجمالي
+                                            ريال
+                                            سعودي</td>
+                                            <td class="colors">ضريبة
+                                            القيمة
+                                            المضافة
+                                            ريال
+                                            سعودي</td>
+                                            <td class="colors">النسبة
+                                            المئوية
+                                            لضريبة
+                                            القيمة
+                                            المضافة</td>
+                                           
+                                            <td class="colors">إجمالي
+                                            السعر
+                                            بدون
+                                            ضريبة
+                                            القيمة
+                                            المضافة</td>
+                                            <td class="colors">خصم</td>
+                                            <td class="colors"> سعر الوحدة</td>
+                                            <td class="colors"> كمية </td>
+                                            <td class="colors space">تاريخ التوريد</td>
+                                            <td class="colors">وصف البند</td>
+                                            <td class="colors">التسلسلي</td>
+                                        </tr>
+
+                                        <t t-set="count" t-value="0"/>
+                                        <t t-foreach="o.invoice_line_ids" t-as="data">
+                                            <t t-set="count" t-value="count+1"/>
+
+                                        <tr>
+                                            <td>
+                                                <span class="liquid" t-esc="data.price_subtotal + data.afterTaxAmt"></span>
+                                            </td>
+                                            
+                                            <td>
+                                                <span class="liquid" t-esc="data.afterTaxAmt"></span>
+                                            </td>
+                                            
+                                            <td>
+                                                <span class="liquid" t-esc="data.invoice_line_tax_ids.amount" ></span>%
+                                            </td>
+                                            
+                                            <td>
+                                                <span class="liquid" t-esc="data.price_subtotal"></span>
+                                            </td>
+                                            
+                                            <td>
+                                                <span class="liquid" t-esc="data.discount"></span>%
+                                            </td>
+                                            
+                                            <td>
+                                                <span class="liquid" t-esc="data.price_unit"></span>
+                                            </td>
+                                            
+                                            <td>
+                                                <span class="liquid" t-esc="data.quantity"></span>
+                                            </td>
+                                            
+                                            <td>
+                                                <span class="liquid" t-esc="o.date_invoice"></span>
+                                            </td>
+                                            
+                                            <td>
+                                                <span class="liquid" t-esc="data.name"></span>
+                                            </td>
+                                            
+                                            <td>
+                                                <span class="liquid" t-esc="count"></span>
+                                            </td>
+                                        </tr>
+                                        </t>
+
+                                    </table>
+
+                                    <p style="width: 60%;float:left;text-align: center; margin-top:15px;">ريال سعودي</p>
+                                    <br class="clearfloat"/>
+
+                                    <table width="60%" style="float: left;margin-bottom: 50px;">
+                                        <tr>
+                                            <td class="margin"><span class="liquid" t-esc = "actualAmt"></span>SR</td>
+                                            <td class="colors">الإجمالي قبل ضريبة و خصم</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="margin"><span class="liquid" t-esc = "amt"></span>SR</td>
+                                            <td class="colors">الإجمالي خصم</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="margin"><span class="liquid" t-esc = "o.amount_untaxed"></span>SR</td>
+                                            <td class="colors">إجمالي بعد الخصم</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="margin"><span class="liquid" t-esc = "o.amount_tax"></span>SR</td>
+                                            <td class="colors">الإجمالي ضريبة</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="margin"><span class="liquid" t-esc = "o.amount_total"></span>SR</td>
+                                            <td class="colors">الرصيد المستحق</td>
+                                        </tr>
+
+                                    </table>
+                                    <br class="clearfloat"/>
+                                    <br class="clearfloat"/>
+
+                                    <div style="margin-left:15px;margin-bottom:15px;">
+                                        <t t-if = "o.give_discount == True">
+
+									        <div class="lines">
+                                                <div class="arabic">
+                                                    <span class="solid">في حال السداد خلال مدة <span t-esc="o.days"></span> يوم من تاريخ الفاتورة يحصل العميل على خصم وقدرة %<span t-esc="o.percent"></span></span>
+                                                </div>
+                                                <div class="arabic_1">
+                                                    <span class="solid">في حال الاستفسار والمقترحات الرجاء</span>
+                                                </div>
+									        </div>
+
+								         </t>
+                                        <br class="clearfloat"/>
+
+                                        <div class="arabic_2">
+                                            <span t-esc="o.company_id.phone"></span>
+                                            <b><span> الاتصال على مدير المبيعات</span></b>
+                                        </div>
+                                    </div>
+                                    <br class="clearfloat"/>
+                                    <br class="clearfloat"/>
+
+                                </div>
+                            </div>
+
+                        </div><!--end of page-->
+
+                    </t>
+                </t>
+            </t>
+
+        </template>
+
+    </data>
+
+</openerp>

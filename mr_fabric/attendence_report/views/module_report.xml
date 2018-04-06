@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+
+    <data>   
+
+        <template id="attendence_report">
+
+            <t t-call="report.html_container">
+                <t t-call="report.external_layout">
+
+                    <div class="page">
+
+                        <style>
+                            @media (min-width: 992px) {
+                                .container {
+                                    width: 100%;
+                                }
+                            }
+
+                            @media (min-width: 768px) {
+                                .container {
+                                    width: 100%;
+                                }
+                            }
+                            .container {
+                                width: 100%;
+                            }
+                            .english {
+                                font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+                            }
+                            body {
+                                margin: 0px !important;
+                            }
+                            body.o_in_iframe {
+                                margin-top: 0px!important;
+                            }
+                            .main-data {
+                                width: 100%;
+                            }
+                            table, td, th {
+                                border: 1px solid;
+                                border-collapse: collapse;
+                                text-align: center;
+                                padding: 0px;
+                                border-color: #F4F6F7;                            
+                            }
+                            table th {
+                                padding: 10px 0px;
+                                background-color: #A9A9A9
+                            }
+                            table td {
+                                background-color: #D3D3D3
+                            }
+                            table td:nth-child(2),
+                            table th:nth-child(2) {
+                                text-align: left !important;
+                                padding: 0px 10px !important;
+                            }
+                            .solid {
+                                font-weight: bold;
+                                margin-right: 15px;
+                                margin-left: 15px;
+                            }
+                            .liquid {
+                                margin-left: 10px;
+                            }
+                            .clearfloat {
+                                float: none;
+                                clear: both;
+                            }
+                            .summary {
+                                width: 33%;
+                                float: left;
+                            }
+                            .attendance {
+                                width: 25%;
+                                float: left;
+                            }
+                            .category {
+                                width: 45%;
+                                float: left;
+                            }
+                            .clearfloat {
+                                clear: both;
+                                float: none;
+                            }
+                            .sign {
+                                margin-right: 30px;
+                                border-top: 1px solid;
+                                float: right;
+                                width: 15%;
+                                text-align: center;
+                            }
+                            .no-margin {
+                                margin-top: 0px;
+                                margin-bottom: 0px;
+                            }
+                            .report-head {
+                                text-align: center;
+                            }
+                            .report-head h1 {
+                                font-weight: normal;
+                                text-transform: uppercase;
+                                font-size: 30px;
+                            }
+                            table tr:nth-child(2) td {
+                                text-align: center;
+                                padding: 10px 0px;
+                            }
+                            span.zones {
+                                display: block;
+                                text-align: center;
+                                border-bottom: 0.5px solid #FFF;
+                                padding: 1px;
+                            }
+
+                            table td:nth-child(2),
+                            table td:nth-child(3),
+                            table td:nth-child(4) {
+                            }
+                            table td:nth-child(2) {
+                            }
+                            table td:nth-child(3) {
+                            }
+                            table td:nth-child(4) {
+                            }
+                            table tr td:nth-last-child(1),
+                            table tr td:nth-last-child(2) {
+                                min-width: 20px;
+                                max-width: 20px;
+                                width: 20px;
+                            }
+                        </style>
+
+                        <t t-if="size &lt; 16">
+                            <style>
+
+                                table, td, th {
+                                    font-size: 10px;
+                                }
+
+                            </style>
+                        </t>
+
+                        <t t-if="size &gt; 16">
+                            <style>
+
+                                table, td, th {
+                                    font-size: 9px;
+                                }
+
+                            </style>
+                        </t>
+
+                        <div class="main-data">
+
+                            <div class="report-head">
+                                <h1><u>Attendence Report</u></h1>
+                                <p>
+                                    <span class="solid">Date: </span>
+                                    <span class="liquid" t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d')"></span>
+                                </p>
+                                <p>
+                                    <span class="solid">ATTENDANCE SHEET FROM:</span>
+                                    <span class="liquid" t-esc="time.strftime('%d %b %Y',time.strptime(form,'%Y-%m-%d'))"></span>
+                                    <span class="solid">To:</span>
+                                    <span class="liquid" t-esc="time.strftime('%d %b %Y',time.strptime(to,'%Y-%m-%d'))"></span>
+                                </p>
+                            </div>
+
+                            <div style="width: 600px; margin: 20px auto; border-top: 2px solid #000;"></div>
+
+                            <table width="100%">
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                    <t t-foreach="dates" t-as="date">
+                                        <th>
+                                            <span t-esc="time.strftime('%d',time.strptime(date,'%Y-%m-%d'))"></span>
+                                        </th>
+                                    </t>
+                                    <th>TOTAL WORKING DAYS</th>
+                                    <th>TOTAL WORKING HOURS</th>
+                                </tr>
+                                <tr>
+                                    <td>Code</td>
+                                    <td>Name</td>
+
+                                    <t t-foreach="dates" t-as="date">
+                                        <td>
+                                            <span t-esc="time.strftime('%a',time.strptime(date,'%Y-%m-%d'))"></span>
+                                        </td>
+                                    </t>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+
+                                <t t-foreach="employees" t-as="employee">
+                                    
+                                    <t t-set="days" t-value="0" />
+                                    <t t-set="hour" t-value="0" />
+                                    
+                                    <tr>
+                                        
+                                        <td><span t-esc="employee.card_no.name"></span></td>
+                                        <td>
+                                            <span t-esc="employee.name"></span><br />
+                                            <span t-esc="employee.department_id.name"></span><br />
+                                            <span t-esc="employee.job_id.name"></span>
+                                        </td>
+
+                                        <t t-foreach="dates" t-as="date">
+                                            <td>
+                                                <t t-set="time" t-value="getattend(date,employee,'entry')" />
+                                                <span class="zones" t-esc="time"></span>
+
+                                                <t t-set="time" t-value="getattend(date,employee,'exit')" />
+                                                <span class="zones" t-esc="time"></span>
+
+                                                <t t-set="time" t-value="getattend(date,employee,'total')" />
+                                                <t t-set="real" t-value="getattend(date,employee,'real')" />
+
+                                                <span t-esc="time"></span>
+                                                <t t-if="time != '-'">
+                                                    <t t-set="days" t-value="days + 1" />
+                                                    <t t-set="hour" t-value="hour + real" />
+                                                </t>
+                                            </td>
+                                        </t>
+                                        
+                                        <td><span t-esc="days"></span></td>
+                                        <td><span t-esc="hour"></span></td>
+
+                                    </tr>
+                                </t>
+
+                            </table>
+                        </div>
+
+                    </div><!--end of page-->
+
+                </t>
+            </t>
+
+        </template>
+
+    </data>
+
+</openerp>

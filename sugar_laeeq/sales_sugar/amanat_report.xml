@@ -1,0 +1,85 @@
+<openerp>
+    <data>
+
+
+        <record id = "amanat_wizard" model = "ir.ui.view">
+            
+                <field name="name">amanat_wizard</field>
+        
+                <field name="model">amanats.wizard</field>
+        
+                <field name="type">form</field>
+        
+                <field name="arch" type="xml">
+        
+                <form delete ="false">
+
+                    <!-- <sheet>
+
+
+                        
+                        <group name="group_top">
+                            <group name="group_left">
+                                
+                        
+                            </group>
+                            <group name="group_right">
+                                
+
+                            </group>
+
+                        </group>
+                        
+                   </sheet>    -->
+                    <footer>
+                        
+                        <button name="update_values" type="object" string="Get Report" />
+                        
+                    </footer>
+
+
+                                              
+               </form>      
+                </field>
+        </record>
+
+
+
+
+       
+
+
+         <record id="amanat_wizard_action" model="ir.actions.act_window">
+            <field name="name">Get Report</field>
+            <field name="res_model">amanats.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="amanat_wizard"/>
+            <field name="target">new</field>       
+        </record>
+
+        
+<!-- 
+        <record id="action_make_testing" model="ir.actions.server">
+
+            <field name="name">Make Testing</field>
+
+            <field name="condition">True</field>
+
+            <field name="type">ir.actions.server</field>
+
+            <field name="model_id" ref="sales_sugar.model_stock_summary_sugar" />
+
+            <field name="state">code</field>
+
+            <field name="code">env["stock.summary.sugar"].test_act()</field>
+
+        </record> -->
+
+        <menuitem id='amanat_report' name='Amanat Report' sequence="100" parent="commission_menu"
+
+     action="amanat_wizard_action"/>
+
+
+    </data>
+</openerp>

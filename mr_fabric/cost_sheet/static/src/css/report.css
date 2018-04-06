@@ -1,0 +1,60 @@
+.header,
+.footer {
+    display: none !important;
+}
+.container {
+    max-width: 100%;
+    }
+@media (min-width: 1200px) {
+  .container {
+      width: 100%;
+  }
+}
+@media (min-width: 992px) {
+  .container {
+      width: 100%;
+  }
+}
+@media (min-width: 768px) {
+  .container {
+      width: 100%;
+  }
+}
+.mainwraper {
+    margin: 0px auto;
+    width: 100%;
+}
+.tabs {
+    width: 30%;
+    float: left;
+    margin: 0px 1.5%;
+}
+table ,th ,td {
+    border: 1px solid;
+    border-collapse: collapse;
+    font-size: 8px;
+    text-align: center;
+}
+th {
+    background-color: #E6E6FA;
+}
+.total th {
+    font-size: 12px;
+}
+table {
+    margin-top: 12px;
+}
+.border {
+    border-left: hidden;
+    border-bottom: hidden;
+}
+.heading span.dated {
+    display: inline-block;
+    width: 150px;
+    text-align: center;
+    background: #333;
+    font-weight: bold;
+    color: #FFF;
+    padding: 10px 0px;
+    margin: 0px 0px 0px 6px;
+}

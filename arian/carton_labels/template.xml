@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <report
+            id="carton_labels" 
+            model="commercial.packing.list"
+            name="carton_labels.module_report"
+            file="carton_labels.module_report"
+            report_type="qweb-html"
+            string="Carton Labels"/> 
+    </data>
+</openerp>

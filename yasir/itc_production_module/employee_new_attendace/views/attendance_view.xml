@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="view_dummy_attendance_tree" model="ir.ui.view">
+            <field name="name">dummy.attendance.tree</field>
+            <field name="model">dummy.attendance</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Dummy Attendance">
+                    <field name="employee_int"/>
+                    <field name="date"/>
+                    <field name="employee_id"/>
+                    <field name="cleaned"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_dummy_attendance_from" model="ir.ui.view">
+            <field name="name">dummy.attendance.form</field>
+            <field name="model">dummy.attendance</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Dummy Attendance">
+                    <sheet>
+                        <group>
+                            <field name="employee_int"/>
+                            <field name="date"/>
+                            <field name="employee_id"/>
+                            <field name="cleaned"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_dummy_attendance_search" model="ir.ui.view">
+            <field name="name">dummy.attendance.search</field>
+            <field name="model">dummy.attendance</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Dummy Attendance">
+                    <field name="employee_int"/>
+                    <field name="date"/>
+                    <field name="employee_id"/>
+                    <field name="cleaned"/>
+                    <newline/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="act_open_dummy_attendance_view">
+            <field name="name">Dummy Attendance</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">dummy.attendance</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_dummy_attendance_search"/>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+
+
+        <record id="view_to_be_cleaned_tree" model="ir.ui.view">
+            <field name="name">to.clean.attendance.tree</field>
+            <field name="model">to.clean.attendance</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="To Be Cleaned">
+                    <field name="date"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_to_be_cleaned_from" model="ir.ui.view">
+            <field name="name">to.clean.attendance.form</field>
+            <field name="model">to.clean.attendance</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="To Be Cleaned">
+                    <header>
+                        <button name="set_state_draft" type="object" states="to_approve" string="Set Draft"/>
+                        <button name="set_state_to_approve" type="object" states="draft" string="Submit To Manager"
+                                class="oe_highlight"/>
+                        <button name="set_state_approved" type="object" states="to_approve" string="Approve"
+                                class="oe_highlight"/>
+                        <button name="set_state_refused" type="object" states="to_approve" string="Refuse"
+                                class="oe_highlight"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,to_approve,approved"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="employee_id"/>
+                            </group>
+                            <group>
+                                <field name="date"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Day Lines">
+                                <field name="attendance_line_ids">
+                                    <tree name="Day Lines" editable="bottom">
+                                        <field name="date"/>
+                                        <field name="note"/>
+                                        <field name="action"/>
+                                        <field name="dummy_id"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_to_be_cleaned_search" model="ir.ui.view">
+            <field name="name">to.clean.attendance.search</field>
+            <field name="model">to.clean.attendance</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="To Be Cleaned">
+                    <field name="date"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="act_open_to_be_cleaned_view">
+            <field name="name">To Be Cleaned</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">to.clean.attendance</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_to_be_cleaned_search"/>
+        </record>
+
+
+        <record id="view_cleaned_attendance_tree" model="ir.ui.view">
+            <field name="name">cleaned.attendance.tree</field>
+            <field name="model">cleaned.attendance</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Cleaned Attendance">
+                    <field name="employee_id"/>
+                    <field name="date"/>
+                    <field name="first_in"/>
+                    <field name="last_out"/>
+                    <field name="worked_hours"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_cleaned_attendance_from" model="ir.ui.view">
+            <field name="name">cleaned.attendance.form</field>
+            <field name="model">cleaned.attendance</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Cleaned Attendance">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="employee_id"/>
+                                <field name="first_in"/>
+                            </group>
+                            <group>
+                                <field name="date"/>
+                                <field name="last_out"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="worked_hours"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_cleaned_attendance_search" model="ir.ui.view">
+            <field name="name">cleaned.attendance.search</field>
+            <field name="model">cleaned.attendance</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Cleaned Attendance">
+                    <field name="employee_id"/>
+                    <field name="date"/>
+                    <field name="first_in"/>
+                    <field name="last_out"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="act_open_cleaned_attendance_view">
+            <field name="name">Cleaned Attendance</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cleaned.attendance</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_cleaned_attendance_search"/>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+
+        <menuitem id="menu_item_attendance_new" parent="hr.menu_hr_root" name="Attendance"
+                  sequence="20"/>
+        <menuitem id="menuitem_attendace_clean_levels" parent="menu_item_attendance_new" name="Attendance Levels"
+                  sequence="30"/>
+
+        <menuitem action="act_open_dummy_attendance_view" id="menu_item_attendance_new_1"
+                  parent="menuitem_attendace_clean_levels"
+                  sequence="10"/>
+        <menuitem action="act_open_to_be_cleaned_view" id="menu_item_attendance_new_2"
+                  parent="menuitem_attendace_clean_levels"
+                  sequence="20"/>
+        <menuitem action="act_open_cleaned_attendance_view" id="menu_item_attendance_new_3"
+                  parent="menuitem_attendace_clean_levels"
+                  sequence="30"/>
+
+        <menuitem id="menuitem_attendace_import_clean" parent="menu_item_attendance_new"
+                  name="Import &amp; Clean Attendance"
+                  sequence="10"/>
+
+    </data>
+</openerp>

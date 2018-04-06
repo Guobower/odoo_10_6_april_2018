@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <report
+            id="shipment_report" 
+            model="account.invoice"
+            name="shipment_report.shipment_report_arian"
+            file="shipment_report.shipment_report_arian"
+            report_type="qweb-html"
+            string="Shipment Report"/> 
+    </data>
+</openerp>

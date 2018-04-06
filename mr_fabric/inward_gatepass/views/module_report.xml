@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+
+    <data>   
+
+        <template id="inward_gatepass_report">
+
+            <t t-call="report.html_container">
+                <t t-call="report.external_layout">
+
+                    <div class="page">
+                   
+                        <style>
+                            .main-data {
+                                width: 100%;
+                            }
+                            .center-data {
+                                width: 990px;
+                                margin: 0px auto;
+                            }
+                            body {
+                                border-color: #a9a9a9;
+                            }
+                            table, td, th {
+                                border: 2px solid;
+                                border-collapse: collapse;
+                                margin-top: 10px;
+                                text-align: left;
+                                padding: 12px;
+                                font-size: 15px;
+                                padding-left: 10px;
+                                border-color: #a9a9a9;
+                            }
+                            p {
+                                min-height: 42px;
+                            }
+                            .gatepass {
+                                width: 24%;
+                                float: left;
+                            }
+                            .gatepass p {
+                                border-top: 2px solid;
+                                padding: 10px;
+                                border-color: #a9a9a9;
+                            }
+                            h2, h3 {
+                                text-align: center;
+                            }
+                            .clearfloat {
+                                clear: both;
+                                float: none;
+                            }
+                            .solid {
+                                width: 6%;
+                                font-weight: bold;
+                            }
+                            .liquid {
+                                width: 94%;
+                                margin-left: 5px;
+                            }
+                            .address {
+                                width: 98%;
+                                text-align: center;
+                            }
+                            .address p {
+                                font-size: 20px;
+                                padding: 5px;
+                            }
+                            .no-margin {
+                                margin-top: 0px;
+                                margin-bottom: 0px;
+                            }
+                            .gate {
+                                width: 100%;
+                                margin-left: 20px;
+                            }
+                            .bordered {
+                                border-left: 2px solid #a9a9a9;
+                            }
+                            .last-child-bordered {
+                                border-bottom: 2px solid;
+                                border-left: 2px solid #a9a9a9;
+                            }
+                            .issuance {
+                                border-right: 2px solid #a9a9a9;
+                            }
+                            .dashed {
+                                border-right: 2px solid #a9a9a9;
+                                border-top: none;
+                                margin-top: 2px
+                            }
+                            .status {
+                                border-right: 2px solid;
+                                margin-top: 0px;
+                            }
+                            .category {
+                                border-right: 2px solid #a9a9a9;
+                                border-bottom: 2px solid;
+                                border-top: none;
+                                margin-top: 0px;
+                            }
+                            .approved-by {
+                                margin-left: 20px;
+                            }
+                            .prepare {
+                                margin-top: 25px;
+                                margin-left: 20px;
+                            }
+                            .dashed-a {
+                                border-bottom: 2px solid  #a9a9a9;
+                                border-top: none;
+                                margin-top: 2px;
+                            }
+                            .code {
+                                border-bottom: 2px solid #a9a9a9
+                            }
+                            .item {
+                                border-top: none;
+                                margin-top: 0px;
+                            }
+                            .quantity {
+                                border-bottom: 2px solid #a9a9a9;
+                                border-top: none;
+                                margin-top: 0px;
+                            }
+                            .border-right {
+                                border-right: 2px solid #a9a9a9;
+                            }
+                        </style>
+                   
+                        <div class="main-data">
+
+                            <div class="center-data" style="border:1px solid">
+                                <h2>MR.FABRICS (PVT.) LTD.</h2>
+                            <div class="address">
+                                
+                                <p class="no-margin">Address / Location:18Km, Ferozepur Road, Behind Nishtar Colony, Lahore,</p>
+
+                                <p class="no-margin" style="font-size: 19px;">Pakistan Land Line: +92 42 35923034 - +92 42 35923218 Cell Phone: +92 302</p>
+                                
+                                <p class="no-margin"> 8444605 - +92 300 8463119</p>
+                            </div>
+
+                            <h3><span t-esc="call_heading()"></span></h3>
+                            <div class="gate">
+
+                                <div class="gatepass">
+                                    
+                                    <p class="no-margin bordered">
+                                        <span class="solid">Issue To/From:</span>
+                                    </p>
+
+                                    <p class="no-margin bordered">
+                                        <span class="solid">Code:</span>
+                                    </p>
+
+                                    <p class="no-margin bordered">
+                                        <span class="solid">Return able:</span>
+                                    </p>
+
+                                    <p class="no-margin bordered">
+                                        <span class="solid">Category Name</span>
+                                    </p>
+
+                                    <p class="no-margin bordered">
+                                        <span class="solid">Store:</span>
+                                    </p>
+
+                                    <p class="no-margin last-child-bordered">
+                                        <span class="solid">Requisition Code:</span>
+                                    </p>
+
+                                </div>
+
+                                <div class="gatepass">
+                                    <p class="no-margin">
+                                        <span class="liquid" t-esc="to"></span>
+                                    </p>
+
+                                    <p class="no-margin">
+                                        <span class="liquid" t-esc="code"></span>
+                                    </p>
+
+                                    <p class="no-margin">
+                                        <span class="liquid" t-esc="return_able"></span>
+                                    </p>
+
+                                    <p class="no-margin">
+                                        <span class="liquid" t-esc="category.name"></span>
+                                    </p>
+
+                                    <p class="no-margin">
+                                        <span class="liquid" t-esc="store"></span>
+                                    </p>
+
+                                    <p class="no-margin code">
+                                        <span class="liquid" t-esc="requesition"></span>
+                                    </p>
+
+                                </div>
+
+                                <div class="gatepass">
+
+                                    <p class="no-margin">
+                                        <span class="solid">Issue Date:</span>
+                                    </p>
+
+                                    <p class="no-margin">
+                                        <span class="solid">Carrier:</span>
+                                    </p>
+
+                                    <p class="no-margin">
+                                        <span class="solid">Vehicle No:</span>
+                                    </p>
+
+                                    <p class="no-margin item">--</p>
+                                    <p class="no-margin">
+                                        <span class="solid">Status:</span>
+                                    </p>
+
+                                    <p class="no-margin quantity">--</p>
+                                </div>
+
+                                <div class="gatepass">
+
+                                    <p class="no-margin issuance">
+                                        <span class="liquid" t-esc="issue_date"></span>
+                                    </p>
+
+                                    <p class="no-margin issuance">
+                                        <span class="liquid" t-esc="carrier"></span>
+                                    </p>
+
+                                    <p class="no-margin issuance">
+                                        <span class="liquid" t-esc="vechicle"></span>
+                                    </p>
+
+                                    <p class="no-margin border-right">--</p>
+                                    <p class="no-margin border-right">
+                                        <span class="liquid" t-esc="status"></span>
+                                    </p>
+
+                                    <p class="no-margin category">--</p>
+
+                                </div>
+
+                            </div>
+
+                            <br class="clearfloat"/>
+                            <h3>Gatepass Items Detail</h3>
+
+                            <table width="96%" style="margin-left: 20px;">
+
+                                <tr>
+
+                                    <th>Item Name</th>
+                                    <th>Quantity</th>
+                                    <th>Units</th>
+                                    <th>Remarks</th>
+
+                                </tr>
+
+                                 <t t-foreach="tree" t-as="data">
+                                    <tr>
+
+                                        <td>
+                                            <span t-esc="data.item"></span>
+                                        </td>
+                                        <td>
+                                            <span t-esc="data.quantity"></span>
+                                        </td>
+                                        <td>
+                                            <span t-esc="data.units.name"></span>
+                                        </td>
+                                        <td>
+                                            <span t-esc="data.remarks" ></span>
+                                        </td>
+                                    </tr>
+                                 </t>
+
+                            </table>
+
+                            <p class="prepare">
+                                <span class="solid">Prepared By:</span>
+                                <span class="liquid" t-esc="prepaid.name"></span>
+                            </p>
+
+                            <p>
+                                <span class="solid approved-by">Approved By:</span>
+                                <span class="liquid" t-esc="approved.name"></span>
+                            </p>
+
+                            </div>
+                        </div>
+                   
+                    </div><!--end of page-->
+
+
+                </t>
+            </t>
+
+        </template>
+
+    </data>
+
+</openerp>

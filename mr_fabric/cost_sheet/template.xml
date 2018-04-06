@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <report
+            id="cost_sheet" 
+            model="merchandising.costing"
+            name="cost_sheet.cost_sheet_report"
+            file="cost_sheet.cost_sheet_report"
+            report_type="qweb-html"
+            string="Cost Sheet"/> 
+    </data>
+</openerp>

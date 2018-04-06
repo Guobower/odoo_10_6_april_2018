@@ -1,0 +1,72 @@
+<?xml version="1.0"?> 
+<odoo> 
+
+    <record id="employee_extension" model="ir.ui.view"> 
+        <field name="name">employee_extension</field> 
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="type">form</field> 
+        <field name="arch" type="xml">
+
+            <!-- <xpath expr="//field[@name ='country_id']" position="before">
+                <button name="data_base" type="object" string="Database" class="oe_highlight"/>
+                <field name="f_name"/>
+            </xpath> -->
+
+
+            <xpath expr="//field[@name ='passport_id']" position="after">
+                <field name="cnic"/>
+            </xpath>
+
+            <xpath expr="//field[@name ='bank_account_id']" position="after">
+                <field name="religion"/>
+            </xpath>
+
+            <xpath expr="//field[@name ='address_id']" position="before">
+                <field name="seq_id"/>
+                <field name="doj"/>
+            </xpath>  
+
+            <xpath expr="//field[@name ='address_home_id']" position="replace">
+                <field name="per_address"/>
+                <field name="tem_address"/>
+                <field name="city_id"/>
+                <field name="country"/>
+                <field name="e_contact"/>
+            </xpath>  
+
+            <xpath expr="//field[@name ='coach_id']" position="replace">
+                <field name="coach_id" string="Project Manager" domain="[('manager','=',True)]"/>
+            </xpath>  
+
+            <xpath expr="//form//sheet//notebook//page[@name='hr_settings']" position="after">
+                <page name="ref" string="Reference">
+
+                    <group name="group_top"> 
+                        <h2>Reference Information</h2>
+                    </group>
+
+                    <field name="emp_link">
+                      <tree editable="bottom">
+                            <field name="name" />
+                            <field name="relation" />
+                            <field name="cnic" />
+                            <field name="e_contact" />
+                            <field name="per_address" />
+                            <field name="tem_address" />
+                            <field name="main" />
+                      </tree>
+                    </field>
+
+                </page>
+            </xpath>
+        </field>
+    </record>
+    <record id="emp_sequence" model="ir.sequence">
+        <field name="name">emp_sequence</field>
+        <field name="code">mem.seq</field>
+        <field name="prefix"></field>
+        <field name="padding">3</field>
+ 
+    </record>
+</odoo> 

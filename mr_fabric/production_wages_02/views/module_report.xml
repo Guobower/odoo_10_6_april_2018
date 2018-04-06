@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+
+    <data>   
+
+        <template id="mrfabrictable_report">
+
+            <t t-call="report.html_container">
+                <t t-call="report.external_layout">
+                    <t t-foreach="docs" t-as="o">
+
+                        <div class="page">
+
+                            <style>
+
+                              .body {
+                                width: 1000px;
+                                margin: 0px auto;
+                              }
+                              
+                              .head {
+                                font-size: 12px;
+                                margin-bottom: 0px;
+                                width: 100%;
+                                text-align: center;
+                              }
+                              .head2 {
+                                text-align: right;
+                                width: 100%;
+                              }
+                              table,td {
+                                border: 1px solid black;
+                                border-collapse: collapse;
+                              }
+                              th {
+                                border-style: double;
+                              }
+
+                              th ,td {
+                                height: 30px;
+                                font-size: 10px;
+                                text-align: center;
+                              }
+                              .company {
+                                font-size: 25px;
+                              }
+                              .company span {
+                                border-bottom: 2px solid #000;
+                                padding: 0px 0px 3px;
+                              }
+                              .heading {
+                                font-size: 18px;
+                                padding: 0px;
+                                margin: 0px;
+
+                              }
+                              .regular {
+                                font-size: 16px;
+                                padding: 0px;
+                                margin: 0px;
+                              }
+                            </style>
+                            <div class="body">
+                                
+                                <div class="head">
+                                  <p class="company"><span>MR.FABRICS(PVT) LTD.</span></p>
+                                  <p class="heading">PRODUCTION WAGES SHEET SUMMARY</p>
+                                  <p class="regular">(PERIOD <span t-esc="o.form"></span> TO 
+                                  <span t-esc="o.to"></span> )</p>
+                                </div>
+                                <div class="head2">
+                                  <p>LINE 1</p>
+                                  <p>
+                                  <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d-%b-%y')"/>
+                                  </p>
+                                </div>
+                                <table style="width:100%">
+                                  <tr>
+                                    <th>Nos</th>
+                                    <th>Card #</th> 
+                                    <th>NAME</th>
+                                    <th>DESIGNATION</th>
+                                    <th>CNIC#</th> 
+                                    <th>W/O # WG-311-1+J</th>
+                                    <th>W/O # UO-868+AB</th>
+                                    <th>TOTAL</th> 
+                                    <th>GENRAL ADVANCE</th>
+                                    <th>PETTY CASH</th>
+                                    <th>CANTEEN EXP.</th> 
+                                    <th>GRAND TOTAL</th>
+                                    <th>SIGNATURE</th>
+                                  </tr>
+                                  <tr>
+                                    <td>1</td>
+                                    <td>7989</td>
+                                    <td>IMTIAZ AHMED</td>
+                                    <td>TAILOR</td>
+                                    <td>43433-333344-3</td>
+                                    <td>3322</td>
+                                    <td>343434</td>
+                                    <td>44,233</td>
+                                    <td>33432</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>4243334</td>
+                                    <td></td>
+                                  </tr>
+                                  <tr>
+                                    <td>1</td>
+                                    <td>7989</td>
+                                    <td>IMTIAZ AHMED</td>
+                                    <td>TAILOR</td>
+                                    <td>43433-333344-3</td>
+                                    <td>3322</td>
+                                    <td>343434</td>
+                                    <td>44,233</td>
+                                    <td>33432</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>4243334</td>
+                                    <td></td>
+                                  </tr>
+                                  <tr>
+                                    <td>1</td>
+                                    <td>7989</td>
+                                    <td>IMTIAZ AHMED</td>
+                                    <td>TAILOR</td>
+                                    <td>43433-333344-3</td>
+                                    <td>3322</td>
+                                    <td>343434</td>
+                                    <td>44,233</td>
+                                    <td>33432</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>4243334</td>
+                                    <td></td>
+                                  </tr>
+                                </table>
+                            </div>
+
+                        </div><!--end of page-->
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</openerp>

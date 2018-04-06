@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+       <!--  <record id="view_order_form_inh_duration" model="ir.ui.view">
+            <field name="name">view.order.form.inh.duration</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_order_dates.view_sale_orderfor"/>
+            <field name="arch" type="xml">
+                <field name="effective_date" position="after">
+                    <field name="date_confirm"/>
+                    <field name="sale_duration"/>
+                </field>
+                <field name="effective_date" position="attributes">
+                    <attribute name="string">Delivery Date</attribute>
+                </field>
+            </field>
+        </record>
+ -->
+
+    </data>
+</openerp>

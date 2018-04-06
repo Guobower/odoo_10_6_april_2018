@@ -1,0 +1,263 @@
+<?xml version="1.0"?> 
+<odoo>
+
+    <record id="contract_form_extension" model="ir.ui.view"> 
+        <field name="name">contract_form_extension</field> 
+        <field name="model">hr.contract</field>
+        <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='wage']" position="replace">
+                <field name="wage"/>
+                <field name="days" />
+                <field name="hours"/>
+                <field name="schedule"/>
+            </xpath>
+
+            <xpath expr="//field[@name='advantages']" position="replace">
+            </xpath>
+
+            <xpath expr="//field[@name='notes']" position="before">
+                <field name="advantages" placeholder="Advantages . . ."/>
+            </xpath>
+
+            <xpath expr="//page[1]" position="after">
+                <page string="Deduction" name="deduction">
+                    <group name="group_top">
+                        <group name="group_left">
+                            <field name="tax"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+
+        </field>
+    </record>
+    
+    <record id="allowance_form_view" model="ir.ui.view"> 
+        <field name="name">allowance_form_view</field> 
+        <field name="model">ecube.allowance</field>
+        <field name="type">form</field> 
+        <field name="arch" type="xml">
+
+            <form string="Allowance">
+
+                <header>
+
+                </header>
+
+                <sheet>
+
+                    <group name="group_top">
+                        
+                        <group name="group_left">
+                            <field name="employee_id" />
+                            <field name="date" />
+                        </group>
+
+                        <group name="group_right">
+                            <field name="amount" />
+                            <field name="type_id" />
+                        </group>
+
+                    </group>
+
+                    <group name="group_bottom">
+                        <field name="description" />
+                    </group>
+
+                </sheet>
+            
+            </form>
+
+        </field>
+    </record>
+    
+    <record id="detection_form_view" model="ir.ui.view"> 
+        <field name="name">detection_form_view</field> 
+        <field name="model">ecube.detection</field>
+        <field name="type">form</field> 
+        <field name="arch" type="xml">
+
+            <form string="Deduction">
+
+                <header>
+
+                </header>
+
+                <sheet>
+
+                    <group name="group_top">
+                        
+                        <group name="group_left">
+                            <field name="employee_id" />
+                            <field name="date" />
+                        </group>
+
+                        <group name="group_right">
+                            <field name="amount" />
+                            <field name="type_id" />
+                        </group>
+
+                    </group>
+
+                    <group name="group_bottom">
+                        <field name="description" />
+                    </group>
+
+                </sheet>
+            
+            </form>
+
+        </field>
+    </record>
+    
+    <record id="WagePerPieceForm" model="ir.ui.view"> 
+        <field name="name">WagePerPieceForm</field> 
+        <field name="model">wage.per.piece</field>
+        <field name="type">form</field> 
+        <field name="arch" type="xml">
+
+            <form string="Wage Per Piece">
+
+                <header>
+
+                </header>
+
+                <sheet>
+
+                    <group name="group_top">
+                        
+                        <group name="group_left">
+                            <field name="won" />
+                            <field name="form" />
+                            <field name="style" />
+                        </group>
+
+                        <group name="group_right">
+                            <field name="production" />
+                            <field name="to" />
+                            <field name="style_name" />
+                        </group>
+
+                    </group>
+
+                    <group name="group_bottom">
+                        <field name="decrip" />
+                    </group>
+
+                    <field name="tree_link" nolabel='1'>
+                        <tree editable="bottom">
+                            <field name="card_no"/>
+                            <field name="employee_id"/>
+                            <field name="operation"/>
+                            <field name="machine"/>
+                            <field name="qty"/>
+                            <field name="rate"/>
+                            <field name="amount" readonly="1" sum="total"/>
+                        </tree>
+                    </field> 
+
+                </sheet>
+            
+            </form>
+
+        </field>
+    </record>
+
+    <record id="ResUsersExtension" model="ir.ui.view"> 
+        <field name="name">ResUsersExtension</field> 
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.user_groups_view"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='sel_groups_1_52_53']" position="after">
+                <field name="department" />
+            </xpath>
+
+        </field>
+    </record>
+
+    <!--Trees-->
+
+    <record id="allowance_tree_view" model="ir.ui.view">
+        <field name="name">allowance_tree_view</field>
+        <field name="model">ecube.allowance</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Allowance">
+                <field name="employee_id"/>
+                <field name="date"/>
+                <field name="amount"/>
+                <field name="type_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="detection_tree_view" model="ir.ui.view">
+        <field name="name">detection_tree_view</field>
+        <field name="model">ecube.detection</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Deduction">
+                <field name="employee_id"/>
+                <field name="date"/>
+                <field name="amount"/>
+                <field name="type_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="WagePerPieceTree" model="ir.ui.view">
+        <field name="name">WagePerPieceTree</field>
+        <field name="model">wage.per.piece</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Wage Per Piece">
+                <field name="won"/>
+                <field name="form"/>
+                <field name="to"/>
+                <field name="style"/>
+                <field name="style_name"/>
+                <field name="production"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--ACTIONS-->
+
+    <record model="ir.actions.act_window" id="allowance_action">
+        <field name="name">Allowance</field> 
+        <field name="res_model">ecube.allowance</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="detection_action">
+        <field name="name">Detection</field> 
+        <field name="res_model">ecube.detection</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="WagePerPieceAction">
+        <field name="name">Wage Per Piece</field> 
+        <field name="res_model">wage.per.piece</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'readonly_by_pass': True}</field>
+    </record>
+
+    <!--MENUS-->
+
+    <menuitem id="others_menu_item" name="Others" parent="hr_payroll.menu_hr_payroll_root" sequence="51" />
+
+    <menuitem id="allowance_menu_item" name="Allowance" action="allowance_action" parent="payroll_mr_fabric.others_menu_item" sequence="1" />
+
+    <menuitem id="detection_menu_item" name="Deduction" action="detection_action" parent="payroll_mr_fabric.others_menu_item" sequence="2" />
+
+    <menuitem id="WagePerPieceMenu" name="Wage Per Piece" action="WagePerPieceAction" parent="payroll_mr_fabric.others_menu_item" sequence="3" />
+
+    <menuitem id="advance_menu_item" name="Advance" action="employee_mr_fabric.employee_advance_action" parent="payroll_mr_fabric.others_menu_item" sequence="8" />
+
+</odoo> 

@@ -1,0 +1,777 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+
+    <data>   
+
+        <template id="module_report">
+
+            <t t-call="report.html_container">
+                <t t-call="report.external_layout">
+                    <t t-foreach="docs" t-as="o">
+                        <t t-set="quantity" t-value="0" />
+                        <t t-set="invoice_total" t-value="0" />
+                        <div class="page">
+                            <style>
+                                .header,
+                                .footer {
+                                    display: none;
+                                }                   
+                                .report-wrapper {
+                                    width: 1000px;
+                                    margin: 0px auto;
+                                    background-color:rgb( 249, 244, 243 );
+                                }
+                                .report-header {
+                                    margin: 10px 0px 0px;
+                                    display:block;
+                                    text-align:center;
+                                    padding: 10px 0px 0px;
+                                }
+                                .clearfloat {
+                                    clear: both;
+                                    float: none;                
+                                    border: none;
+                                    display: block;
+                                }
+                                .report-heading {
+                                    border: 1px solid black;
+                                    text-align:center;
+                                    font-weight: bold;
+                                    margin-bottom: 0px;
+                                }
+                                .report-heading p {
+                                    margin: 10px 0px;
+                                    text-transform: uppercase;
+                                    font-size: 18px;
+                                }
+                                .report-header p {
+                                    font-size:17px;
+                                    margin:2px;         
+                                }
+                                .details {
+                                    margin: 2px 0px 0px;    
+                                    width: 100%;
+                                }
+                                .1st,.2nd {
+                                    display: inline-block;
+                                    border: 1px solid black;
+                                    float:left;
+                                    width: 24.5%;
+                                }
+                                .one, .two, .three, .four {
+                                    display: inline-block;
+                                    border: 1px solid black;
+                                    float: left;
+                                    width: 248.5px;
+                                    padding-left: 14.5px;
+                                    margin: 2px 1px 0px;
+                                    margin-bottom: 0px;
+                                    font-size: 15px;
+                                }
+                                .one {
+                                    margin-left: 0px;
+                                } 
+                                .four {
+                                    margin-right: 0px;
+                                }
+                                .tower-one, 
+                                .tower-two
+                                {
+                                    display: inline-block;
+                                    width: 499px;
+                                    border: 1px solid black;
+                                    float: left;
+                                    padding-left: 15.3px;
+                                    margin: 2px;
+                                    font-size: 15px;
+                                    margin-left: 0px;
+                                    margin-bottom: 0px;
+                                }
+                                .tower-one {
+                                    margin-left: 0px; 
+                                }
+                                .tower-two {
+                                    margin-right: 0px;
+                                }
+                                .solid {
+                                    font-weight: bold;
+                                }
+                                .singler {
+                                    margin-top: 2px;
+                                    width: 100%;
+                                    float: left;
+                                    border: 1px solid black;
+                                    padding-left: 15px;
+                                    font-size: 15px;
+                                }
+                                table {
+                                    font-family: arial, sans-serif;
+                                    border-collapse: collapse;
+                                    width: 100%;
+                                    font-size: 15px;
+                                    margin-top: 10px;
+                                    border: 1px solid #000;
+                                }
+                                td, th {
+                                    text-align: left;
+                                    padding: 8px;
+                                    border-right: 1px solid #000;
+                                }
+                                td:last-child,
+                                th:last-child {
+                                    border-right: none;
+                                }
+                                tr:first-child th {
+                                    border: 1px solid #000;
+                                }
+                                tr:nth-child(even) {
+                                    background-color: #dddddd;
+                                }
+                                .total {
+                                    width: 11.5%;
+                                    float: right;
+                                    border: 1px solid;
+                                    text-align: left;
+                                    font-weight: bold;
+                                    margin-top: 2px;
+                                    padding-left: 7px;
+                                }
+                                .num {
+                                    width: 11.5%;
+                                    float: right;
+                                    border: 1px solid;
+                                    text-align: left;
+                                    font-weight: bold;
+                                    margin-top: 2px;
+                                    padding-left: 7px;
+                                }
+                                .total1 {
+                                    width: 7.5%;
+                                    float: right;
+                                    border: 1px solid;
+                                    text-align: left;
+                                    font-weight: bold;
+                                    margin-top: 2px;
+                                    padding-left: 7px;
+                                }
+                                .num1 {
+                                    width: 11.5%;
+                                    float: right;
+                                    border: 1px solid;
+                                    text-align: left;
+                                    font-weight: bold;
+                                    margin-top: 2px;
+                                    padding-left: 7px;
+                                }
+                                .clearf {
+                                    clear: both;
+                                    float: none;
+                                    display: block;
+                                }
+                                .word {
+                                    width: 31%;
+                                    float: left;
+                                    border: 1px solid;
+                                    text-align: left;
+                                    font-weight: bold;
+                                    margin-top: 2px;
+                                    padding-left: 7px;
+                                }
+                                .words {
+                                    width: 69%;
+                                    float: left;
+                                    border: 1px solid;
+                                    text-align: left;
+                                    font-weight: bold;
+                                    margin-top: 2px;
+                                    padding-left: 7px;
+                                }
+                                .bank {
+                                    width: 100%;
+                                    float: left;
+                                    margin-top: 20px;
+                                }
+                                .bank .solid{
+                                    width: 12%;
+                                    float: left;
+                                }
+                                .bank .liquid{
+                                    width: 85%;
+                                    float: left;
+                                }
+                                .sign {
+                                    width: 100;
+                                    float: left;
+                                    border: 1px solid;
+                                    text-align: center;
+                                    font-weight: bold;
+                                    margin-top: 40px;
+                                    margin-left: 400px;
+                                    padding: 7px;
+                                    text-decoration: underline;
+                                }
+                                .details p span.solid,
+                                .details p span.Solid {
+                                    font-weight: bold;
+                                }
+                                .details p {
+                                    margin: 5px 0px;
+                                }
+                                .total_col td {
+                                    border-top: 1px solid #000;
+                                    border-bottom: 1px solid #000;
+                                    font-weight: bold;
+                                }
+                                .semi-bold td {
+                                    text-align: center;
+                                    font-weight: bold;
+                                }
+                                .dotter {
+                                    text-align: center;
+                                }
+                            </style>
+
+                            <div class="report-wrapper">
+
+                                <div class="report-header">
+                                    <p>
+                                        <h3 >Arian Sports (Pvt) Ltd.</h3>
+                                        <p>
+                                            1-km off Naul More Roras Road Sialkot Pakistan
+                                            <br />
+                                            Fax:<span t-esc="o.partner_id.fax"></span> Telephone: <span t-esc="o.partner_id.phone"></span>
+                                        </p>
+                                    </p>
+                                    <br class="clearfloat"/>
+                                </div>
+
+                                <div class="report-heading">
+
+                                    <p>Performa Invoice</p>
+
+                                </div>
+
+                                <div class="details">
+                                
+                                    <div class="1sl-line">
+                                
+                                        <div class="one">
+                                
+                                            <p><span class="Solid">PIN* :</span> <span class="liquid" t-esc="o.pin"></span></p>
+                                
+                                        </div>
+
+                                        <div class="two">
+                                
+                                            <p><span class="Solid">Date :</span> <span class="liquid" t-esc="o.p_date"></span></p>
+                                
+                                        </div>
+
+                                        <div class="three">
+                                
+                                            <p><span class="Solid">Order N* :</span> <span class="liquid" t-esc="o.customer_purchase_no"></span></p>
+                                
+                                        </div>
+
+                                        <div class="four">
+
+                                            <p><span class="Solid">Total <span t-esc="o.inco_terms.code"></span>, Price :</span> <span class="liquid" t-esc="o.amount_untaxed"></span></p>
+                                        
+                                        </div>
+                                                    
+                                        <br class="clearfloat" />
+
+                                    </div>          
+
+                                    <div class="singler">
+                                    
+                                        <p>
+                                            <span class="Solid">Customer/Apllicant :</span> 
+                                            <span class="liquid">
+                                                <span t-esc="o.partner_id.name"></span> 
+                                                <span t-esc="o.partner_id.street"></span> 
+                                                <span t-esc="o.partner_id.street2"></span> 
+                                                <span t-esc="o.partner_id.city"></span> 
+                                                <span t-esc="o.partner_id.state_id.name"></span> 
+                                                <span t-esc="o.partner_id.country_id.name"></span>
+                                            </span>
+                                        </p>
+                                    
+                                    </div>
+                                    
+                                    <div class="Twoer">
+                                    
+                                        <div class="tower-one">
+                                    
+                                            <p><span class="Solid">INCOTERM :</span> <span class="liquid" t-esc="o.inco_terms.name"></span></p>
+                                    
+                                        </div>
+
+                                        <div class="tower-two">
+                                    
+                                            <p><span class="Solid">Latest Shipment Date (*ETD) :</span> <span class="liquid" t-esc="o.etd_khi"></span></p>
+                                    
+                                        </div>
+                             
+                                    </div>
+                                    
+                                    <div class="singler">
+                                    
+                                         <p><span class="Solid">Payment Term :</span> <span class="liquid" t-esc="o.payment_term_id.name"></span></p>
+                                    
+                                    </div>
+                                    
+                                    <div class="Twoer">
+                                    
+                                        <div class="tower-one">
+                                    
+                                            <p><span class="Solid">Partial Shipment :</span> <span class="liquid" t-esc="o.partial_shipment"></span></p>
+                                    
+                                         </div>
+                                    
+                                         <div class="tower-two">
+                                    
+                                            <p><span class="Solid">Transhipment :</span> <span class="liquid" t-esc="o.transhipment"></span></p>
+                                    
+                                         </div>  
+                                    
+                                    </div>
+
+                                    <div class="Twoer">
+
+                                        <div class="tower-one">
+                                            <p><span class="Solid">LOT N* :</span> <span class="liquid" t-esc="o.lot"></span></p>
+                                        </div>
+
+                                        <div class="tower-two">
+                                            <p><span class="liquid" t-esc="getpieces(o)"></span> 
+                                            <span class="solid"> Pcs</span></p>
+                                        </div>
+                                         
+                                    </div>
+                                    <br class="clearfloat" />
+                                </div>
+
+                                <table>
+
+                                    <tr>
+                                        <th>Item</th>
+                                        <th>Description of Goods</th>
+                                        <th>Size</th>
+                                        <th>Qty.</th>
+                                        <th>Unit</th>
+                                        <th>US$</th>
+                                    </tr>
+
+                                    <t t-set= "g_total" t-value= "0"/>
+                                    <t t-foreach="entries" t-as="data">
+
+                                        <t t-set="total" t-value="0"/>
+                                        <t t-set="counter" t-value="0" />
+
+                                        <span t-esc="sizeing(data,'data',0)"></span>
+                                        <tr>
+                                            <td>Style:<span t-esc="getdata(data,'style')"></span></td>
+
+                                            <td>Description:<span t-esc="getdata(data,'desc')"></span></td>
+                                            
+                                            <t t-if="(sizeing(data,'name',counter)) != 0">
+                                                <td><span t-esc="sizeing(data,'name',counter)"></span></td>
+                                            </t>
+                                            
+                                            <t t-if="(sizeing(data,'name',counter)) == 0">
+                                                <td class="dotter"> - </td>
+                                            </t>
+
+                                            <t t-if="(sizeing(data,'qty',counter)) != 0">
+
+                                            <td>
+                                                <span t-esc="sizeing(data,'qty',counter)"></span>
+                                                <t t-set= "total" t-value= "total + sizeing(data,'qty',counter)"/>
+                                            </td>
+                                            </t>
+
+                                            <t t-if="(sizeing(data,'qty',counter)) == 0">
+                                                <td class="dotter"> - </td>
+                                            </t>
+
+                                            <t t-if="(sizeing(data,'rate',counter)) != 0">
+
+                                                <td><span t-esc="sizeing(data,'rate',counter)"></span></td>
+                                            </t>
+
+                                            <t t-if="(sizeing(data,'rate',counter)) == 0">
+                                                <td class="dotter"> - </td>
+                                            </t>
+
+                                            <t t-if="(sizeing(data,'total',counter)) != 0">
+
+                                                <td><span t-esc="sizeing(data,'total',counter)"></span></td>
+                                            </t>
+
+                                            <t t-if="(sizeing(data,'total',counter)) == 0">
+                                                <td class="dotter"> - </td>
+                                            </t>
+                                            <t t-set="counter" t-value="counter + 1" />
+                                        </tr>
+
+                                        <tr>
+                                            <td>Color: <span t-esc="getdata(data,'color')"></span></td>
+                                            <td></td>
+                                            
+                                            <t t-if="(sizeing(data,'name',counter)) != 0">
+                                                <td><span t-esc="sizeing(data,'name',counter)"></span></td>
+                                            </t>
+                                            
+                                            <t t-if="(sizeing(data,'name',counter)) == 0">
+                                                <td class="dotter"> - </td>
+                                            </t>
+
+                                            <t t-if="(sizeing(data,'qty',counter)) != 0">
+
+                                            <td>
+                                                <span t-esc="sizeing(data,'qty',counter)"></span>
+                                                <t t-set= "total" t-value= "total + sizeing(data,'qty',counter)"/>
+                                            </td>
+                                            </t>
+
+                                            <t t-if="(sizeing(data,'qty',counter)) == 0">
+                                                <td class="dotter"> - </td>
+                                            </t>
+
+                                            <t t-if="(sizeing(data,'rate',counter)) != 0">
+
+                                                <td><span t-esc="sizeing(data,'rate',counter)"></span></td>
+                                            </t>
+
+                                            <t t-if="(sizeing(data,'rate',counter)) == 0">
+                                                <td class="dotter"> - </td>
+                                            </t>
+
+                                            <t t-if="(sizeing(data,'total',counter)) != 0">
+
+                                                <td><span t-esc="sizeing(data,'total',counter)"></span></td>
+                                            </t>
+
+                                            <t t-if="(sizeing(data,'total',counter)) == 0">
+                                                <td class="dotter"> - </td>
+                                            </t>
+                                            <t t-set="counter" t-value="counter + 1" />
+                                        </tr>
+
+                                        <tr>
+                                            <td>QTY/CTN: <span t-esc="o.qty_ctn"></span></td>
+                                            <td></td>
+                                            
+                                            <t t-if="(sizeing(data,'name',counter)) != 0">
+                                                <td><span t-esc="sizeing(data,'name',counter)"></span></td>
+                                            </t>
+                                            
+                                            <t t-if="(sizeing(data,'name',counter)) == 0">
+                                                <td class="dotter"> - </td>
+                                            </t>
+
+                                            <t t-if="(sizeing(data,'qty',counter)) != 0">
+
+                                            <td>
+                                                <span t-esc="sizeing(data,'qty',counter)"></span>
+                                                <t t-set= "total" t-value= "total + sizeing(data,'qty',counter)"/>
+                                            </td>
+                                            </t>
+
+                                            <t t-if="(sizeing(data,'qty',counter)) == 0">
+                                                <td class="dotter"> - </td>
+                                            </t>
+
+                                            <t t-if="(sizeing(data,'rate',counter)) != 0">
+
+                                                <td><span t-esc="sizeing(data,'rate',counter)"></span></td>
+                                            </t>
+
+                                            <t t-if="(sizeing(data,'rate',counter)) == 0">
+                                                <td class="dotter"> - </td>
+                                            </t>
+
+                                            <t t-if="(sizeing(data,'total',counter)) != 0">
+
+                                                <td><span t-esc="sizeing(data,'total',counter)"></span></td>
+                                            </t>
+
+                                            <t t-if="(sizeing(data,'total',counter)) == 0">
+                                                <td class="dotter"> - </td>
+                                            </t>
+                                            <t t-set="counter" t-value="counter + 1" />
+                                        </tr>
+
+                                        <tr>
+                                            <td>LOT: <span t-esc="o.lot"></span></td>
+                                            <td></td>
+                                            
+                                            <t t-if="(sizeing(data,'name',counter)) != 0">
+                                                <td><span t-esc="sizeing(data,'name',counter)"></span></td>
+                                            </t>
+                                            
+                                            <t t-if="(sizeing(data,'name',counter)) == 0">
+                                                <td class="dotter"> - </td>
+                                            </t>
+
+                                            <t t-if="(sizeing(data,'qty',counter)) != 0">
+
+                                            <td>
+                                                <span t-esc="sizeing(data,'qty',counter)"></span>
+                                                <t t-set= "total" t-value= "total + sizeing(data,'qty',counter)"/>
+                                            </td>
+                                            </t>
+
+                                            <t t-if="(sizeing(data,'qty',counter)) == 0">
+                                                <td class="dotter"> - </td>
+                                            </t>
+
+                                            <t t-if="(sizeing(data,'rate',counter)) != 0">
+
+                                                <td><span t-esc="sizeing(data,'rate',counter)"></span></td>
+                                            </t>
+
+                                            <t t-if="(sizeing(data,'rate',counter)) == 0">
+                                                <td class="dotter"> - </td>
+                                            </t>
+
+                                            <t t-if="(sizeing(data,'total',counter)) != 0">
+
+                                                <td><span t-esc="sizeing(data,'total',counter)"></span></td>
+                                            </t>
+
+                                            <t t-if="(sizeing(data,'total',counter)) == 0">
+                                                <td class="dotter"> - </td>
+                                            </t>
+                                            <t t-set="counter" t-value="counter + 1" />
+                                        </tr>
+
+                                        <tr>
+                                            <td>H.S. Code: <span t-esc="getdata(data,'hs_code')"></span></td>
+                                            <td></td>
+                                            
+                                            <t t-if="(sizeing(data,'name',counter)) != 0">
+                                                <td><span t-esc="sizeing(data,'name',counter)"></span></td>
+                                            </t>
+                                            
+                                            <t t-if="(sizeing(data,'name',counter)) == 0">
+                                                <td class="dotter"> - </td>
+                                            </t>
+
+                                            <t t-if="(sizeing(data,'qty',counter)) != 0">
+
+                                            <td>
+                                                <span t-esc="sizeing(data,'qty',counter)"></span>
+                                                <t t-set= "total" t-value= "total + sizeing(data,'qty',counter)"/>
+                                            </td>
+                                            </t>
+
+                                            <t t-if="(sizeing(data,'qty',counter)) == 0">
+                                                <td class="dotter"> - </td>
+                                            </t>
+
+                                            <t t-if="(sizeing(data,'rate',counter)) != 0">
+
+                                                <td><span t-esc="sizeing(data,'rate',counter)"></span></td>
+                                            </t>
+
+                                            <t t-if="(sizeing(data,'rate',counter)) == 0">
+                                                <td class="dotter"> - </td>
+                                            </t>
+
+                                            <t t-if="(sizeing(data,'total',counter)) != 0">
+
+                                                <td><span t-esc="sizeing(data,'total',counter)"></span></td>
+                                            </t>
+
+                                            <t t-if="(sizeing(data,'total',counter)) == 0">
+                                                <td class="dotter"> - </td>
+                                            </t>
+                                            <t t-set="counter" t-value="counter + 1" />
+                                        </tr>
+
+                                        <tr>
+                                            <td>Composition: <span t-esc="getdata(data,'composition')"></span></td>
+                                            <td></td>
+                                            
+                                            <t t-if="(sizeing(data,'name',counter)) != 0">
+                                                <td><span t-esc="sizeing(data,'name',counter)"></span></td>
+                                            </t>
+                                            
+                                            <t t-if="(sizeing(data,'name',counter)) == 0">
+                                                <td class="dotter"> - </td>
+                                            </t>
+
+                                            <t t-if="(sizeing(data,'qty',counter)) != 0">
+
+                                            <td>
+                                                <span t-esc="sizeing(data,'qty',counter)"></span>
+                                                <t t-set= "total" t-value= "total + sizeing(data,'qty',counter)"/>
+                                            </td>
+                                            </t>
+
+                                            <t t-if="(sizeing(data,'qty',counter)) == 0">
+                                                <td class="dotter"> - </td>
+                                            </t>
+
+                                            <t t-if="(sizeing(data,'rate',counter)) != 0">
+
+                                                <td><span t-esc="sizeing(data,'rate',counter)"></span></td>
+                                            </t>
+
+                                            <t t-if="(sizeing(data,'rate',counter)) == 0">
+                                                <td class="dotter"> - </td>
+                                            </t>
+
+                                            <t t-if="(sizeing(data,'total',counter)) != 0">
+
+                                                <td><span t-esc="sizeing(data,'total',counter)"></span></td>
+                                            </t>
+
+                                            <t t-if="(sizeing(data,'total',counter)) == 0">
+                                                <td class="dotter"> - </td>
+                                            </t>
+                                            <t t-set="counter" t-value="counter + 1" />
+                                        </tr>
+
+                                        <span style="display: none;"><span t-esc="sizeing(data,'lefter',counter)"></span></span>
+                                        <t t-foreach="looped" t-as="a">
+                                            <tr>
+                                                <td><span></span></td>
+                                                <td></td>
+                                            
+                                            <t t-if="(sizeing(data,'name',counter)) != 0">
+                                                <td><span t-esc="sizeing(data,'name',counter)"></span></td>
+                                            </t>
+                                            
+                                            <t t-if="(sizeing(data,'name',counter)) == 0">
+                                                <td class="dotter"> - </td>
+                                            </t>
+
+                                            <t t-if="(sizeing(data,'qty',counter)) != 0">
+
+                                            <td>
+                                                <span t-esc="sizeing(data,'qty',counter)"></span>
+                                                <t t-set= "total" t-value= "total + sizeing(data,'qty',counter)"/>
+                                            </td>
+                                            </t>
+
+                                            <t t-if="(sizeing(data,'qty',counter)) == 0">
+                                                <td class="dotter"> - </td>
+                                            </t>
+
+                                            <t t-if="(sizeing(data,'rate',counter)) != 0">
+
+                                                <td><span t-esc="sizeing(data,'rate',counter)"></span></td>
+                                            </t>
+
+                                            <t t-if="(sizeing(data,'rate',counter)) == 0">
+                                                <td class="dotter"> - </td>
+                                            </t>
+
+                                            <t t-if="(sizeing(data,'qty',counter)) == 0">
+                                                <td class="dotter"> - </td>
+                                            </t>
+
+                                            <t t-if="(sizeing(data,'total',counter)) != 0">
+
+                                                <td><span t-esc="sizeing(data,'total',counter)"></span></td>
+                                            </t>
+
+                                            <t t-if="(sizeing(data,'total',counter)) == 0">
+                                                <td class="dotter"> - </td>
+                                            </t>
+                                            <t t-set="counter" t-value="counter + 1" />
+                                            </tr>
+                                        </t>
+
+                                        <tr class="semi-bold">
+                                            <td class="dotter"> - </td>
+                                            <td>Total</td>
+                                            <td class="dotter"> - </td>
+                                            <td>
+                                                <span t-esc="total"></span>
+                                                <t t-set= "g_total" t-value= "g_total+total"/>
+                                            </td>
+                                            <td class="dotter"> - </td>
+                                            <td class="dotter"> - </td>
+                                        </tr>
+
+                                    </t>
+
+                                    <tr class="total_col">
+                                        <td></td>
+                                        <td></td>
+                                        <td>Total</td>
+                                        <td><span t-esc="g_total"></span></td>
+                                        <td></td>
+                                        <td><span t-esc="o.amount_untaxed"></span></td>
+                                    </tr>
+                                    <tr class="total_col">
+                                        <td>Total Amount (In letters)</td>
+                                        <td colspan="5"><span t-esc="o.number_to_words()"></span></td>
+                                    </tr>
+                                </table>
+
+                                <br class="clearfloat"/>
+
+                                <div class="bank">
+                                    <p>
+                                        <span><u><b>Bank Details :</b></u></span>
+                                        <br class="clearfloat" />
+                                    </p>
+
+                                    <p>
+                                        <span class="solid">Account Title :</span>
+                                        <span class="liquid" t-esc="o.invoice_bank.account_title"></span>
+                                        <br class="clearfloat" />
+                                    </p>
+
+                                    <p>
+                                        <span class="solid">Bank Name :</span>
+                                        <span class="liquid" t-esc="o.invoice_bank.name"></span>
+                                        <br class="clearfloat" />
+                                    </p>
+
+                                    <p>
+                                        <span class="solid">Bank Address :</span>
+                                        <span class="liquid" >
+                                            <span t-esc="o.invoice_bank.street"></span>
+                                            <span t-esc="o.invoice_bank.street2"></span>
+                                            <span t-esc="o.invoice_bank.city"></span>
+                                            <span t-esc="o.invoice_bank.state.name"></span>
+                                            <span t-esc="o.invoice_bank.zip"></span>
+                                            <span t-esc="o.invoice_bank.country.name"></span>
+                                        </span>
+                                        <br class="clearfloat" />
+                                    </p>
+
+                                    <p>
+                                        <span class="solid">IBAN# :</span>
+                                        <span class="liquid" t-esc="o.invoice_bank.iban_acc_no"></span>
+                                        <br class="clearfloat" />
+                                    </p>
+
+                                    <p>
+                                        <span class="solid">Swift Code :</span>
+                                        <span class="liquid" t-esc="o.invoice_bank.swift_code"></span>
+                                        <br class="clearfloat" />
+                                    </p>
+                                </div>
+
+                                <div class="sign">.
+                                    <p>STAMP AND SIGNATURE</p>
+                                </div>
+                            </div>
+
+                        </div><!--end of page-->
+                    </t>
+                </t>
+            </t>
+
+        </template>
+
+    </data>
+
+</openerp>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_sales_man_target_tree" model="ir.ui.view">
+            <field name="name">sales.man.target.tree</field>
+            <field name="model">sales.man.target</field>
+            <field name="priority">1</field>
+            <field name="arch" type="xml">
+                <tree string="SalesMan Target Report" create="0" delete="0">
+                    <field name="user_id"/>
+                    <field name="from_date"/>
+                    <field name="to_date"/>
+                    <field name="product_id"/>
+                    <field name="target_amount" sum="Total"/>
+                    <field name="current_amount" sum="Total"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_sales_man_target_filter" model="ir.ui.view">
+            <field name="name">sales.man.target.search</field>
+            <field name="model">sales.man.target</field>
+            <field name="arch" type="xml">
+                <search string="Search SalesMan Target">
+                    <field name="user_id" string="Sales Man"/>
+                    <field name="product_id" string="Product"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Salesman" domain="[]" name="group_by_user_id" context="{'group_by':'user_id'}"/>
+                        <filter string="Product" domain="[]"  name ="group_by_product_id" context="{'group_by':'product_id'}"/>
+                        <filter string="Month" domain="[]" name ="group_by_date" context="{'group_by':'from_date'}"/>
+                    </group>
+               </search>
+            </field>
+        </record>
+        <record id="view_sales_man_target_graph" model="ir.ui.view">
+        <field name="name">sales.man.target.view.graph</field>
+        <field name="model">sales.man.target</field>
+        <field name="arch" type="xml">
+            <graph string="Sales Man Target" type="pivot">
+                <field name="product_id" type="row"/>
+                <field name="current_amount" type="measure"/>
+                <field name="user_id" type="row"/>
+            </graph>
+        </field>
+    </record>
+
+
+        <record id="action_sales_man_target" model="ir.actions.act_window">
+            <field name="name">Sales Man Target Report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sales.man.target</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,graph</field>
+            <field name="view_id" ref="view_sales_man_target_tree"/>
+            <field name="search_view_id" ref="view_sales_man_target_filter"/>
+            <field name="context">{
+                    'search_default_group_by_user_id': 1,
+                    'search_default_group_by_date':1
+                }
+            </field>
+        </record>
+
+<!--         <menuitem action="action_sales_man_target" id="menu_sales_man_target" parent="base.next_id_64"
+                  sequence="15" groups="base.group_sale_salesman,base.group_sale_ma -->nager"/>
+
+
+
+
+    </data>
+</openerp>

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+
+    <data>   
+
+        <template id="customer_report">
+
+            <t t-call="report.html_container">
+                <t t-call="report.external_layout">
+                    <!-- <t t-foreach="count" t-as="o"> -->
+
+                    <div class="page">
+
+                        <style>
+                        
+                            h2 {
+                                text-align: center;
+                                text-decoration: underline;
+                            }
+                            .main-data {
+                                width: 100%;
+                            }
+                            .center-data {
+                                width: 100%;
+                                margin: 0px auto;
+                                font-size: 17px;
+                            }
+                            .solid {
+                                font-weight: bold;
+                                width: 5%;
+                            }
+                            table, td, th {
+                                border: 1px solid;
+                                border-collapse: collapse;
+                                margin-top: 10px;
+                                text-align: center;
+                                padding: 5px;
+                                font-size: 15px;
+                            }
+                            .clearfloat {
+                                clear: both;
+                                float: none;
+                            }
+                            .liquid {
+                                width: 205px;
+                                border-bottom: 1px solid;
+                                display: inline-block;
+                            }
+                            .no-margin {
+                                margin-top: 0px;
+                                margin-bottom: 0px;
+                                padding: 5px;
+                            }
+                            p {
+                                text-align: center;
+                            }
+                            .date {
+                                width: 30%;
+                                float: right;
+                            }
+
+                        </style>
+
+                        <div class="main-data">
+
+                            <div class="center-data">
+
+                                <p class="no-margin"><b>SAIF CONSTRUCTION PRIVATE LIMITED</b></p>
+                                <p class="no-margin"><b>STOCK REPORT</b></p>
+                                <p class="no-margin"><span class="solid">SITE NAME:</span>
+                                <span class="liquid"></span></p>
+                                <p class="date"><span class="solid">Date:</span>
+                                <span class="liquid"></span></p>
+                                <table width="100%">
+
+                                    <tr>
+                                        <th>Sr.</th>
+                                        <th>Stock Description</th>
+                                        <th>Quantity</th>
+                                        <th>Stock In</th>
+                                        <th>Stock Out</th>
+                                        <th>Date of Purchase</th>
+                                        <th>Total</th>
+                                    </tr>
+
+                                    <t t-foreach="prod" t-as="line">
+                                        <t t-esc="get_prod(line.id)"/>
+
+                                        <tr>
+                                            <td colspan="7" style="text-align
+                                                :left;font-weight:bold;padding-left: 162px">
+                                                <span t-esc="line.name"></span> 
+                                            </td>
+                                        </tr>
+
+                                        <t t-set="total" t-value="0"/>
+                                        <t t-set="prev" t-value="0"/>
+                                        <t t-set="num" t-value="0"/>
+                                        <t t-set="i" t-value="1"/>
+                                        <t t-foreach="products" t-as="data">
+
+
+                                            <tr>
+
+                                                <td>
+                                                    <t t-esc="i"/>
+                                                    <t t-set="i" t-value="i+1"/>
+                                                </td>
+
+                                                <td>
+                                                </td>
+
+                                                <td>
+                                                    <span t-esc="get_prev(line.id)+prev"></span>
+                                                    <t t-set="num" t-value="get_prev(line.id)+prev"/>
+                                                </td>
+
+                                                <td>
+                                                    <span t-esc="get_recevied(data,line.id)"></span>
+                                                </td>
+
+                                                <td>
+                                                    <span t-esc="get_issued(data,line.id)"></span>
+                                                </td>
+
+                                                <td>
+                                                    <span t-esc="time.strftime('%d-%m-%Y',time.strptime(data,'%Y-%m-%d'))"></span>
+                                                </td>
+
+                                                <td>
+                                                    <t t-set="total" t-value="total+num+get_recevied(data,line.id)-get_issued(data,line.id)"/>
+
+                                                    <t t-set="prev" t-value="prev+num+get_recevied(data,line.id)-get_issued(data,line.id)"/>
+
+                                                    <span t-esc="total"></span>
+
+                                                    <t t-set="total" t-value="0"/>
+                                                </td>
+
+                                            </tr>
+
+                                        </t>
+
+                                    </t>
+
+    
+                                </table>
+
+                            </div>
+                            
+                        </div> 
+
+                    </div>
+
+                    <!-- </t> -->
+
+                </t>
+            </t>
+
+        </template>
+
+    </data>
+
+</openerp>

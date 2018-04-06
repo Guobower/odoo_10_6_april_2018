@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <report
+
+            id="report_daily_sale_purchase" 
+            model="res.partner"
+            name="daily_sale_purchase.daily_sale_purchase_report"
+            file="daily_sale_purchase.daily_sale_purchase_report"
+            report_type="qweb-html"
+            string="Daily Sale Purchse"
+            menu="False" />
+
+        <record id="daily_sale_purchase_wizard" model="ir.ui.view">
+            <field name="name">daily_sale_purchase_wizard</field>
+            <field name="model">daily.sale.purchase</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Report">
+                    
+                    <group name="group_top">
+
+                        <group name="group_left">
+
+                            <field name="date"/>
+
+                        </group>
+
+                    </group>
+
+                    <footer style="height: 30px !important; border: none !important;">
+                        <button name="%(report_daily_sale_purchase)d" type="action" string="Print" class="oe_highlight"/>
+                    </footer>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="daily_sale_purchase_action" model="ir.actions.act_window">
+            <field name="name">Daily Sale Purchase</field>
+            <field name="res_model">daily.sale.purchase</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="daily_sale_purchase_wizard"/>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="daily_sale_purchase_menu_item" name="Daily Sale Purchase" action="daily_sale_purchase_action" parent="sales_sugar.confirmation_level" />
+        
+    </data>
+</odoo>

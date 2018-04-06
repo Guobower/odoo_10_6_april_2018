@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+
+    <data>   
+
+        <template id="undertaking_report_template">
+
+            <t t-call="report.html_container">
+                <t t-call="report.external_layout">
+                    <t t-foreach="docs" t-as="o">
+                        
+                        <div class="page">
+
+                            <style>
+                                .header,
+                                .footer {
+                                    display: none;
+                                }
+                                .report-container {
+                                    width: 1000px;
+                                    margin: 0px auto;
+                                    }
+                                .to {
+                                    width: 100%;
+                                    text-align: left;
+                                    float: left;
+                                    margin: 30px 0px 30px 0px;
+                                    }
+                                .to .solid {
+                                    width: 15%;
+                                    font-weight: bold;
+                                    }
+                                .to .liquid {
+                                    width: 70%;
+                                    margin 10px;
+                                    }
+                                h3 {
+                                   width: 100;
+                                   float: left;
+                                   text-align: left;
+                                   }
+                                p {
+                                   width: 80;
+                                   display: block;
+                                   float: left;
+                                   margin: 20px 0px 50px 30px;
+                                   padding: 0px 40px 0px 0px;
+                                   }
+                                .invoice {
+                                    width: 100%;
+                                    float: left;
+                                    padding: 10px 0px 0px 5px;
+                                    }
+                                .invoice .solid {
+                                    width: 18%;
+                                    float: left;
+                                    display: block;
+                                    font-weight: bold;
+                                    }
+                                .invoice .liquid {
+                                    width: 60%;
+                                    float: left;
+                                    display: block;
+                                    text-align: left;
+                                    }                   
+                                    
+                            </style>
+
+                            <div class="report-container">
+                            
+                                <div class="to">
+                                   <span class="solid">TO,</span><br></br>
+                                   <span class="liquid">INCHARAGE A.N.F SKT/ISB/LHE AIRPORT/ DRY PORT</span>
+                                </div>
+                            
+                                <h3><u>UNDER TAKING</u></h3>
+                            
+                                <p>This is certified that our export shipment has not contained contraband of Narcotic            
+                                    items and not any such item which is banned by customs authorities, if any such                   
+                                    material  is found then we will be liable for the same. It is further confirmed that  
+                                    products are our own and not link or registered with any international all the stickers            
+                                    on the Firm/Organization.</p>
+
+                                
+                                <div class="invoice">
+                                    <span class="solid">UNDER E FORM NO :</span>
+                                    <span class="liquid"><span t-esc="o.e_form_no"></span></span>
+                                </div>
+                            
+                                <div class="invoice">
+                                    <span class="solid">DATE: </span>
+                                    <span class="liquid" t-esc="o.form_e_date"></span>
+                                </div>
+
+                                <div class="invoice">
+                                    <span class="solid">DESTINATION: </span>
+                                    <span class="liquid" t-esc="o.partner_id.country_id.name"></span>
+                                </div>
+                                
+                                <div class="invoice">
+                                    <span class="solid">CARTON:</span>
+                                    <span class="liquid">67</span>
+                                </div>
+                                
+                                <div class="invoice">
+                                    <span class="solid">Mode Of Shipment:</span>
+                                    <span class="liquid" t-esc="o.ship_mode"></span>
+                                </div>
+                                
+                                <div class="invoice">
+                                    <span class="solid">ID CARD #:</span>
+                                    <span class="liquid" t-esc="o.cnic"></span>
+                                </div>
+                                
+                                <div class="invoice">
+                                    <span class="solid">NAME:</span>
+                                    <span class="liquid" t-esc="o.employee_name.name"></span>
+                                </div>
+                                
+                                <div class="invoice">
+                                    <span class="solid">NTN#:</span>
+                                    <span class="liquid" t-esc="o.ntn"></span>
+                                </div>
+                                
+                                <div class="invoice">
+                                    <span class="solid">INVOICE NO: </span>
+                                    <span class="liquid">ASL/340/17</span>
+                                </div>
+                                
+                                <div class="invoice">
+                                    <span class="solid">DATE: </span>
+                                    <span class="liquid">06-April-2017</span>
+                                </div>  
+                            </div>  
+
+                        </div><!--end of page-->
+                    </t>
+                </t>
+            </t>
+
+        </template>
+
+    </data>
+
+</openerp>

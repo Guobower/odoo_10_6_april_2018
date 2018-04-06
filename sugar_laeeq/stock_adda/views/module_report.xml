@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+
+    <data>   
+
+        <template id="stock_adda_report">
+
+            <t t-call="report.html_container">
+
+                <t t-call="report.external_layout">
+                
+                    <div class="page">
+
+                        <style type="text/css">
+                            .header,
+                            .footer {
+                                display: none;
+                            }
+                            @media (min-width: 992px)
+                            .container {
+                                width: 100%;
+                            }
+
+                            @media (min-width: 768px)
+                            .container {
+                                width: 100%;
+                            }
+                            .container {
+                                width: 100%;
+                            }
+                            body {
+                                margin: 0px !important;
+                            }
+                            body.o_in_iframe {
+                                margin-top: 0px!important;
+                            }
+                            .clearfloat {
+                                clear: both;
+                                float: none;
+                                width: 100%;
+                                height: 1px;
+                                display: block;
+                            }
+                            .report-wrapper {
+                                width: 100%;
+                                margin: 0px auto;
+                            }
+                            table {
+                                width: 100%;
+                                border-spacing: 0px;
+                                border: 2px solid #CCC;
+                                margin: 0px auto;
+                            }
+                            table tr td, 
+                            table tr th {
+                                text-align: center;
+                                padding: 3px 10px;
+                                border-right: 2px solid #CCC;
+                                border-bottom: 1px solid #eee;
+                            }
+                            table tr td:last-child, 
+                            table tr th:last-child {
+                                border-right: none
+                            }
+                            table tr:last-child td {
+                                border-bottom: none
+                            }
+                            table tr th {
+                                text-align: center;
+                            }
+                            .report-header {
+                                width: 100%;
+                                margin: 0px 0px 10px;
+                                text-align: left;
+                            }
+                            .report-header p {
+                                width: 50%;
+                                float: left;
+                                margin: 0px 0px 20px;
+                            }
+                            .report-header p .solid {
+                                font-weight: bold;
+                            }
+                            h1,
+                            h2 {
+                                text-align: center;
+                                font-size: 25px;
+                                text-decoration: underline;
+                                font-weight: normal;
+                            }
+                            h2 {
+                                text-align: left;
+                                margin: 15px 0px 20px 115px;
+                            }
+                            .tile {
+                                display: inline-block;
+                                width: 100px;
+                                text-align: center;
+                                background: #a64f8e;
+                                color: #fff;
+                                padding: 2px 5px;
+                            }
+                            .tables_wrapper {
+                                width: 100%;
+                                float: left;
+                            }
+                            .col_01,
+                            .col_02 {
+                                width: 50%;
+                                float: left;
+                            }
+                            .summary {
+                                width: 80%;
+                                padding: 10px;
+                                margin: 0px auto;
+                            }
+                            .summary h2 {
+                                margin: 0px 0px 20px;
+                            }
+                            .summary .liquid {
+                                font-weight: bold;
+                            }
+                            .summary span.solid {
+                                width: 100px;
+                                display: inline-block;
+                                margin: 0px 100px 0px 0px;
+                            }
+                            .summary .lastnet {
+                                border-top: 1px solid #000;
+                                border-bottom: 1px solid #000;
+                                padding: 3px 0px;
+                            }
+                            .opning_balance {
+                                width: 80%;
+                                margin: 0px auto;
+                            }
+                            .opning_balance p:nth-child(2){
+                                text-align: center;
+                            }
+                            .opning_balance p:nth-child(3){
+                                text-align: right;
+                            }
+                            .opning_balance p:first-child{
+                                text-align: left;
+                            }
+                            .opning_balance p {
+                                width: 33%;
+                                float: left;
+                                margin: 0px 0px 20px;
+                                text-align: right;
+                                font-size: 18px;
+                            }
+                        </style>
+
+                        <div class="report-wrapper">
+                            
+                            <div class="report-header">
+
+                                <h1>Stock Movement Sheet</h1>
+                                
+                                <div style="float:left; width: 100%;">
+                                    <p style="float:left; width: 50%; text-align: right; padding: 0px 50px;">
+                                        <span class="solid">From: </span>
+                                        <span class="liquid" t-esc="form"></span>
+                                    </p>
+
+                                    <p style="float:left; width: 50%; text-align: left; padding: 0px 50px;">
+                                        <span class="solid">To: </span>
+                                        <span class="liquid" t-esc="to"></span>
+                                    </p>
+                                </div>
+
+                                <div class="opning_balance">
+                                    <p>
+                                        <span class="solid">Adda: </span>
+                                        <span class="liquid" t-esc="adda_field.name"></span>
+                                    </p>
+                                    <p>
+                                        <span class="solid">Party: </span>
+                                        <span class="liquid" t-esc="party.name"></span>
+                                    </p>
+                                    <p> 
+                                        <span class="solid">Mill: </span>
+                                        <span class="liquid" t-esc="mill.name"></span>
+                                    </p>
+                                </div>
+                                <br class="clearfloat" />
+                            </div>
+                            <p style="text-align: right; width: 80%; margin: 0px auto; font-weight: bold;">
+                                <span>Balance: </span>
+                                <span t-esc="balance"></span>
+                            </p> 
+                            <div class="tables_wrapper">
+
+                                <table>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Stock In</th>
+                                        <th>Stock Out</th>
+                                        <th>Balance</th>
+                                        <th>Destination</th>
+                                        <th>Vehicle No.</th>
+                                        <th>Billty No.</th>
+                                    </tr>
+
+                                    <tr>
+                                        <td colspan="7" style="background: #ccc;">
+                                            <span class="solid">Opening Balnace:</span>
+                                            <span class="liquid" t-esc="'{:0,}'.format(int(float(bal())))"></span>
+                                            <t t-set="balance" t-value="bal()" />
+                                            <t t-set="stockout" t-value="0" />
+                                            <t t-set="stockin" t-value="0" />
+                                        </td>
+                                    </tr>
+                                    
+                                    <t t-foreach="docs.sorted(key=lambda x: x.date)" t-as="load">
+                                        <tr>
+                                            <td><span t-esc="time.strftime('%d %b %Y',time.strptime(load.date,'%Y-%m-%d'))"></span></td>
+
+                                            <td>
+                                                <t t-if="load.type_transfer == 'out'">
+                                                    <span> - </span>
+                                                </t>
+                                                <t t-if="load.type_transfer == 'in'">
+                                                    <span t-esc="'{:0,}'.format(int(float(load.qty)))"></span>
+                                                    <t t-set="stockin" t-value="stockin + load.qty" />
+                                                </t>
+                                            </td>
+
+                                            <td>
+                                                <t t-if="load.type_transfer == 'out'">
+                                                    <span t-esc="'{:0,}'.format(int(float(load.qty)))"></span>
+                                                    <t t-set="stockout" t-value="stockout + load.qty" />
+                                                </t>
+                                                <t t-if="load.type_transfer == 'in'">
+                                                    <span> - </span>
+                                                </t>
+                                            </td>
+
+                                            <td>
+                                                <t t-if="load.type_transfer == 'out'">
+                                                    <span t-esc="'{:0,}'.format(int(float(balance - load.qty)))"></span>
+                                                    <t t-set="balance" t-value="balance - load.qty" />
+
+                                                </t>
+                                                <t t-if="load.type_transfer == 'in'">
+                                                    <span t-esc="'{:0,}'.format(int(float(balance + load.qty)))"></span>
+                                                    <t t-set="balance" t-value="balance + load.qty" />
+                                                </t>
+
+                                            </td>
+
+                                            <td>
+                                                 <t t-if="load.destination is not False">
+                                                    <span t-esc="load.destination"></span>
+                                                </t>
+                                                <t t-if="load.destination is False">
+                                                    <span> - TRANSFER - </span>
+                                                </t>
+                                            </td>
+                                            <td>
+                                                 <t t-if="load.vehicle is not False">
+                                                    <span t-esc="load.vehicle"></span>
+                                                </t>
+                                                <t t-if="load.vehicle is False">
+                                                    <span> - TRANSFER - </span>
+                                                </t>
+                                                
+                                            </td>
+                                            <td>
+                                                 <t t-if="load.billty is not False">
+                                                <span t-esc="load.billty"></span>
+                                                </t>
+                                                <t t-if="load.billty is False">
+                                                    <span> - TRANSFER - </span>
+                                                </t>
+                                            </td>
+                                        </tr>
+                                    </t>
+
+                                    <tr>
+                                        <td><b>Total</b></td>
+                                        <td><b><span t-esc="'{:0,}'.format(int(float(stockin)))"></span></b></td>
+                                        <td><b><span t-esc="'{:0,}'.format(int(float(stockout)))"></span></b></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+
+                                </table>
+                            </div>
+
+                        </div><!-- end of report wrapper -->
+
+                    </div><!-- end of page -->
+
+                </t>
+                
+            </t>
+
+        </template>
+
+    </data>
+
+</openerp>

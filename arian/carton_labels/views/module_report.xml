@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+
+    <data>   
+
+        <template id="module_report">
+
+            <t t-call="report.html_container">
+                <t t-call="report.external_layout">
+                    <t t-foreach="docs" t-as="o">
+                        
+                        <t t-foreach="entries" t-as="data">
+
+                            <div class="page">
+        
+                                <style>
+                                    .header,
+                                    .footer {
+                                        display: none;
+                                    }
+                                    .div-1 {
+                                        width: 100%;
+                                        border: 2px solid #000;
+                                        float: left;
+                                        margin: 10px 1px;
+                                        padding: 10px 30px;
+                                    }
+                                    .div-1 p span {
+                                        margin: 0 0 10px;
+                                        font-size: 16px;
+                                        font-weight: bold;
+                                    }
+                                </style>
+
+                                <div class="div-1">
+                                    
+
+                                    <p><span class="solid">TO :</span> <span class="liquid" t-esc="o.invoice_no.partner_id.name"></span></p>
+
+                                    <p><span class="solid">Order No :</span> <span class="liquid" t-esc="o.customer_order_no"></span></p>
+                                   
+                                        <p>
+                                            <span class="solid">Item # :</span> 
+                                            <span class="liquid" t-esc="sizer(data,'artical')"></span>
+                                        </p>
+                                       
+                                        <p>
+                                            <span class="solid">Item Name :</span> 
+                                            <span class="liquid" t-esc="sizer(data,'name')"></span>
+                                        </p>
+
+                                        <p>
+                                            <span class="solid">Color : </span> 
+                                            <span class="liquid" t-esc="sizer(data,'color')"></span>
+                                        </p>
+
+                                        <p>
+                                            <span class="solid">Q'ty :</span> 
+                                            <span class="liquid" t-esc="sizer(data,'qty')"></span>
+                                        </p>
+
+                                        <p>
+                                            <span class="solid">CARTON #</span> 
+                                            <span class="liquid" t-esc="data"></span>
+                                        </p>
+
+                                        <p>
+                                            <span class="solid">INVOICE # :</span> 
+                                            <span class="liquid" t-esc="o.invoice_no.number"></span>
+                                        </p>
+                                        
+
+                                        <p><span class="solid">FROM :</span> <span class="liquid">Arian Sports (Pvt) Ltd.<br></br> Sialkot - Pakistan</span></p>
+
+                                        <p><span class="solid">E FROM No:</span> <span class="liquid" t-esc="o.e_form"></span></p>
+                                       
+
+                                </div>
+                            </div><!--end of page-->
+
+                        </t>
+                    </t>
+                </t>
+            </t>
+
+        </template>
+
+    </data>
+
+</openerp>

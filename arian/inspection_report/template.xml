@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <report
+            id="inspection_report" 
+            model="quality.inspection"
+            name="inspection_report.module_report"
+            file="inspection_report.module_report"
+            report_type="qweb-html"
+            string="Inspection Report"/> 
+    </data>
+</openerp>

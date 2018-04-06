@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+
+    <data>   
+
+        <template id="appointment_letter">
+
+            <t t-call="report.html_container">
+
+                <t t-call="report.external_layout">
+
+                    <t t-foreach="docs" t-as="o">
+
+                        <div class="page">
+
+                            <style>
+                                .main-data {
+                                    width: 100%;
+                                }
+                                .center-data {
+                                    width: 1000px;
+                                    margin: 0px auto;
+                                }
+                                .heading {
+                                    text-align: center;
+                                    margin: 10px 0px 10px 0px;
+                                    text-decoration: underline;
+                                }
+                                .job-name {
+                                    width: 100%;
+
+                                }
+                                .employee {
+                                    width: 100%;
+                                    float: left;
+                                }
+                                .employee p .solid {
+                                    font-weight: bold;
+                                }
+                                .employee p .liquid {
+                                    margin-left: 10px;
+                                }
+                                .employee p {
+                                    width: 50%;
+                                    float: left;
+                                }
+                                .employee p:nth-child(2) {
+                                    text-align: right;
+                                }
+                                .clearfloat {
+                                    clear: both;
+                                    float: none;
+                                }
+                                ol li {
+                                    margin: 15px 0px;
+                                    line-height: 1.6;
+                                }
+                                ol li,
+                                p {
+                                    text-align: justify;
+                                }
+                                ol li span.line {
+                                    display: block;
+                                }
+                                .center {
+                                    text-align: center;
+                                }
+                                ol li span.center span {
+                                    display: inline-block;
+                                    padding: 0px 20px;
+                                    font-weight: bold;
+                                }
+                                .relation p {
+                                    margin-left: 40px;
+                                }
+                                .sign p {
+                                    margin-left: 40px;
+                                    border-top: 1px solid;
+                                    margin-top: 50px;
+                                    display: inline-block;
+                                    font-size: 15px;
+                                }
+                                .gm  {
+                                    margin-top: 80px;
+                                }
+                                .no-margin {
+                                    margin-top: 0px;
+                                    margin-bottom: 0px;
+                                }
+                                .mb0 {
+                                    margin-bottom: 0px;
+                                    font-size: 20px;
+                                }
+                            </style>
+
+                            <div class="main-data">
+                                <div class="center-data">
+                                    <div class="heading">
+                                        <h2>LETTER OF APPOINTMENT</h2>
+                                    </div>
+                                    <div class="job-name">
+                                        <div class="employee">
+                                            <p><span class="solid">Name:</span><span class="liquid">
+                                                <t t-esc="o.name"/>
+                                            </span></p>
+                                            <p><span class="solid">Dated:</span><span class="liquid">
+                                                <t t-esc="o.doj"/>
+                                            </span></p>
+                                            <br class="clearfloat"/>
+                                        </div>
+                                        <div class="appoint">
+                                            <p>You should be pleased to know that the selection comittee has approved your appointment for the post of <b><u>Deputy Project Manager</u></b> on the following terms and conditions.</p>
+                                            <ol type="1">
+                                                <li>Your apointment shall become effective from the date of your joining. You would be requird to report to office as per adress given at 0900 hrs for work on all days except holidays or other gazetted holidays</li>
+                                                <li>
+                                                    <span class="line">You will be paid:</span>
+                                                    <span class="line center"> 
+                                                        <span class="solid"> Gross Salary (Per Month)</span>
+                                                        <span>:</span>
+                                                        <span class="liquid"> Rs.(PKR <span t-esc="wage()"></span>)</span>
+                                                    </span>
+                                                </li>
+                                                <li>
+                                                    First three month would be probationary.During this period you can resign or company can terminate your services by serving one week notice by either side.After satisfactory completion of the probation period, your service will be subject to termination by one month written notice on either side or pay in lieu thereof. In case of breach of any of the terms of the agreement and any rules &amp;amp regulations of service, you will be subjuct to disciplinary action on charge of misconduct.
+                                                </li>
+                                                <li>
+                                                    During your employment with this organization you will not engage in any other full time or part time employment, paid or unpaid.
+                                                </li>
+                                                <li>
+                                                    In case of breach of any terms of this contract and Compnay rules and regulations, or any "Misconduct" on your part like theft, damage, fraud and dishonesty, your services will be terminated immediately, you will not be entitled to to any benefit and compensation as a result threof,In such case, suitable neccessary actions may further be initiated against you as per Law and Compnay rules and regulations.
+                                                </li>
+                                                <li>
+                                                    If you accept the above terms and conditions, please sign the appropriate place on the copy of this letter and return it  to the undersigned, and report to concerned for duty accordingly by mentioning your date of joining.
+                                                </li>
+                                                <li>
+                                                    In case you fail to report for duty on date of joining, this offer of contract employment shall become null and void.
+                                                </li>
+                                            </ol>
+                                            <div class="relation">
+                                                <p>We hope to have a long succcessful professional relationship with you and wish you the very best. Iam sure you would enjoy a congenial atmosphere and would also maintain it.</p>
+                                                <p>Yours truly,</p>
+                                                <p class="no-margin">For and on behalf of</p>
+                                                <p class="no-margin">Saif Constriction (Pvt.) Ltd</p>
+                                                <p class="gm mb0"><b>
+                                                    <t t-esc="o.coach_id.name"/>
+                                                </b></p>
+                                                <p class="no-margin">Project Manager</p>
+                                                <p><b><u>Declaration</u></b></p>
+                                                <p>I agree to accept employment with Saif Consrtuction Services Ltd in accordance with the terms and condition set out above as amended from time to time by the management. I will also abide by the Rules &amp; Regulations of the company.</p>
+                                            </div>
+                                            <div class="sign">
+                                                <p>(Signature of the Employee)</p>
+                                            </div>
+
+                                            
+                                        </div>
+
+
+                                        
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div><!--end of page-->
+                    </t>
+                </t>
+            </t>
+
+        </template>
+
+    </data>
+
+</openerp>

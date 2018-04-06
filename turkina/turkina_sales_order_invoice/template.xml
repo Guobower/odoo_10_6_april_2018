@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <report
+            id="report_for_module_turkina_sales" 
+            model="sale.order"
+            name="turkina_sales_order_invoice.module_report"
+            file="turkina_sales_order_invoice.module_report"
+            report_type="qweb-html"
+            string="Sales Order"/> 
+    </data>
+</openerp>

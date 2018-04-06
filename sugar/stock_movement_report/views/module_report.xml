@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+
+    <data>   
+
+        <template id="stock_movement_report">
+
+            <t t-call="report.html_container">
+
+                <t t-call="report.external_layout">
+
+                    <t t-foreach="docs" t-as="o">
+                
+                        <div class="page">
+
+                            <style type="text/css">
+                                @media (min-width: 992px)
+                                .container {
+                                    width: 100%;
+                                }
+
+                                @media (min-width: 768px)
+                                .container {
+                                    width: 100%;
+                                }
+                                .container {
+                                    width: 100%;
+                                }
+                                body {
+                                    margin: 0px !important;
+                                }
+                                body.o_in_iframe {
+                                    margin-top: 0px!important;
+                                }
+                                .clearfloat {
+                                    clear: both;
+                                    float: none;
+                                    width: 100%;
+                                    height: 1px;
+                                    display: block;
+                                }
+                                .report-wrapper {
+                                    width: 100%;
+                                    margin: 0px auto;
+                                }
+                                table {
+                                    width: 80%;
+                                    border-spacing: 0px;
+                                    border: 2px solid #CCC;
+                                    margin: 0px auto;
+                                }
+                                table tr td, 
+                                table tr th {
+                                    text-align: center;
+                                    padding: 10px;
+                                    border-right: 2px solid #CCC;
+                                    border-bottom: 1px solid #eee;
+                                }
+                                table tr td:last-child, 
+                                table tr th:last-child {
+                                    border-right: none
+                                }
+                                table tr:last-child td {
+                                    border-bottom: none
+                                }
+                                table tr th {
+                                    text-align: center;
+                                }
+                                .report-header {
+                                    width: 100%;
+                                    margin: 0px 0px 10px;
+                                    text-align: left;
+                                }
+                                .report-header p {
+                                    width: 50%;
+                                    float: left;
+                                    margin: 0px 0px 20px;
+                                }
+                                .report-header p .solid {
+                                    font-weight: bold;
+                                }
+                                h1,
+                                h2 {
+                                    text-align: center;
+                                    font-size: 25px;
+                                    text-decoration: underline;
+                                    font-weight: normal;
+                                }
+                                h2 {
+                                    text-align: left;
+                                    margin: 15px 0px 20px 115px;
+                                }
+                                .tile {
+                                    display: inline-block;
+                                    width: 100px;
+                                    text-align: center;
+                                    background: #a64f8e;
+                                    color: #fff;
+                                    padding: 2px 5px;
+                                }
+                                .tables_wrapper {
+                                    width: 100%;
+                                    float: left;
+                                }
+                                .col_01,
+                                .col_02 {
+                                    width: 50%;
+                                    float: left;
+                                }
+                                .summary {
+                                    width: 80%;
+                                    padding: 10px;
+                                    margin: 0px auto;
+                                }
+                                .summary h2 {
+                                    margin: 0px 0px 20px;
+                                }
+                                .summary .liquid {
+                                    font-weight: bold;
+                                }
+                                .summary span.solid {
+                                    width: 100px;
+                                    display: inline-block;
+                                    margin: 0px 100px 0px 0px;
+                                }
+                                .summary .lastnet {
+                                    border-top: 1px solid #000;
+                                    border-bottom: 1px solid #000;
+                                    padding: 3px 0px;
+                                }
+                                .opning_balance {
+                                    width: 80%;
+                                    margin: 0px auto;
+                                }
+                                .opning_balance p:nth-child(2){
+                                    text-align: right;
+                                }
+                                .opning_balance p {
+                                    width: 39%;
+                                    float: left;
+                                    margin: 0px 0px 20px;
+                                    text-align: right;
+                                    font-size: 18px;
+                                }
+                            </style>
+
+                            <div class="report-wrapper">
+                                
+                                <div class="report-header">
+
+                                    <h1>Stock Movement Sheet</h1>
+                                    
+                                    <div style="float:left; width: 100%;">
+                                        <p style="float:left; width: 50%; text-align: right; padding: 0px 50px;">
+                                            <span class="solid">From: </span>
+                                            <span class="liquid" t-esc="form"></span>
+                                        </p>
+
+                                        <p style="float:left; width: 50%; text-align: left; padding: 0px 50px;">
+                                            <span class="solid">To: </span>
+                                            <span class="liquid" t-esc="to"></span>
+                                        </p>
+                                    </div>
+
+                                    <div class="opning_balance">
+                                        <p>
+                                            <span class="solid">Party: </span>
+                                            <span class="liquid" t-esc="partner_wiz.name"></span>
+                                        </p>
+                                        <p>
+                                            <span class="solid">Mill: </span>
+                                            <span class="liquid" t-esc="mill.name"></span>
+                                        </p>
+                                    </div>
+                                    <br class="clearfloat" />
+
+                                </div>
+
+                                <div class="summary">
+
+                                    <h2>Summary</h2>
+
+                                    <p>
+                                        <span class="solid">Opening: </span>
+                                        <span class="liquid" t-esc="getopening()"></span>
+                                    </p>
+                                    <p>
+                                        <span class="solid">Net Purchase: </span>
+                                        <span class="liquid" t-esc="netpurchase()"></span>
+                                    </p>
+                                    <p>
+                                        <span class="solid">Transfers In: </span>
+                                        <span class="liquid" t-esc="TranfersIn()"></span>
+                                    </p>
+                                    <p>
+                                        <span class="solid">Transfers Out: </span>
+                                        <span class="liquid" t-esc="TranfersOut()"></span>
+                                    </p>
+                                    <p>
+                                        <span class="solid">Loading: </span>
+                                        <span class="liquid" t-esc="loading()"></span>
+                                    </p>
+                                    <p>
+                                        <span class="solid">Net Balance: </span>
+                                        <span class="liquid lastnet"> 1234567890 </span>
+                                    </p>
+
+                                </div>
+                                    
+                                <div class="tables_wrapper">
+                                    <h2>Purchase</h2>
+                                    <table>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Quantity</th>
+                                        </tr>
+                                        <t t-set="pur_qty" t-value="0" />
+                                        <t t-foreach="purchases" t-as="purchase">
+                                            <tr>
+                                                <td><span t-esc="purchase.date"></span></td>
+                                                <td>
+                                                    <span t-esc="purchase.qty"></span>
+                                                    <t t-set="pur_qty" t-value="pur_qty + purchase.qty" />
+                                                </td>
+                                            </tr>
+                                        </t>
+                                        <tr>
+                                            <td><b>Total</b></td>
+                                            <td><span t-esc="pur_qty"></span></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                
+                                <div class="tables_wrapper">
+                                    <h2>Sales</h2>
+                                    <table>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Quantity</th>
+                                        </tr>
+                                        <t t-set="sale_qty" t-value="0" />
+                                        <t t-foreach="sales" t-as="sale">
+                                            <tr>
+                                                <td><span t-esc="sale.date"></span></td>
+                                                <td><span t-esc="sale.qty"></span></td>
+                                                    <t t-set="sale_qty" t-value="sale_qty + sale.qty" />
+                                            </tr>
+                                        </t>
+                                        <tr>
+                                            <td><b>Total</b></td>
+                                            <td><span t-esc="sale_qty"></span></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                
+                                <div class="tables_wrapper">
+                                    <h2>Transfers</h2>
+                                    <table>
+                                        <tr>
+                                            <th>Transfer Type</th>
+                                            <th>Date</th>
+                                            <th>Quantity</th>
+                                            <th>Adda</th>
+                                            <th>Memo</th>
+                                        </tr>
+                                        <t t-set="transfer_qty" t-value="0" />
+                                        <t t-foreach="transfers" t-as="transfer">
+                                            <tr>
+                                                <td>
+                                                    <t t-set="trans" t-value="get_transfer_type(transfer.transfer_type)" />
+                                                    <span t-esc="trans"></span>
+                                                </td>
+
+                                                <td><span t-esc="transfer.date"></span></td>
+                                                
+                                                <td>
+                                                    
+                                                    <t t-if="transfer.transfer_type == 'g2c'">
+                                                        <span t-esc="transfer.qty"></span>
+                                                        <t t-set="transfer_qty" t-value="transfer_qty + transfer.qty" />
+                                                    </t>
+
+                                                    <t t-if="transfer.transfer_type == 'c2g'">
+                                                        <t t-set="value" t-value="-1*(transfer.qty)" />
+                                                        <span t-esc="value"></span>
+                                                        <t t-set="transfer_qty" t-value="transfer_qty + value" />
+                                                    </t>
+
+                                                    <t t-if="transfer.transfer_type == 'c2c'">
+                                                        <t t-if="transfer.party == partner_wiz">
+                                                            <t t-set="value" t-value="-1*(transfer.qty)" />
+                                                            <span t-esc="value"></span>
+                                                            <t t-set="transfer_qty" t-value="transfer_qty + value" />
+                                                        </t>
+                                                        <t t-if="transfer.to == partner_wiz">
+                                                            <t t-set="value" t-value="(transfer.qty)" />
+                                                            <span t-esc="value"></span>
+                                                            <t t-set="transfer_qty" t-value="transfer_qty + value" />
+                                                        </t>
+                                                    </t>
+                                                </td>
+                                                <td><span t-esc="transfer.adda.name"></span></td>
+                                                <td><span t-esc="transfer.memo"></span></td>
+                                            </tr>
+                                        </t>
+                                        <tr>
+                                            <td></td>
+                                            <td><b>Total</b></td>
+                                            <td><span t-esc="transfer_qty"></span></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                    
+                                <div class="tables_wrapper">
+                                    <h2>Loading</h2>
+                                    <table>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Adda</th>
+                                            <th>Mill Loaded</th>
+                                            <th>Quantity</th>
+                                            <th>Destination</th>
+                                            <th>Vehicle No.</th>
+                                            <th>Billty No.</th>
+                                        </tr>
+                                        <t t-set="qty" t-value="0" />
+                                        <t t-foreach="loadings" t-as="load">
+                                            <tr>
+                                                <td><span t-esc="load.date"></span></td>
+                                                <td><span t-esc="load.adda.name"></span></td>
+                                                <td><span t-esc="load.mill_loaded.name"></span></td>
+                                                <td>
+                                                    <span t-esc="load.qty"></span>
+                                                    <t t-set="qty" t-value="qty + load.qty" />
+                                                </td>
+                                                <td><span t-esc="load.destination"></span></td>
+                                                <td><span t-esc="load.vehicle_no"></span></td>
+                                                <td><span t-esc="load.billty_no"></span></td>
+                                            </tr>
+                                        </t>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td><b>Total</b></td>
+                                            <td><b><span t-esc="qty"></span></b></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+                            </div><!--end of report wrapper-->
+
+                        </div><!--end of page -->
+
+                    </t>
+
+                </t>
+                
+            </t>
+
+        </template>
+
+    </data>
+
+</openerp>

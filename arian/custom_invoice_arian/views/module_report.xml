@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+
+    <data>   
+
+        <template id="module_report">
+
+            <t t-call="report.html_container">
+                <t t-call="report.external_layout">
+                    <t t-foreach="docs" t-as="o">
+
+                        <div class="page">
+    
+                            <style>
+                                .header,
+                                .footer {
+                                    display: none;
+                                }
+                                .main_header {
+                                    width: 1000px;
+                                    margin: 0px auto;
+                                }
+                                .report-header {
+                                    width: 100%;
+                                    float: left;
+                                    margin: 0px 0px 8px;
+                                }
+                                .header-col-01,
+                                .header-col-02 {
+                                    width: 498px;
+                                    min-height: 110px;
+                                    float: left;
+                                    border: 2px solid #000;
+                                    padding: 10px 15px;
+                                    margin: 0px 1px;
+                                }
+                                .clearfloat {
+                                    clear: both;
+                                    float: none;
+                                    display: block;
+                                }
+                                .logo {
+                                    width: 100px;
+                                    height: auto;
+                                    float: left;
+                                }
+                                .logo img {
+                                    width: 100%;
+                                }
+                                .logo-text {
+                                    margin: 0px 0px 0px 10px;
+                                    float: left;
+                                }
+                                .logo-text p {
+                                    margin: 5px 0px;
+                                }
+                                .header-col-02 p {
+                                    margin: 5px 0px;
+                                }
+                                .tower {
+                                    width: 100%;
+                                    float: left;
+                                    margin: 0px 0px 2px
+                                }
+                                .two-col-01,
+                                .two-col-02 {
+                                    width: 498px;
+                                    border: 2px solid #000;
+                                    float: left;
+                                    margin: 0px 1px;
+                                    padding: 7px 10px;
+                                }
+                                .tower p {
+                                    margin: 0px;
+                                }
+                                table {
+                                    width: 100%;
+                                    border-top: 2px solid #000;
+                                    margin: 20px 0px 0px;
+                                    float: left;
+                                }
+                                table tr th,
+                                table tr td {
+                                    border-bottom: 2px solid #000;
+                                    border-left: 2px solid #000;
+                                    padding: 5px;
+                                    text-align: center;
+                                }
+                                table tr th:last-child,
+                                table tr td:last-child {
+                                    border-right: 2px solid #000;
+                                }
+                                table tr:last-child td {
+                                    border: none !important;
+                                }
+                                .table-head {
+                                    text-align: center;
+                                    color: #FFF;
+                                    background: #666;
+                                }
+                                table table {
+                                    border: none;
+                                }
+                                table table tr td {
+                                    border: none !important;
+                                }
+
+                                .report-footer {
+                                    width: 100%;
+                                    float: left;
+                                }
+                                .foot-col-01 ,
+                                .foot-col-02 ,
+                                .foot-col-03 {
+                                    width: 33%;
+                                    float: left;
+                                }
+                                .report-footer p {
+                                    text-align: center;
+                                }
+
+                            </style>
+
+                            <div class="main_header">
+
+                                <div class="report-header">
+                                    
+                                    <div class="header-col-01">
+
+                                        <div class="logo">
+                                            <img src="/custom_invoice_arian/static/src/img/logo.jpg" alt="" />
+                                        </div>
+
+                                        <div class="logo-text">
+
+                                            <p><b>Arian Sports (Pvt) Ltd Customer</b></p>
+                                            <p><b>1Km off Naul More Roras Road</b></p>
+                                            <p><b>Sialkot Pakistan</b></p>
+                                            
+                                        </div>
+
+                                    </div><!--end of header col 01-->
+
+                                    <div class="header-col-02">
+                                        <p><span class="solid"><b>Customer Name :</b></span> <span class="liquid"> Spain</span></p>
+                                    </div><!--end of header col 02-->
+
+                                </div><!--end of header-->
+
+                                <div class="tower">
+
+                                    <div class="two-col-01">
+
+                                        <p><span class="solid"><b>Invoice No : </b></span> <span class="liquid" t-esc="o.number"></span></p>
+
+                                    </div>
+
+                                    <div class="two-col-02">
+
+                                        <p><span class="solid"><b>Date : </b></span> <span class="liquid" t-esc="o.date_invoice"></span></p>
+
+                                    </div>
+
+                                </div><!--end of tower-->
+
+                                <div class="tower">
+
+                                    <div class="two-col-01">
+
+                                        <p><span class="solid"><b>Form E Date : </b></span> <span class="liquid" t-esc="o.form_e_date"></span></p>
+
+                                    </div>
+
+                                    <div class="two-col-02">
+
+                                        <p><span class="solid"><b>Form E # : </b></span> <span class="liquid" t-esc="o.e_form_no"></span></p>
+
+                                    </div>
+
+                                </div><!--end of tower-->
+
+                                <div class="tower">
+
+                                    <div class="two-col-01">
+
+                                        <p><span class="solid"><b>Payment Terms : </b></span> <span class="liquid" t-esc="o.payment_term_id.name"></span></p>
+
+                                    </div>
+
+                                    <div class="two-col-02">
+
+                                        <p><span class="solid"><b>Trade Term : </b></span> <span class="liquid" t-esc="o.inco_terms.code"></span></p>
+
+                                    </div>
+
+                                </div><!--end of tower-->
+
+                                <div class="tower">
+
+                                    <div class="two-col-01">
+
+                                        <p><span class="solid"><b>Ship Via : </b></span> <span class="liquid" t-esc="o.ship_mode"></span></p>
+
+                                    </div>
+
+                                    <div class="two-col-02">
+
+                                        <p><span class="solid"><b>No. of Cartons : </b></span> <span class="liquid">22</span></p>
+
+                                    </div>
+
+                                </div><!--end of tower-->
+
+                                <div class="tower">
+
+                                    <div class="two-col-01">
+
+                                        <p><span class="solid"><b>Port of Loading : </b></span> <span class="liquid">ISLAMABAD</span></p>
+
+                                    </div>
+
+                                    <div class="two-col-02">
+
+                                        <p><span class="solid"><b>Port of Discharge : </b></span> <span class="liquid" t-esc="o.port"></span></p>
+
+                                    </div>
+
+                                </div><!--end of tower-->
+
+                                <div class="tower">
+
+                                    <div class="two-col-01">
+
+                                        <p><span class="solid"><b>Shipment of : </b></span> <span class="liquid" t-esc="o.shipment_of"></span></p>
+
+                                    </div>
+
+                                    <div class="two-col-02">
+
+                                        <p><span class="solid"><b>Country of Origin : </b></span> <span class="liquid" t-esc="country"></span></p>
+
+                                    </div>
+
+                                </div><!--end of tower-->
+
+                                <table cellspacing='0'>
+
+                                    <tr>
+                                        <th>ARTICLE NAME/NO.</th>
+                                        <th>QTY UNIT</th>
+                                        <th>DESCRIPTION OF GOODS</th>
+                                        <th>PRICE CIF US$</th>
+                                        <th>TOTAL AMOUNT</th>
+                                    </tr>
+
+                                    <tr>
+                                        <td colspan="5" class="table-head">MO/219/16</td>
+                                    </tr>
+
+                                    <t t-set="total_quantity" t-value="0" />
+                                    <t t-set="total_amount" t-value="0" />
+
+                                    <t t-foreach="temple_ids" t-as="data">
+                                        <t t-set="prod_id" t-value="data" />
+
+                                        <tr>
+
+                                            <td>
+                                                <span t-esc="temple_products(prod_id, 'name')"></span><br />
+                                                <span t-esc="temple_products(prod_id, 'color')"></span><br />
+                                                <span>H.S. Code <span t-esc="temple_products(prod_id, 'hs_code')"></span></span>
+                                            </td>
+
+                                            <td>
+                                                <span t-esc="temple_products(prod_id, 'qty')"></span> Pair
+
+                                                <t t-set="total_quantity" t-value="total_quantity + temple_products(prod_id, 'qty')" />
+                                            </td>
+                                            
+                                            <td>
+                                                <span><span t-esc="temple_products(prod_id, 'descrip')"></span>, "<span t-esc="temple_products(prod_id, 'name')"></span> <span t-esc="temple_products(prod_id, 'color')"></span></span>
+
+                                                <table cellspacing='0'>
+                                                    <t t-set="sizing_id" t-value="set_sizing(prod_id)" />
+
+                                                    <tr>
+
+                                                        <td><b>Size</b></td>
+                                                        <t t-foreach="sizing_ids" t-as="sizer">
+                                                            <td><span t-esc="sizer"></span></td>
+                                                        </t>
+
+                                                    </tr>
+
+                                                    <tr>
+
+                                                        <td><b>QTY</b></td>
+                                                        <t t-foreach="sizing_ids" t-as="sizer">
+                                                            <td><span t-esc="get_size_qty(sizer,prod_id)"></span></td>
+                                                        </t>
+
+                                                    </tr>
+                                                
+                                                </table>
+
+                                            </td>
+                                            <td><span t-esc="temple_products(prod_id, 'avg_price')"></span></td>
+                                            <td>
+                                                <span t-esc="temple_products(prod_id, 'total_price')"></span>
+                                                <t t-set="total_amount" t-value="total_amount + temple_products(prod_id, 'total_price')" />
+                                            </td>
+
+                                        </tr>
+
+                                    </t>
+
+                                    <tr>
+
+                                        <td></td>
+                                        <td><span t-esc="total_quantity"></span></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td><span t-esc="total_amount"></span></td>
+
+                                    </tr>
+
+                                </table>
+
+                                <p><span class="solid">TOTAL AMOUNT</span> <span class="liquid">US$: <span t-esc="o.convert_amount()"></span></span></p>
+
+                                <div class="report-footer">
+                                    
+                                    <div class="foot-col-01">
+
+                                        <p><b><u>MARKS &amp; NO.</u></b></p>
+                                        <p><span class="liquid">UNIK 1/22 TO 22/22</span></p>
+
+                                    </div>
+                                    
+                                    <div class="foot-col-02">
+
+                                        <p><b><u>UNDER CLAIM FOR REBATE</u></b></p>
+                                        <p><span class="liquid">SRO # 210(1)2009</span></p>
+                                        <p><span class="solid">DATED: </span><span class="liquid" t-esc="o.date_invoice"></span></p>
+
+                                    </div>
+                                    
+                                    <div class="foot-col-03">
+
+                                        <p><b>GROSS WEIGHT:</b> <span class="liquid" t-esc="get_gw(o.number)"></span></p>
+                                        <p><b>NET WEIGHT:</b> <span class="liquid" t-esc="get_nw(o.number)"></span></p>
+                                        <p><b>Volume: </b> <span class="liquid" t-esc="get_vol(o.number)"></span></p>
+
+                                    </div>
+
+                                </div><!--end of footer-->
+
+                            </div><!--end of main wrapper-->
+
+                        </div><!--end of page-->
+                    </t>
+                </t>
+            </t>
+
+        </template>
+
+    </data>
+
+</openerp>

@@ -1,0 +1,193 @@
+<odoo>
+	<record id="expense_form_extension_saif" model="ir.ui.view"> 
+	    <field name="name">expense_form_extension_saif</field> 
+	    <field name="model">saif.extension</field> 
+	    <field name="arch" type="xml"> 
+	        <form>
+	        	<header>
+	        		<field name="status" widget="statusbar" statusbar_visible="draft,val"/>
+	        		<button name="val" type="object" string="Validate" class = "oe_highlight" attrs="{'invisible':[('status','=','val')]}"/>
+	        		<button name="cancel" type="object" string="Cancel" class = "oe_highlight" attrs="{'invisible':[('status','=','draft')]}"/> 
+
+	        	</header>
+	        	<sheet >
+				    <group name="group_top" > 
+
+					    <group name="group_left"> 
+					    	<field name="seq"/>
+	        		  
+					        <field name="date" attrs="{'readonly':[('status','=','val')]}"/>
+					       	<field name="employee" attrs="{'readonly':[('status','=','val')]}"/> 
+				            <field name="proj" attrs="{'readonly':[('status','=','val')]}"/>
+					        <field name="department" attrs="{'readonly':[('status','=','val')]}"/>
+					        <field name="amount" attrs="{'readonly':[('status','=','val')]}"/>
+					        <field name="returned" attrs="{'invisible':[('state','=','exp')]}"/>
+					        <field name="net" attrs="{'invisible':[('state','=','exp')]}"/>
+
+					    </group> 
+
+				        <group name="group_right"> 
+				            <field name="payment_bank" attrs="{'readonly':[('status','=','val')]}"/> 
+				            <field name="s_bank" attrs="{'invisible':[('payment_bank','=',False)]}" domain="[('type','=','bank')]"/>				        
+				            <field name="s_counter" attrs="{'invisible':[('payment_bank','=',False)]}"/>
+				            <field name="cash_book" attrs="{'invisible':[('payment_bank','=',True)]}" domain="[('journal_id.type','=','cash')]"/>				       
+				            <field name="description" attrs="{'readonly':[('status','=','val')]}"/>				        
+				            <field name="e_currency" attrs="{'readonly':[('status','=','val')]}"/>
+				            <field name="state" attrs="{'readonly':[('status','=','val')]}"/>
+
+				        </group>
+				    </group>
+			    	<notebook>
+			   			 <page name="des" string="Description">
+
+						    <field name="saif_tree_link" nolabel='1' attrs="{'readonly':[('status','=','val')]}">
+						    	<tree  editable="bottom">
+							      <field name="expense_date"/>
+							      <field name="expense_note"/>
+							      <field name="expense_amount"/>
+						  		</tree>
+
+						    </field>
+						</page>
+					</notebook>
+		  		</sheet>
+		    </form>
+	    </field> 
+	</record>
+
+	<record id="expense_tree_extension_saif" model="ir.ui.view">
+        <field name="name">expense_tree_extension_saif</field>
+        <field name="model">saif.extension</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Expenses">
+                    <field name="employee" />
+                    <field name="date" />
+                    <field name="department" />
+                    <field name="amount" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="account_bank_extension" model="ir.ui.view"> 
+        <field name="name">account_bank_extension</field> 
+        <field name="model">account.bank.statement</field>
+        <field name="inherit_id" ref="account.view_bank_statement_form"/>
+        <field name="type">form</field> 
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name ='date']" position="after">
+            <field name="proj" attrs="{'readonly':['|',('check','=', True),('hide_bol','=', True)]}"/>
+            <field name="check" invisible="1"/>
+            <field name="hide_bol" invisible="1"/>
+            </xpath>
+
+            <xpath expr="//field[@name ='line_ids']" position="attributes">
+                <attribute name="context">{'default_proj':proj}</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='line_ids']/tree/field[@name='partner_id']" position="after">
+
+              <field name="voucher_no" attrs="{'readonly':[('e_check','=', True)]}"/>
+              <field name="payess_name" domain="[('supplier','=',True)]" attrs="{'readonly':[('e_check','=', True)]}"/>
+              <field name="account" attrs="{'readonly':[('e_check','=', True)]}"/>
+              <field name="proj" attrs="{'readonly':['|',('check_val','=', True),('e_check','=', True)]}"/>
+              <field name="ecube_journal" readonly="1"/>
+              <field name="e_check" invisible="1"/>
+              <field name="check_val" invisible="1" />
+              <!-- <field name="employee" invisible="1"/> -->
+
+            </xpath>
+
+            <xpath expr="//field[@name='line_ids']/tree/field[@name='ref']" position="after">
+
+	            <field name="paid" attrs="{'readonly':[('e_check','=', True )]}"/>
+	            <field name="received" attrs="{'readonly':['|',('e_check','=', True ),('check_val','=', True )]}"/>
+
+	        </xpath>
+
+            <xpath expr="//field[@name='line_ids']/tree/field[@name='partner_id']" position="attributes">
+
+                <attribute name="attrs">{'readonly':[('e_check','=',True)]}</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='line_ids']/tree/field[@name='date']" position="attributes">
+
+                <attribute name="attrs">{'readonly':[('e_check','=',True)]}</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='line_ids']/tree/field[@name='name']" position="attributes">
+
+                <attribute name="attrs">{'readonly':[('e_check','=',True)]}</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='line_ids']/tree/field[@name='ref']" position="attributes">
+
+                <attribute name="attrs">{'readonly':[('e_check','=',True)]}</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='line_ids']/tree/field[@name='amount']" position="attributes">
+
+                <attribute name="attrs">{'readonly':[('e_check','=',True)]}</attribute>
+            </xpath>
+
+            <xpath expr="//button[@name='289']" position="replace">
+                <button name="post" type="object" string="Post Enteries" class="oe_highlight" attrs="{'invisible':[('hide_bol','=', True)]}"/>
+            </xpath>
+
+        </field>
+    </record>
+
+
+     <record id="account_move_extension" model="ir.ui.view"> 
+        <field name="name">account_move_extension</field> 
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="type">form</field> 
+        <field name="arch" type="xml">
+           <!--  <xpath expr="//field[@name ='date']" position="after">
+            <field name="proj"/>
+            </xpath> -->
+            <xpath expr="//field[@name='line_ids']/tree/field[@name='partner_id']" position="after">
+
+              <field name="voucher_no" />
+              <field name="payess_name" />
+              <field name="proj" />
+              <!-- <field name="employee" invisible="1"/> -->
+
+            </xpath>
+            
+
+        </field>
+    </record>
+
+    <record id="user_form_view"   model="ir.ui.view"> 
+        <field name="name">user_form_view</field> 
+        <field name="model">res.users</field> 
+        <field name="inherit_id" ref="base.view_users_form"/> 
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+              <field name="proj"/>   
+              <field name="branch_user"/>   
+            </xpath>
+        </field> 
+    </record>
+
+
+    <record id="account_bank_seq" model="ir.sequence"> 
+        <field name="name">account_bank_seq</field> 
+        <field name="code">ch.seq</field> 
+        <field name="prefix">CE</field> 
+        <field name="padding">4</field> 
+    </record>
+
+	<record model="ir.actions.act_window" id="saif_expenses">
+		<field name="name">Expenses</field>
+		<field name="res_model">saif.extension</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+    <menuitem name="Expenses" id="saif_expenses_menu_item" parent="hr_expense.menu_hr_expense_my_expenses" sequence="4" action="saif_expenses"/>
+
+
+</odoo>

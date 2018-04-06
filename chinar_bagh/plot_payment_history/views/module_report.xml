@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+
+    <data>   
+
+        <template id="fabrics_invoice">
+
+            <t t-call="report.html_container">
+                <t t-call="report.external_layout">
+                    <t t-set="sr_no" t-value="0" />
+
+                    <div class="page">
+
+                        <style>
+                            .main-data {
+                                width: 100%;
+                            }
+                            .center-data {
+                                width: 1000px;
+                                margin: 0px auto;
+                            }
+                            table,td, th {
+                                border: 1px solid;
+                                border-collapse: collapse;
+                                padding: 8px;
+                                text-align: center;
+                            }
+                            h3 {
+                                text-decoration: underline;
+                            }
+                            .heading {
+                                text-align: center;
+                            }
+                            .no-margin {
+                                margin-top: 0px;
+                                margin-bottom: 0px;
+                            }
+                            .crown-city {
+                                width: 90%;
+                                float: left;
+                                margin: 20px 0px 20px 0px;
+                                text-align: right;
+                            }
+                            .solid {
+                                font-weight: bold;
+                                margin-left: 10px;
+                                margin-right: 10px;
+                            }
+                            .liquid {
+                                margin-left: 10px;
+                            }
+                            .subject {
+                                margin: 20px 0px 20px 0px;
+                                text-align: center;
+                            }
+                            .clearfloat {
+                                clear: both;
+                                float: none;
+                            }
+                        </style>
+
+                        <div class="main-data">
+                            <div class="center-data">
+                                <div class="heading">
+                                    <h3 class="no-margin">Luxurion Gardens.</h3>
+<!--                                     <p class="no-margin">Electrical Contractors, Transmission &amp; Destribution lines, Housing scheme Developer</p> -->
+                                </div>
+                                <div class="crown-city">
+                                    <p class="no-margin"><span class="solid">Dated:</span><span class="liquid">31-10-2017</span></p>
+                                </div>
+                                <br class="clearfloat"/>
+                                
+                                <table width="100%">
+                                    <tr>
+                                        <th>S NO</th>
+                                        <th>Customer</th>
+                                        <th>Plot NO</th>
+                                        <th>Total Price</th>
+                                        <th>Date</th>
+                                        <th>TF/RF</th>
+                                        <th>Advance</th>
+                                        <th>Commission Paid</th>
+                                        <th>Installments</th>
+                                        <th>Total Paid</th>
+                                        <th>Remaining</th>
+                                    </tr>
+                                    <t t-foreach="docs" t-as="o">
+                                        <tr>
+                                            <t t-set="sr_no" t-value="sr_no + 1" />
+                                            <td><span class="liquid" t-esc="sr_no"></span></td>
+                                            <td><span class="liquid" t-esc="o.partner_id.name"></span></td>
+                                            <td><span class="liquid" t-esc="o.ms_new"></span></td>
+                                            <td><span class="liquid" t-esc="'{:0,}'.format(int(float(o.total_plot_price)))"></span></td>
+                                            <td><span class="liquid" t-esc="o.date_order"></span></td>
+                                            <td><span class="liquid" t-esc="o.Transfer_to"></span></td>
+                                            <td><span class="liquid" t-esc="'{:0,}'.format(int(float(o.plot_advance)))"></span></td>
+                                            <td><span class="liquid" t-esc="'{:0,}'.format(int(float(o.plot_commission)))"></span></td>
+                                            <td><span class="liquid" t-esc="o.no_of_installments"></span></td>
+                                            <td><span class="liquid" t-esc="'{:0,}'.format(int(float(o.total_paid)))"></span></td>
+                                            <td><span class="liquid" t-esc="'{:0,}'.format(int(float(o.remaining)))"></span></td>
+                                        </tr>
+                                    </t>
+
+                                </table>
+
+                                <t t-if="count == 1">
+
+                                    <h2 style="margin: 20px 0px;">Plot Payment History</h2>
+                                    <t t-set="serials" t-value="1" />
+                                    <t t-set="total" t-value="0" />
+                                    <t t-set="paid" t-value="0" />
+                                    <t t-set="due" t-value="0" />
+
+                                    <table width="100%">
+                                        <tr>
+                                            <th>S NO</th>
+                                            <th>Plot` NO</th>
+                                            <th>Invoice Date</th>
+                                            <th>Total</th>
+                                            <th>Paid</th>
+                                            <th>Amount Due</th>
+                                            <th>Status</th>
+                                        </tr>
+                                        <t t-foreach="docs" t-as="o">
+
+                                            <t t-foreach="o.plot_payment_id.sorted(key=lambda x: x.date_invoice)" t-as="data">
+                                                <tr>
+                                                    <td>
+                                                        <span t-esc="serials"></span>
+                                                        <t t-set="serials" t-value="serials + 1" />
+                                                    </td>
+
+                                                    <td>
+                                                        <span t-esc="data.plot_payment_history_tree"></span>
+                                                    </td>
+
+                                                    
+                                                    <td>
+                                                        <span t-esc="data.date_invoice"></span>
+                                                    </td>
+
+                                                    <td>
+                                                        <span t-esc="'{:0,}'.format(int(float(data.amount_total)))"></span>
+                                                        <t t-set="total" t-value="total + data.amount_total" />
+                                                    </td>
+
+                                                    <td>
+                                                        <span t-esc="'{:0,}'.format(int(float(data.total_paid)))"></span>
+                                                        <t t-set="paid" t-value="paid + data.total_paid" />
+                                                    </td>
+                                                    
+                                                    <td>
+                                                        <span t-esc="'{:0,}'.format(int(float(data.residual)))">
+                                                        </span>
+                                                        <t t-set="due" t-value="due + data.residual" />
+                                                    </td>
+
+                                                    <td>
+                                                        <span t-esc="data.state"></span>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                            <tr>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td><b><span t-esc="total"></span></b></td>
+                                                <td><b><span t-esc="paid"></span></b></td>
+                                                <td><b><span t-esc="due"></span></b></td>
+                                                <td></td>
+                                            </tr>
+
+                                        </t>
+
+                                    </table>
+                                
+                                </t>
+
+                                    <div class="subject">
+<!--                                         <p class="no-margin"><span class="liquid">Off: 467- M block,Model Town extension, Lahore <strong>Ph:</strong>92-42-35171077,35171077,<strong>Fax:</strong>92-42-35219177.</span></p> -->
+                                        <p class="no-margin"><span class="liquid"><strong>E.mail:</strong>luxuriondevelopers@gmail.com.</span></p>
+                                    </div>
+                            </div>
+                        </div>
+
+
+                    </div><!--end of page-->
+                </t>
+            </t>
+
+        </template>
+
+    </data>
+
+</openerp>

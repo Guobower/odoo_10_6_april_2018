@@ -1,0 +1,271 @@
+﻿<?xml version="1.0"?> 
+<odoo> 
+
+    <record id="product_form_view_extension" model="ir.ui.view"> 
+        <field name="name">product_form_view_extension</field> 
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="type">form</field> 
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name ='taxes_id']" position="replace">
+                
+            </xpath>
+
+            <xpath expr="//field[@name ='categ_id']" position="after">
+                <field name="article_num" attrs="{'invisible':[('purchase_ok','=',True)]}"/>
+                <field name="customer_ref" attrs="{'invisible':[('purchase_ok','=',True)]}"/>
+                <field name="bill_ref" attrs="{'invisible':[('purchase_ok','=',True)]}"/>
+                <field name="prod_customer" attrs="{'invisible':[('purchase_ok','=',True)]}"/>
+                <field name="barcode"/>
+                <field name="hs_code" attrs="{'invisible':[('purchase_ok','=',True)]}"/>
+            </xpath>
+
+            <xpath expr="//field[@name ='default_code']" position="replace">
+                <field name="internal_ref" />
+            </xpath>
+
+            <xpath expr="//field[@name ='uom_id']" position="after">
+                <field name="style_no" attrs="{'invisible':[('purchase_ok','=',True)]}"/>
+                <field name="prototype_tech_pack" attrs="{'invisible':[('purchase_ok','=',True)]}"/>
+                <field name="prototype_pattern" attrs="{'invisible':[('purchase_ok','=',True)]}"/>
+                <field name="composition" attrs="{'invisible':[('purchase_ok','=',True)]}"/>
+                <field name="uom"/>
+                <field name="art_code" attrs="{'invisible':[('purchase_ok','=',True)]}"/>
+            </xpath>
+
+            <xpath expr="//field[@name ='barcode']" position="replace">
+            </xpath>
+            <xpath expr="//page[@name='notes']" position="attributes">
+                <attribute name="attrs">{'invisible': [('purchase_ok','=',True)]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='list_price']" position="attributes">
+                <attribute name="attrs">{'invisible': [('purchase_ok','=',True)]}</attribute>
+            </xpath>
+
+
+            <xpath expr="//field[@name ='uom_po_id']" position="replace">
+            </xpath>
+            <xpath expr="//field[@name ='uom_id']" position="replace">
+            </xpath>
+            <!-- <xpath expr="//field[@name ='hs_code']" position="replace">
+            </xpath> -->
+
+
+
+
+           <!--  <xpath expr="//field[@name='purchase_ok']" position="after">
+               <h3><field name="qty_on_hand" attrs="{'invisible':[('purchase_ok','=',False)]}"/></h3>
+            </xpath> -->
+
+        </field> 
+    </record> 
+
+    <record id="product_form_view_extension2" model="ir.ui.view"> 
+        <field name="name">product_form_view_extension2</field> 
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="type">form</field> 
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name ='categ_id']" position="after">
+                <field name="article_num" />
+                <field name="customer_ref"/>
+                <field name="bill_ref"/>
+                <field name="prod_customer"/>
+            </xpath>
+
+            <xpath expr="//field[@name ='default_code']" position="replace">
+                <field name="internal_ref" />
+            </xpath>
+
+            <xpath expr="//field[@name ='uom_id']" position="after">
+                <field name="style_no" />
+                <field name="v_hs_code"/>
+                <field name="v_barcode"/>
+                <field name="v_composition"/>
+                <field name="v_uom"/>
+            </xpath>
+
+            <xpath expr="//field[@name ='barcode']" position="replace" >
+            </xpath>
+
+        </field> 
+    </record>
+
+    <record id="product_varient_form_packaging" model="ir.ui.view"> 
+        <field name="name">product_varient_form_packaging</field> 
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="type">form</field> 
+        <field name="arch" type="xml">
+
+            <xpath expr="//page[@name='sales']" position="after">
+                <page name="packaging" string="Packaging">
+                    <group name="top">
+                        
+                        <group name="left" string="Master Carton">
+                            <field name="m_length" />
+                            <field name="m_height" />
+                            <field name="m_width" />
+                            <field name="m_volume" />
+                            <field name="m_net_weight"/>
+                            <field name="m_gross_weight" />
+                            <field name="m_size_from" />
+                            <field name="m_size_to" />
+                            <field name="m_inner_carton" />
+                        </group>
+
+                        <group name="right" string="Inner Carton">
+                            <field name="i_lenght" />
+                            <field name="i_width" />
+                            <field name="i_height" />
+                            <field name="i_volume" />
+                            <field name="i_net_weight"/>
+                            <field name="i_gross_weight" />
+                            <field name="i_pcs_carton" />
+                        </group>
+
+                    </group>
+                </page>
+            </xpath>
+
+        </field> 
+    </record> 
+
+    <record id="product_form_packaging" model="ir.ui.view"> 
+        <field name="name">product_form_packaging</field> 
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="type">form</field> 
+        <field name="arch" type="xml">
+
+            <xpath expr="//page[@name='variants']" position="after">
+                <page name="packaging" string="Packaging" attrs="{'invisible':[('purchase_ok','=',True)]}">
+                    <group name="top">
+                        
+                        <group name="left" string="Master Carton">
+                            <field name="length" />
+                            <field name="carton_master_height" />
+                            <field name="width" />
+                            <field name="counted_volume" />
+                            <field name="net_weight"/>
+                            <field name="grossed_weight" />
+                            <field name="size_from" />
+                            <field name="size_to" />
+                            <field name="inner_carton" />
+                        </group>
+
+                        <group name="right" string="Inner Carton">
+                            <field name="carton_lenght" />
+                            <field name="carton_height" />
+                            <field name="carton_width" />
+                            <field name="counted_volume_2" />
+                            <field name="carton_net_weight"/>
+                            <field name="carton_weight" />
+                            <field name="pcs_carton" />
+                        </group>
+
+                    </group>
+                </page>
+
+                <page name="quality" string="Quality Notes" attrs="{'invisible':[('purchase_ok','=',True)]}">
+
+                    <group name="description">
+                        <separator string="Description for Material" colspan="4"/>
+                        <field name="material_descrip" colspan="4" nolabel="1" />
+
+                        <separator string="Description for Workmanship" colspan="4"/>
+                        <field name="workmanship_descrip" nolabel="1" colspan="4"/>
+
+                        <separator string="Description for Decor" colspan="4"/>
+                        <field name="decor_descrip" nolabel="1" colspan="4"/>
+
+                        <separator string="Description for Packing" colspan="4"/>
+                        <field name="packing_descrip" nolabel="1" colspan="4"/>
+                    </group>
+
+                </page>
+
+            </xpath>
+
+        </field> 
+    </record> 
+
+    <record id="tree_view_products" model="ir.ui.view">
+        <field name="name">tree_view_products</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_tree_view"/>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name ='default_code']" position="replace">
+            </xpath>
+
+            <xpath expr="//field[@name ='name']" position="before">
+                <field name="prod_customer"/>
+                <field name="internal_ref"/>
+            </xpath>
+
+            <xpath expr="//field[@name ='list_price']" position="replace">
+            </xpath>
+
+            <xpath expr="//field[@name ='standard_price']" position="replace">
+            </xpath>
+
+            <xpath expr="//field[@name ='type']" position="replace">
+            </xpath>
+
+            <xpath expr="//field[@name ='uom_id']" position="replace">
+            </xpath>
+
+            <xpath expr="//field[@name ='categ_id']" position="replace">
+            </xpath>
+
+            <xpath expr="//field[@name ='internal_ref']" position="after">
+                <field name="categ_id"/>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="stock.view_stock_product_template_tree" model="ir.ui.view">
+
+        <field name="active">False</field>
+
+    </record>
+
+    <record id="tree_view_products_varient" model="ir.ui.view">
+        <field name="name">tree_view_products_varient</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_product_tree_view"/>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name ='default_code']" position="replace">
+            </xpath>
+
+            <xpath expr="//field[@name ='name']" position="after">
+                <field name="prod_customer"/>
+                <field name="internal_ref"/>
+                <field name="categ_id"/>
+            </xpath>
+
+            <xpath expr="//field[@name ='uom_id']" position="replace">
+            </xpath>
+
+            <xpath expr="//field[@name ='barcode']" position="replace">
+            </xpath>
+
+            <xpath expr="//field[@name ='lst_price']" position="replace">
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="stock.view_stock_product_tree" model="ir.ui.view">
+
+        <field name="active">False</field>
+        
+    </record>
+
+</odoo>

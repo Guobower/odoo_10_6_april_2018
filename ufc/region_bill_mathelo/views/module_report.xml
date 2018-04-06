@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+
+    <data>   
+
+        <template id="module_report">
+
+            <t t-call="report.html_container">
+                <t t-call="report.external_layout">
+                    <t t-foreach="docs" t-as="o">
+
+                        <div class="page">
+                            <style>
+                                .report-container {
+                                    width: 1000px;
+                                    margin: 0px auto;
+                                    }
+
+                                .center {
+                                    width: 100;
+                                }
+
+                                .header {
+                                
+                                    display: none !important;
+                                }
+
+                                .footer {
+
+                                    display: none !important;
+                                }
+
+                                .left {
+                                    width: 33%;
+                                    display: block;
+                                    float: left;
+                                    }
+                                .left img{
+                                    width: 360px;
+                                    display: block;
+                                    }
+                                .mid {
+                                    width: 17%;
+                                    float: left;
+                                    }
+                                .mid img{
+                                    width: 120px;
+                                    display: block;
+                                    margin: 0px auto;
+                                    }
+                                .right {
+                                    width: 27%;
+                                    display: block;
+                                    float: left;
+                                    text-align: left;
+                                    margin-top: 23px;
+                                    }
+                                .right .solid {
+                                    width: 30%;
+                                    float: left;
+                                    font-weight: bold;
+                                    margin-bottom: 10px;
+                                    font-size: 20px;
+                                    margin-left: 15px;
+                                    }
+                                .right .liquid {
+                                    width: 50%;
+                                    float: left;
+                                    margin-bottom: 10px;
+                                    font-size: 20px;
+                                    margin-left: 20px;
+                                    }
+                                .head {
+                                    width: 23%;
+                                    text-align: center;
+                                    text-decoration: underline;
+                                    margin-top: 0px;
+                                    float: left;
+                                    }
+
+                                table {
+                                    border: 1px solid #000;
+                                    margin: 10px 0px 0px;
+                                    width: 100%;
+                                    float: left;
+                                    border-spacing: 0px;
+                                    }
+                                table tr th,
+                                table tr td {
+                                    border-right: 1px solid #000;
+                                    text-align: center;
+                                }
+
+                                table tr th.space,
+                                table tr td.space {
+                                    min-width: 70px;
+                                    max-width: 70px;
+                                    width: 70px;
+                                }
+
+
+                                table tr th.remarks {
+
+                                    min-width: 170px;
+                                    max-width: 170px;
+                                    width: 170px;
+                                }
+
+                                table tr th.space1,
+                                table tr td.space1 {
+                                    min-width: 130px;
+                                    max-width: 130px;
+                                    width: 130px;
+                                }
+
+                                table tr th {
+                                    padding: 10px 0px;
+                                    
+                                }
+                                table tr td {
+                                    border-top: 1px solid #000;
+                                    padding: 5px 0px;
+                                }
+                                
+                                .sign {
+                                    width: 100%;
+                                    float: left;
+                                    }
+                                .sign .solid {
+                                    width: 100%;
+                                    text-align: left;
+                                    float: left;
+                                    font-weight: bold;
+                                    margin-top: 70px;
+                                    margin-left: 70px;
+                                    }
+                            
+                            </style>
+
+                            <div class="report-container">
+                                
+                                <div class="center">
+
+                                    <div class="left">
+                                        <img src="/region_wise_bill/static/src/img/logo.png" alt="" />
+                                    </div>
+                                    
+                                    <div class="mid">
+                                        <img src="/region_wise_bill/static/src/img/small-logo.png" alt="" />
+                                    </div>
+
+                                    <div class="head">
+                                        <h2>BILL SUMMARY</h2>
+                                        <span>___________________</span>
+                                        <br></br>
+                                        <br></br>
+                                        <span>___________________</span>
+                                    </div>
+                                    
+                                    <div class="right">
+                                        <span class="solid">Bill No :</span>
+                                        <span class="liquid">___________</span>
+                                        
+                                        <span class="solid">Date :</span>
+                                        <span class="liquid" t-esc="context_timestamp(datetime.datetime.now()).strftime('%d-%m-%Y')"></span>
+                                    </div>
+
+                                </div>  
+                
+                                
+                                    <table>
+                                        <tr>
+                                            <th class="space">Bill No</th>
+                                            <th>R,CODE &amp; NAME</th>
+                                            <th class="space1"><b>M.TONS</b></th>
+                                            <th class="space1">AMOUNT</th>
+                                            <th class="remarks">REMARKS</th>
+                                            <th class="space1">YEAR</th>
+                                        </tr>
+
+                                        <!-- <t t-set="i" t-value="1"/> -->
+                                        <t t-set="tons_total" t-value="0"/>
+                                        <t t-set="amt_total" t-value="0"/>
+
+                                        
+                                        <t t-foreach="enteries" t-as="data">
+
+                                            <tr class="space">
+                                                <td>
+                                                    <!-- <t t-esc="i"/>
+                                                    <t t-set="i" t-value="i+1"/> -->
+                                                </td>
+                                                <td class="space">
+                                                    <span t-esc="data.region_name"></span>
+                                                </td>
+                    
+                                                <td class="space1">
+                                                    <span t-esc="data.M_tons"></span>
+                                                    <t t-set="tons_total" t-value="tons_total + float(data.M_tons)"/>
+                                                </td>
+                                                <td class="space1">
+                                                    <span t-esc="'{:0,}'.format(int(float(data.Amount)))"></span>  
+                                                    <t t-set="amt_total" t-value="amt_total + float(data.Amount)"/>
+                                                </td>
+                                                <td></td>
+
+                                                <td class="space">
+                                                    <span>2017</span>
+                                                </td>
+                                            </tr>
+
+                                        </t>
+                                        
+                                           
+                                        <tr>
+                                            <td colspan="2"><b>TOTAL</b></td>
+                                            <td>
+                                                <span t-esc="'{:0,}'.format(int(float(tons_total)))"></span> 
+                                            </td>
+                                            <td>
+                                                <span t-esc="'{:0,}'.format(int(float(amt_total)))"></span>
+
+                                            </td>
+                                            <td></td>
+                                            <td></td>
+                                               
+                                        </tr>
+                                    
+                                    </table>
+
+                                </div>
+
+                        
+
+                        </div>
+                    </t>
+
+                </t>
+            </t>
+
+        </template>
+
+    </data>
+
+</openerp>

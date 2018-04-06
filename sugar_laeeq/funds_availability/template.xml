@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <report
+
+            id="report_funds_availability" 
+            model="res.partner"
+            name="funds_availability.funds_availability_report"
+            file="funds_availability.funds_availability_report"
+            report_type="qweb-html"
+            string="Funds Availability"
+            menu="False" />
+
+        <record id="funds_availability_wizard" model="ir.ui.view">
+            <field name="name">funds_availability_wizard</field>
+            <field name="model">funds.availability</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Report">
+                    
+                    <group name="group_top">
+
+                        <group name="group_left">
+
+                            <field name="date"/>
+
+                        </group>
+
+                    </group>
+
+                    <footer style="height: 30px !important; border: none !important;">
+                        <button name="%(report_funds_availability)d" type="action" string="Print" class="oe_highlight"/>
+                    </footer>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="funds_availability_action" model="ir.actions.act_window">
+            <field name="name">Funds Availability</field>
+            <field name="res_model">funds.availability</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="funds_availability_wizard"/>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="funds_availability_menu_item" name="Funds Availability" action="funds_availability_action" parent="sales_sugar.confirmation_level" />
+        
+    </data>
+</odoo>

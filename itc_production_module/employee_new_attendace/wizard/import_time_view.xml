@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <!-- Wizard Form View -->
+        <record model="ir.ui.view" id="wiz_import_time_form_view">
+            <field name="name">import.time.wiz</field>
+            <field name="model">import.time.wiz</field>
+            <field name="arch" type="xml">
+                <form string="Import FROM TA">
+                    <field name="path_url" placeholder="Please Provide the path url of the your attendance file"/>
+                    <footer>
+                        <button name="import_time"
+                                string="Go &amp; Import"
+                                type="object"
+                                class="oe_highlight"/>
+                        or
+                        <button special="cancel"
+                                string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <!-- Action to call the Wizard -->
+        <act_window id="action_import_from_ta_wizard"
+                    name="Import FROM TA"
+                    res_model="import.time.wiz"
+                    view_mode="form"
+                    target="new"
+                    key2="client_action_multi"/>
+        <!-- Wizard's Menu -->
+        <menuitem id="import_from_ta_wizard_menu"
+                  name="Import FROM TA"
+                  parent="employee_new_attendace.menuitem_attendace_import_clean"
+                  action="action_import_from_ta_wizard"
+                  sequence='5'/>
+    </data>
+</openerp>

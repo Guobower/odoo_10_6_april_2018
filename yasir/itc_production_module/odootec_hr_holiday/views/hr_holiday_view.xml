@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+        <record id="ir_cron_scheduler_demo_action" model="ir.cron">
+            <field name="name">Automatic Leave Allocation</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">months</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall"/>
+            <field eval="'hr.holidays'" name="model"/>
+            <field eval="'run_monthly_scheduler'" name="function"/>
+        </record>
+
+        <record model="ir.ui.view" id="edit_holiday_new">
+            <field name="name">Leave Request</field>
+            <field name="model">hr.holidays</field>
+            <field name="inherit_id" ref="hr_holidays.edit_holiday_new"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='holiday_status_id']" position="after">
+                    <button name="run_monthly_scheduler" type="object" string="GO"/>
+                </xpath>
+                <xpath expr="//form/sheet/group/group/div" position="replace">
+                    <div>
+
+                        <group col="3">
+                            <field name="date_from" nolabel="1" on_change="onchange_date_from(date_to, date_from)" attrs="{'required':['|',('type', '=', 'remove'),('type', '=', 'add')]}" class="oe_inline"/><label string="-" class="oe_inline"/>
+                            <field name="date_to" nolabel="1" on_change="onchange_date_to(date_to, date_from)"  attrs="{'required':['|',('type', '=', 'remove'),('type', '=', 'add')]}" class="oe_inline"/>
+                        </group>
+                        <div>
+                            <field name="number_of_days_temp" class="oe_inline"/> days
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

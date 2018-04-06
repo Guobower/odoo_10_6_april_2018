@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="project_task_mrp_form_view">
+            <field name="name">project.task.mrp.inh.form</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <field name="stage_id" position="before">
+                    <button name="finish_task" type="object" string="Finish"/>
+                </field>
+            </field>
+        </record>
+
+
+
+
+    </data>
+</openerp>

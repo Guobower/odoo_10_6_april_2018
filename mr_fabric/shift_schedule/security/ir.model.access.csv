@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_dos_schedule_dos_schedule,dos_schedule.dos_schedule,model_dos_schedule_dos_schedule,,1,0,0,0

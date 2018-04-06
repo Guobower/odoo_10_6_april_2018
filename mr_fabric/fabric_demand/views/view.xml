@@ -1,0 +1,75 @@
+<?xml version="1.0"?> 
+<odoo> 
+  <record id="view_form_fabric_demand" model="ir.ui.view"> 
+    <field name="name">Fabric Demand</field> 
+    <field name="model">fabric.demand</field> 
+    <field name="arch" type="xml"> 
+      <form string="Form">
+
+        <sheet> 
+
+          <group name="group_top"> 
+
+            <group name="group_left"> 
+
+              <field name="style_no"/>
+
+              <field name="style_name"/> 
+
+            </group>
+
+          <group name="group_right">
+
+            <field name="buyer"  domain= "[('buyer','=','True')]" context="{'default_buyer':True}"/> 
+
+          </group>
+
+        </group>
+
+        <field name="tree_link">
+
+          <tree editable="bottom">
+
+            <field name="fabric_no"/>
+
+            <field name="reference"/>
+
+            <field name="fabric_description"/>
+
+            <field name="colour"/>
+
+            <field name="gsm"/>
+
+            <field name="quantity"/>
+
+          </tree>
+
+        </field>
+
+      </sheet> 
+
+      </form> 
+
+    </field> 
+
+  </record> 
+
+   <record id="view_form_fabric_demand_tree" model="ir.ui.view"> 
+      <field name="name">Fabric Demand</field> 
+      <field name="model">fabric.demand</field> 
+      <field name="arch" type="xml"> 
+
+        <tree>
+          
+          <field name="style_name"/>
+
+          <field name="style_no"/>
+
+          <field name="buyer"/>
+
+        </tree>
+
+      </field>
+  </record>
+
+</odoo> 

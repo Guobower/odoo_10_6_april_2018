@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+
+    <data>   
+
+        <template id="module_report">
+
+            <t t-call="report.html_container">
+                <t t-call="report.external_layout">
+                    <t t-foreach="docs" t-as="o">
+                        
+                        <div class="page">
+
+                            <style>
+                                .header,
+                                footer {
+                                    display: none;
+                                }
+                                .head-col-01,
+                                .head-col-02,
+                                .head-col-03 {
+                                    width: 30%;
+                                    float: left;
+                                    text-align: center;
+                                }
+                                .report-container {
+                                    width: 1000px;
+                                    margin: 0px auto;
+                                    }
+                                .report-header img{
+                                    width: 140px;
+                                    display: block;
+                                }
+                                .clearfloat {
+                                    float: none;
+                                    clear: both;
+                                    display: block;
+                                }
+                                h1 {
+                                    width: 100%;
+                                    text-align: center;
+                                    float: left;
+                                    }
+                                .report-head {
+                                    width: 100px
+                                    float: left;
+                                    }
+                                .head1,
+                                .head2,
+                                .head3 {
+                                    width: 33%;
+                                    float: left;
+                                    text-align: center;
+                                    margin: 10px 0px;
+                                    }
+                                h3 {
+                                    width: 100%;
+                                    text-align: center;
+                                    float: left;
+                                    }
+                                    
+                                .report-body {
+                                    width: 100%;
+                                    float: left;
+                                    border: 1px solid;
+                                    padding: 5px 5px 30px;
+                                    }
+                                p {
+                                    width: 98%;
+                                    float: left;
+                                    text-align: left;
+                                    padding: 30px 0px 0px 5px;
+                                    }
+                                .points {
+                                    width: 98%;
+                                    float: left;
+                                    padding: 30px 0px 0px 5px;
+                                    }
+                                .invoice {
+                                    width: 98%;
+                                    float: left;
+                                    padding: 0px 0px 0px 5px;
+                                    }
+                                .invoice .solid {
+                                    width: 25%;
+                                    display: block;
+                                    float: left;
+                                }
+                                .invoice .liquid {
+                                    width: 40%;
+                                    display: block;
+                                    float: left;
+                                }
+                                .date {
+                                    width: 98%;
+                                    float: left;
+                                    padding: 0px 0px 0px 5px;
+                                    }
+                                .date .solid {
+                                    width: 25%;
+                                    display: block;
+                                    float: left;
+                                }
+                                .date .liquid {
+                                    width: 40%;
+                                    display: block;
+                                    float: left;
+                                }
+                                .adress {
+                                    width: 98%;
+                                    float: left;
+                                    padding: 30px 0px 0px 5px;
+                                    }
+                                .adress .solid {
+                                    width: 25%;
+                                    display: block;
+                                    float: left;
+                                }
+                                .adress .liquid {
+                                    width: 40%;
+                                    display: block;
+                                    float: left;
+                                }
+                                .tel {
+                                    width: 98%;
+                                    float: left;
+                                    padding: 10px 0px 0px 5px;
+                                    }
+                                .tel .solid {
+                                    width: 25%;
+                                    display: block;
+                                    float: left;
+                                }
+                                .tel .liquid {
+                                    width: 40%;
+                                    display: block;
+                                    float: left;
+                                }
+                                .through {
+                                    width: 98%;
+                                    float: left;
+                                    padding: 10px 0px 10px 5px;
+                                    }
+                                .through .solid {
+                                    width: 25%;
+                                    display: block;
+                                    float: left;
+                                }
+                                .through .liquid {
+                                    width: 40%;
+                                    display: block;
+                                    float: left;
+                                }
+                                .exchange {
+                                    width: 98%;
+                                    float: left;
+                                    padding: 10px 0px 10px 5px;
+                                    }
+                                .exchange .solid {
+                                    width: 25%;
+                                    display: block;
+                                    float: left;
+                                }
+                                .exchange .liquid {
+                                    width: 40%;
+                                    display: block;
+                                    float: left;
+                                }
+                                h4 {
+                                    width: 100%;
+                                    text-align: right;
+                                    float: left;
+                                    display: block;
+                                    }
+                            </style>
+        
+                            <div class="report-container">
+                            
+                                <div class="report-header">
+
+                                    <div class="head-col-01">
+                                        <img src="/bill_of_exchange/static/src/img/logo.jpg" alt="" />
+                                    </div>
+                                    
+                                    
+                                    <div class="head-col-02">
+                                        <h1>Sports (PVT)LTD.</h1>
+                                        <h3>BILL OF EXCHANGE.</h3>
+
+                                    </div>
+
+                                    <div class="head-col-03">
+                                    </div>
+                                    <br class="clearfloat" />
+                                </div>
+
+                                <div class="lower-header">
+
+                                        <div class="head1"><span>Tel: +92-3574245</span></div>
+                                        <div class="head2"><span>Fax: +92-3574245</span></div>
+                                        <div class="head3"><span>Email:info@ariansports.com</span></div>
+
+                                </div>
+                                
+                                <div class="report-body">
+                                    <p><b><u><span t-esc="o.payment_term_id.name"></span></u></b> Please pay to order of <span t-esc="o.invoice_bank.name"></span> (<span t-esc="o.invoice_bank.branch"></span>) <span t-esc="o.invoice_bank.city"></span> <span t-esc="o.invoice_bank.country.name"></span>. Against this (<b>FIRST</b> of Exchange <b>SECOND</b> of the same tenor and date being unpaid) the sum of </p>
+                                
+                                    <div class="points">
+                                        <span class="liquid">
+                                            <b>
+                                                <u>
+                                                    <span t-esc="o.convert_amount()"></span>
+                                                </u>
+                                            </b> 
+                                        </span> 
+
+                                        <span class="solid">
+                                            for value received as per Invoice
+                                        </span> 
+
+                                         <span class="liquid">
+                                            <b>
+                                                <u>
+                                                    <span t-esc="o.number"></span>
+                                                </u>
+                                            </b> 
+                                        </span> 
+
+                                         <span class="solid">Dated:</span> 
+                                         <span class="liquid"><b><u><span t-esc="o.date_invoice"></span></u></b> </span>
+                                    </div>
+                                
+                                    <div class="adress">
+                                        <span class="solid">To:</span>
+                                        <span class="liquid">
+                                            <b>
+                                                <span t-esc="o.partner_id.name"></span> <span t-esc="o.partner_id.street2"></span> <span t-esc="o.partner_id.city"></span> <span t-esc="o.partner_id.state_id.name"></span> <span t-esc="o.partner_id.country_id.name"></span>
+                                            </b>
+                                        </span>
+                                    </div>
+
+                                    <div class="tel">
+                                        <span class="solid">Tel:</span>
+                                        <span class="liquid">
+                                            <b>
+                                                <span t-esc="o.partner_id.phone"></span>
+                                            </b>
+                                        </span>
+                                    </div>
+                                
+                                    <div class="tel">
+                                        <span class="solid">Through:</span>
+                                        <span class="liquid">
+                                            <b>
+                                                <span t-esc="o.partner_id.forwarder_name.name"></span>
+                                                <span t-esc="o.partner_id.forwarder_name.street"></span>
+                                                <span t-esc="o.partner_id.forwarder_name.street2"></span>
+                                                <span t-esc="o.partner_id.forwarder_name.city"></span>
+                                                <span t-esc="o.partner_id.forwarder_name.state_id.name"></span>
+                                                <span t-esc="o.partner_id.forwarder_name.country_id.name"></span>
+                                            </b>
+                                        </span>
+                                    </div>
+                            
+                                </div>
+                            
+                                <div class="exchange">
+                                    <span class="solid">Exchange For:</span>
+                                    <span class="liquid">
+                                        <b>
+                                            <u>
+                                                $<span t-esc="o.amount_total"></span>
+                                            </u>
+                                        </b>
+                                    </span>
+                                </div>
+                                    
+                                <h4>ARIAN SPORTS (PVT) LTD.</h4>
+                            </div>
+
+                        </div><!--end of page-->
+                    </t>
+                </t>
+            </t>
+
+        </template>
+
+    </data>
+
+</openerp>

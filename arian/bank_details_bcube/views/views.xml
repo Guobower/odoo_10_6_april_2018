@@ -1,0 +1,28 @@
+<odoo>
+  <data>
+    <record model="ir.ui.view" id="bank_details_bcube.form">
+      <field name="name">bank_details_bcube form</field>
+      <field name="model">res.partner.bank</field>
+      <field name="inherit_id" ref="base.view_partner_bank_form"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='partner_id']" position="after">
+          <field name="iban_acc_no"/>
+        </xpath>
+
+        <xpath expr="//group" position="after">
+          <group name="top">
+            <group name="left">
+              <field name="branch"/>
+              <field name="branch_code"/>
+              <field name="swift_code"/>
+            </group>
+            <group name="right">
+              <field name ="bank_address" />
+            </group>
+          </group>
+        </xpath>
+      </field>
+    </record>
+  </data>
+</odoo>

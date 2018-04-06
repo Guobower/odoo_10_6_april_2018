@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+
+    <data>   
+
+        <template id="module_report">
+
+            <t t-call="report.html_container">
+                <t t-call="report.external_layout">
+                    <t t-foreach="docs" t-as="o">
+
+                        <div class="page">
+    
+                            <style>
+                                .header,
+                                .footer {
+                                    display: none;
+                                }
+                                .main_header {
+                                    width: 1000px;
+                                    margin: 0px auto;
+                                }
+                                .report-header {
+                                    width: 100%;
+                                    float: left;
+                                    margin: 0px 0px 8px;
+                                }
+                                .header-col-01{
+                                    width: 498px;
+                                    min-height: 110px;
+                                    float: left;
+                                    border: 2px solid #000;
+                                    padding: 10px 15px;
+                                    margin: 0px 1px;
+                                }
+                                .header-col-02 {
+                                    width: 498px;
+                                    min-height: 110px;
+                                    float: right;
+                                    border: 2px solid #000;
+                                    padding: 10px 15px;
+                                    margin: 0px 1px;
+                                }
+                                .clearfloat {
+                                    clear: both;
+                                    float: none;
+                                    display: block;
+                                }
+                                .logo {
+                                    width: 100px;
+                                    height: auto;
+                                    float: left;
+                                }
+                                .logo img {
+                                    width: 100%;
+                                }
+                                .logo-text {
+                                    margin: 0px 0px 0px 10px;
+                                    float: right;
+                                }
+                                .logo-text p {
+                                    margin: 5px 0px;
+                                }
+                                .header-col-02 p {
+                                    margin: 5px 0px;
+                                }
+                                .tower {
+                                    width: 100%;
+                                    float: left;
+                                    margin: 0px 0px 2px
+                                }
+                                .two-col-01 p .solid,
+                                .two-col-02 p .solid{
+                                    display: inline-block;
+                                    width: 30%;
+                                    padding: 7px 0px;
+                                    border-right: 2px solid #000;
+                                    font-weight: bold;
+                                }
+                                .two-col-01 p .liquid,
+                                .two-col-02 p .liquid{
+                                    display: inline-block;
+                                    width: 65%;    
+                                    padding: 7px 0px;
+                                }
+                                .two-col-01,
+                                .two-col-02 {
+                                    width: 100%;
+                                    border: 2px solid #000;
+                                    float: left;
+                                    margin: 0px 1px 2px;
+                                    padding: 0px 10px;
+                                }
+                                .two-col-011,
+                                .two-col-022 {
+                                    width: 50%;
+                                    border: 2px solid #000;
+                                    float: left;
+                                    margin: 0px 1px 2px;
+                                    padding: 0px 10px;
+                                }
+                                .tower p {
+                                    margin: 0px;
+                                }
+                                .test-dev {
+                                    width: 100%;
+                                    float:left;
+                                    background-color:black;
+                                    margin: 0px 0px 8px 0px;
+                                }
+                                .test-dev p {
+                                    text-align:center;
+                                    font-size:20px;
+                                    color:white;
+                                    margin: 10px 0;
+                                    line-height: 1;
+                                }
+                                .report-body {
+                                    width: 100%;
+                                    float: left;
+                                }
+                                .details,
+                                .descriptions {
+                                    width: 50%;
+                                    float: left;
+                                }
+                                .liner {
+                                    width: 100%;
+                                    float: left;
+                                }
+                                .line {
+                                    width: 48%;
+                                    float: left;
+                                    border: 2px solid #000;
+                                    padding: 5px;
+                                    margin: 2px 1px;
+                                }
+
+                                .line p {
+                                    margin: 0px;
+                                }
+                                .des-head {
+                                    width: 100%;
+                                    float: left;
+                                    border: 2px solid #000;
+                                    margin: 2px 0px 4px;
+                                    padding: 5px;
+                                }
+                                .des-head p {
+                                    margin: 0px;
+                                    font-weight: bold;
+                                    text-align: center;
+                                }
+                                .des-box {
+                                    width: 100%;
+                                    float: left;
+                                    min-height: 223px;
+                                    border: 2px solid #000;
+                                    padding: 5px;
+                                }
+                            </style>
+
+                            <div class="main_header">
+
+                                <div class="report-header">
+                                    
+                                    <div class="header-col-01">
+
+                                        <div class="logo">
+                                            <img src="/custom_invoice_arian/static/src/img/logo.jpg" alt="" />
+                                        </div>
+
+                                        <div class="logo-text">
+
+                                            <p><b>Arian Sports (Pvt) Ltd Customer</b></p>
+                                            <p><b>1Km off Naul More Roras Road</b></p>
+                                            <p><b>Sialkot Pakistan</b></p>
+                                            
+                                        </div>
+
+                                    </div><!--end of header col 01-->
+
+                                    <div class="header-col-01">
+                                        <p><span class="solid"><b>MADE OUT TO :</b></span> <span class="liquid" t-esc="o.partner_id.name"></span></p>
+                                    </div><!--end of header col 02-->
+
+                                </div><!--end of header-->
+
+                                <div class="tower">
+
+                                    <div class="header-col-01" style="border: none; padding: 0px">                                  
+
+                                        <div class="two-col-01">
+
+                                            <p><span class="solid"><b style="color:red">Form E # : </b></span> <span class="liquid" t-esc="o.e_form_no"></span></p>
+
+                                        </div>
+                                        
+                                        <div class="two-col-02">
+
+                                            <p><span class="solid"><b>| </b></span> 
+                                            <span class="liquid">| </span>
+                                            </p>
+
+                                        </div>
+
+                                        <div class="two-col-01">
+
+                                            <p><span class="solid"><b>Container No.:</b></span> 
+                                            <span class="liquid" t-esc="o.container" ></span>
+                                            </p>
+
+                                        </div>
+
+                                        <div class="two-col-02">
+
+                                            <p><span class="solid"><b style="color:red">Port of Loading :</b></span> 
+                                            <span class="liquid" t-esc="o.loading_port"></span>
+                                            </p>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="header-col-01" style="min-height: 158px;">
+                                        <p><span class="solid"><b style="color:red">Notify to :</b></span> <span class="liquid" t-esc="o.notify"></span></p>
+                                    </div>
+
+                                </div><!--end of tower-->   
+
+                                <div class="tower">
+
+                                    <div class="header-col-01" style="border: none; padding: 0px">                                  
+
+                                        <div class="two-col-01">
+
+                                            <p><span class="solid"><b style="color:red">Port of Discharge :</b></span> <span class="liquid" t-esc="o.port" ></span></p>
+
+                                        </div>
+                                        
+                                        <div class="two-col-02">
+
+                                            <p><span class="solid"><b>Net Weight :</b></span> 
+                                            <span class="liquid" t-esc="nw"></span>
+                                            </p>
+
+                                        </div>
+
+                                        <div class="two-col-01">
+
+                                            <p><span class="solid"><b>Gross Weight :</b></span> 
+                                            <span class="liquid" t-esc="gw"></span>
+                                            </p>
+
+                                        </div>
+
+                                        <div class="two-col-02">
+
+                                            <p><span class="solid"><b>Measurement :</b></span> 
+                                            <span class="liquid" t-esc="cs"></span>
+                                            </p>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="header-col-01" style="min-height: 158px; margin-bottom:10px ">
+                                        <p><span class="solid"><b style="color:red"> Other Notify:</b></span> <span class="liquid" t-esc="o.other_notify"></span></p>
+                                    </div>
+
+                                </div><!--end of tower-->  
+                                <div class="test-dev">
+                                    <p>PARTICULAR FURNISHED BY SHIPPERS</p>
+                                </div>
+
+                                <div class="report-body">
+
+                                    <div class="details">
+
+                                        <div class="liner">
+
+                                            <div class="line">
+                                                <p><b><span class="solid">Marks &amp; Number :</span></b> <span class="liquid"></span> </p>
+                                            </div><!--end of line-->
+
+                                            <div class="line">
+                                                <p><b><span class="solid">Total Cartons :</span></b> <span class="liquid" t-esc="o.no_of_cartons"></span> </p>
+                                            </div><!--end of line-->
+
+                                        </div><!--end of liner-->
+
+                                        <div class="liner">
+
+                                            <div class="line">
+                                                <p><b><span class="solid">: 1/ 22 - 22 / 22</span></b> <span class="liquid"></span> </p>
+                                            </div><!--end of line-->
+
+                                            <div class="line">
+                                                <p><span class="solid">---</span> <span class="liquid"></span> </p>
+                                            </div><!--end of line-->
+
+                                        </div><!--end of liner-->
+
+                                        <div class="liner">
+
+                                            <div class="line">
+                                                <p><b><span class="solid">Our Invoice</span></b></p>
+                                            </div><!--end of line-->
+
+                                            <div class="line">
+                                                <p><span class="liquid" t-esc="o.number"></span> </p>
+                                            </div><!--end of line-->
+
+                                        </div><!--end of liner-->
+
+                                        <div class="liner">
+
+                                            <div class="line">
+                                                <p><b><span class="solid">Dated :</span></b>  </p>
+                                            </div><!--end of line-->
+
+                                            <div class="line">
+                                                <p><span class="liquid" t-esc="o.date_invoice"></span> </p>
+                                            </div><!--end of line-->
+
+                                        </div><!--end of liner-->
+
+                                        <div class="liner">
+
+                                            <div class="line">
+                                                <p><b><span class="solid">Export Registration No</span></b></p>
+                                            </div><!--end of line-->
+
+                                            <div class="line">
+                                                <p><span class="liquid">| </span> </p>
+                                            </div><!--end of line-->
+
+                                        </div><!--end of liner-->
+
+                                        <div class="liner">
+
+                                            <div class="line">
+                                                <p><b><span class="solid">N.T.N NO</span></b>  </p>
+                                            </div><!--end of line-->
+
+                                            <div class="line">
+                                                <p> <span class="liquid" t-esc="o.ntn" ></span> </p>
+                                            </div><!--end of line-->
+
+                                        </div><!--end of liner-->
+
+                                        <div class="liner">
+
+                                            <div class="line">
+                                                <p><b><span class="solid">HS Code</span></b> </p>
+                                            </div><!--end of line-->
+
+                                            <div class="line">
+                                                <p><span class="liquid" t-esc="o.HS_code"></span> </p>
+                                            </div><!--end of line-->
+
+                                        </div><!--end of liner-->
+
+                                    </div><!--end of details-->
+
+                                    <div class="descriptions">
+
+                                        <div class="des-head">
+                                            <p>Description of Goods &amp; /or Services</p>
+                                        </div><!--end of des head-->
+
+                                        <div class="des-box">
+
+                                            <p><span class="solid">DELIVERY TERMS:</span> <span class="liquid" t-esc="o.inco_terms.name"></span>,<span class="liquid" t-esc="o.partner_id.country_id.name"></span></p>
+
+                                            <p><span class="solid">Description of Goods or Services Comments:</span>
+                                            <span class="liquid" t-esc="o.description"></span></p>
+
+                                            <p><span class="solid">+ACCORDING PROFORMA INOVICE NO.</span>
+                                            <br /><span class="liquid">MO/219/16 </span>AND<span class="liquid"> MO/223/17</span></p>
+
+                                            <p><span class="liquid">COVERING MOTORBIKE GLOVES+</span></p>
+
+                                            <p>
+                                                <span class="solid">Documentary Credit Number</span>
+                                                <span class="liquid" t-esc="cn"></span>
+                                                <span class="solid">DATE:</span>
+                                                <span class="liquid" t-esc="cn_date"></span>
+                                            </p>
+                                            <br />
+                                            <br />
+                                            <p>
+                                                <span class="liquid" t-esc="o.no_of_cartons"></span>
+                                                <span class="liquid"> CARTONS ;</span>
+                                                <span class="solid">CONTAINING <span class="liquid">2570</span> PAIRS OF GLOVES</span>
+                                                
+                                            </p>
+
+                                        </div><!--end of description box-->
+
+                                    </div><!--end of description-->
+
+                                </div><!--end of report body-->
+
+                                <div class="report-footer">
+
+                                    <h2><b><p>Special Instruction:</p></b></h2>
+
+                                    <h3><p><span class="solid">Documentary Credit Number</span> <span class="liquid" t-esc="cn"></span></p>
+
+                                    <p><span class="solid">Date</span> <span class="liquid" t-esc="cn_date"></span></p></h3>
+
+                                    <h4><p>CARRIER MUST BE IDENTIFIABLE AS PER ART:23 UCP600 (latest version)</p></h4>
+
+                                    <h2><b><p><span class="solid">ACTUAL FLIGHT NO</span> <span class="liquid">---</span></p></b></h2>
+
+                                    <h2><b><p><span class="solid">ACTUAL FLIGHT DATE</span> <span class="liquid">---</span></p></b></h2>
+
+                                    <h2><b><p><span class="solid">SIGNED AND STAMPED OF CARRIER</span> <span class="liquid">---</span></p></b></h2>
+
+                                    <h3><b><p><span class="solid">AWBL Date must be </span> <span class="liquid" t-esc="o.awb_date"></span></p></b></h3>
+
+                                </div><!--end of report footer-->
+
+                            </div><!--end of main wrapper-->
+
+                        </div><!--end of page-->
+                    </t>
+                </t>
+            </t>
+
+        </template>
+
+    </data>
+
+</openerp>

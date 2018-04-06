@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+
+
+    <data>   
+
+        <template id="module_report">
+
+            <t t-call="report.html_container">
+                <t t-call="report.external_layout">
+                <t t-foreach="docs" t-as="o">
+
+                        <div class="page">
+
+							<style>
+
+							    .report-container {
+								    width: 1000px;
+									margin: 0px auto;
+									}
+
+								.top {
+									width: 100%;
+									float: left;
+								}
+
+								.left {
+								    width: 30%;
+									float: left;
+									}
+
+								img{
+								    width: 160px;
+									}
+
+								.right {
+									width: 68%;
+									float: left;
+									margin-top: 40px;
+								}
+
+								.right .company {
+									width: 30%;
+									font-weight: bold;
+									text-align: right;
+									margin-left: 370px;
+
+									font-size: 32px;
+								}
+
+								.clear {
+									clear: both;
+									float: none;
+									display: block;
+								}
+
+
+								.head {
+									width: 30%;
+									font-weight: bold;
+									margin-left: 335px;
+									font-size: 30px;
+								}
+
+								.date {
+									width: 100%;
+									float: left;
+									margin-top: 15px;
+								}
+
+								.sea {
+									width: 20%;
+									float: left;
+									background: #ccc;
+									
+								}
+
+								.sea .solid {
+									width: 19%;
+									font-weight: bold;
+									margin-left: 65px;
+
+								}
+
+								.corner {
+									width: 23%;
+									float: left;
+									margin-bottom: 4px;
+									margin-left: 165px;
+								}
+
+								.corner .solid {
+									width: 27%;
+									float: left;
+									font-weight: bold;
+								
+								}
+
+								.corner .liquid {
+									width: 60%;
+									float: left;
+									font-weight: bold;
+								}
+
+								.sales {
+									width: 30%;
+									float: left;
+									margin-bottom: 4px;
+									margin-left: 40px;
+								}
+
+								.sales .solid {
+									width: 39%;
+									float: left;
+									font-weight: bold;
+								
+								}
+
+								.sales .liquid {
+									width: 60%;
+									float: left;
+									font-weight: bold;
+								}
+
+
+								.due {
+									width: 20%;
+									float: left;
+									margin-bottom: 4px;
+								}
+
+								.due .solid {
+									width: 40%;
+									float: left;
+									font-weight: bold;
+									
+								}
+
+								.due .liquid {
+									width: 60%;
+									float: left;
+									font-weight: bold;
+								}
+
+
+								.sale {
+									width: 30%;
+									float: left;
+									margin-bottom: 4px;
+								}
+
+								.sale .solid {
+									width: 39%;
+									float: left;
+									font-weight: bold;
+									
+								}
+
+								.sale .liquid {
+									width: 55%;
+									float: left;
+									font-weight: bold;
+								}
+
+								.aus {
+
+									width: 100%;
+									border: 1px solid #ccc;
+									border-radius: 20px;
+									float: left;
+									padding: 10px;
+								}
+
+								.line {
+									width: 70%;
+									float: left;
+									
+								}
+
+								.line .solid {
+
+									width: 99%;
+									font-weight: bold;
+									font-size: 33px;
+								}
+
+
+								
+								table {
+									border: 1px solid #ccc;
+									margin: 10px 0px 0px;
+									width: 100%;
+									float: left;
+									border-spacing: 0px;
+									}
+								table tr th,
+								table tr td {
+									border-right: 1px solid #ccc;
+									text-align: center;
+								}
+								table tr th {
+									padding: 10px 0px;
+									
+								}
+								table tr td {
+									border-top: 1px solid #ccc;
+									padding: 5px 0px;
+								}
+
+									
+								table tr td:first-child {
+									text-align: left;
+									padding-left: 4px;
+								}
+
+								.lines {
+									width: 100%;
+									float: left;
+									margin-top: 25px;
+								}
+
+								.arabic {
+									width: 70%;
+									float: left;
+								}
+
+								.arabic .solid {
+									width: 100%;
+									float: left;
+									font-weight: bold;
+
+								}
+
+								.arabic_1 {
+									width: 70%;
+									float: left;
+									margin-top: 15px;
+								}
+
+								.arabic_1 .solid {
+									width: 100%;
+									float: left;
+									font-weight: bold;
+
+								}
+
+								.arabic_2 {
+									width: 70%;
+									float: left;
+									margin-top: 15px;
+								}
+
+								.arabic_2 .solid {
+									width: 100%;
+									float: left;
+									font-weight: bold;
+
+								}
+
+								.header {
+                                
+                                    display: none !important;
+                                }
+
+                                .footer {
+
+                                    display: none !important;
+                                }
+								
+								
+							</style>
+
+
+							<div class="report-container">
+
+								<div class="top">
+
+									<div class="left">
+								     	<img src="/turkina_sales_order_invoice/static/src/img/Logo.png" alt="" />
+							    	</div>
+
+							    	<div class="right">
+								     	<span class="company">Turkina Trading</span>
+							    	</div>
+
+								</div>
+
+
+								<br class="clear"></br>
+
+							
+								<span class="head">Sale Order <span t-esc="o.name"></span></span>
+
+								<br class="clear"></br>
+
+								<div class="date">
+
+									<div class="sea">
+										<span class="solid">Sea-Port</span>
+									</div>
+
+									<div class="corner">
+										<span class="solid">Date :</span>
+										<!-- <span class="liquid" t-esc="o.confirmation_date"></span> -->
+										<sapn class="liquid" t-esc="datetime.datetime.strptime(o.confirmation_date, '%Y-%m-%d %H:%M:%S').strftime('%Y-%m-%d')"/>
+									</div>
+
+									<!-- <div class="due">
+										<span class="solid">Due Date :</span>
+										<span class="liquid" t-esc="o.due_date"></span>
+									</div> -->
+
+									<div class="sales">
+										<span class="solid">Sales Person :</span>
+										<span class="liquid" t-esc="o.user_id.name"></span>
+									</div>
+
+
+								</div>
+
+								<br class="clear"></br>
+
+								<div class="aus">
+
+									<div class="line">
+										<span class="solid" t-esc="o.partner_id.name"></span>
+									</div>
+
+								</div>		
+								
+								
+
+
+
+								<table>
+								    <tr>
+									   <th>Description</th>
+									   <th>Quantity</th>
+									   <th>Amount</th>
+									   <th>Discount</th>
+									   <th>Total</th>
+									</tr>
+
+
+									<t t-set="total" t-value="0"/>
+									<t t-set="am_total" t-value="0"/>
+									<t t-set="net" t-value="0"/>
+									<t t-set="grand" t-value="0"/>
+									<t t-set="cal" t-value="0"/>
+									<t t-foreach="enteries" t-as="data">
+									
+										<tr>
+										   <td>
+										   	<span t-esc="data.name"></span>
+										   </td>
+										   <td>
+										   	<span t-esc="data.product_uom_qty"></span>
+										   </td>
+										   <td>
+										   	<span t-esc="'{:0,}'.format(int(float(data.price_unit)))"></span>
+										   	<t t-set="cal" t-value="data.product_uom_qty*data.price_unit"/>
+										   	<t t-set="am_total" t-value="am_total+cal"/>
+										   </td>
+										   <td>
+										   	<span t-esc="data.discount"></span> %
+										   </td>
+										   <td>
+										   	<span t-esc="'{:0,}'.format(int(float(data.price_subtotal)))"></span> SR
+										   	<t t-set="total" t-value="total+data.price_subtotal"/>
+										   </td>
+										</tr>
+
+									</t>
+
+									<tr>
+									   <td colspan="4"><b>Actual Amount</b></td>
+									   <td>
+									   	<b><span t-esc="'{:0,}'.format(int(float(am_total)))"></span> SR</b>
+									   	<t t-set="net" t-value="am_total-total"/>
+									   </td>
+									</tr>
+
+									<tr>
+									   <td colspan="4"><b>Discount</b></td>
+									   <td>
+									   	<b><span t-esc="'{:0,}'.format(int(float(net)))"></span> SR</b>
+									   	<t t-set="grand" t-value="am_total-net"/>
+									   </td>
+									</tr>
+
+									<tr>
+									   <td colspan="4"><b>Net Amount</b></td>
+									   <td>
+									   	<b><span t-esc="'{:0,}'.format(int(float(grand)))"></span> SR</b>
+									   </td>
+									</tr>
+
+								</table>
+
+								<t t-if = "o.give_discount == True">
+
+									<div class="lines">
+										<div class="arabic">
+											<span class="solid">في حال السداد خلال مدة <span t-esc="o.days"></span> يوم من تاريخ الفاتورة يحصل العميل على خصم وقدرة %<span t-esc="o.percent"></span></span>
+										</div>
+
+										<div class="arabic_1">
+											<span class="solid">في حال الاستفسار والمقترحات الرجاء</span>
+										</div>
+
+									</div>
+
+								</t>
+										<div class="arabic_2">
+											<span class="solid">الاتصال على مشرف المبيعات 0530273533</span>
+										</div>
+
+								
+
+								
+
+
+
+							</div>
+			
+	                
+															
+                        </div><!--end of page-->
+                    </t>
+                </t>
+            </t>
+
+        </template>
+
+    </data>
+
+</openerp>

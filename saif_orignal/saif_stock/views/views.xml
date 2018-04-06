@@ -1,0 +1,79 @@
+<odoo>
+	<record id="saif_stock_view" model="ir.ui.view"> 
+		<field name="name">saif stock</field> 
+		<field name="model">saif.stock</field> 
+		<field name="arch" type="xml"> 
+			<form>
+				<header>
+					<button name="validate" type="object" string="Validate" attrs="{'invisible':[('state','=','validate')]}"/>
+					<button name="reset" type="object" string="Reset" attrs="{'invisible':[('state','=','draft')]}"/>
+
+				<!-- 	<button name="reset" type="object" string="Reset" attrs="{'invisible':['|','|',('validate','=',True)]}"/> -->
+
+					<field name="state" widget ="statusbar"  statusbar_visible="draft,validate"/>
+				</header>
+				<sheet> 
+					<group name="group_top"> 
+
+						<group name="group_left">
+							<field name="date" attrs="{'readonly': [('state','!=','draft')]}"/>	
+						</group>
+
+						<field name="saif_tree_link" nolabel='1' attrs="{'readonly': [('state','!=','draft')]}">
+						 	<tree  editable="bottom">
+							  <field name="product"/>
+							  <field name="issued"/>
+							  <field name="received"/>
+							  <field name="issued_to"/>
+							  <field name="date"/>
+							  <field name="remarks"/>
+							</tree>
+
+						</field>
+
+					</group> 
+				</sheet>
+
+		   </form>
+
+		</field> 
+
+	</record>
+
+
+	<record model="ir.actions.act_window" id="saif_stock_action">
+		<field name="name">Saif Stock Action</field>
+		<field name="res_model">saif.stock</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+
+
+	<menuitem name="Management" id="managment_saif_menu"/>
+	<menuitem name="Stock" id="saif_stock_menu" parent="managment_saif_menu" sequence="1"/>
+	<menuitem name="Stock" id="saif_stock_menu_child" parent="saif_stock_menu" action="saif_stock_action" sequence="1"/>
+
+	<record model="ir.actions.act_window" id="payment_configuration">
+            <field name="name">Cash</field>
+            <field name="res_model">account.bank.statement</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('journal_id.type', '=', 'cash')]</field>
+            <field name="context">{'journal_type':'cash'}</field>
+        </record>
+
+
+        <menuitem name="Cash"
+          id="cash_configuration_main"
+          parent="managment_saif_menu"
+          sequence="2"/>
+
+
+        <menuitem name="Cash"
+            id="cash_sales_configuration"
+            parent="cash_configuration_main"
+            action="payment_configuration"
+            sequence="1"/>
+
+
+</odoo>

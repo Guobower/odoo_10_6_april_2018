@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <report
+            id="invoice_report" 
+            model="account.invoice"
+            name="crowncity_invoice.module_report"
+            file="crowncity_invoice.module_report"
+            report_type="qweb-html"
+            string="Customer Invoice"/> 
+    </data>
+</openerp>

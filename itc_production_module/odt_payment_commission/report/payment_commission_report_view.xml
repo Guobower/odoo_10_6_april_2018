@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_payment_commission_report_tree" model="ir.ui.view">
+            <field name="name">payment.commission.line.tree</field>
+            <field name="model">payment.commission.line</field>
+            <field name="priority">1</field>
+            <field name="arch" type="xml">
+                <tree string="SalesMan Payment Commission Report" create="0" delete="0">
+                    <field name="user_id"/>
+                    <field name="date"/>
+                    <field name="reference"/>
+                    <field name="amount" sum="Total"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_payment_commission_line_filter" model="ir.ui.view">
+            <field name="name">payment.commission.line.search</field>
+            <field name="model">payment.commission.line</field>
+            <field name="arch" type="xml">
+                <search string="Search SalesMan Payment Commission">
+                    <field name="user_id" string="Sales Man"/>
+                    <field name="reference" string="Reference"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Salesman" domain="[]" name="group_by_user_id" context="{'group_by':'user_id'}"/>
+                        <filter string="Month" domain="[]" name ="group_by_date" context="{'group_by':'date'}"/>
+                    </group>
+               </search>
+            </field>
+        </record>
+
+        <record id="action_payment_commission_line" model="ir.actions.act_window">
+            <field name="name">SalesMan Payment Commission Report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">payment.commission.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,graph</field>
+            <field name="view_id" ref="view_payment_commission_report_tree"/>
+            <field name="search_view_id" ref="view_payment_commission_line_filter"/>
+            <field name="context">{
+                    'search_default_group_by_user_id': 1,
+                    'search_default_group_by_date':1
+                }
+            </field>
+        </record>
+<!-- 
+        <menuitem action="action_payment_commission_line" id="menu_payment_commission_line" parent="base.next_id_64"
+                  sequence="16" groups="base.group_sale_salesman,base.group_sale_manager"/> -->
+
+    </data>
+</openerp>

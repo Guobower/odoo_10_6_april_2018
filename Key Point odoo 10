@@ -1,0 +1,2 @@
+When New Whare House Not created
+ALTER TABLE stock_location drop COLUMN parent_right, drop COLUMN parent_left;

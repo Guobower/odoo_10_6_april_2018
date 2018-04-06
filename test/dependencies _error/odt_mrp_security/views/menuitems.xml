@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="base.menu_main_pm" model="ir.ui.menu">
+            <field name="groups_id" eval="[(6,0,[ref('odt_mrp_security.make_invisible_records1')])]"/>
+        </record>
+
+        <record id="stock.menu_stock_root" model="ir.ui.menu">
+            <field name="groups_id" eval="[(6,0,[ref('odt_mrp_security.make_invisible_records2')])]"/>
+        </record>
+
+        <record id="base.menu_mrp_root" model="ir.ui.menu">
+            <field name="groups_id" eval="[(6,0,[ref('odt_mrp_security.make_invisible_records3')])]"/>
+        </record>
+
+        <record id="base.menu_reporting" model="ir.ui.menu">
+            <field name="groups_id" eval="[(6,0,[ref('odt_mrp_security.make_invisible_records4')])]"/>
+        </record>
+
+        <record id="view_form_disable_create" model="ir.ui.view">
+            <field name="name">project.task.form</field>
+            <field name="model">project.task</field>
+            <field name="groups_id" eval="[(6, 0, [ref('odt_mrp_security.mrp_employee_group')])]"/>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form"
+                       position="attributes">
+                    <attribute name="create">0</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_tree_disable_create" model="ir.ui.view">
+            <field name="name">project.task.tree</field>
+            <field name="model">project.task</field>
+            <field name="groups_id" eval="[(6, 0, [ref('odt_mrp_security.mrp_employee_group')])]"/>
+            <field name="inherit_id" ref="project.view_task_tree2"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree"
+                       position="attributes">
+                    <attribute name="create">0</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_kanban_disable_create" model="ir.ui.view">
+            <field name="name">project.task.tree</field>
+            <field name="model">project.task</field>
+            <field name="groups_id" eval="[(6, 0, [ref('odt_mrp_security.mrp_employee_group')])]"/>
+            <field name="inherit_id" ref="project.view_task_kanban"/>
+            <field name="arch" type="xml">
+                <xpath expr="//kanban"
+                       position="attributes">
+                    <attribute name="create">0</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="action_view_task_2" model="ir.actions.act_window">
+            <field name="name">Tasks</field>
+            <field name="res_model">project.task</field>
+            <field name="view_mode">kanban,tree,form,calendar,gantt,graph</field>
+            <field name="search_view_id" ref="project.view_task_search_form"/>
+            <field name="help" type="html">
+                <p>
+                    Odoo's project management allows you to manage the pipeline
+                    of tasks in order to get things done efficiently. You can
+                    track progress, discuss on tasks, attach documents, etc.
+                </p>
+            </field>
+            <field name="domain">
+                ['|',('user_id','in',[uid]),'|',('create_uid','in',[uid]),('workorder.user_id','in',[uid])]
+            </field>
+        </record>
+
+        <menuitem id="parent_new_mrp_menu" sequence="90" name="Manufacturing"
+                  groups="odt_mrp_security.mrp_supervisor_group,odt_mrp_security.mrp_team_leader_group,odt_mrp_security.mrp_employee_group"/>
+
+        <menuitem id="parent_new_mrp_menu_2" sequence="1" name="Manufacturing" parent="parent_new_mrp_menu"
+                  groups="odt_mrp_security.mrp_supervisor_group,odt_mrp_security.mrp_team_leader_group,odt_mrp_security.mrp_employee_group"/>
+
+        <menuitem action="mrp.mrp_production_action" id="menu_action_mo"
+                  parent="parent_new_mrp_menu_2" sequence="10"
+                  groups="odt_mrp_security.mrp_supervisor_group"/>
+
+        <menuitem action="mrp_operations.mrp_production_wc_action_form" id="menu_action_wo"
+                  parent="parent_new_mrp_menu_2" sequence="20"
+                  groups="odt_mrp_security.mrp_supervisor_group,odt_mrp_security.mrp_team_leader_group"/>
+
+        <menuitem action="action_view_task_2" id="menu_action_task_for"
+                  parent="parent_new_mrp_menu_2" sequence="30"
+                  groups="odt_mrp_security.mrp_team_leader_group,odt_mrp_security.mrp_supervisor_group,odt_mrp_security.mrp_employee_group"/>
+    </data>
+</openerp>

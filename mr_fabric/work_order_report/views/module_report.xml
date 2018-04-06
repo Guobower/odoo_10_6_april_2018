@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+
+    <data>   
+
+        <template id="work_order">
+
+            <t t-call="report.html_container">
+                <t t-call="report.external_layout">
+                    <div class="page">
+
+                        <style>
+                            .header,
+                            .footer {
+                                display: none !important;
+                            }
+                            @media (min-width: 992px) {
+                                .container {
+                                    width: 100%;
+                                }
+                            }
+
+                            @media (min-width: 768px) {
+                                .container {
+                                    width: 100%;
+                                }
+                            }
+                            .container {
+                                width: 100%;
+                            }
+                            .english {
+                                font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+                            }
+                            body {
+                                margin: 0px !important;
+                            }
+                            body.o_in_iframe {
+                                margin-top: 0px!important;
+                            }
+                            h2 {
+                                margin: 0px 0px 10px;
+                                text-align: center;
+                                font-size: 40px;
+                                font-weight: normal;
+                            }
+                            h2 span {
+                                border-bottom: 2px solid #000;
+                            }
+                            h4 {
+                                margin: 0px;
+                                text-align: center;
+                                font-size: 18px;
+                                font-weight: normal;
+                            }
+                            h4 span {
+                                border-bottom: 1px solid #000;
+                            }
+                            .heading {
+                                text-align: left;
+                                font-size: 25px;
+                                margin: 15px 0px;
+                            }
+                            .half {
+                                width: 50%;
+                            }
+                            .full {
+                                width: 95%;
+                                margin: 0px 0px 0px 5%;
+                            }
+                            table tr th {
+                                border-bottom: 1px solid #000;
+                            }
+                            table tr th,
+                            table tr td {
+                                padding: 3px 5px;
+                            }
+                            .workorder_info {
+                                width: 95%;
+                                margin: 5px 0px 5px 5%;
+                            }
+                            .col {
+                                width: 30%;
+                                float: left;
+                                padding: 5px 1.5%;
+                            }
+                            .col:first-child p {
+                                text-align: left;
+                            }
+                            .col:nth-child(2) p {
+                                text-align: center;
+                            }
+                            .col:nth-child(3) p {
+                                text-align: right;
+                            }
+                            table.all {
+                                border: 1px solid #000;
+                                margin: 10px 0px 30px 5%;
+                            }
+                            table.all tr td,
+                            table.all tr th {
+                                border-right: 1px solid #000;
+                                border-bottom: 1px solid #000;
+                                text-align: center;
+                            }
+                            table.all tr td:last-child,
+                            table.all tr th:last-child {
+                                border-right: none;
+                            }
+                            table.all tr:last-child td {
+                                border-bottom: none;
+                            }
+                            .clearfloat {
+                                width: 1px;
+                                height: 1px;
+                                display: block;
+                                clear: both;
+                                float: none;
+                            }
+                        </style>
+
+                        <div class="report_body">
+                            
+                            <h2><span>Work Order Report</span></h2>
+                            <h4><span>Work Order Name: </span><span t-esc="workorder.name"></span></h4>
+
+                            <h4 class="heading"><span>Details: </span></h4>
+                            <t t-foreach="work_orders" t-as="work">
+                                
+                                <div class="workorder_info">
+                                    <div class="col">
+                                        <p>
+                                            <span class="solid">Plan Qty: </span>
+                                            <span class="liquid" t-esc="work.plan_qty"></span>
+                                        </p>
+                                    </div>
+                                    <div class="col">
+                                        <p>
+                                            <span class="solid">Responsible: </span>
+                                            <span class="liquid" t-esc="work.user_id.name"></span>
+                                        </p>
+                                    </div>
+                                    <div class="col">
+                                        <p>
+                                            <span class="solid">Source: </span>
+                                            <span class="liquid" t-esc="work.origin"></span>
+                                        </p>
+                                    </div>
+                                    <br class="clearfloat" />
+                                </div>
+
+                                <div class="workorder_info">
+                                    <div class="col">
+                                        <p>
+                                            <span class="solid">Garment Description: </span>
+                                            <span class="liquid" t-esc="work.product_id.name"></span>
+                                        </p>
+                                    </div>
+                                    <div class="col">
+                                        <p>
+                                            <span class="solid">Style: </span>
+                                            <span class="liquid" t-esc="work.style_no.name"></span>
+                                        </p>
+                                    </div>
+                                    <div class="col">
+                                        <p>
+                                            <span class="solid">Customer PO#: </span>
+                                            <span class="liquid" t-esc="work.custome_po"></span>
+                                        </p>
+                                    </div>
+                                    <br class="clearfloat" />
+                                </div>
+
+                                <div class="workorder_info">
+                                    <div class="col">
+                                        <p>
+                                            <span class="solid">Destination: </span>
+                                            <span class="liquid" t-esc="work.destination.country"></span>
+                                        </p>
+                                    </div>
+                                    <div class="col">
+                                        <p>
+                                            <span class="solid">Vessal Date: </span>
+                                            <span class="liquid" t-esc="work.vessal"></span>
+                                        </p>
+                                    </div>
+                                    <div class="col">
+                                        <p>
+                                            <span class="solid">Buyer: </span>
+                                            <span class="liquid" t-esc="work.buyer.name"></span>
+                                        </p>
+                                    </div>
+                                    <br class="clearfloat" />
+                                </div>
+
+                                <div class="workorder_info">
+                                    <div class="col">
+                                        <p>
+                                            <span class="solid">Week: </span>
+                                            <span class="liquid" t-esc="work.week"></span>
+                                        </p>
+                                    </div>
+                                    <div class="col">
+                                        <p>
+                                            <span class="solid">Delivery Date: </span>
+                                            <span class="liquid" t-esc="work.delivery"></span>
+                                        </p>
+                                    </div>
+                                    <br class="clearfloat" />
+                                </div>
+
+                                <table class="full all">
+                                    <tr>
+                                        <th>Accessories</th>
+                                        <th>Unit of Measure</th>
+                                        <th>Factor</th>
+                                        <th>Required Quantity</th>
+                                        <th>Source</th>
+                                        <th>Purchased</th>
+                                        <th>In Stock</th>
+                                        <th>Issued</th>
+                                        <th>Remaining</th>
+                                    </tr>
+
+                                    <t t-foreach="work.production_id" t-as="data">
+                                        <tr>
+                                            <td><span t-esc="data.accessories.name"></span></td>
+                                            <td><span t-esc="data.uom.name"></span></td>
+                                            <td><span t-esc="data.factor"></span></td>
+                                            <td><span t-esc="data.required_quantity"></span></td>
+                                            <td><span t-esc="data.source"></span></td>
+                                            <td><span t-esc="data.purchased"></span></td>
+                                            <td><span t-esc="data.in_stock"></span></td>
+                                            <td><span t-esc="data.issued"></span></td>
+                                            <td><span t-esc="data.remaining"></span></td>
+                                        </tr>
+                                    </t>
+
+                                </table>
+                            </t>
+
+                            <h4 class="heading"><span>Yarn requirement: </span></h4>
+                            <table class="full">
+                                <tr>
+                                    <th>Yarn Count</th>
+                                    <th>Buyer</th>
+                                    <th>Product Type</th>
+                                    <th>Delivery Date</th>
+                                    <th>Quantity</th>
+                                    <th>No of Bags</th>
+                                    <th>No of Kgs</th>
+                                </tr>
+                                <t t-foreach="yarn_require" t-as="require">
+                                    <tr>
+                                        <td><span t-esc="require.product.name"></span></td>
+                                        <td><span t-esc="require.buyer.name"></span></td>
+                                        <td><span t-esc="require.prod_type.name"></span></td>
+                                        <td><span t-esc="require.delv_date"></span></td>
+                                        <td><span t-esc="require.nob"></span></td>
+                                        <td><span t-esc="require.no_kgs"></span></td>
+                                    </tr>
+                                </t>
+                            </table>
+
+                            <h4 class="heading"><span>Purchase Orders: </span></h4>
+                            <table class="full">
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Quantity</th>
+                                    <th>No of Bags</th>
+                                    <th>Kgs</th>
+                                    <th>Unit Price</th>
+                                    <th>Total Price</th>
+                                </tr>
+                                <t t-foreach="purchase_order" t-as="order">
+                                    <tr>
+                                        <td><span t-esc="order.product_id.name"></span></td>
+                                        <td><span t-esc="order.product_qty"></span></td>
+                                        <td><span t-esc="order.nob"></span></td>
+                                        <td><span t-esc="order.no_kgs"></span></td>
+                                        <td><span t-esc="order.price_unit"></span></td>
+                                        <td><span t-esc="order.price_subtotal"></span></td>
+                                    </tr>
+                                </t>
+                            </table>
+
+                            <h4 class="heading"><span>Fabric Knitting: </span></h4>
+                            <table class="full">
+                                <tr>
+                                    <th>Fabric</th>
+                                    <th>Required Quantity</th>
+                                    <th>Receiveable Quantity</th>
+                                    <th>Received Quantity</th>
+                                    <th>Remarks</th>
+                                </tr>
+                                <t t-foreach="fabric_knit" t-as="knit">
+                                    <tr>
+                                        <td><span t-esc="knit.fabric.name"></span></td>
+                                        <td><span t-esc="knit.required"></span></td>
+                                        <td><span t-esc="knit.receivable"></span></td>
+                                        <td><span t-esc="knit.received"></span></td>
+                                        <td><span t-esc="knit.remarks"></span></td>
+                                    </tr>
+                                </t>
+                            </table>
+
+                            <h4 class="heading"><span>Fabric Deying: </span></h4>
+                            <table class="full">
+                                <tr>
+                                    <th>Fabric</th>
+                                    <th>Colors</th>
+                                    <th>Issue Quantity</th>
+                                    <th>Receiveable Quantity</th>
+                                    <th>Received Quantity</th>
+                                    <th>Stage</th>
+                                </tr>
+                                <t t-foreach="fabric_dyeing" t-as="fabric">
+                                    <tr>
+                                        <td><span t-esc="fabric.fabric.name"></span></td>
+                                        <td><span t-esc="fabric.color.name"></span></td>
+                                        <td><span t-esc="fabric.issue_qty"></span></td>
+                                        <td><span t-esc="fabric.receivable_qty"></span></td>
+                                        <td><span t-esc="fabric.receive_qty"></span></td>
+                                        <td><span t-esc="fabric.stage"></span></td>
+                                    </tr>
+                                </t>
+                            </table>
+
+                            <h4 class="heading"><span>Yarn Deying: </span></h4>
+                            <table class="full">
+                                <tr>
+                                    <th>Colors</th>
+                                    <th>Yarn Count</th>
+                                    <th>Issue Quantity</th>
+                                    <th>Receiveable Quantity</th>
+                                    <th>Received Quantity</th>
+                                    <th>Stage</th>
+                                </tr>
+                                <t t-foreach="yarn_dyeing" t-as="yarn">
+                                    <tr>
+                                        <td><span t-esc="yarn.color.name"></span></td>
+                                        <td><span t-esc="yarn.yarn.name"></span></td>
+                                        <td><span t-esc="yarn.issue_qty"></span></td>
+                                        <td><span t-esc="yarn.receiveable_qty"></span></td>
+                                        <td><span t-esc="yarn.receive_qty"></span></td>
+                                        <td><span t-esc="yarn.stage"></span></td>
+                                    </tr>
+                                </t>
+                            </table>
+
+                            <h4 class="heading"><span>Accessories Issuance: </span></h4>
+                            <table class="full">
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Unit of Measure</th>
+                                    <th>Quantity</th>
+                                    <th>Remarks</th>
+                                </tr>
+                                <t t-foreach="access_issue" t-as="issue">
+                                    <t t-foreach="issue.tree_link" t-as="data">
+                                        <tr>
+                                            <td><span t-esc="data.product_id.name"></span></td>
+                                            <td><span t-esc="data.uom.name"></span></td>
+                                            <td><span t-esc="data.qty"></span></td>
+                                            <td><span t-esc="data.remark"></span></td>
+                                        </tr>
+                                    </t>
+                                </t>
+                            </table>
+
+                            <h4 class="heading"><span>Purchase Accessories: </span></h4>
+                            <table class="full">
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Buyer</th>
+                                    <th>Quantity</th>
+                                    <th>Recieved</th>
+                                    <th>Approve</th>
+                                </tr>
+                                <t t-foreach="accessories" t-as="paccess">
+                                    <tr>
+                                        <td><span t-esc="paccess.product.name"></span></td>
+                                        <td><span t-esc="paccess.buyer.name"></span></td>
+                                        <td><span t-esc="paccess.qty"></span></td>
+                                        <td><span t-esc="paccess.recieved"></span></td>
+                                        <td><span t-esc="paccess.approved"></span></td>
+                                    </tr>
+                                </t>
+                            </table>
+
+                        </div>
+   
+                    </div><!--end of page-->
+                </t>
+            </t>
+
+        </template>
+
+    </data>
+
+</openerp>
